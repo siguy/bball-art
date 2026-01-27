@@ -16,17 +16,19 @@ A **contemporary art project** creating collectible basketball cards that pair N
 - [x] CLAUDE.md written
 - [x] Git/GitHub initialized (https://github.com/siguy/bball-art)
 - [x] **19 pairings created** (5 original + 9 heroes + 5 villains)
-- [x] **6 card templates working** (Thunder & Lightning, Downtown, Beam Team, Kaboom, Metal Universe, Prizm Silver)
+- [x] **9 card templates working** (6 hero + 3 villain variants)
 - [x] Nano Banana Pro client working (`gemini-3-pro-image-preview`)
 - [x] Logo concepts generated (gold + dark versions)
 - [x] All era definitions (1970s-2020s)
 - [x] Pose/interaction system (6 interactions)
+- [x] **Character pose database** (per-character signature poses)
+- [x] **Quotes database** (Hebrew + English biblical quotes)
 - [x] **80+ cards generated!**
 - [x] **Card Visualizer built** (local web app for review & feedback)
 
 ### In Progress
-- [ ] Template refinement based on feedback
-- [ ] Beam Team cards with updated prism template
+- [ ] Adding pose files for remaining characters (heroes)
+- [ ] Merging villain-template-refactor branch
 
 ### Up Next
 - Phase 3: Social Media Strategy
@@ -54,14 +56,19 @@ A **contemporary art project** creating collectible basketball cards that pair N
 
 ```
 data/
-├── series/{series-name}/pairings/  # Player-figure pairings
+├── series/{series-name}/pairings/  # Player-figure pairings (with poseFileId)
+├── poses/
+│   ├── players/                    # Character-specific player poses
+│   └── figures/                    # Character-specific figure poses
+├── quotes/
+│   └── figures/                    # Biblical quotes by character
 ├── eras/                           # 1970s-2020s definitions
 ├── card-brands/                    # Fleer, Topps, Panini, etc.
 └── card-types/                     # Thunder & Lightning, Prizm, etc.
 
 prompts/
 ├── components/    # Modular pieces (backgrounds, poses, finishes)
-├── templates/     # Full card templates
+├── templates/     # Full card templates (hero + villain variants)
 └── generated/     # Ready-to-use prompts
 
 output/
@@ -109,8 +116,9 @@ visualizer/        # Card review & feedback system
 | Draymond Green | Joab | 2010s | Did the dirty work |
 | Larry Bird | Jacob | 80s | Strategic, wrestled his way to greatness |
 
-## Card Templates (6)
+## Card Templates (9)
 
+### Hero Templates (6)
 | Template | Style | Key Visual Elements |
 |----------|-------|---------------------|
 | `thunder-lightning` | 90s Fleer Ultra | Electric gradient, lightning bolts, cosmic |
@@ -120,7 +128,14 @@ visualizer/        # Card review & feedback system
 | `metal-universe` | 90s Fleer Metal | Chrome, industrial, metallic |
 | `prizm-silver` | 2010s Panini Prizm | Clean geometric, silver shimmer |
 
-## Interactions/Poses (6)
+### Villain Templates (3)
+| Template | Style | Key Visual Elements |
+|----------|-------|---------------------|
+| `thunder-lightning-dark` | Dark Side variant | Black/crimson, blood-red lightning, sinister |
+| `beam-team-shadow` | Shadow Spectrum variant | Purple/red prism, corruption effects (cracks, smoke, embers) |
+| `metal-universe-dark` | Dark variant | Black chrome, rust red, industrial hellscape |
+
+## Interactions/Poses (6 generic)
 
 | Interaction | Description | Best For |
 |-------------|-------------|----------|
@@ -130,6 +145,107 @@ visualizer/        # Card review & feedback system
 | `dap-up` | Casual fist bump/greeting | Humble legends |
 | `simultaneous-action` | Both performing signature moves | Action cards |
 | `fire-rain` | Curry shooting, Elijah calling fire | Curry/Elijah only |
+
+## Character Pose System
+
+Per-character signature poses that can be swapped into any template. Each character has their own JSON file with multiple iconic poses.
+
+### Structure
+```
+data/poses/
+├── players/
+│   ├── rodman.json      # diving-loose-ball, tipping-rebound, etc.
+│   ├── shaq.json        # backboard-breaking, dudley-poster, etc.
+│   ├── isiah-thomas.json
+│   ├── laimbeer.json
+│   ├── draymond.json
+│   └── bird.json
+└── figures/
+    ├── esau.json        # drawing-bow, chugging-soup, etc.
+    ├── goliath.json     # champion-challenge, spear-thrust, etc.
+    ├── pharaoh.json
+    ├── haman.json
+    ├── joab.json
+    └── jacob.json
+```
+
+### Pose File Format
+```json
+{
+  "id": "rodman",
+  "name": "Dennis Rodman",
+  "defaultPose": "diving-loose-ball",
+  "poses": {
+    "diving-loose-ball": {
+      "id": "diving-loose-ball",
+      "name": "Diving for Loose Ball",
+      "description": "Horizontal dive, body parallel to ground",
+      "prompt": "horizontal dive for loose ball - body completely parallel...",
+      "energy": "chaos incarnate, hustle personified"
+    }
+  },
+  "hairColors": {
+    "red": "bright red wild hair",
+    "green": "neon green wild hair"
+  }
+}
+```
+
+### Pairing poseFileId
+Each pairing JSON includes explicit `poseFileId` fields to link to pose files:
+```json
+{
+  "player": {
+    "name": "Isiah Thomas",
+    "poseFileId": "isiah-thomas"  // → data/poses/players/isiah-thomas.json
+  },
+  "figure": {
+    "name": "Pharaoh",
+    "poseFileId": "pharaoh"       // → data/poses/figures/pharaoh.json
+  }
+}
+```
+
+This prevents ambiguity with similar names (multiple Chrises, Mikes, etc.).
+
+## Quotes Database
+
+Biblical quotes (Hebrew + English) organized by character, linked to poses via `quoteId`.
+
+### Structure
+```
+data/quotes/figures/
+├── esau.json     # birthright-sold, red-stew, blessing-stolen, etc.
+├── goliath.json  # choose-a-man, am-i-a-dog, give-flesh-to-birds, etc.
+├── pharaoh.json
+├── haman.json
+├── joab.json
+└── jacob.json
+```
+
+### Quote Format
+```json
+{
+  "birthright-sold": {
+    "source": "Genesis 25:32",
+    "context": "Esau sells his birthright for lentil stew",
+    "hebrew": "הִנֵּה אָנֹכִי הוֹלֵךְ לָמוּת וְלָמָּה זֶּה לִי בְּכֹרָה",
+    "english": "I am about to die; of what use is a birthright to me?",
+    "mood": "desperate, impulsive"
+  }
+}
+```
+
+### Linking Poses to Quotes
+Pose files reference quotes via `quoteId`:
+```json
+{
+  "chugging-soup": {
+    "prompt": "desperately chugging lentil soup...",
+    "quoteId": "red-stew"  // → quotes/figures/esau.json["red-stew"]
+  }
+}
+```
 
 ## Tone & Voice
 
@@ -174,14 +290,26 @@ cd visualizer && npm start
 # Start the card visualizer
 cd visualizer && npm start
 
-# Generate a card (end-to-end)
+# Generate a card (basic)
 node scripts/generate-card.js jordan-moses thunder-lightning
 
-# Generate a prompt only (no API call)
-node scripts/generate-card.js jordan-moses thunder-lightning --dry-run
-
-# Generate with specific interaction pose
+# Generate with specific interaction
 node scripts/generate-card.js curry-elijah thunder-lightning --interaction fire-rain
+
+# Generate with character poses (recommended for villains)
+node scripts/generate-with-poses.js rodman-esau thunder-lightning-dark \
+  --player-pose diving-loose-ball --figure-pose drawing-bow
+
+# List available poses for a pairing
+node scripts/generate-with-poses.js isiah-pharaoh --list-poses
+
+# Dry run (show prompt without generating)
+node scripts/generate-with-poses.js shaq-goliath beam-team-shadow \
+  --player-pose backboard-breaking --figure-pose champion-challenge --dry-run
+
+# Generate with hair color override (Rodman)
+node scripts/generate-with-poses.js rodman-esau thunder-lightning-dark \
+  --player-pose diving-loose-ball --figure-pose drawing-bow --hair green
 
 # Validate JSON data
 node -e "require('./data/series/court-covenant/pairings/jordan-moses.json')"
@@ -199,16 +327,30 @@ INSTAGRAM_ACCESS_TOKEN=your-long-lived-token
 
 ### Adding a New Pairing
 1. Create `data/series/court-covenant/pairings/{player}-{figure}.json`
-2. Run prompt generator
-3. Test generate one card
-4. Rate output, iterate if needed
-5. Generate variants
+2. Add `poseFileId` to both player and figure objects
+3. Run prompt generator
+4. Test generate one card
+5. Rate output, iterate if needed
+6. Generate variants
+
+### Adding Character Poses
+1. Create `data/poses/players/{poseFileId}.json` or `data/poses/figures/{poseFileId}.json`
+2. Define poses with `id`, `name`, `description`, `prompt`, `energy`
+3. For figures, add `quoteId` to link to quotes database
+4. Set `defaultPose` to the most common pose
+5. Test with `--list-poses` flag
+
+### Adding Biblical Quotes
+1. Create or edit `data/quotes/figures/{figureId}.json`
+2. Add quotes with `source`, `context`, `hebrew`, `english`, `mood`
+3. Reference from poses via `quoteId`
 
 ### Adding a New Card Style
 1. Create `data/card-types/{style-name}.json`
 2. Add background to `prompts/components/backgrounds.js`
 3. Create template in `prompts/templates/{style-name}.js`
-4. Test with existing pairing
+4. For villain variant: copy hero template, add villain colors/expressions
+5. Test with existing pairing
 
 ## Plan File Location
 
