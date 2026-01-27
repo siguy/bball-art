@@ -1,0 +1,46 @@
+{
+  "id": "stockton-elisha",
+  "series": "court-covenant",
+  "player": {
+    "name": "John Stockton",
+    "displayName": "Stockton",
+    "era": "1990s",
+    "jerseyColors": {
+      "primary": { "base": "purple", "accent": "green" },
+      "secondary": { "base": "white", "accent": "purple" }
+    },
+    "signatureMoves": ["pinpoint assist", "pick and roll", "steal"],
+    "physicalDescription": "smaller 6'1\" guard, stocky strong build, short brown hair, intense focused expression, white skin, deceptively tough, blue collar appearance",
+    "archetype": "The Accountant, all-time assists and steals leader, quiet consistent greatness"
+  },
+  "figure": {
+    "name": "Elisha",
+    "displayName": "Elisha",
+    "attribute": "prophet's mantle inherited from Elijah",
+    "attributeDescription": "the hairy mantle/cloak passed down from Elijah, symbol of prophetic succession and double portion of spirit",
+    "visualStyle": "humble prophet of Israel, successor to Elijah",
+    "clothing": "simple prophet's garments, the inherited mantle of Elijah worn over tunic, leather belt, worn sandals",
+    "physicalDescription": "bald head (as mentioned in scripture), neat beard, kind but determined eyes, humble appearance that belies great power, weathered skin",
+    "anatomyNote": "two arms only",
+    "archetype": "The Faithful Successor, performed twice the miracles, steady servant"
+  },
+  "connection": {
+    "thematic": "Both were steady, faithful servants who quietly accumulated impossible numbers",
+    "narrative": "Elisha performed double the miracles. Stockton dished double the assists. Quiet greatness, loud numbers.",
+    "relationship": "Humble servants whose consistency created untouchable records"
+  },
+  "interactions": [
+    {
+      "id": "dap-up",
+      "description": "Humble acknowledgment between two who did the work without the flash"
+    },
+    {
+      "id": "side-by-side",
+      "description": "Standing together, understated legends"
+    }
+  ],
+  "defaultInteraction": "dap-up",
+  "cardVariants": ["thunder-lightning", "downtown"],
+  "priority": 10,
+  "status": "active"
+}

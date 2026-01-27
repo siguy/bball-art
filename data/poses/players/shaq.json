@@ -1,0 +1,63 @@
+{
+  "id": "shaq",
+  "name": "Shaquille O'Neal",
+  "defaultPose": "thunderous-two-hand-jam",
+  "poses": {
+    "thunderous-two-hand-jam": {
+      "id": "thunderous-two-hand-jam",
+      "name": "Thunderous Two-Hand Jam",
+      "description": "Classic Shaq power dunk - two hands throwing it down with devastating force",
+      "expression": "fierce intensity, primal scream",
+      "prompt": "thunderous two-handed dunk - MASSIVE 7'1\" frame elevated, both hands gripping ball and SLAMMING it through rim with devastating force, mouth open in primal scream, veins visible, muscles bulging, pure dominant power",
+      "energy": "unstoppable force, rim-rattling devastation"
+    },
+    "backboard-breaking": {
+      "id": "backboard-breaking",
+      "name": "Breaking the Backboard",
+      "description": "The iconic moment - Shaq hanging on rim as backboard/structure collapses",
+      "expression": "triumphant destruction, knowing smile",
+      "prompt": "hanging on basketball rim after destructive dunk - MASSIVE frame weighing down the goal, backboard cracking and structure beginning to collapse, shot clock falling, one hand gripping bent rim, knowing smile of destruction, pure dominance personified",
+      "energy": "legendary destruction, changed the game"
+    },
+    "dudley-poster": {
+      "id": "dudley-poster",
+      "name": "The Dudley Poster",
+      "description": "Dunking through a defender then pushing them to the ground - the most disrespectful poster",
+      "expression": "cold intimidation, disrespect",
+      "prompt": "dunking THROUGH a defender with one hand while shoving them backward to the ground with the other - MASSIVE frame overwhelming smaller opponent, ball being thrown down with authority, defender falling away, cold look of disrespect and dominance",
+      "energy": "most disrespectful dunk ever, pure intimidation"
+    },
+    "drop-step-spin": {
+      "id": "drop-step-spin",
+      "name": "Drop Step Spin Move",
+      "description": "Shaq's unstoppable post move - drop step spin into power dunk",
+      "expression": "focused determination",
+      "prompt": "executing signature drop step spin move in the post - MASSIVE 7'1\" body pivoting with surprising agility, ball protected, about to rise for unstoppable close-range power dunk, focused determined expression",
+      "energy": "unstoppable post game, no answer"
+    },
+    "flexing-celebration": {
+      "id": "flexing-celebration",
+      "name": "Flexing Celebration",
+      "description": "Shaq flexing after a dominant play",
+      "expression": "triumphant flex, roaring",
+      "prompt": "flexing both arms in celebration after dominant play - MASSIVE muscular frame with biceps bulging, head thrown back roaring in triumph, veins popping, absolute physical specimen showing off superhuman strength",
+      "energy": "Superman, physical dominance"
+    },
+    "free-throw-fail": {
+      "id": "free-throw-fail",
+      "name": "Free Throw Brick",
+      "description": "Humorous - Shaq shooting a free throw that's clearly going to miss",
+      "expression": "grimacing concentration, hopeful",
+      "prompt": "shooting free throw with awkward form - MASSIVE frame at free throw line, ball releasing with flat trajectory clearly heading for front of rim, face showing concentrated grimace mixed with hope, the one weakness",
+      "energy": "human after all, lovable flaw"
+    },
+    "stare-down": {
+      "id": "stare-down",
+      "name": "Post-Dunk Stare Down",
+      "description": "Standing over opponent after poster dunk, menacing stare",
+      "expression": "cold menace, intimidating glare",
+      "prompt": "standing over fallen defender after poster dunk - MASSIVE 7'1\" 325-pound frame towering, looking down with cold menacing stare, arms slightly spread, daring anyone else to challenge, pure intimidation",
+      "energy": "fear the Diesel, psychological warfare"
+    }
+  }
+}

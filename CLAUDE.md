@@ -10,23 +10,28 @@ A **contemporary art project** creating collectible basketball cards that pair N
 ## Project Status
 
 **Current Phase**: Phase 2 (Content Generation Active)
+
+### Completed
 - [x] Directory structure created
 - [x] CLAUDE.md written
 - [x] Git/GitHub initialized (https://github.com/siguy/bball-art)
-- [x] All priority pairing data created (5 pairings)
-- [x] Prompt templates working (Thunder & Lightning)
-- [x] Nano Banana client working (AI Studio API)
+- [x] **19 pairings created** (5 original + 9 heroes + 5 villains)
+- [x] **6 card templates working** (Thunder & Lightning, Downtown, Beam Team, Kaboom, Metal Universe, Prizm Silver)
+- [x] Nano Banana Pro client working (`gemini-3-pro-image-preview`)
 - [x] Logo concepts generated (gold + dark versions)
 - [x] All era definitions (1970s-2020s)
-- [x] Multiple card types defined (6 styles)
-- [x] **5 Thunder & Lightning cards generated!**
+- [x] Pose/interaction system (6 interactions)
+- [x] **80+ cards generated!**
+- [x] **Card Visualizer built** (local web app for review & feedback)
 
-### Generated Cards
-- Jordan/Moses (Thunder & Lightning)
-- LeBron/David (Thunder & Lightning)
-- Pippen/Aaron (Thunder & Lightning)
-- Kobe/Joshua (Thunder & Lightning)
-- Curry/Elijah (Thunder & Lightning)
+### In Progress
+- [ ] Template refinement based on feedback
+- [ ] Beam Team cards with updated prism template
+
+### Up Next
+- Phase 3: Social Media Strategy
+- Phase 4: Website
+- Phase 5: NBA Jam-Style Arcade Game
 
 ## Core Principles
 
@@ -60,14 +65,20 @@ prompts/
 └── generated/     # Ready-to-use prompts
 
 output/
-├── cards/         # Generated images
+├── cards/         # Generated images (organized by pairing)
 ├── motion/        # Video files
-├── test-runs/     # Style testing
+├── test-runs/     # Style testing & generation log
 └── social/        # Platform-ready assets
+
+visualizer/        # Card review & feedback system
+├── server.js      # Express API server
+├── public/        # Frontend (HTML/CSS/JS)
+└── data/          # Manifest & feedback JSON
 ```
 
-## Top 5 Priority Pairings
+## All 19 Pairings
 
+### Original 5 (Priority)
 | Player | Figure | Era | Connection |
 |--------|--------|-----|------------|
 | Michael Jordan | Moses | 90s | Led people through wilderness to promised land |
@@ -75,6 +86,50 @@ output/
 | Scottie Pippen | Aaron | 90s | Moses's essential partner, underrated |
 | Kobe Bryant | Joshua | 2000s | Succeeded Moses, conquered the land |
 | Stephen Curry | Elijah | 2010s | Brought fire from heaven, changed everything |
+
+### Heroes (9)
+| Player | Figure | Era | Connection |
+|--------|--------|-----|------------|
+| Magic Johnson | Joseph | 80s | Visionary, dreamer, elevated everyone |
+| Shaquille O'Neal | Goliath | 90s | Dominant physical presence |
+| Wilt Chamberlain | Samson | 70s | Legendary strength, unbelievable feats |
+| Kareem Abdul-Jabbar | Solomon | 70s | Wisdom, longevity, unmatched skill |
+| John Stockton | Elisha | 90s | Faithful servant, miracles in assists |
+| Dirk Nowitzki | Judah Maccabee | 2010s | Outsider defeated powerful enemy |
+| Kevin Durant | Jonathan | 2010s | Elite talent, complicated loyalties |
+| Nikola Jokic | Isaac | 2020s | Patient, underestimated, blessed |
+| Shai Gilgeous-Alexander | Daniel | 2020s | Young, composed under pressure |
+
+### Villains/Antagonists (5)
+| Player | Figure | Era | Connection |
+|--------|--------|-----|------------|
+| Isiah Thomas | Pharaoh | 80s | Ruled with iron fist |
+| Bill Laimbeer | Haman | 80s | Schemer, villain everyone loved to hate |
+| Dennis Rodman | Esau | 90s | Wild, impulsive, lived by his own rules |
+| Draymond Green | Joab | 2010s | Did the dirty work |
+| Larry Bird | Jacob | 80s | Strategic, wrestled his way to greatness |
+
+## Card Templates (6)
+
+| Template | Style | Key Visual Elements |
+|----------|-------|---------------------|
+| `thunder-lightning` | 90s Fleer Ultra | Electric gradient, lightning bolts, cosmic |
+| `beam-team` | 90s Stadium Club | Holographic prism borders, rainbow refraction |
+| `downtown` | 2010s Panini Optic | Neon city skyline, urban night scene |
+| `kaboom` | 2010s Panini | Comic book/pop art, bold outlines |
+| `metal-universe` | 90s Fleer Metal | Chrome, industrial, metallic |
+| `prizm-silver` | 2010s Panini Prizm | Clean geometric, silver shimmer |
+
+## Interactions/Poses (6)
+
+| Interaction | Description | Best For |
+|-------------|-------------|----------|
+| `back-to-back` | Standing back-to-back, facing outward | Warriors, rivals |
+| `side-by-side` | Standing together as equals | Kings, partners |
+| `high-five` | Dynamic celebration | Visionaries, joy |
+| `dap-up` | Casual fist bump/greeting | Humble legends |
+| `simultaneous-action` | Both performing signature moves | Action cards |
+| `fire-rain` | Curry shooting, Elijah calling fire | Curry/Elijah only |
 
 ## Tone & Voice
 
@@ -89,11 +144,35 @@ Bad: Corporate speak, explaining jokes, being preachy.
 - **n8n**: Social media automation workflows
 - **Meta Graph API**: Instagram posting (Business account required)
 
+## Card Visualizer
+
+A local web app for reviewing generated cards and providing feedback.
+
+**Start the visualizer:**
+```bash
+cd visualizer && npm start
+# Opens at http://localhost:3333
+```
+
+**Features:**
+- Gallery view of all generated cards
+- Filter by pairing, template, interaction, or feedback status
+- Card detail view with full prompt
+- Feedback system (Love It / Like It / Has Issues + notes)
+- **Auto-saves** feedback to `visualizer/data/feedback.json`
+- Keyboard navigation (arrow keys, Escape)
+
+**API Endpoints:**
+- `GET /api/manifest` - Rebuilds and returns card index
+- `GET /api/feedback` - All feedback data
+- `POST /api/feedback/:cardId` - Save feedback for a card
+- `GET /api/pairings` - Pairing metadata
+
 ## Quick Commands
 
 ```bash
-# Test API connection
-node scripts/nano-banana-client.js test
+# Start the card visualizer
+cd visualizer && npm start
 
 # Generate a card (end-to-end)
 node scripts/generate-card.js jordan-moses thunder-lightning

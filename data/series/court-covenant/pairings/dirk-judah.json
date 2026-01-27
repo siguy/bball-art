@@ -1,0 +1,46 @@
+{
+  "id": "dirk-judah",
+  "series": "court-covenant",
+  "player": {
+    "name": "Dirk Nowitzki",
+    "displayName": "Dirk",
+    "era": "2010s",
+    "jerseyColors": {
+      "primary": { "base": "blue", "accent": "white" },
+      "secondary": { "base": "white", "accent": "blue" }
+    },
+    "signatureMoves": ["one-legged fadeaway", "mid-range shooting", "clutch performances"],
+    "physicalDescription": "very tall 7'0\" lanky frame, shaggy blonde hair, pale white skin, goofy lovable smile, German features, unconventional basketball body",
+    "archetype": "The Outsider, revolutionized big man shooting, defeated superteams"
+  },
+  "figure": {
+    "name": "Judah Maccabee",
+    "displayName": "Judah Maccabee",
+    "attribute": "warrior's hammer and menorah",
+    "attributeDescription": "war hammer (Maccabee means 'the hammer'), golden menorah representing the miracle of lights and Jewish resistance",
+    "visualStyle": "Jewish resistance fighter and military leader, Hasmonean warrior",
+    "clothing": "practical Jewish warrior garments, leather armor over tunic, Hellenistic-era military gear adapted for guerrilla warfare, cloth head covering",
+    "physicalDescription": "strong fierce warrior, dark curly hair and beard, intense determined eyes, battle-ready stance, olive skin, the look of a man who fights against impossible odds",
+    "anatomyNote": "two arms only",
+    "archetype": "The Hammer, led outnumbered rebels to defeat the mighty Greek empire"
+  },
+  "connection": {
+    "thematic": "Both were unlikely heroes who defeated vastly superior forces through heart and cunning",
+    "narrative": "Dirk took down the Heatles like Judah took down the Greeks. Underdogs who rewrote history.",
+    "relationship": "Warriors who proved the mighty can fall to the determined"
+  },
+  "interactions": [
+    {
+      "id": "simultaneous-action",
+      "description": "Dirk with fadeaway, Judah swinging hammer - striking down giants"
+    },
+    {
+      "id": "back-to-back",
+      "description": "Underdog warriors ready to face any challenge"
+    }
+  ],
+  "defaultInteraction": "simultaneous-action",
+  "cardVariants": ["thunder-lightning", "downtown"],
+  "priority": 11,
+  "status": "active"
+}

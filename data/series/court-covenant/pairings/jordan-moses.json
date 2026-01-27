@@ -5,8 +5,10 @@
     "name": "Michael Jordan",
     "displayName": "MJ",
     "era": "1990s",
-    "teamColors": ["red", "black", "white"],
-    "jerseyDescription": "red and black basketball jersey with white trim, no logos",
+    "jerseyColors": {
+      "primary": { "base": "red", "accent": "white" },
+      "secondary": { "base": "white", "accent": "red" }
+    },
     "signatureMoves": ["fadeaway jumper", "flying dunk", "tongue out drive"],
     "physicalDescription": "athletic build, shaved head, intense focused expression",
     "archetype": "The GOAT, ultimate competitor, clutch performer"
@@ -18,7 +20,7 @@
     "attributeDescription": "wooden shepherd's staff crackling with divine energy, the staff that parted the Red Sea",
     "visualStyle": "commanding biblical prophet, ancient Israelite",
     "clothing": "simple linen robes in earth tones, worn sandals, head covering",
-    "physicalDescription": "elderly but strong, long white flowing beard, deeply weathered sun-darkened skin, piercing wise eyes",
+    "physicalDescription": "POWERFUL and VIGOROUS despite his age, muscular arms, commanding presence, long white flowing beard, deeply weathered sun-darkened skin, piercing intense eyes burning with divine authority",
     "anatomyNote": "two arms only, one holding staff",
     "archetype": "The Lawgiver, led his people through the wilderness"
   },

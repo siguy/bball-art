@@ -5,8 +5,10 @@
     "name": "Kobe Bryant",
     "displayName": "Mamba",
     "era": "2000s",
-    "teamColors": ["purple", "gold", "white"],
-    "jerseyDescription": "purple and gold basketball jersey with white trim, no logos",
+    "jerseyColors": {
+      "primary": { "base": "purple", "accent": "gold" },
+      "secondary": { "base": "gold", "accent": "purple" }
+    },
     "signatureMoves": ["fadeaway jumper", "footwork in the post", "clutch dagger"],
     "physicalDescription": "athletic build, shaved head, intense killer instinct in eyes",
     "archetype": "The Black Mamba, relentless work ethic, succeeded the GOAT"

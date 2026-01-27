@@ -1,0 +1,374 @@
+/**
+ * Court & Covenant Card Visualizer
+ * Frontend JavaScript
+ */
+
+const API_BASE = '';
+
+// State
+let manifest = { cards: [], pairings: [], templates: [], interactions: [] };
+let feedback = {};
+let pairingData = {};
+let filteredCards = [];
+let currentCardIndex = 0;
+
+// DOM Elements
+const gallery = document.getElementById('gallery');
+const stats = document.getElementById('stats');
+const modal = document.getElementById('card-modal');
+const filterPairing = document.getElementById('filter-pairing');
+const filterTemplate = document.getElementById('filter-template');
+const filterInteraction = document.getElementById('filter-interaction');
+const filterFeedback = document.getElementById('filter-feedback');
+
+// Initialize
+async function init() {
+  await Promise.all([
+    fetchManifest(),
+    fetchFeedback(),
+    fetchPairings()
+  ]);
+
+  populateFilters();
+
+  // Check for URL parameters
+  const params = new URLSearchParams(window.location.search);
+  const pairingParam = params.get('pairing');
+  const cardParam = params.get('card');
+
+  // Apply pairing filter if specified
+  if (pairingParam) {
+    filterPairing.value = pairingParam;
+  }
+
+  renderGallery();
+  setupEventListeners();
+
+  // Open card modal if card parameter specified
+  if (cardParam) {
+    const cardIndex = filteredCards.findIndex(c => c.id === cardParam);
+    if (cardIndex !== -1) {
+      openModal(cardIndex);
+    }
+  }
+}
+
+// API Calls
+async function fetchManifest() {
+  try {
+    const res = await fetch(`${API_BASE}/api/manifest`);
+    manifest = await res.json();
+  } catch (err) {
+    console.error('Failed to fetch manifest:', err);
+  }
+}
+
+async function fetchFeedback() {
+  try {
+    const res = await fetch(`${API_BASE}/api/feedback`);
+    feedback = await res.json();
+  } catch (err) {
+    console.error('Failed to fetch feedback:', err);
+  }
+}
+
+async function fetchPairings() {
+  try {
+    const res = await fetch(`${API_BASE}/api/pairings`);
+    pairingData = await res.json();
+  } catch (err) {
+    console.error('Failed to fetch pairings:', err);
+  }
+}
+
+async function exportToWeb() {
+  try {
+    const btn = document.getElementById('export-web-btn');
+    btn.textContent = 'Exporting...';
+    btn.disabled = true;
+
+    const res = await fetch(`${API_BASE}/api/export-loved`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' }
+    });
+    const result = await res.json();
+
+    if (result.success) {
+      btn.textContent = `Exported ${result.exported} cards!`;
+      setTimeout(() => {
+        btn.textContent = 'Export Loved to Web';
+        btn.disabled = false;
+      }, 2000);
+    } else {
+      btn.textContent = 'Export Failed';
+      setTimeout(() => {
+        btn.textContent = 'Export Loved to Web';
+        btn.disabled = false;
+      }, 2000);
+    }
+  } catch (err) {
+    console.error('Export failed:', err);
+  }
+}
+
+async function saveFeedback(cardId, data) {
+  try {
+    const res = await fetch(`${API_BASE}/api/feedback/${encodeURIComponent(cardId)}`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data)
+    });
+    const result = await res.json();
+    feedback[cardId] = result.feedback;
+    return true;
+  } catch (err) {
+    console.error('Failed to save feedback:', err);
+    return false;
+  }
+}
+
+// Filters
+function populateFilters() {
+  // Pairings
+  filterPairing.innerHTML = '<option value="">All Pairings</option>';
+  manifest.pairings.forEach(p => {
+    const pairing = pairingData[p];
+    const label = pairing ? `${pairing.playerName} & ${pairing.figureName}` : p;
+    filterPairing.innerHTML += `<option value="${p}">${label}</option>`;
+  });
+
+  // Templates
+  filterTemplate.innerHTML = '<option value="">All Templates</option>';
+  manifest.templates.forEach(t => {
+    filterTemplate.innerHTML += `<option value="${t}">${formatTemplateName(t)}</option>`;
+  });
+
+  // Interactions
+  filterInteraction.innerHTML = '<option value="">All Interactions</option>';
+  (manifest.interactions || []).forEach(i => {
+    filterInteraction.innerHTML += `<option value="${i}">${formatInteractionName(i)}</option>`;
+  });
+}
+
+function formatTemplateName(template) {
+  return template.split('-').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
+}
+
+function formatInteractionName(interaction) {
+  return interaction.split('-').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
+}
+
+function applyFilters() {
+  const pairing = filterPairing.value;
+  const template = filterTemplate.value;
+  const interaction = filterInteraction.value;
+  const feedbackFilter = filterFeedback.value;
+
+  filteredCards = manifest.cards.filter(card => {
+    if (pairing && card.pairingId !== pairing) return false;
+    if (template && card.template !== template) return false;
+    if (interaction && card.interaction !== interaction) return false;
+
+    const cardFeedback = feedback[card.id];
+    if (feedbackFilter === 'loved' && (!cardFeedback || cardFeedback.rating !== 'loved')) return false;
+    if (feedbackFilter === 'liked' && (!cardFeedback || cardFeedback.rating !== 'liked')) return false;
+    if (feedbackFilter === 'issues' && (!cardFeedback || cardFeedback.rating !== 'issues')) return false;
+    if (feedbackFilter === 'none' && cardFeedback && cardFeedback.rating) return false;
+
+    return true;
+  });
+
+  renderGallery();
+}
+
+// Gallery
+function renderGallery() {
+  if (filteredCards.length === 0) {
+    filteredCards = manifest.cards;
+  }
+
+  stats.textContent = `${filteredCards.length} of ${manifest.totalCards} cards`;
+
+  if (filteredCards.length === 0) {
+    gallery.innerHTML = `
+      <div class="empty-state">
+        <h2>No cards found</h2>
+        <p>Generate some cards or adjust your filters</p>
+      </div>
+    `;
+    return;
+  }
+
+  gallery.innerHTML = filteredCards.map((card, index) => {
+    const cardFeedback = feedback[card.id];
+    const isLoved = cardFeedback?.rating === 'loved';
+    const badgeClass = cardFeedback?.rating ? `card-badge ${cardFeedback.rating}` : '';
+    const badgeText = cardFeedback?.rating ? (isLoved ? 'EXPORT' : cardFeedback.rating) : '';
+    const pairing = pairingData[card.pairingId];
+    const title = pairing ? `${pairing.playerName} & ${pairing.figureName}` : card.pairingId;
+
+    return `
+      <div class="card ${isLoved ? 'card-loved' : ''}" data-index="${index}">
+        ${badgeText ? `<span class="${badgeClass}">${badgeText}</span>` : ''}
+        <img class="card-image" src="${card.path}" alt="${title}" loading="lazy">
+        <div class="card-info">
+          <div class="card-title">${title}</div>
+          <div class="card-meta">
+            <span>${formatTemplateName(card.template)}</span>
+            <span>${card.timestamp.split(' ')[0]}</span>
+          </div>
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+
+// Modal
+function openModal(index) {
+  currentCardIndex = index;
+  const card = filteredCards[index];
+  if (!card) return;
+
+  const pairing = pairingData[card.pairingId];
+  const title = pairing ? `${pairing.playerName} & ${pairing.figureName}` : card.pairingId;
+
+  document.getElementById('modal-card-image').src = card.path;
+  document.getElementById('modal-title').textContent = title;
+  document.getElementById('detail-pairing').textContent = title;
+  document.getElementById('detail-template').textContent = formatTemplateName(card.template);
+  document.getElementById('detail-interaction').textContent = formatInteractionName(card.interaction);
+  document.getElementById('detail-timestamp').textContent = card.timestamp;
+  document.getElementById('detail-prompt').textContent = card.prompt || 'No prompt saved';
+
+  // Load feedback
+  const cardFeedback = feedback[card.id] || {};
+  document.getElementById('feedback-notes').value = cardFeedback.notes || '';
+
+  // Update feedback buttons
+  document.querySelectorAll('.feedback-btn').forEach(btn => {
+    btn.classList.remove('active');
+    if (btn.dataset.rating === cardFeedback.rating) {
+      btn.classList.add('active');
+    }
+  });
+
+  modal.classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal() {
+  modal.classList.remove('active');
+  document.body.style.overflow = '';
+}
+
+function navigateCard(direction) {
+  const newIndex = currentCardIndex + direction;
+  if (newIndex >= 0 && newIndex < filteredCards.length) {
+    openModal(newIndex);
+  }
+}
+
+// Event Listeners
+function setupEventListeners() {
+  // Filter changes
+  filterPairing.addEventListener('change', applyFilters);
+  filterTemplate.addEventListener('change', applyFilters);
+  filterInteraction.addEventListener('change', applyFilters);
+  filterFeedback.addEventListener('change', applyFilters);
+
+  // Refresh button
+  document.getElementById('refresh-btn').addEventListener('click', async () => {
+    await fetchManifest();
+    await fetchFeedback();
+    populateFilters();
+    applyFilters();
+  });
+
+  // Export to web button
+  document.getElementById('export-web-btn').addEventListener('click', exportToWeb);
+
+  // Card clicks
+  gallery.addEventListener('click', (e) => {
+    const card = e.target.closest('.card');
+    if (card) {
+      openModal(parseInt(card.dataset.index, 10));
+    }
+  });
+
+  // Modal close
+  document.getElementById('modal-close').addEventListener('click', closeModal);
+  modal.addEventListener('click', (e) => {
+    if (e.target === modal) closeModal();
+  });
+
+  // Modal navigation
+  document.getElementById('prev-card').addEventListener('click', () => navigateCard(-1));
+  document.getElementById('next-card').addEventListener('click', () => navigateCard(1));
+
+  // Keyboard navigation
+  document.addEventListener('keydown', (e) => {
+    if (!modal.classList.contains('active')) return;
+
+    if (e.key === 'Escape') closeModal();
+    if (e.key === 'ArrowLeft') navigateCard(-1);
+    if (e.key === 'ArrowRight') navigateCard(1);
+  });
+
+  // Feedback buttons - auto-save on click
+  document.querySelectorAll('.feedback-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.feedback-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      autoSaveFeedback();
+    });
+  });
+
+  // Notes textarea - auto-save on blur and debounced typing
+  let notesTimeout = null;
+  const notesField = document.getElementById('feedback-notes');
+
+  notesField.addEventListener('blur', () => {
+    autoSaveFeedback();
+  });
+
+  notesField.addEventListener('input', () => {
+    clearTimeout(notesTimeout);
+    notesTimeout = setTimeout(() => {
+      autoSaveFeedback();
+    }, 1000); // Auto-save 1 second after typing stops
+  });
+
+  // Manual save button still works
+  document.getElementById('save-feedback').addEventListener('click', async () => {
+    await autoSaveFeedback();
+  });
+}
+
+// Auto-save helper
+async function autoSaveFeedback() {
+  const card = filteredCards[currentCardIndex];
+  if (!card) return;
+
+  const activeBtn = document.querySelector('.feedback-btn.active');
+  const rating = activeBtn?.dataset.rating || null;
+  const notes = document.getElementById('feedback-notes').value;
+
+  // Only save if there's something to save
+  if (!rating && !notes) return;
+
+  const saveBtn = document.getElementById('save-feedback');
+  saveBtn.textContent = 'Saving...';
+
+  const success = await saveFeedback(card.id, { rating, notes });
+  if (success) {
+    renderGallery();
+    saveBtn.textContent = 'Auto-saved';
+    setTimeout(() => { saveBtn.textContent = 'Save Feedback'; }, 1500);
+  } else {
+    saveBtn.textContent = 'Save Failed';
+    setTimeout(() => { saveBtn.textContent = 'Save Feedback'; }, 2000);
+  }
+}
+
+// Start
+init();

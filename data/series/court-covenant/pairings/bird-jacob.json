@@ -1,0 +1,46 @@
+{
+  "id": "bird-jacob",
+  "series": "court-covenant",
+  "player": {
+    "name": "Larry Bird",
+    "displayName": "Larry Legend",
+    "era": "1980s",
+    "jerseyColors": {
+      "primary": { "base": "green", "accent": "white" },
+      "secondary": { "base": "white", "accent": "green" }
+    },
+    "signatureMoves": ["trash talk", "clutch shooting", "basketball IQ"],
+    "physicalDescription": "tall 6'9\" forward, not traditionally athletic, blonde hair with mustache, pale white skin, blue eyes, confident smirk, deceptive appearance hiding killer instinct",
+    "archetype": "The Trash Talker, strategic genius, would do anything to win"
+  },
+  "figure": {
+    "name": "Jacob",
+    "displayName": "Jacob",
+    "attribute": "shepherd's staff and spotted flocks",
+    "attributeDescription": "shepherd's staff, surrounded by spotted and speckled sheep and goats representing his clever dealings with Laban",
+    "visualStyle": "cunning patriarch, the supplanter who became Israel",
+    "clothing": "wealthy patriarch's robes, layered fine fabrics, the dress of a successful man who earned it through wit",
+    "physicalDescription": "smooth-skinned man (contrast to hairy Esau), intelligent scheming eyes, neat beard, calculating expression, olive skin, always thinking three moves ahead",
+    "anatomyNote": "two arms only",
+    "archetype": "The Supplanter, wrestled God, outsmarted everyone on his path to greatness"
+  },
+  "connection": {
+    "thematic": "Both were strategic geniuses who used their minds to overcome more athletic opponents",
+    "narrative": "Jacob wrestled an angel and won. Bird wrestled with legends and talked trash the whole time. Cerebral assassins.",
+    "relationship": "Clever competitors who outthought everyone else"
+  },
+  "interactions": [
+    {
+      "id": "side-by-side",
+      "description": "Two strategic minds, already planning their next move"
+    },
+    {
+      "id": "dap-up",
+      "description": "Mutual respect between those who win with their minds"
+    }
+  ],
+  "defaultInteraction": "side-by-side",
+  "cardVariants": ["thunder-lightning", "downtown"],
+  "priority": 19,
+  "status": "active"
+}

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no">
+  <title>Court & Covenant - Card Collection</title>
+
+  <!-- Meta tags -->
+  <meta name="description" content="Swipe through the Court & Covenant card collection. Basketball legends meet biblical figures.">
+  <meta name="theme-color" content="#0a0a0f">
+
+  <!-- Prevent zoom on double-tap -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="deck-page">
+
+  <!-- Navigation -->
+  <nav class="deck-nav">
+    <a href="index.html" class="back-button">
+      <span>&larr;</span>
+      <span>Home</span>
+    </a>
+  </nav>
+
+  <!-- Card Deck Container -->
+  <div class="deck-container">
+
+    <!-- Card Stack -->
+    <div class="card-stack" id="cardStack">
+      <!-- Cards are injected by JavaScript -->
+    </div>
+
+    <!-- Deck Controls -->
+    <div class="deck-controls">
+      <button class="deck-btn" id="btnPrev" aria-label="Previous card">
+        &larr;
+      </button>
+      <span class="progress" id="progress">1 / 7</span>
+      <button class="deck-btn" id="btnNext" aria-label="Next card">
+        &rarr;
+      </button>
+    </div>
+
+    <!-- Progress Dots -->
+    <div class="progress-dots" id="progressDots">
+      <!-- Dots are injected by JavaScript -->
+    </div>
+
+    <!-- Swipe Hint (shows once) -->
+    <div class="swipe-hint" id="swipeHint">
+      <span>&larr;</span>
+      <span>Swipe to browse</span>
+      <span>&rarr;</span>
+    </div>
+  </div>
+
+  <!-- Info Panel (slides up) -->
+  <div class="panel-backdrop" id="panelBackdrop"></div>
+  <div class="info-panel" id="infoPanel">
+    <div class="info-panel-handle"></div>
+    <h2 id="panelTitle">Jordan & Moses</h2>
+    <p class="template" id="panelTemplate">Thunder & Lightning</p>
+    <p class="narrative" id="panelNarrative">"Moses parted the Red Sea. MJ parted defenders. Same energy."</p>
+    <p class="connection-full" id="panelConnection">Both led their people through impossible odds to the promised land.</p>
+  </div>
+
+  <script type="module" src="js/deck.js"></script>
+</body>
+</html>

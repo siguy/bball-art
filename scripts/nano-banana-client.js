@@ -19,7 +19,9 @@ const __dirname = dirname(__filename);
 const ROOT = join(__dirname, '..');
 
 // Default model for image generation
-const DEFAULT_IMAGE_MODEL = 'gemini-2.5-flash-image';
+// gemini-2.5-flash-image = fast, good for testing
+// gemini-3-pro-image-preview = higher quality, better instruction following
+const DEFAULT_IMAGE_MODEL = 'gemini-3-pro-image-preview';
 const DEFAULT_TEXT_MODEL = 'gemini-2.0-flash';
 
 // Initialize the client
@@ -29,24 +31,58 @@ const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
  * Generate an image using Nano Banana
  * @param {string} prompt - The image generation prompt
  * @param {Object} options - Generation options
+ * @param {Array} options.referenceImages - Array of {path, mimeType} for reference images
  * @returns {Object} - Result with image data or error
  */
 export async function generateImage(prompt, options = {}) {
   const {
     model = process.env.GEMINI_IMAGE_MODEL || DEFAULT_IMAGE_MODEL,
     outputPath = null,
-    aspectRatio = '2:3', // Card ratio (close to 2.5:3.5)
+    aspectRatio = '3:4', // Basketball card ratio (closest supported to 5:7)
+    referenceImages = [], // Array of {path, mimeType} objects
   } = options;
 
   console.log(`Generating image with ${model}...`);
   console.log(`Prompt length: ${prompt.length} characters`);
+  if (referenceImages.length > 0) {
+    console.log(`Reference images: ${referenceImages.length}`);
+  }
+
+  // Build contents array with prompt and any reference images
+  const contents = [];
+
+  // Add reference images first
+  for (const refImg of referenceImages) {
+    try {
+      const { readFileSync } = await import('fs');
+      const imageBuffer = readFileSync(refImg.path);
+      const base64Data = imageBuffer.toString('base64');
+      contents.push({
+        inlineData: {
+          mimeType: refImg.mimeType || 'image/png',
+          data: base64Data
+        }
+      });
+      console.log(`  Added reference: ${refImg.path}`);
+    } catch (err) {
+      console.warn(`  Warning: Could not load reference image ${refImg.path}: ${err.message}`);
+    }
+  }
+
+  // Add the text prompt
+  contents.push(prompt);
+
+  console.log(`Aspect ratio: ${aspectRatio}`);
 
   try {
     const response = await ai.models.generateContent({
       model: model,
-      contents: prompt,
+      contents: contents,
       config: {
         responseModalities: ['image', 'text'],
+        imageConfig: {
+          aspectRatio: aspectRatio
+        }
       }
     });
 

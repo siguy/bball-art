@@ -1,0 +1,46 @@
+{
+  "id": "draymond-joab",
+  "series": "court-covenant",
+  "player": {
+    "name": "Draymond Green",
+    "displayName": "Draymond",
+    "era": "2010s",
+    "jerseyColors": {
+      "primary": { "base": "blue", "accent": "gold" },
+      "secondary": { "base": "white", "accent": "blue" }
+    },
+    "signatureMoves": ["defensive intensity", "trash talk", "hockey assist"],
+    "physicalDescription": "undersized 6'6\" power forward, thick muscular build, intense aggressive expression, dark skin, always talking, emotional intensity radiating",
+    "archetype": "The Enforcer, does the dirty work, crosses lines when needed, heart of champions"
+  },
+  "figure": {
+    "name": "Joab",
+    "displayName": "Joab",
+    "attribute": "general's sword and bloody hands",
+    "attributeDescription": "battle-worn sword of David's general, hands that did what needed to be done",
+    "visualStyle": "ruthless military commander, David's controversial general",
+    "clothing": "practical Israelite military commander attire, leather armor over tunic, commander's cloak, battle-worn gear",
+    "physicalDescription": "hardened warrior, scarred face, intense calculating eyes, dark beard flecked with grey, weathered tan skin, the look of a man who has done terrible things for his king",
+    "anatomyNote": "two arms only",
+    "archetype": "The Ruthless General, killed when told not to, did the dirty work"
+  },
+  "connection": {
+    "thematic": "Both were the enforcers who did what needed to be done, crossing lines their leaders couldn't",
+    "narrative": "David had Joab. Steph has Draymond. Every king needs someone willing to get their hands dirty.",
+    "relationship": "Enforcers who protected their dynasty by any means necessary"
+  },
+  "interactions": [
+    {
+      "id": "back-to-back",
+      "description": "Enforcers ready to defend their king"
+    },
+    {
+      "id": "simultaneous-action",
+      "description": "Draymond with defensive intensity, Joab with sword drawn - protecting the throne"
+    }
+  ],
+  "defaultInteraction": "back-to-back",
+  "cardVariants": ["thunder-lightning", "downtown"],
+  "priority": 18,
+  "status": "active"
+}

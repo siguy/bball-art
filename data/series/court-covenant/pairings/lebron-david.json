@@ -5,8 +5,10 @@
     "name": "LeBron James",
     "displayName": "King James",
     "era": "2010s",
-    "teamColors": ["purple", "gold", "white"],
-    "jerseyDescription": "purple and gold basketball jersey with white trim, no logos",
+    "jerseyColors": {
+      "primary": { "base": "purple", "accent": "gold" },
+      "secondary": { "base": "gold", "accent": "purple" }
+    },
     "signatureMoves": ["chase-down block", "tomahawk dunk", "no-look pass"],
     "physicalDescription": "powerful muscular build, receding hairline, intense determined expression",
     "archetype": "The King, versatile greatness, longevity personified"
