@@ -1,0 +1,56 @@
+{
+  "id": "isaac",
+  "name": "Isaac",
+  "aliases": ["Yitzchak", "The Bound One", "Laughter"],
+  "quotes": {
+    "where-is-lamb": {
+      "source": "Genesis 22:7",
+      "context": "Isaac's question to Abraham on Moriah",
+      "hebrew": "הִנֵּה הָאֵשׁ וְהָעֵצִים וְאַיֵּה הַשֶּׂה לְעֹלָה",
+      "english": "Here is the fire and the wood, but where is the lamb for the burnt offering?",
+      "mood": "innocent trust, haunting question"
+    },
+    "god-will-provide": {
+      "source": "Genesis 22:8",
+      "context": "Abraham's answer, which Isaac accepted",
+      "hebrew": "אֱלֹהִים יִרְאֶה לּוֹ הַשֶּׂה לְעֹלָה בְּנִי",
+      "english": "God will provide for Himself the lamb",
+      "mood": "trusting faith, divine provision"
+    },
+    "room-for-us": {
+      "source": "Genesis 26:22",
+      "context": "Naming a well after finding space",
+      "hebrew": "כִּי עַתָּה הִרְחִיב יְהוָה לָנוּ",
+      "english": "Now the LORD has made room for us",
+      "mood": "patient persistence, blessed space"
+    },
+    "voice-is-jacob": {
+      "source": "Genesis 27:22",
+      "context": "Suspicious but deceived by Jacob",
+      "hebrew": "הַקֹּל קוֹל יַעֲקֹב וְהַיָּדַיִם יְדֵי עֵשָׂו",
+      "english": "The voice is Jacob's voice, but the hands are Esau's hands",
+      "mood": "suspicious intuition, tragic deception"
+    },
+    "two-nations": {
+      "source": "Genesis 25:23",
+      "context": "Oracle about Rebekah's pregnancy",
+      "hebrew": "שְׁנֵי גֹיִים בְּבִטְנֵךְ",
+      "english": "Two nations are in your womb, and the older shall serve the younger",
+      "mood": "prophetic destiny, divine reversal"
+    },
+    "loved-her": {
+      "source": "Genesis 24:67",
+      "context": "Isaac marrying Rebekah",
+      "hebrew": "וַיֶּאֱהָבֶהָ וַיִּנָּחֵם יִצְחָק אַחֲרֵי אִמּוֹ",
+      "english": "He loved her, and was comforted after his mother's death",
+      "mood": "tender love, healing comfort"
+    },
+    "blessed-indeed": {
+      "source": "Genesis 27:33",
+      "context": "Realizing Jacob received the blessing",
+      "hebrew": "גַּם בָּרוּךְ יִהְיֶה",
+      "english": "Indeed, and he shall be blessed",
+      "mood": "irrevocable blessing, sovereign acceptance"
+    }
+  }
+}

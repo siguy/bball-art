@@ -1,0 +1,56 @@
+{
+  "id": "lebron",
+  "name": "LeBron James",
+  "defaultPose": "chalk-toss",
+  "description": "6'9\" forward, physical specimen. 4 championships, 4 MVPs, all-time leading scorer. From Akron to global icon. The King.",
+  "poses": {
+    "chalk-toss": {
+      "id": "chalk-toss",
+      "name": "Chalk Toss",
+      "description": "Pre-game ritual - tossing chalk into the air",
+      "expression": "intense focus, ritual preparation",
+      "prompt": "standing at scorer's table tossing chalk powder into air - head tilted back, arms raised releasing chalk cloud, eyes closed in moment of preparation, pre-game ritual that signals dominance is coming",
+      "energy": "ritual power, the king preparing for battle"
+    },
+    "tomahawk-dunk": {
+      "id": "tomahawk-dunk",
+      "name": "Tomahawk Dunk",
+      "description": "Signature powerful windmill/tomahawk slam",
+      "expression": "explosive power, unstoppable force",
+      "prompt": "massive tomahawk dunk in progress - ball cocked back behind head with one arm, body rising toward rim, face showing explosive power and intensity, freight train that cannot be stopped",
+      "energy": "unstoppable force, physical dominance"
+    },
+    "silencer": {
+      "id": "silencer",
+      "name": "The Silencer",
+      "description": "Hand to ear after clutch shot in hostile arena",
+      "expression": "taunting confidence, shutting up the crowd",
+      "prompt": "cupping hand to ear toward crowd after big shot - slight smirk, looking at hostile fans, silencing the doubters and haters, I can't hear you now gesture, road warrior triumph",
+      "energy": "silencing doubters, road warrior"
+    },
+    "block-from-behind": {
+      "id": "block-from-behind",
+      "name": "The Block",
+      "description": "2016 Finals Game 7 - Chasedown block on Iguodala",
+      "expression": "desperate determination, saving everything",
+      "prompt": "leaping from behind to pin shot against backboard - arm fully extended, body stretched horizontal, coming from nowhere to make impossible block, the play that saved a championship",
+      "energy": "championship desperation, impossible save"
+    },
+    "arms-spread": {
+      "id": "arms-spread",
+      "name": "Witness",
+      "description": "Arms spread wide - 'You are witnessing greatness'",
+      "expression": "declaration of greatness, witness me",
+      "prompt": "standing with arms spread wide to sides - chest out, head high, declaring greatness to the world, 'witness' pose, the king surveying his kingdom after dominant performance",
+      "energy": "declaring greatness, king of the court"
+    },
+    "lefty-finish": {
+      "id": "lefty-finish",
+      "name": "Lefty Finish",
+      "description": "Acrobatic left-handed layup through contact",
+      "expression": "body control, ambidextrous finish",
+      "prompt": "contorting body for left-handed layup through defenders - absorbing contact, arm extended to basket, incredible body control, finishing with either hand equally deadly",
+      "energy": "ambidextrous greatness, unstoppable finishing"
+    }
+  }
+}

@@ -4,6 +4,7 @@
   "player": {
     "name": "Shai Gilgeous-Alexander",
     "displayName": "SGA",
+    "poseFileId": "sga",
     "era": "2020s",
     "jerseyColors": {
       "primary": { "base": "blue", "accent": "orange" },
@@ -16,6 +17,7 @@
   "figure": {
     "name": "Daniel",
     "displayName": "Daniel",
+    "poseFileId": "daniel",
     "attribute": "scroll of visions and lion's presence",
     "attributeDescription": "scroll of apocalyptic prophecies, ethereal presence of lions representing his survival in the den",
     "visualStyle": "young Hebrew exile who rose to power in Babylon, interpreter of dreams",

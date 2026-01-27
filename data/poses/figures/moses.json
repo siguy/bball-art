@@ -1,0 +1,62 @@
+{
+  "id": "moses",
+  "name": "Moses",
+  "defaultPose": "parting-sea",
+  "description": "Greatest prophet, led Israel from Egypt. Received the Torah at Sinai, spoke with God face to face. Staff-wielder, lawgiver, reluctant hero.",
+  "poses": {
+    "parting-sea": {
+      "id": "parting-sea",
+      "name": "Parting the Red Sea",
+      "description": "Staff raised, waters dividing before him",
+      "expression": "divine authority, miraculous command",
+      "prompt": "standing with staff raised high - waters of the sea dividing into massive walls on either side, robes and beard blowing in wind, face showing divine authority, the moment of greatest miracle",
+      "energy": "miraculous power, divine authority",
+      "quoteId": "parting-the-sea"
+    },
+    "burning-bush": {
+      "id": "burning-bush",
+      "name": "At the Burning Bush",
+      "description": "Kneeling before the bush that burns but isn't consumed",
+      "expression": "awe, reverence, calling received",
+      "prompt": "kneeling or standing reverently before burning bush - sandals removed, face showing awe and reverence, hand perhaps shielding eyes, the moment of divine calling",
+      "energy": "divine encounter, humble awe",
+      "quoteId": "burning-bush"
+    },
+    "confronting-pharaoh": {
+      "id": "confronting-pharaoh",
+      "name": "Confronting Pharaoh",
+      "description": "Standing before Pharaoh, demanding freedom",
+      "expression": "bold authority, prophetic demand",
+      "prompt": "standing boldly before throne - staff in hand, pointing or gesturing commandingly, 'Let my people go' on his lips, the shepherd who became prophet confronting the most powerful king",
+      "energy": "prophetic boldness, speaking truth to power",
+      "quoteId": "let-my-people-go"
+    },
+    "tablets-raised": {
+      "id": "tablets-raised",
+      "name": "Holding the Tablets",
+      "description": "Descending Sinai with the tablets of the Law",
+      "expression": "radiant face, carrying covenant",
+      "prompt": "descending mountain carrying two stone tablets - face perhaps glowing, tablets showing Hebrew text, bringing the covenant to the people, the weight of divine law",
+      "energy": "covenant carrier, divine radiance",
+      "quoteId": "ten-commandments"
+    },
+    "striking-rock": {
+      "id": "striking-rock",
+      "name": "Striking the Rock",
+      "description": "Staff striking rock for water in the wilderness",
+      "expression": "frustrated power, water flowing",
+      "prompt": "striking rock with staff - water gushing forth, face showing mix of frustration and power, the miracle that cost him the Promised Land, provision with consequences",
+      "energy": "frustrated provision, costly miracle",
+      "quoteId": "not-enter-land"
+    },
+    "overlooking-promised-land": {
+      "id": "overlooking-promised-land",
+      "name": "Viewing the Promised Land",
+      "description": "On Mount Nebo, seeing the land he cannot enter",
+      "expression": "bittersweet completion, satisfied longing",
+      "prompt": "standing on mountaintop gazing at distant land - elderly but strong, staff in hand, seeing the fulfillment of the journey he cannot complete, satisfied yet longing",
+      "energy": "bittersweet completion, faithful finish",
+      "quoteId": "not-enter-land"
+    }
+  }
+}

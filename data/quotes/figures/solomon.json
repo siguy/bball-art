@@ -1,0 +1,56 @@
+{
+  "id": "solomon",
+  "name": "Solomon",
+  "aliases": ["Shlomo", "Jedidiah", "Wisest King"],
+  "quotes": {
+    "ask-for-wisdom": {
+      "source": "1 Kings 3:9",
+      "context": "Solomon's request at Gibeon",
+      "hebrew": "וְנָתַתָּ לְעַבְדְּךָ לֵב שֹׁמֵעַ",
+      "english": "Give your servant an understanding heart",
+      "mood": "humble request, wise choice"
+    },
+    "divide-the-baby": {
+      "source": "1 Kings 3:25",
+      "context": "Solomon's famous judgment",
+      "hebrew": "גִּזְרוּ אֶת הַיֶּלֶד הַחַי לִשְׁנָיִם",
+      "english": "Divide the living child in two",
+      "mood": "brilliant justice, revealing truth"
+    },
+    "temple-dedication": {
+      "source": "1 Kings 8:27",
+      "context": "Solomon dedicates the Temple",
+      "hebrew": "הַשָּׁמַיִם וּשְׁמֵי הַשָּׁמַיִם לֹא יְכַלְכְּלוּךָ",
+      "english": "The heavens and highest heavens cannot contain You",
+      "mood": "theological depth, dedication"
+    },
+    "vanity-of-vanities": {
+      "source": "Ecclesiastes 1:2",
+      "context": "The Preacher's conclusion",
+      "hebrew": "הֲבֵל הֲבָלִים הַכֹּל הָבֶל",
+      "english": "Vanity of vanities, all is vanity",
+      "mood": "existential wisdom, world-weariness"
+    },
+    "song-of-songs": {
+      "source": "Song of Songs 8:6",
+      "context": "On the power of love",
+      "hebrew": "כִּי עַזָּה כַמָּוֶת אַהֲבָה",
+      "english": "For love is strong as death",
+      "mood": "passionate poetry, love's power"
+    },
+    "fear-of-lord": {
+      "source": "Proverbs 9:10",
+      "context": "Beginning of wisdom",
+      "hebrew": "תְּחִלַּת חָכְמָה יִרְאַת יְהוָה",
+      "english": "The fear of the LORD is the beginning of wisdom",
+      "mood": "foundational truth, wisdom teaching"
+    },
+    "time-for-everything": {
+      "source": "Ecclesiastes 3:1",
+      "context": "The seasons of life",
+      "hebrew": "לַכֹּל זְמָן וְעֵת לְכָל חֵפֶץ",
+      "english": "To everything there is a season",
+      "mood": "life's rhythms, divine timing"
+    }
+  }
+}

@@ -1,0 +1,56 @@
+{
+  "id": "magic",
+  "name": "Magic Johnson",
+  "defaultPose": "no-look-pass",
+  "description": "6'9\" point guard, revolutionized the position. 5 championships, 3 MVPs. Showtime Lakers, million-dollar smile, made everyone better.",
+  "poses": {
+    "no-look-pass": {
+      "id": "no-look-pass",
+      "name": "No-Look Pass",
+      "description": "Signature no-look pass - eyes one way, ball another",
+      "expression": "showtime joy, misdirection master",
+      "prompt": "delivering no-look pass - head and eyes facing one direction, ball leaving hands toward completely different direction, big smile, running Showtime, making the impossible look easy",
+      "energy": "Showtime magic, court vision genius"
+    },
+    "baby-hook": {
+      "id": "baby-hook",
+      "name": "Junior Sky Hook",
+      "description": "Learned from Kareem - his own version of the sky hook",
+      "expression": "clutch focus, Finals moment",
+      "prompt": "shooting baby hook shot in traffic - arm extended high releasing soft hook, taller defenders unable to contest, the shot he learned from Kareem, Finals MVP moment",
+      "energy": "clutch adaptation, learning from the best"
+    },
+    "full-speed-fastbreak": {
+      "id": "full-speed-fastbreak",
+      "name": "Showtime Break",
+      "description": "Leading the fast break, ball on a string",
+      "expression": "pure joy, basketball as entertainment",
+      "prompt": "racing up court leading fast break - ball on fingertips, eyes scanning for teammates, long strides covering ground, smile showing pure joy, Showtime Lakers in full flight",
+      "energy": "Showtime, basketball as joy"
+    },
+    "jumping-celebration": {
+      "id": "jumping-celebration",
+      "name": "Leaping Celebration",
+      "description": "Jumping into teammates' arms after big moment",
+      "expression": "unbridled joy, team celebration",
+      "prompt": "leaping in celebration into teammate's arms - arms raised, huge smile, pure joy, championship moment, the ultimate team player celebrating with his brothers",
+      "energy": "team-first joy, brotherhood"
+    },
+    "million-dollar-smile": {
+      "id": "million-dollar-smile",
+      "name": "The Smile",
+      "description": "The famous Magic smile that lit up arenas",
+      "expression": "infectious joy, charisma personified",
+      "prompt": "standing with famous million-dollar smile - radiant, charismatic, arms perhaps spread welcoming, the smile that made everyone love basketball, pure positive energy",
+      "energy": "infectious charisma, beloved icon"
+    },
+    "pointing-to-teammate": {
+      "id": "pointing-to-teammate",
+      "name": "Crediting Teammate",
+      "description": "Pointing to the teammate who scored off his pass",
+      "expression": "humble credit, team-first",
+      "prompt": "pointing to teammate after assist - deflecting credit, smile of genuine joy at teammate's success, the ultimate point guard celebrating others, team-first mentality",
+      "energy": "selfless, making others great"
+    }
+  }
+}

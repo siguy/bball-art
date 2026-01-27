@@ -4,6 +4,7 @@
   "player": {
     "name": "LeBron James",
     "displayName": "King James",
+    "poseFileId": "lebron",
     "era": "2010s",
     "jerseyColors": {
       "primary": { "base": "purple", "accent": "gold" },
@@ -16,6 +17,7 @@
   "figure": {
     "name": "King David",
     "displayName": "David",
+    "poseFileId": "david",
     "attribute": "golden crown and sling",
     "attributeDescription": "simple golden crown of ancient Israel, leather shepherd's sling with smooth river stones",
     "visualStyle": "biblical warrior-king, ancient Israelite royalty",

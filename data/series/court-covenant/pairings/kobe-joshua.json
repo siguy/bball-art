@@ -4,6 +4,7 @@
   "player": {
     "name": "Kobe Bryant",
     "displayName": "Mamba",
+    "poseFileId": "kobe",
     "era": "2000s",
     "jerseyColors": {
       "primary": { "base": "purple", "accent": "gold" },
@@ -16,6 +17,7 @@
   "figure": {
     "name": "Joshua",
     "displayName": "Joshua",
+    "poseFileId": "joshua",
     "attribute": "warrior's sword and ram's horn",
     "attributeDescription": "bronze sword raised high, shofar (ram's horn trumpet) at his side",
     "visualStyle": "ancient Israelite military commander, biblical warrior",

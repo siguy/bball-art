@@ -1,0 +1,56 @@
+{
+  "id": "kobe",
+  "name": "Kobe Bryant",
+  "defaultPose": "mamba-face",
+  "description": "6'6\" shooting guard, Mamba mentality. 5 championships, 1 MVP, 18x All-Star. Relentless work ethic, killer instinct, fadeaway maestro.",
+  "poses": {
+    "mamba-face": {
+      "id": "mamba-face",
+      "name": "Mamba Face",
+      "description": "The death stare - cold, calculating, about to destroy",
+      "expression": "ice cold killer, no emotion, locked in",
+      "prompt": "intense death stare at opponent or camera - jaw set, eyes showing zero emotion, complete focus and killer instinct, the Mamba face that preceded destruction, predator locked onto prey",
+      "energy": "Mamba mentality, killer instinct"
+    },
+    "fadeaway-baseline": {
+      "id": "fadeaway-baseline",
+      "name": "Baseline Fadeaway",
+      "description": "Signature baseline fadeaway, impossible angle",
+      "expression": "confident mastery, this is my shot",
+      "prompt": "executing baseline fadeaway jumper - body fading toward sideline, shooting arm extended with perfect form, shot over outstretched defender's hand, the shot he practiced a million times",
+      "energy": "craftsmanship, mastered art"
+    },
+    "jersey-bite": {
+      "id": "jersey-bite",
+      "name": "Jersey Bite",
+      "description": "Biting jersey in frustration or intensity",
+      "expression": "channeled aggression, intense focus",
+      "prompt": "biting bottom of jersey - head tilted down, jersey pulled up to mouth, channeling intensity or frustration into focus, the Mamba processing and preparing",
+      "energy": "channeled intensity, Mamba focus"
+    },
+    "fist-pump-scream": {
+      "id": "fist-pump-scream",
+      "name": "And One Scream",
+      "description": "Screaming after and-one finish through contact",
+      "expression": "primal release, warrior scream",
+      "prompt": "screaming celebration after and-one - fist clenched, veins visible, mouth open in primal scream, just finished through heavy contact, releasing all the intensity",
+      "energy": "primal intensity, warrior spirit"
+    },
+    "game-winner-follow": {
+      "id": "game-winner-follow",
+      "name": "Game Winner Celebration",
+      "description": "Running away after game-winner, arms out",
+      "expression": "triumphant release, living for these moments",
+      "prompt": "running away from basket after hitting game-winner - arms spread to sides, looking back at basket or crowd, teammates chasing to celebrate, living for the clutch moments",
+      "energy": "clutch gene, made for the moment"
+    },
+    "achilles-walk-off": {
+      "id": "achilles-walk-off",
+      "name": "Achilles Walk-Off",
+      "description": "Walking off after hitting free throws on torn Achilles",
+      "expression": "warrior limping but unbroken",
+      "prompt": "limping off court with determined expression - injured but having just hit clutch free throws, refusing help, walking off on his own terms, warrior spirit even in defeat",
+      "energy": "unbreakable will, Mamba forever"
+    }
+  }
+}

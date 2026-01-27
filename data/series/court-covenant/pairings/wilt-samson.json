@@ -4,6 +4,7 @@
   "player": {
     "name": "Wilt Chamberlain",
     "displayName": "Wilt",
+    "poseFileId": "wilt",
     "era": "1970s",
     "jerseyColors": {
       "primary": { "base": "purple", "accent": "gold" },
@@ -16,6 +17,7 @@
   "figure": {
     "name": "Samson",
     "displayName": "Samson",
+    "poseFileId": "samson",
     "attribute": "legendary long hair and jawbone weapon",
     "attributeDescription": "flowing uncut hair reaching past shoulders - the source of his divine strength, donkey's jawbone gripped as weapon",
     "visualStyle": "ancient Israelite strongman, Nazirite judge of supernatural strength",

@@ -4,6 +4,7 @@
   "player": {
     "name": "Nikola Jokic",
     "displayName": "Joker",
+    "poseFileId": "jokic",
     "era": "2020s",
     "jerseyColors": {
       "primary": {
@@ -26,6 +27,7 @@
   "figure": {
     "name": "Isaac",
     "displayName": "Isaac",
+    "poseFileId": "isaac",
     "attribute": "bundle of wood and peaceful demeanor",
     "attributeDescription": "bundle of firewood on his back recalling the binding, staff of a wealthy patriarch",
     "visualStyle": "peaceful patriarch of Israel, the promised son",

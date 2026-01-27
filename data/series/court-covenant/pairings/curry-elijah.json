@@ -4,6 +4,7 @@
   "player": {
     "name": "Stephen Curry",
     "displayName": "Chef Curry",
+    "poseFileId": "curry",
     "era": "2010s",
     "jerseyColors": {
       "primary": { "base": "blue", "accent": "gold" },
@@ -16,6 +17,7 @@
   "figure": {
     "name": "Elijah",
     "displayName": "Elijah",
+    "poseFileId": "elijah",
     "attribute": "mantle of fire",
     "attributeDescription": "prophet's hairy mantle/cloak wreathed in divine flames, fire descending from heaven above",
     "visualStyle": "intense biblical prophet, wild and powerful",

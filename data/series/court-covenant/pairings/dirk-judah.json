@@ -4,6 +4,7 @@
   "player": {
     "name": "Dirk Nowitzki",
     "displayName": "Dirk",
+    "poseFileId": "dirk",
     "era": "2010s",
     "jerseyColors": {
       "primary": { "base": "blue", "accent": "white" },
@@ -16,6 +17,7 @@
   "figure": {
     "name": "Judah Maccabee",
     "displayName": "Judah Maccabee",
+    "poseFileId": "judah",
     "attribute": "warrior's hammer and menorah",
     "attributeDescription": "war hammer (Maccabee means 'the hammer'), golden menorah representing the miracle of lights and Jewish resistance",
     "visualStyle": "Jewish resistance fighter and military leader, Hasmonean warrior",

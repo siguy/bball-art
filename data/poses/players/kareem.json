@@ -1,0 +1,56 @@
+{
+  "id": "kareem",
+  "name": "Kareem Abdul-Jabbar",
+  "defaultPose": "sky-hook",
+  "description": "7'2\" center, all-time leading scorer (before LeBron). 6 championships, 6 MVPs. The sky hook was unguardable. Intellectual, dignified.",
+  "poses": {
+    "sky-hook": {
+      "id": "sky-hook",
+      "name": "Sky Hook",
+      "description": "The most unstoppable shot in basketball history",
+      "expression": "serene confidence, perfected art form",
+      "prompt": "executing perfect sky hook - arm fully extended high above head, ball releasing from fingertips at apex, body turned sideways, impossible to block, the most beautiful unstoppable shot ever",
+      "energy": "unguardable perfection, basketball art"
+    },
+    "goggles-intensity": {
+      "id": "goggles-intensity",
+      "name": "Goggles Intensity",
+      "description": "Signature goggles, intense focused stare",
+      "expression": "intellectual intensity, quiet determination",
+      "prompt": "standing with signature protective goggles - intense focused stare, quiet determination, intellectual warrior, the dignified legend who let his game speak",
+      "energy": "quiet intensity, dignified greatness"
+    },
+    "blocking-shot": {
+      "id": "blocking-shot",
+      "name": "Rim Protector",
+      "description": "Swatting shot with long arms",
+      "expression": "defensive presence, no entry",
+      "prompt": "swatting away shot attempt at the rim - incredibly long arms extended, ball being redirected, the paint protector who anchored dynasties, no easy baskets",
+      "energy": "paint guardian, defensive anchor"
+    },
+    "post-position": {
+      "id": "post-position",
+      "name": "Low Post Position",
+      "description": "Establishing deep post position, about to score",
+      "expression": "patient dominance, chess not checkers",
+      "prompt": "establishing dominant low post position - back to basket, feeling defender, about to unleash sky hook or counter, patient post play as an art form",
+      "energy": "patient dominance, post mastery"
+    },
+    "running-hook": {
+      "id": "running-hook",
+      "name": "Running Hook",
+      "description": "Sky hook variation while moving across lane",
+      "expression": "fluid adaptation, endless variations",
+      "prompt": "shooting sky hook while moving across lane - body in motion, arm still extending high, adapting signature shot to any situation, unstoppable in any context",
+      "energy": "adaptive mastery, infinite variations"
+    },
+    "championship-trophy": {
+      "id": "championship-trophy",
+      "name": "Trophy Raised",
+      "description": "Holding championship trophy high",
+      "expression": "dignified triumph, earned greatness",
+      "prompt": "raising championship trophy overhead - dignified expression of earned triumph, goggles on, six-time champion, the culmination of a legendary career",
+      "energy": "dignified glory, earned legacy"
+    }
+  }
+}

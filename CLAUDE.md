@@ -27,8 +27,8 @@ A **contemporary art project** creating collectible basketball cards that pair N
 - [x] **Card Visualizer built** (local web app for review & feedback)
 
 ### In Progress
-- [ ] Adding pose files for remaining characters (heroes)
 - [ ] Merging villain-template-refactor branch
+- [ ] Testing pose system with all pairings
 
 ### Up Next
 - Phase 3: Social Media Strategy
@@ -151,24 +151,53 @@ visualizer/        # Card review & feedback system
 
 Per-character signature poses that can be swapped into any template. Each character has their own JSON file with multiple iconic poses.
 
-### Structure
-```
-data/poses/
-├── players/
-│   ├── rodman.json      # diving-loose-ball, tipping-rebound, etc.
-│   ├── shaq.json        # backboard-breaking, dudley-poster, etc.
-│   ├── isiah-thomas.json
-│   ├── laimbeer.json
-│   ├── draymond.json
-│   └── bird.json
-└── figures/
-    ├── esau.json        # drawing-bow, chugging-soup, etc.
-    ├── goliath.json     # champion-challenge, spear-thrust, etc.
-    ├── pharaoh.json
-    ├── haman.json
-    ├── joab.json
-    └── jacob.json
-```
+### Complete Inventory (19 players, 19 figures)
+
+**Players** (`data/poses/players/`):
+| File | Player | Poses |
+|------|--------|-------|
+| jordan.json | Michael Jordan | tongue-out-dunk, fadeaway, flying-layup, fist-pump, playoff-shrug, defensive-stance |
+| lebron.json | LeBron James | chase-down-block, tomahawk-dunk, powder-toss, king-celebration, no-look-pass, defensive-anchor |
+| pippen.json | Scottie Pippen | coast-to-coast, lockdown-defense, outlet-pass, dunk-point, two-way-star, championship-carry |
+| kobe.json | Kobe Bryant | fadeaway-jumper, mamba-mentality, post-footwork, clutch-dagger, fist-pump-celebration, defensive-intensity |
+| curry.json | Stephen Curry | deep-three, shimmy-celebration, behind-back-dribble, tunnel-shot, prayer-hands, logo-three |
+| magic.json | Magic Johnson | no-look-pass, baby-hook, fast-break-leader, megawatt-smile, showtime-assist, championship-celebration |
+| shaq.json | Shaquille O'Neal | backboard-breaking, drop-step-dunk, finger-wave, dudley-poster, dominant-block, celebration-roar |
+| wilt.json | Wilt Chamberlain | finger-roll, fadeaway-bank, hundred-point-night, dominant-rebound, blocking-shot, strength-display |
+| kareem.json | Kareem Abdul-Jabbar | skyhook, post-moves, goggles-adjustment, blocking-shot, meditation-focus, championship-celebration |
+| stockton.json | John Stockton | pinpoint-assist, pick-and-roll, steal-anticipation, short-shorts-classic, no-look-feed, franchise-leader |
+| dirk.json | Dirk Nowitzki | one-leg-fadeaway, championship-trophy, goofy-celebration, mid-range-master, playoff-dirk, fist-pump |
+| durant.json | Kevin Durant | pull-up-jumper, silky-smooth, easy-bucket, reaper-celebration, crossover-three, length-block |
+| jokic.json | Nikola Jokic | no-look-pass, sombor-shuffle, casual-triple-double, unbothered-mvp, post-playmaking, fast-break-outlet |
+| sga.json | Shai Gilgeous-Alexander | crafty-floater, mid-range-master, cool-customer, change-of-pace, iso-killer, defensive-pest |
+| isiah-thomas.json | Isiah Thomas | no-look-dish, tough-driving-layup, smile-through-pain, jordan-freeze-out, championship-kiss, bad-boy-stare |
+| laimbeer.json | Bill Laimbeer | hard-foul, flagrant-elbow, getting-under-skin, strategic-flop, celebrating-chaos, villain-smile |
+| draymond.json | Draymond Green | and-one-scream, defensive-anchor, technical-argument, dirty-work-dive, emotional-leader, triple-single-impact |
+| bird.json | Larry Bird | trash-talk-three, left-hand-game, clutch-shot, cold-stare, no-look-pass, championship-celebration |
+| rodman.json | Dennis Rodman | diving-loose-ball, tipping-rebound, defensive-clamp, wild-celebration, headbutt-ref, championship-rings |
+
+**Figures** (`data/poses/figures/`):
+| File | Figure | Poses |
+|------|--------|-------|
+| moses.json | Moses | parting-sea, receiving-tablets, staff-raised, burning-bush, leading-exodus, striking-rock |
+| david.json | King David | slinging-stone, dancing-before-ark, playing-harp, crowned-king, writing-psalms, warrior-stance |
+| aaron.json | Aaron | high-priest-blessing, holding-staff, golden-calf-moment, incense-offering, speaking-for-moses, priestly-garments |
+| joshua.json | Joshua | walls-falling, sword-raised, sun-stand-still, crossing-jordan, spy-report, leading-charge |
+| elijah.json | Elijah | calling-fire, chariot-ascending, confronting-prophets, ravens-feeding, still-small-voice, mantle-passing |
+| joseph.json | Joseph | revealing-identity, coat-of-colors, interpreting-pharaoh, ruling-egypt, resisting-temptation, forgiving-brothers |
+| samson.json | Samson | pushing-pillars, killing-lion, jawbone-warrior, carrying-gates, blind-in-chains, long-hair-glory |
+| solomon.json | Solomon | throne-wisdom, baby-judgment, dedicating-temple, asking-wisdom, writing-proverbs, vanity-reflection |
+| elisha.json | Elisha | receiving-mantle, healing-naaman, multiplying-oil, raising-dead, seeing-armies, striking-waters |
+| judah.json | Judah Maccabee | hammer-raised, lighting-menorah, guerrilla-commander, victory-over-elephants, rallying-brothers, entering-temple |
+| jonathan.json | Jonathan | covenant-with-david, warrior-prince, warning-david, weeping-farewell, defying-saul, fallen-on-gilboa |
+| isaac.json | Isaac | bound-on-altar, digging-wells, blessing-jacob, meeting-rebekah, meditating-field, reconciling-esau |
+| daniel.json | Daniel | lions-den, interpreting-dream, reading-wall, refusing-food, praying-toward-jerusalem, receiving-vision |
+| goliath.json | Goliath | champion-challenge, spear-thrust, mocking-israel, armor-display, intimidation-stance, final-fall |
+| esau.json | Esau | drawing-bow, chugging-soup, blessing-stolen, hunting-return, reconciling-jacob, wild-man-glory |
+| pharaoh.json | Pharaoh | throne-of-power, refusing-moses, chariot-pursuit, firstborn-grief, hardened-heart, drowning-army |
+| haman.json | Haman | plotting-destruction, dice-casting, gallows-building, parade-humiliation, begging-esther, final-hanging |
+| joab.json | Joab | battlefield-commander, dirty-deed, whispering-counsel, loyal-soldier, ruthless-strike, army-general |
+| jacob.json | Jacob | wrestling-angel, stealing-blessing, ladder-dream, stone-pillow, reunion-with-esau, deceiving-father |
 
 ### Pose File Format
 ```json
@@ -213,16 +242,29 @@ This prevents ambiguity with similar names (multiple Chrises, Mikes, etc.).
 
 Biblical quotes (Hebrew + English) organized by character, linked to poses via `quoteId`.
 
-### Structure
-```
-data/quotes/figures/
-├── esau.json     # birthright-sold, red-stew, blessing-stolen, etc.
-├── goliath.json  # choose-a-man, am-i-a-dog, give-flesh-to-birds, etc.
-├── pharaoh.json
-├── haman.json
-├── joab.json
-└── jacob.json
-```
+### Complete Inventory (19 figures)
+
+| File | Figure | Key Quotes |
+|------|--------|------------|
+| moses.json | Moses | let-my-people-go, parting-the-sea, ten-commandments, burning-bush, striking-rock |
+| david.json | King David | smooth-stones, dancing-before-lord, shepherd-psalm, against-goliath, bathsheba-sin |
+| aaron.json | Aaron | priestly-blessing, golden-calf, speak-to-pharaoh, budding-staff, consecration |
+| joshua.json | Joshua | be-strong-courageous, sun-stand-still, choose-this-day, walls-of-jericho, crossing-jordan |
+| elijah.json | Elijah | still-small-voice, fire-from-heaven, how-long-halt, chariot-of-fire, ravens-fed-me |
+| joseph.json | Joseph | reveal-to-brothers, god-meant-for-good, coat-of-colors, interpreting-dreams, resist-temptation |
+| samson.json | Samson | lion-bare-hands, jawbone-thousand, strength-in-hair, die-with-philistines, gates-of-gaza |
+| solomon.json | Solomon | ask-for-wisdom, divide-the-baby, temple-dedication, vanity-of-vanities, fear-of-lord |
+| elisha.json | Elisha | double-portion, god-of-elijah, wash-seven-times, open-his-eyes, more-with-us |
+| judah.json | Judah Maccabee | who-like-you, many-or-few, better-to-die, arm-yourselves, restore-sanctuary |
+| jonathan.json | Jonathan | soul-knit, nothing-hinders, go-in-peace, why-should-he-die, how-mighty-fallen |
+| isaac.json | Isaac | where-is-lamb, god-will-provide, room-for-us, voice-is-jacob, two-nations |
+| daniel.json | Daniel | shut-lions-mouths, god-reveals-mysteries, mene-mene, not-defile-himself, three-times-daily |
+| goliath.json | Goliath | choose-a-man, am-i-a-dog, give-flesh-to-birds, curse-by-gods, forty-days-defiance |
+| esau.json | Esau | birthright-sold, red-stew, blessing-stolen, live-by-sword, reconciliation |
+| pharaoh.json | Pharaoh | who-is-lord, heart-hardened, let-them-go, my-nile, firstborn-cry |
+| haman.json | Haman | ten-thousand-talents, what-shall-be-done, gallows-prepared, fallen-before-jews, reverse-decree |
+| joab.json | Joab | for-the-king, why-count-israel, blood-on-his-head, three-darts, the-horn-is-sounded |
+| jacob.json | Jacob | i-am-esau, stairway-to-heaven, wrestled-with-god, give-me-blessing, smooth-man-hairy |
 
 ### Quote Format
 ```json

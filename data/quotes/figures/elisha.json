@@ -1,0 +1,56 @@
+{
+  "id": "elisha",
+  "name": "Elisha",
+  "aliases": ["Man of God", "Elijah's Successor"],
+  "quotes": {
+    "double-portion": {
+      "source": "2 Kings 2:9",
+      "context": "Elisha's request before Elijah's ascension",
+      "hebrew": "וִיהִי נָא פִּי שְׁנַיִם בְּרוּחֲךָ אֵלָי",
+      "english": "Let a double portion of your spirit be upon me",
+      "mood": "bold request, spiritual ambition"
+    },
+    "god-of-elijah": {
+      "source": "2 Kings 2:14",
+      "context": "Elisha parts the Jordan",
+      "hebrew": "אַיֵּה יְהוָה אֱלֹהֵי אֵלִיָּהוּ",
+      "english": "Where is the LORD, the God of Elijah?",
+      "mood": "proving succession, inherited power"
+    },
+    "wash-seven-times": {
+      "source": "2 Kings 5:10",
+      "context": "Instructions to Naaman",
+      "hebrew": "רָחַץ שֶׁבַע פְּעָמִים בַּיַּרְדֵּן",
+      "english": "Go wash seven times in the Jordan",
+      "mood": "simple obedience, humble cure"
+    },
+    "open-his-eyes": {
+      "source": "2 Kings 6:17",
+      "context": "Prayer for servant to see heavenly army",
+      "hebrew": "יְהוָה פְּקַח נָא אֶת עֵינָיו וְיִרְאֶה",
+      "english": "LORD, open his eyes that he may see",
+      "mood": "spiritual sight, divine protection"
+    },
+    "borrow-vessels": {
+      "source": "2 Kings 4:3",
+      "context": "Multiplying the widow's oil",
+      "hebrew": "שַׁאֲלִי לָךְ כֵּלִים... אַל תַּמְעִיטִי",
+      "english": "Borrow vessels... do not get just a few",
+      "mood": "faith for abundance, limitless provision"
+    },
+    "child-sneezed": {
+      "source": "2 Kings 4:35",
+      "context": "Raising the Shunammite's son",
+      "hebrew": "וַיְזוֹרֵר הַנַּעַר עַד שֶׁבַע פְּעָמִים",
+      "english": "The child sneezed seven times and opened his eyes",
+      "mood": "resurrection, life restored"
+    },
+    "more-with-us": {
+      "source": "2 Kings 6:16",
+      "context": "Calming his fearful servant",
+      "hebrew": "כִּי רַבִּים אֲשֶׁר אִתָּנוּ מֵאֲשֶׁר אוֹתָם",
+      "english": "Those who are with us are more than those who are with them",
+      "mood": "confident faith, unseen allies"
+    }
+  }
+}

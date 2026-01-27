@@ -1,0 +1,62 @@
+{
+  "id": "samson",
+  "name": "Samson",
+  "defaultPose": "pushing-pillars",
+  "description": "Strongest man who ever lived. Long hair held his Nazarite power. Killed a lion, slew thousands, pulled down a temple. Tragic hero.",
+  "poses": {
+    "pushing-pillars": {
+      "id": "pushing-pillars",
+      "name": "Bringing Down the Temple",
+      "description": "Pushing apart the pillars, bringing down Dagon's temple",
+      "expression": "final determination, sacrificial victory",
+      "prompt": "standing between two massive pillars pushing them apart - muscles straining, blind eyes, chains broken, temple beginning to collapse, 'let me die with the Philistines'",
+      "energy": "sacrificial victory, redemptive destruction",
+      "quoteId": "die-with-philistines"
+    },
+    "killing-lion": {
+      "id": "killing-lion",
+      "name": "Killing the Lion",
+      "description": "Tearing apart a lion with bare hands",
+      "expression": "casual supernatural power",
+      "prompt": "tearing apart lion with bare hands - powerful grip on jaw and head, treating deadly beast like it was nothing, the strength of God flowing through him",
+      "energy": "supernatural strength, effortless power",
+      "quoteId": "lion-bare-hands"
+    },
+    "jawbone-warrior": {
+      "id": "jawbone-warrior",
+      "name": "With the Jawbone",
+      "description": "Standing among defeated enemies, jawbone raised",
+      "expression": "victorious warrior, unconventional weapon",
+      "prompt": "standing with donkey jawbone raised - bodies of enemies around him, wild long hair, having just slain a thousand men with improvised weapon",
+      "energy": "impossible victory, legendary feat",
+      "quoteId": "jawbone-thousand"
+    },
+    "carrying-gates": {
+      "id": "carrying-gates",
+      "name": "Carrying Gaza's Gates",
+      "description": "Walking away with city gates on shoulders",
+      "expression": "mocking strength, humiliating enemies",
+      "prompt": "walking up hill carrying massive city gates on shoulders - posts, doors, and bar, laughing at enemies' attempt to trap him, strength that mocks fortifications",
+      "energy": "mocking power, impossible strength",
+      "quoteId": "gates-of-gaza"
+    },
+    "blind-in-chains": {
+      "id": "blind-in-chains",
+      "name": "Blind and Bound",
+      "description": "Grinding grain, humiliated but hair regrowing",
+      "expression": "humiliation hiding growing power",
+      "prompt": "blind, chained, grinding grain in prison - humiliated hero, but hair beginning to grow back, the comeback being prepared in the darkness",
+      "energy": "humiliation, hidden comeback",
+      "quoteId": "grinding-in-prison"
+    },
+    "long-hair-glory": {
+      "id": "long-hair-glory",
+      "name": "In His Strength",
+      "description": "Samson at full power, hair flowing",
+      "expression": "peak power, Nazarite glory",
+      "prompt": "standing in full strength with long hair flowing - muscles defined, Nazarite in his glory, the strongest man alive, unstoppable force",
+      "energy": "peak power, unstoppable",
+      "quoteId": null
+    }
+  }
+}

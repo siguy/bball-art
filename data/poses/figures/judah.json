@@ -1,0 +1,62 @@
+{
+  "id": "judah",
+  "name": "Judah Maccabee",
+  "defaultPose": "hammer-raised",
+  "description": "The Hammer. Led guerrilla revolt against Greek oppression. Rededicated the Temple. Hanukkah hero. Outsider who defeated the superpower.",
+  "poses": {
+    "hammer-raised": {
+      "id": "hammer-raised",
+      "name": "The Hammer",
+      "description": "War hammer raised, leading the charge",
+      "expression": "fierce determination, revolutionary fire",
+      "prompt": "warrior with hammer raised high - leading charge against impossible odds, the nickname made flesh, striking fear into empires",
+      "energy": "revolutionary fury, unstoppable force",
+      "quoteId": "who-like-you"
+    },
+    "lighting-menorah": {
+      "id": "lighting-menorah",
+      "name": "Lighting the Menorah",
+      "description": "Rededicating the Temple, lighting the lamp",
+      "expression": "sacred triumph, restoration",
+      "prompt": "lighting the Temple menorah - miracle of oil about to begin, restoration of what was desecrated, sacred moment of rededication",
+      "energy": "sacred restoration, miracle beginning",
+      "quoteId": "who-like-you"
+    },
+    "guerrilla-commander": {
+      "id": "guerrilla-commander",
+      "name": "In the Hills",
+      "description": "Planning ambush from mountain hideout",
+      "expression": "strategic cunning, underdog determination",
+      "prompt": "crouched in mountain terrain planning attack - small band against empire, guerrilla tactics, the few against the many",
+      "energy": "strategic genius, underdog warfare",
+      "quoteId": "many-or-few"
+    },
+    "victory-over-elephants": {
+      "id": "victory-over-elephants",
+      "name": "Against the War Elephants",
+      "description": "Facing down Greek war elephants",
+      "expression": "courage against overwhelming force",
+      "prompt": "standing defiant as war elephants approach - facing the ancient tanks of warfare, courage that defied military logic, faith over fear",
+      "energy": "impossible courage, facing giants",
+      "quoteId": "many-or-few"
+    },
+    "rallying-brothers": {
+      "id": "rallying-brothers",
+      "name": "Rallying the Faithful",
+      "description": "Inspiring his brothers and followers",
+      "expression": "inspirational leadership, calling to arms",
+      "prompt": "standing before brothers and followers - arm raised calling to fight, transforming farmers into warriors, the revolution begins",
+      "energy": "revolutionary inspiration, call to arms",
+      "quoteId": "who-like-you"
+    },
+    "entering-temple": {
+      "id": "entering-temple",
+      "name": "Reclaiming the Temple",
+      "description": "First steps into the liberated Temple",
+      "expression": "tearful triumph, sacred victory",
+      "prompt": "entering desecrated Temple for first time - seeing the destruction, beginning the restoration, tears of grief and joy mixed",
+      "energy": "liberation, sacred reclamation",
+      "quoteId": "who-like-you"
+    }
+  }
+}

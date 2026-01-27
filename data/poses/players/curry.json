@@ -1,0 +1,56 @@
+{
+  "id": "curry",
+  "name": "Stephen Curry",
+  "defaultPose": "shimmy",
+  "description": "6'2\" point guard, greatest shooter ever. 4 championships, 2 MVPs. Changed the game with limitless range. Baby-faced assassin.",
+  "poses": {
+    "shimmy": {
+      "id": "shimmy",
+      "name": "Shimmy Celebration",
+      "description": "Signature shoulder shimmy after a deep three",
+      "expression": "playful confidence, having fun",
+      "prompt": "doing signature shoulder shimmy celebration - shoulders rolling, slight smile, taunting but playful, just hit a ridiculous three, having the time of his life",
+      "energy": "joyful dominance, having fun"
+    },
+    "logo-three": {
+      "id": "logo-three",
+      "name": "Logo Three",
+      "description": "Pulling up from the logo - 35+ feet",
+      "expression": "casual confidence, this is normal for me",
+      "prompt": "shooting three-pointer from center court logo - casual release from 35+ feet, perfect form, face showing this is just another shot, redefining what's possible",
+      "energy": "limitless range, game changer"
+    },
+    "night-night": {
+      "id": "night-night",
+      "name": "Night Night",
+      "description": "Sleep gesture - hands together under tilted head",
+      "expression": "putting the game to bed, it's over",
+      "prompt": "doing night-night sleep celebration - both hands together under tilted head like a pillow, eyes closed, putting the game and opponent to sleep, the dagger has landed",
+      "energy": "game over, dagger delivered"
+    },
+    "behind-back-dribble": {
+      "id": "behind-back-dribble",
+      "name": "Behind the Back",
+      "description": "Signature behind-the-back crossover move",
+      "expression": "effortless handles, defender embarrassed",
+      "prompt": "executing behind-the-back dribble move - ball wrapping around back, defender stumbling or frozen, slight smirk, handles so tight they look like magic",
+      "energy": "ankle-breaking handles, magician"
+    },
+    "release-point": {
+      "id": "release-point",
+      "name": "Perfect Release",
+      "description": "The quickest release in history - ball just leaving fingers",
+      "expression": "pure focus, mechanical perfection",
+      "prompt": "at apex of jump shot with ball just releasing - perfect form, incredibly quick release, ball spinning off fingertips, the shot that changed basketball, pure mechanical perfection",
+      "energy": "shooting revolution, pure form"
+    },
+    "tunnel-warmup": {
+      "id": "tunnel-warmup",
+      "name": "Tunnel Shot",
+      "description": "Shooting from tunnel during introductions",
+      "expression": "showman, extra work",
+      "prompt": "shooting from arena tunnel before game - ball arcing toward distant basket, casual warmup from impossible distance, the showmanship before the show",
+      "energy": "showtime, range unlimited"
+    }
+  }
+}

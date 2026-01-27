@@ -1,0 +1,62 @@
+{
+  "id": "daniel",
+  "name": "Daniel",
+  "defaultPose": "lions-den",
+  "description": "Young exile who rose to advise kings. Interpreter of dreams, reader of writing on the wall. Faithful in Babylon, untouched in the lions' den.",
+  "poses": {
+    "lions-den": {
+      "id": "lions-den",
+      "name": "In the Lions' Den",
+      "description": "Standing peaceful among lions",
+      "expression": "serene faith, supernatural calm",
+      "prompt": "standing calm among lions in pit - lions peaceful around him, angel's presence implied, faith that shut the mouths of beasts",
+      "energy": "supernatural peace, faith vindicated",
+      "quoteId": "shut-lions-mouths"
+    },
+    "interpreting-dream": {
+      "id": "interpreting-dream",
+      "name": "Interpreting the Dream",
+      "description": "Explaining Nebuchadnezzar's dream",
+      "expression": "divine insight, confident wisdom",
+      "prompt": "standing before great king explaining dream - gesturing as he reveals meaning of statue, young exile with wisdom of ages, gift that elevated him",
+      "energy": "divine revelation, young wisdom",
+      "quoteId": "god-reveals-mysteries"
+    },
+    "reading-wall": {
+      "id": "reading-wall",
+      "name": "Reading the Writing",
+      "description": "Interpreting the writing on the wall",
+      "expression": "solemn authority, prophetic judgment",
+      "prompt": "pointing to mysterious writing on wall - MENE MENE TEKEL UPHARSIN glowing, fearless before doomed king, speaking judgment without trembling",
+      "energy": "fearless prophecy, divine judgment",
+      "quoteId": "mene-mene"
+    },
+    "refusing-food": {
+      "id": "refusing-food",
+      "name": "The First Stand",
+      "description": "Young Daniel refusing the king's food",
+      "expression": "youthful conviction, early faithfulness",
+      "prompt": "young man politely refusing royal delicacies - choosing vegetables over compromise, first test of faith, conviction before promotion",
+      "energy": "principled stand, early faithfulness",
+      "quoteId": "not-defile-himself"
+    },
+    "praying-toward-jerusalem": {
+      "id": "praying-toward-jerusalem",
+      "name": "Praying Despite the Decree",
+      "description": "Praying openly despite death decree",
+      "expression": "defiant faithfulness, prayer over life",
+      "prompt": "kneeling at window facing Jerusalem - praying openly though forbidden, window open for all to see, faithfulness that invited death",
+      "energy": "defiant prayer, fearless devotion",
+      "quoteId": "three-times-daily"
+    },
+    "receiving-vision": {
+      "id": "receiving-vision",
+      "name": "Receiving the Vision",
+      "description": "Overwhelmed by apocalyptic vision",
+      "expression": "prophetic trance, apocalyptic sight",
+      "prompt": "fallen to ground as vision overwhelms - seeing beasts and kingdoms, future history revealed, weight of revelation pressing down",
+      "energy": "prophetic burden, apocalyptic vision",
+      "quoteId": "vision-of-night"
+    }
+  }
+}

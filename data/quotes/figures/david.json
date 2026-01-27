@@ -1,0 +1,63 @@
+{
+  "id": "david",
+  "name": "David",
+  "aliases": ["King David", "Sweet Singer of Israel"],
+  "quotes": {
+    "goliath-challenge": {
+      "source": "1 Samuel 17:45",
+      "context": "David's response to Goliath",
+      "hebrew": "אַתָּה בָּא אֵלַי בְּחֶרֶב וּבַחֲנִית... וְאָנֹכִי בָא אֵלֶיךָ בְּשֵׁם יְהוָה צְבָאוֹת",
+      "english": "You come to me with sword and spear... but I come to you in the name of the LORD of hosts",
+      "mood": "fearless faith, giant-slayer confidence"
+    },
+    "shepherd-boy": {
+      "source": "1 Samuel 16:11",
+      "context": "David the youngest, keeping the sheep",
+      "hebrew": "עוֹד שָׁאַר הַקָּטָן וְהִנֵּה רֹעֶה בַּצֹּאן",
+      "english": "There remains yet the youngest, and behold, he is keeping the sheep",
+      "mood": "humble beginnings, overlooked"
+    },
+    "heart-after-god": {
+      "source": "1 Samuel 13:14",
+      "context": "God's description of David",
+      "hebrew": "אִישׁ כִּלְבָבוֹ",
+      "english": "A man after His own heart",
+      "mood": "divine favor, chosen one"
+    },
+    "psalm-23": {
+      "source": "Psalm 23:1",
+      "context": "David's most famous psalm",
+      "hebrew": "יְהוָה רֹעִי לֹא אֶחְסָר",
+      "english": "The LORD is my shepherd; I shall not want",
+      "mood": "trust, provision, peace"
+    },
+    "dancing-before-ark": {
+      "source": "2 Samuel 6:14",
+      "context": "David dancing as the Ark enters Jerusalem",
+      "hebrew": "וְדָוִד מְכַרְכֵּר בְּכָל עֹז לִפְנֵי יְהוָה",
+      "english": "David danced before the LORD with all his might",
+      "mood": "uninhibited worship, joyful abandon"
+    },
+    "house-for-god": {
+      "source": "2 Samuel 7:2",
+      "context": "David's desire to build the Temple",
+      "hebrew": "אָנֹכִי יוֹשֵׁב בְּבֵית אֲרָזִים וַאֲרוֹן הָאֱלֹהִים יֹשֵׁב בְּתוֹךְ הַיְרִיעָה",
+      "english": "I dwell in a house of cedar, but the ark of God dwells in a tent",
+      "mood": "devotion, desire to honor"
+    },
+    "mighty-men": {
+      "source": "2 Samuel 23:8",
+      "context": "David's elite warriors",
+      "hebrew": "אֵלֶּה שְׁמוֹת הַגִּבֹּרִים אֲשֶׁר לְדָוִד",
+      "english": "These are the names of the mighty men whom David had",
+      "mood": "leadership, brotherhood"
+    },
+    "broken-contrite": {
+      "source": "Psalm 51:17",
+      "context": "David's repentance psalm",
+      "hebrew": "לֵב נִשְׁבָּר וְנִדְכֶּה אֱלֹהִים לֹא תִבְזֶה",
+      "english": "A broken and contrite heart, O God, you will not despise",
+      "mood": "repentance, humility restored"
+    }
+  }
+}

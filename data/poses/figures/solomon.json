@@ -1,0 +1,62 @@
+{
+  "id": "solomon",
+  "name": "Solomon",
+  "defaultPose": "throne-wisdom",
+  "description": "Wisest king, David's son. Built the Temple, wrote Proverbs and Ecclesiastes. 'Ask for wisdom.' Wealth, women, and eventual folly.",
+  "poses": {
+    "throne-wisdom": {
+      "id": "throne-wisdom",
+      "name": "On the Throne of Wisdom",
+      "description": "Seated on magnificent throne, rendering judgment",
+      "expression": "serene wisdom, discerning gaze",
+      "prompt": "seated on magnificent throne with lions - serene wise expression, crown on head, hand raised in judgment, the wisest king rendering decisions",
+      "energy": "wise authority, discerning judgment",
+      "quoteId": "divide-the-baby"
+    },
+    "baby-judgment": {
+      "id": "baby-judgment",
+      "name": "The Wisdom Test",
+      "description": "The famous judgment - revealing the true mother",
+      "expression": "brilliant insight, truth revealed",
+      "prompt": "seated in judgment as two women plead before him - sword being held or pointed toward infant, about to reveal true mother through wisdom, legendary judgment",
+      "energy": "brilliant justice, truth revealed",
+      "quoteId": "divide-the-baby"
+    },
+    "dedicating-temple": {
+      "id": "dedicating-temple",
+      "name": "Temple Dedication",
+      "description": "Arms raised dedicating the Temple",
+      "expression": "prayerful dedication, life's achievement",
+      "prompt": "arms raised in prayer before magnificent Temple - dedicating the house of God, life's greatest achievement, glory filling the Temple",
+      "energy": "sacred dedication, divine presence",
+      "quoteId": "temple-dedication"
+    },
+    "asking-wisdom": {
+      "id": "asking-wisdom",
+      "name": "Asking for Wisdom",
+      "description": "Young Solomon asking God for wisdom at Gibeon",
+      "expression": "humble request, wise beyond years",
+      "prompt": "young king kneeling in prayer at Gibeon - asking for wisdom instead of wealth or long life, the request that pleased God, humble beginning",
+      "energy": "humble wisdom, wise request",
+      "quoteId": "ask-for-wisdom"
+    },
+    "writing-proverbs": {
+      "id": "writing-proverbs",
+      "name": "Writing Wisdom",
+      "description": "Composing proverbs and songs",
+      "expression": "contemplative creativity, teaching generations",
+      "prompt": "seated writing on scroll - quill in hand, thoughtful expression, composing the wisdom that would teach generations, 3000 proverbs and 1005 songs",
+      "energy": "wisdom teacher, lasting legacy",
+      "quoteId": "fear-of-lord"
+    },
+    "vanity-reflection": {
+      "id": "vanity-reflection",
+      "name": "All is Vanity",
+      "description": "Older Solomon, reflecting on life's emptiness",
+      "expression": "weary wisdom, existential reflection",
+      "prompt": "older king in contemplation - weary but wise, having experienced everything yet finding emptiness, 'vanity of vanities', hard-won wisdom",
+      "energy": "existential wisdom, world-weary truth",
+      "quoteId": "vanity-of-vanities"
+    }
+  }
+}

@@ -1,0 +1,62 @@
+{
+  "id": "joseph",
+  "name": "Joseph",
+  "defaultPose": "revealing-identity",
+  "description": "Dreamer sold by brothers, rose to rule Egypt. Coat of many colors, interpreter of dreams, saved his family. From pit to palace.",
+  "poses": {
+    "revealing-identity": {
+      "id": "revealing-identity",
+      "name": "I Am Joseph",
+      "description": "The dramatic reveal to his brothers",
+      "expression": "emotional intensity, family reunion",
+      "prompt": "standing with arms open in emotional revelation - 'I am Joseph!', tears visible, brothers shocked before him, the moment of reunion after years of separation",
+      "energy": "dramatic reveal, emotional reunion",
+      "quoteId": "reveal-to-brothers"
+    },
+    "coat-of-colors": {
+      "id": "coat-of-colors",
+      "name": "Wearing the Coat",
+      "description": "Young Joseph in his colorful coat",
+      "expression": "favored youth, innocent confidence",
+      "prompt": "young man wearing beautiful multi-colored coat - proud but innocent, father's favorite, unaware of brothers' jealousy growing, dreamer in his glory",
+      "energy": "favored son, innocent pride",
+      "quoteId": "coat-of-colors"
+    },
+    "interpreting-pharaoh": {
+      "id": "interpreting-pharaoh",
+      "name": "Before Pharaoh",
+      "description": "Interpreting Pharaoh's dreams",
+      "expression": "confident wisdom, divine insight",
+      "prompt": "standing before Pharaoh explaining dreams - gesturing as he interprets, confident bearing, prisoner becoming advisor, seven years of plenty and famine revealed",
+      "energy": "divine wisdom, unlikely rise",
+      "quoteId": "interpreting-dreams"
+    },
+    "ruling-egypt": {
+      "id": "ruling-egypt",
+      "name": "Second in Command",
+      "description": "Joseph as vizier of Egypt",
+      "expression": "administrative authority, elevated power",
+      "prompt": "standing in Egyptian royal garments and gold chain - signet ring, second only to Pharaoh, the slave who became ruler, overseeing grain distribution",
+      "energy": "exalted authority, slave to ruler",
+      "quoteId": "second-in-egypt"
+    },
+    "resisting-temptation": {
+      "id": "resisting-temptation",
+      "name": "Fleeing Temptation",
+      "description": "Running from Potiphar's wife",
+      "expression": "moral strength, integrity in crisis",
+      "prompt": "turning away or running from reaching hands - leaving garment behind, choosing prison over sin, integrity that cost him but defined him",
+      "energy": "moral courage, integrity tested",
+      "quoteId": "resist-temptation"
+    },
+    "forgiving-brothers": {
+      "id": "forgiving-brothers",
+      "name": "Forgiving His Brothers",
+      "description": "Embracing brothers who sold him",
+      "expression": "compassionate forgiveness, redemption",
+      "prompt": "embracing weeping brothers - 'God meant it for good', forgiving those who tried to destroy him, redemptive love conquering betrayal",
+      "energy": "redemptive forgiveness, divine perspective",
+      "quoteId": "god-meant-for-good"
+    }
+  }
+}

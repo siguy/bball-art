@@ -4,6 +4,7 @@
   "player": {
     "name": "John Stockton",
     "displayName": "Stockton",
+    "poseFileId": "stockton",
     "era": "1990s",
     "jerseyColors": {
       "primary": { "base": "purple", "accent": "green" },
@@ -16,6 +17,7 @@
   "figure": {
     "name": "Elisha",
     "displayName": "Elisha",
+    "poseFileId": "elisha",
     "attribute": "prophet's mantle inherited from Elijah",
     "attributeDescription": "the hairy mantle/cloak passed down from Elijah, symbol of prophetic succession and double portion of spirit",
     "visualStyle": "humble prophet of Israel, successor to Elijah",

@@ -4,6 +4,7 @@
   "player": {
     "name": "Magic Johnson",
     "displayName": "Magic",
+    "poseFileId": "magic",
     "era": "1980s",
     "jerseyColors": {
       "primary": { "base": "purple", "accent": "gold" },
@@ -16,6 +17,7 @@
   "figure": {
     "name": "Joseph",
     "displayName": "Joseph",
+    "poseFileId": "joseph",
     "attribute": "coat of many colors",
     "attributeDescription": "magnificent multi-colored robe with vibrant stripes of red, blue, gold, purple, and green - the famous coat given by his father",
     "visualStyle": "young Hebrew vizier of Egypt, dreamer and interpreter",

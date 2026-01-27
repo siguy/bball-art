@@ -1,0 +1,63 @@
+{
+  "id": "moses",
+  "name": "Moses",
+  "aliases": ["Moshe Rabbeinu", "Lawgiver"],
+  "quotes": {
+    "let-my-people-go": {
+      "source": "Exodus 5:1",
+      "context": "Moses's demand to Pharaoh",
+      "hebrew": "שַׁלַּח אֶת עַמִּי",
+      "english": "Let my people go!",
+      "mood": "bold demand, prophetic authority"
+    },
+    "parting-the-sea": {
+      "source": "Exodus 14:16",
+      "context": "God's command to Moses at the Red Sea",
+      "hebrew": "הָרֵם אֶת מַטְּךָ וּנְטֵה אֶת יָדְךָ עַל הַיָּם וּבְקָעֵהוּ",
+      "english": "Lift up your staff and stretch out your hand over the sea and divide it",
+      "mood": "miraculous power, divine command"
+    },
+    "burning-bush": {
+      "source": "Exodus 3:4",
+      "context": "God calls to Moses from the burning bush",
+      "hebrew": "מֹשֶׁה מֹשֶׁה... הִנֵּנִי",
+      "english": "Moses, Moses... Here I am",
+      "mood": "divine calling, humble response"
+    },
+    "who-am-i": {
+      "source": "Exodus 3:11",
+      "context": "Moses's humble response to his calling",
+      "hebrew": "מִי אָנֹכִי כִּי אֵלֵךְ אֶל פַּרְעֹה",
+      "english": "Who am I that I should go to Pharaoh?",
+      "mood": "humble reluctance, unlikely hero"
+    },
+    "ten-commandments": {
+      "source": "Exodus 20:2-3",
+      "context": "First commandment at Sinai",
+      "hebrew": "אָנֹכִי יְהוָה אֱלֹהֶיךָ... לֹא יִהְיֶה לְךָ אֱלֹהִים אֲחֵרִים עַל פָּנָי",
+      "english": "I am the LORD your God... You shall have no other gods before Me",
+      "mood": "divine law, covenant foundation"
+    },
+    "not-enter-land": {
+      "source": "Deuteronomy 34:4",
+      "context": "Moses sees but cannot enter the Promised Land",
+      "hebrew": "רְאִיתִיךָ בְעֵינֶיךָ וְשָׁמָּה לֹא תַעֲבֹר",
+      "english": "I have let you see it with your eyes, but you shall not cross over there",
+      "mood": "bittersweet completion, sacrifice"
+    },
+    "face-to-face": {
+      "source": "Deuteronomy 34:10",
+      "context": "Unique relationship with God",
+      "hebrew": "אֲשֶׁר יְדָעוֹ יְהוָה פָּנִים אֶל פָּנִים",
+      "english": "Whom the LORD knew face to face",
+      "mood": "unique intimacy, greatest prophet"
+    },
+    "choose-life": {
+      "source": "Deuteronomy 30:19",
+      "context": "Moses's final charge to Israel",
+      "hebrew": "וּבָחַרְתָּ בַּחַיִּים",
+      "english": "Choose life!",
+      "mood": "urgent exhortation, legacy charge"
+    }
+  }
+}

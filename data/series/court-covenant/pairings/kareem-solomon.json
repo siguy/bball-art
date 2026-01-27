@@ -4,6 +4,7 @@
   "player": {
     "name": "Kareem Abdul-Jabbar",
     "displayName": "Kareem",
+    "poseFileId": "kareem",
     "era": "1970s",
     "jerseyColors": {
       "primary": { "base": "purple", "accent": "gold" },
@@ -16,6 +17,7 @@
   "figure": {
     "name": "King Solomon",
     "displayName": "Solomon",
+    "poseFileId": "solomon",
     "attribute": "scroll of wisdom and royal scepter",
     "attributeDescription": "ancient scroll representing his 3,000 proverbs, golden royal scepter of Israel's wealthiest king",
     "visualStyle": "wisest king of Israel, wealthy and scholarly",

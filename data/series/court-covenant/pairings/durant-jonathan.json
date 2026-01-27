@@ -4,6 +4,7 @@
   "player": {
     "name": "Kevin Durant",
     "displayName": "KD",
+    "poseFileId": "durant",
     "era": "2010s",
     "jerseyColors": {
       "primary": { "base": "blue", "accent": "gold" },
@@ -16,6 +17,7 @@
   "figure": {
     "name": "Jonathan",
     "displayName": "Jonathan",
+    "poseFileId": "jonathan",
     "attribute": "royal bow and arrows",
     "attributeDescription": "finely crafted bow of a prince and skilled archer, quiver of arrows, symbol of his warrior prowess",
     "visualStyle": "prince of Israel, beloved friend of David, noble warrior",
