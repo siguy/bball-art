@@ -8,14 +8,31 @@
  * - Sinister expressions and menacing energy
  * - Darker cosmic background with ominous elements
  * - Same premium quality, villain energy
+ *
+ * FIXED: Now properly uses custom poses from pose database
  */
-
-import { generatePoseBlock } from '../components/poses.js';
 
 /**
- * Generate villain-specific pose block with sinister expressions
+ * Generate villain-specific pose block
+ * CRITICAL: Uses customActions when provided (for pose database integration)
  */
-function generateVillainPoseBlock(poseId, playerName, figureName, figureAttribute, customActions = null, expressionOverride = null) {
+function generateVillainPoseBlock(poseId, playerName, figureName, figureAttribute, customActions = null) {
+  // IF CUSTOM ACTIONS PROVIDED, USE THEM (pose database integration)
+  if (customActions && customActions.playerAction && customActions.figureAction) {
+    return `
+=== INTERACTION: CUSTOM POSE (VILLAIN VARIANT) ===
+Overall: ${playerName} and ${figureName} in signature poses
+Energy/Mood: ${customActions.energy || 'overwhelming villain energy, dark power unleashed'}
+
+${playerName.toUpperCase()} POSE:
+${customActions.playerAction}
+
+${figureName.toUpperCase()} POSE:
+${customActions.figureAction}
+`.trim();
+  }
+
+  // Default villain poses (fallback when no custom actions)
   const poses = {
     "back-to-back": {
       name: "Back to Back",
@@ -29,7 +46,7 @@ function generateVillainPoseBlock(poseId, playerName, figureName, figureAttribut
       name: "Simultaneous Action",
       description: "Both figures performing their signature moves with devastating force",
       playerPose: "mid-action basketball move - powerful dunk or aggressive drive, arms in dominant athletic motion, face showing fierce intensity",
-      figurePoseWithAttribute: "performing their devastating action - Goliath thrusting spear with lethal intent, weapon raised for the kill",
+      figurePoseWithAttribute: "performing devastating action with weapon raised, lethal intent visible",
       figurePoseNoAttribute: "arms raised in powerful gesture of destruction",
       energy: "overwhelming force, unstoppable destruction, twin terrors unleashed"
     }
@@ -38,22 +55,13 @@ function generateVillainPoseBlock(poseId, playerName, figureName, figureAttribut
   const pose = poses[poseId] || poses["back-to-back"];
   const hasAttribute = !!figureAttribute;
 
-  // Apply expression override if provided
-  let playerPose = pose.playerPose;
-  if (expressionOverride) {
-    playerPose = playerPose.replace(/looking over shoulder.*$/, `looking over shoulder ${expressionOverride}`);
-    if (!playerPose.includes(expressionOverride)) {
-      playerPose += `, ${expressionOverride}`;
-    }
-  }
-
   return `
 === INTERACTION: ${pose.name.toUpperCase()} (VILLAIN VARIANT) ===
 Overall: ${pose.description}
 Energy/Mood: ${pose.energy}
 
 ${playerName.toUpperCase()} POSE:
-${playerPose}
+${pose.playerPose}
 
 ${figureName.toUpperCase()} POSE:
 ${hasAttribute ? pose.figurePoseWithAttribute.replace('their weapon', figureAttribute) : pose.figurePoseNoAttribute}
@@ -82,17 +90,22 @@ export const thunderLightningDarkTemplate = {
     // Get the figure's attribute for the pose system
     const figureAttribute = figure.attributeDescription || figure.attribute;
 
-    // Expression override for special requests
-    const expressionOverride = options.expression || null;
+    // Build custom actions from options (CRITICAL FIX: actually pass these!)
+    const customActions = (options.customPlayerAction && options.customFigureAction)
+      ? {
+          playerAction: options.customPlayerAction,
+          figureAction: options.customFigureAction,
+          energy: options.customEnergy || null
+        }
+      : null;
 
-    // Generate the villain interaction block
+    // Generate the villain interaction block WITH custom actions
     const poseBlock = generateVillainPoseBlock(
       interaction,
       player.name,
       figure.name,
       figureAttribute,
-      null,
-      expressionOverride
+      customActions
     );
 
     // Biblical figure clothing
@@ -126,8 +139,6 @@ ${figure.name.toUpperCase()}:
 - Wearing: ${figureClothing}
 - Style: Classical artistic interpretation, biblical period accurate
 - Anatomy: Exactly two arms${figure.anatomyNote ? ` - ${figure.anatomyNote}` : ''}
-
-INTERACTION: Menacing, dangerous, powerful villains. The two figures radiate threat and dominance. Dark energy crackling between them.
 
 === COMPOSITION ===
 IMPORTANT: ${player.name} (basketball player) must be on the LEFT side of the card. ${figure.name} (biblical figure) must be on the RIGHT side of the card. This ensures names at bottom align with their figures.

@@ -8,14 +8,31 @@
  * - Sinister expressions and menacing energy
  * - Dark industrial hellscape aesthetic
  * - Same premium metallic quality, villain energy
+ *
+ * FIXED: Now properly uses custom poses from pose database
  */
-
-import { generatePoseBlock } from '../components/poses.js';
 
 /**
- * Generate villain-specific pose block with sinister expressions
+ * Generate villain-specific pose block
+ * CRITICAL: Uses customActions when provided (for pose database integration)
  */
 function generateVillainPoseBlock(poseId, playerName, figureName, figureAttribute, customActions = null) {
+  // IF CUSTOM ACTIONS PROVIDED, USE THEM (pose database integration)
+  if (customActions && customActions.playerAction && customActions.figureAction) {
+    return `
+=== INTERACTION: CUSTOM POSE (VILLAIN VARIANT) ===
+Overall: ${playerName} and ${figureName} in signature poses
+Energy/Mood: ${customActions.energy || 'chrome devastation, dark metal fury unleashed'}
+
+${playerName.toUpperCase()} POSE:
+${customActions.playerAction}
+
+${figureName.toUpperCase()} POSE:
+${customActions.figureAction}
+`.trim();
+  }
+
+  // Default villain poses (fallback when no custom actions)
   const poses = {
     "back-to-back": {
       name: "Back to Back",
@@ -81,12 +98,22 @@ export const metalUniverseDarkTemplate = {
     // Get the figure's attribute for the pose system
     const figureAttribute = figure.attributeDescription || figure.attribute;
 
-    // Generate the villain interaction block
+    // Build custom actions from options (CRITICAL FIX: actually pass these!)
+    const customActions = (options.customPlayerAction && options.customFigureAction)
+      ? {
+          playerAction: options.customPlayerAction,
+          figureAction: options.customFigureAction,
+          energy: options.customEnergy || null
+        }
+      : null;
+
+    // Generate the villain interaction block WITH custom actions
     const poseBlock = generateVillainPoseBlock(
       interaction,
       player.name,
       figure.name,
-      figureAttribute
+      figureAttribute,
+      customActions
     );
 
     // Biblical figure clothing
@@ -120,8 +147,6 @@ ${figure.name.toUpperCase()}:
 - Wearing: ${figureClothing}
 - Style: Classical figure rendered with dark metallic/black chrome accents, biblical period accurate
 - Anatomy: Exactly two arms${figure.anatomyNote ? ` - ${figure.anatomyNote}` : ''}
-
-INTERACTION: Chrome titans of destruction, dark metal gods, industrial nightmares made flesh.
 
 === COMPOSITION ===
 IMPORTANT: ${player.name} (basketball player) must be on the LEFT side of the card. ${figure.name} (biblical figure) must be on the RIGHT side of the card. This ensures names at bottom align with their figures.

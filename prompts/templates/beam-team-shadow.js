@@ -8,11 +8,31 @@
  * - Sinister expressions
  * - Corruption elements: cracks, smoke, embers
  * - Dark crystalline corruption aesthetic
+ *
+ * FIXED: Now properly uses custom poses from pose database
  */
 
-import { generatePoseBlock } from '../components/poses.js';
+/**
+ * Generate villain-specific pose block
+ * CRITICAL: Uses customActions when provided (for pose database integration)
+ */
+function generateVillainPoseBlock(poseId, playerName, figureName, figureAttribute, customActions = null) {
+  // IF CUSTOM ACTIONS PROVIDED, USE THEM (pose database integration)
+  if (customActions && customActions.playerAction && customActions.figureAction) {
+    return `
+=== INTERACTION: CUSTOM POSE (SHADOW SPECTRUM) ===
+Overall: ${playerName} and ${figureName} in signature poses
+Energy/Mood: ${customActions.energy || 'corrupted power unleashed, shadow spectrum fury'}
 
-function generateVillainPoseBlock(poseId, playerName, figureName, figureAttribute) {
+${playerName.toUpperCase()} POSE:
+${customActions.playerAction}
+
+${figureName.toUpperCase()} POSE:
+${customActions.figureAction}
+`.trim();
+  }
+
+  // Default villain poses (fallback when no custom actions)
   const poses = {
     "back-to-back": {
       name: "Back to Back",
@@ -73,7 +93,25 @@ export const beamTeamShadowTemplate = {
     };
 
     const figureAttribute = figure.attributeDescription || figure.attribute;
-    const poseBlock = generateVillainPoseBlock(interaction, player.name, figure.name, figureAttribute);
+
+    // Build custom actions from options (CRITICAL FIX: actually pass these!)
+    const customActions = (options.customPlayerAction && options.customFigureAction)
+      ? {
+          playerAction: options.customPlayerAction,
+          figureAction: options.customFigureAction,
+          energy: options.customEnergy || null
+        }
+      : null;
+
+    // Generate the villain interaction block WITH custom actions
+    const poseBlock = generateVillainPoseBlock(
+      interaction,
+      player.name,
+      figure.name,
+      figureAttribute,
+      customActions
+    );
+
     const figureClothing = figure.clothing || `${figure.visualStyle} robes and garments`;
 
     const prompt = `
