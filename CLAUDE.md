@@ -40,6 +40,7 @@ A **contemporary art project** creating collectible basketball cards that pair N
 1. **This is Art** - Stylized, transformative interpretations. No photos, no logos, no licensed materials.
 2. **Build for Reuse** - Everything should work for future series.
 3. **Document Everything** - Code explains "why", not just "what".
+4. **Keep Docs in Sync** - ALWAYS update CLAUDE.md and relevant documentation as changes are made. Commit documentation updates alongside code changes.
 
 ## Key Decisions Made
 
