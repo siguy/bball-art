@@ -1,0 +1,85 @@
+{
+  "players": [
+    {
+      "name": "Michael Jordan",
+      "colors": ["red", "black", "white"],
+      "era": "1990s",
+      "style": "explosive",
+      "attributes": ["flying through air", "clutch jumper"]
+    },
+    {
+      "name": "LeBron James",
+      "colors": ["purple", "gold", "white"],
+      "era": "2010s",
+      "style": "powerful",
+      "attributes": ["chase-down block", "tomahawk dunk"]
+    },
+    {
+      "name": "Kobe Bryant",
+      "colors": ["purple", "gold", "white"],
+      "era": "2000s",
+      "style": "precise",
+      "attributes": ["fadeaway jumper", "mamba focus"]
+    }
+  ],
+  "figures": [
+    {
+      "name": "Moses",
+      "attribute": "staff of power",
+      "vibe": "authoritative",
+      "colors": ["desert gold", "earthy brown"]
+    },
+    {
+      "name": "David",
+      "attribute": "sling and stone",
+      "vibe": "courageous",
+      "colors": ["royal blue", "bronze"]
+    },
+    {
+      "name": "Samson",
+      "attribute": "pillars of strength",
+      "vibe": "unstoppable",
+      "colors": ["blood red", "stone grey"]
+    }
+  ],
+  "card_styles": [
+    {
+      "name": "Thunder & Lightning",
+      "year": "1993-94",
+      "background": "vibrant, electric gradient with glowing nebulae and white-hot electric lightning bolts",
+      "font": "clean, bold, white 1990s sans-serif",
+      "finish": "Refractor"
+    },
+    {
+      "name": "Metal Universe",
+      "year": "1997-98",
+      "background": "etched metal, futuristic industrial patterns, neon accents",
+      "font": "distorted, futuristic typography",
+      "finish": "Etched Foil"
+    },
+    {
+      "name": "Beam Team",
+      "year": "1992-93",
+      "background": "stadium laser lights, neon geometric shapes, dark background",
+      "font": "retro-tech block lettering",
+      "finish": "Laser Hologram"
+    }
+  ],
+  "pairings": [
+    {
+      "player": "Michael Jordan",
+      "figure": "Moses",
+      "interaction": "Jordan flying over a parting Red Sea while Moses raises his staff"
+    },
+    {
+      "player": "LeBron James",
+      "figure": "Samson",
+      "interaction": "LeBron and Samson back-to-back, straining against heavy golden pillars"
+    },
+    {
+      "player": "Kobe Bryant",
+      "figure": "David",
+      "interaction": "David aiming his sling while Kobe pulls up for a fadeaway in the background"
+    }
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "name": "bball-art",
+  "version": "0.1.0",
+  "description": "Court & Covenant - Basketball players paired with biblical figures as collectible card art",
+  "type": "module",
+  "scripts": {
+    "generate-prompt": "node scripts/generate-prompt.js",
+    "batch-generate": "node scripts/batch-generate.js",
+    "validate-data": "node scripts/validate-data.js"
+  },
+  "keywords": [
+    "basketball",
+    "art",
+    "cards",
+    "collectibles"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "@google-cloud/vertexai": "^1.9.0",
+    "dotenv": "^16.4.0"
+  },
+  "devDependencies": {}
+}

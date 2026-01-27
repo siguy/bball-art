@@ -1,0 +1,30 @@
+{
+  "id": "court-covenant",
+  "name": "Court & Covenant",
+  "tagline": "Where legends meet legacy",
+  "description": "Basketball players paired with biblical and Jewish historical figures",
+  "theme": "biblical",
+  "logoStyle": "gold-script",
+  "defaultLogoPosition": "top-center",
+  "cardRatio": "2.5x3.5",
+  "minCardsPerPairing": 2,
+  "priorityPairings": [
+    "jordan-moses",
+    "lebron-david",
+    "pippen-aaron",
+    "kobe-joshua",
+    "curry-elijah"
+  ],
+  "villainPairings": [
+    "isiah-pharaoh",
+    "laimbeer-haman",
+    "rodman-esau",
+    "draymond-joab",
+    "bird-jacob"
+  ],
+  "socialPlatforms": ["instagram"],
+  "tone": {
+    "style": "edgy-funny",
+    "doNot": ["preachy", "corporate", "explain-jokes"]
+  }
+}
