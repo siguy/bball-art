@@ -1,0 +1,28 @@
+{
+  "id": "1990s",
+  "name": "1990s",
+  "years": "1990-1999",
+  "visualCharacteristics": {
+    "colors": ["electric purple", "deep blue", "teal", "cosmic black"],
+    "gradients": "electric, cosmic, vibrant",
+    "backgrounds": "nebulae, cosmic dust, star fields, lightning",
+    "effects": "lightning bolts, energy crackling, lens flares",
+    "filmGrain": false
+  },
+  "typography": {
+    "style": "bold sans-serif",
+    "treatment": "drop shadow, glow",
+    "examples": ["Futura", "Impact", "Helvetica Bold"]
+  },
+  "culturalVibe": "Hip-hop golden age, high energy, bold statements",
+  "cardBrands": ["fleer", "skybox", "upper-deck", "stadium-club"],
+  "popularInserts": [
+    "thunder-lightning",
+    "beam-team",
+    "power-in-the-key",
+    "metal-universe",
+    "a-cut-above",
+    "net-assets",
+    "jambalaya"
+  ]
+}

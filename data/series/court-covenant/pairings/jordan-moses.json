@@ -1,0 +1,46 @@
+{
+  "id": "jordan-moses",
+  "series": "court-covenant",
+  "player": {
+    "name": "Michael Jordan",
+    "displayName": "MJ",
+    "era": "1990s",
+    "teamColors": ["red", "black", "white"],
+    "jerseyDescription": "red and black basketball jersey with white trim, no logos",
+    "signatureMoves": ["fadeaway jumper", "flying dunk", "tongue out drive"],
+    "physicalDescription": "athletic build, shaved head, intense focused expression",
+    "archetype": "The GOAT, ultimate competitor, clutch performer"
+  },
+  "figure": {
+    "name": "Moses",
+    "displayName": "Moses",
+    "attribute": "staff of power",
+    "attributeDescription": "wooden staff crackling with divine energy",
+    "visualStyle": "regal, commanding, biblical prophet",
+    "physicalDescription": "long flowing beard, robes, weathered but powerful presence",
+    "archetype": "The Lawgiver, led his people through the wilderness"
+  },
+  "connection": {
+    "thematic": "Both led their people through impossible odds to the promised land",
+    "narrative": "Moses parted the Red Sea. MJ parted defenders. Same energy.",
+    "relationship": "Leaders who demanded excellence and delivered miracles"
+  },
+  "interactions": [
+    {
+      "id": "back-to-back",
+      "description": "Standing back-to-back, arms crossed, looking outward with confidence"
+    },
+    {
+      "id": "high-five",
+      "description": "Dynamic high-five mid-air, energy crackling between their hands"
+    },
+    {
+      "id": "parting-defense",
+      "description": "Jordan flying over a parting crowd while Moses raises his staff"
+    }
+  ],
+  "defaultInteraction": "back-to-back",
+  "cardVariants": ["thunder-lightning", "beam-team", "metal-universe"],
+  "priority": 1,
+  "status": "active"
+}

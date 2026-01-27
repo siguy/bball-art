@@ -1,0 +1,41 @@
+{
+  "id": "thunder-lightning",
+  "name": "Thunder & Lightning",
+  "source": "1993-94 Fleer Ultra",
+  "era": "1990s",
+  "brand": "fleer",
+  "rarity": "insert",
+  "description": "Electric bolts, cosmic gradient, high-energy dual player cards",
+  "visual": {
+    "background": {
+      "type": "cosmic-gradient",
+      "primaryColors": ["deep purple", "electric blue"],
+      "secondaryColors": ["teal", "magenta"],
+      "effects": ["glowing nebulae", "cosmic dust", "star fields"],
+      "lightingEffects": ["white-hot electric lightning bolts arcing between figures"]
+    },
+    "composition": {
+      "layout": "dual-figure",
+      "leftFigure": "primary subject in action pose",
+      "rightFigure": "secondary subject in complementary pose",
+      "interaction": "figures connected by energy/lightning"
+    },
+    "finish": {
+      "type": "refractor",
+      "effect": "high-gloss finish with intense rim lighting on subjects"
+    },
+    "typography": {
+      "title": {
+        "text": "THUNDER & LIGHTNING",
+        "style": "clean, bold, white 1990s sans-serif",
+        "treatment": "subtle drop shadow",
+        "position": "top"
+      },
+      "names": {
+        "style": "elegant bar",
+        "position": "bottom"
+      }
+    }
+  },
+  "promptTemplate": "thunder-lightning"
+}
