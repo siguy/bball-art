@@ -12,12 +12,14 @@
     "archetype": "The Black Mamba, relentless work ethic, succeeded the GOAT"
   },
   "figure": {
-    "name": "Yehoshua",
+    "name": "Joshua",
     "displayName": "Joshua",
     "attribute": "warrior's sword and ram's horn",
-    "attributeDescription": "bronze sword raised high and shofar (ram's horn) at his side",
-    "visualStyle": "commanding warrior, battle-tested, successor's determination",
-    "physicalDescription": "strong warrior build, short beard, armor and robes, fierce eyes",
+    "attributeDescription": "bronze sword raised high, shofar (ram's horn trumpet) at his side",
+    "visualStyle": "ancient Israelite military commander, biblical warrior",
+    "clothing": "ancient Israelite warrior attire: simple linen tunic, leather armor/breastplate, cloth head covering, sandals - NOT medieval armor, NOT chainmail",
+    "physicalDescription": "strong warrior build, short dark beard, battle-hardened, fierce determined eyes, tanned weathered skin",
+    "anatomyNote": "two arms only",
     "archetype": "The Conqueror, succeeded Moses, finished the mission"
   },
   "connection": {

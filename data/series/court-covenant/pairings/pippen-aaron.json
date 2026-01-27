@@ -8,16 +8,18 @@
     "teamColors": ["red", "black", "white"],
     "jerseyDescription": "red and black basketball jersey with white trim, no logos",
     "signatureMoves": ["coast-to-coast fast break", "perimeter defense", "outlet pass"],
-    "physicalDescription": "tall and lean athletic build, high top fade, calm focused expression",
+    "physicalDescription": "SCOTTIE PIPPEN LIKENESS: tall (6'8\") and lean athletic build, distinctive long face with prominent nose and chin, 1990s style high-top fade haircut, calm cool expression, dark skin",
     "archetype": "The Ultimate Sidekick, criminally underrated, two-way excellence"
   },
   "figure": {
     "name": "Aaron",
     "displayName": "Aaron",
-    "attribute": "high priest staff and breastplate",
-    "attributeDescription": "golden priestly staff and jeweled breastplate of the high priest",
-    "visualStyle": "dignified, priestly, supportive presence",
-    "physicalDescription": "tall and dignified bearing, long white beard, priestly robes",
+    "attribute": "high priest vestments and staff",
+    "attributeDescription": "golden staff of the high priest, elaborate breastplate with 12 precious stones representing the 12 tribes of Israel",
+    "visualStyle": "dignified High Priest of Israel, biblical",
+    "clothing": "HIGH PRIEST VESTMENTS: blue robe (me'il) with golden bells and pomegranates at hem, ephod (apron) of gold/blue/purple/scarlet with onyx shoulder stones, jeweled breastplate (choshen) with 12 gemstones in 4 rows, white linen turban with golden crown plate inscribed 'Holy to the Lord'",
+    "physicalDescription": "tall dignified elderly man, long flowing white beard, wise serene expression",
+    "anatomyNote": "two arms only, one may hold staff",
     "archetype": "The High Priest, Moses's essential partner, spoke for the leader"
   },
   "connection": {

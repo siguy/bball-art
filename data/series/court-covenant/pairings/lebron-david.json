@@ -15,9 +15,11 @@
     "name": "King David",
     "displayName": "David",
     "attribute": "golden crown and sling",
-    "attributeDescription": "ornate golden crown and leather sling with smooth stones",
-    "visualStyle": "regal, majestic, warrior-king",
-    "physicalDescription": "strong build, dark beard, royal robes over warrior's frame",
+    "attributeDescription": "simple golden crown of ancient Israel, leather shepherd's sling with smooth river stones",
+    "visualStyle": "biblical warrior-king, ancient Israelite royalty",
+    "clothing": "royal robes in purple and blue over simple tunic, ancient Israelite style NOT medieval",
+    "physicalDescription": "young and handsome, RUDDY complexion with reddish hair (as described in 1 Samuel 16:12), beautiful eyes, strong shepherd's build",
+    "anatomyNote": "two arms only",
     "archetype": "The Shepherd King, rose from nothing to greatest ruler"
   },
   "connection": {

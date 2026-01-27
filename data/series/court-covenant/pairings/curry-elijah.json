@@ -15,9 +15,11 @@
     "name": "Elijah",
     "displayName": "Elijah",
     "attribute": "mantle of fire",
-    "attributeDescription": "prophet's cloak wreathed in divine flames, fire descending from above",
-    "visualStyle": "intense prophet, fire-caller, game-changer",
-    "physicalDescription": "weathered but powerful, wild hair and beard, eyes blazing with fire",
+    "attributeDescription": "prophet's hairy mantle/cloak wreathed in divine flames, fire descending from heaven above",
+    "visualStyle": "intense biblical prophet, wild and powerful",
+    "clothing": "rough hairy mantle (prophet's cloak) made of animal hair, simple worn garments beneath, leather belt around waist",
+    "physicalDescription": "weathered rugged appearance, wild untamed hair and long beard, piercing intense eyes that seem to burn with inner fire, lean and strong",
+    "anatomyNote": "two arms only",
     "archetype": "The Fire Prophet, called down fire from heaven, changed everything"
   },
   "connection": {

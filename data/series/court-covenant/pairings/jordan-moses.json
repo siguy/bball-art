@@ -15,9 +15,11 @@
     "name": "Moses",
     "displayName": "Moses",
     "attribute": "staff of power",
-    "attributeDescription": "wooden staff crackling with divine energy",
-    "visualStyle": "regal, commanding, biblical prophet",
-    "physicalDescription": "long flowing beard, robes, weathered but powerful presence",
+    "attributeDescription": "wooden shepherd's staff crackling with divine energy, the staff that parted the Red Sea",
+    "visualStyle": "commanding biblical prophet, ancient Israelite",
+    "clothing": "simple linen robes in earth tones, worn sandals, head covering",
+    "physicalDescription": "elderly but strong, long white flowing beard, deeply weathered sun-darkened skin, piercing wise eyes",
+    "anatomyNote": "two arms only, one holding staff",
     "archetype": "The Lawgiver, led his people through the wilderness"
   },
   "connection": {
