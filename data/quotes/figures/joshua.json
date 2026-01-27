@@ -1,0 +1,56 @@
+{
+  "id": "joshua",
+  "name": "Joshua",
+  "aliases": ["Yehoshua", "Joshua bin Nun"],
+  "quotes": {
+    "be-strong-courageous": {
+      "source": "Joshua 1:9",
+      "context": "God's charge to Joshua taking over from Moses",
+      "hebrew": "חֲזַק וֶאֱמָץ אַל תַּעֲרֹץ וְאַל תֵּחָת כִּי עִמְּךָ יְהוָה אֱלֹהֶיךָ",
+      "english": "Be strong and courageous. Do not be afraid, for the LORD your God is with you",
+      "mood": "divine encouragement, fearless leadership"
+    },
+    "choose-this-day": {
+      "source": "Joshua 24:15",
+      "context": "Joshua's challenge to Israel",
+      "hebrew": "וְאָנֹכִי וּבֵיתִי נַעֲבֹד אֶת יְהוָה",
+      "english": "But as for me and my house, we will serve the LORD",
+      "mood": "decisive commitment, leading by example"
+    },
+    "walls-fall-down": {
+      "source": "Joshua 6:20",
+      "context": "The fall of Jericho",
+      "hebrew": "וַתִּפֹּל הַחוֹמָה תַּחְתֶּיהָ",
+      "english": "The wall fell down flat",
+      "mood": "miraculous victory, unconventional warfare"
+    },
+    "sun-stand-still": {
+      "source": "Joshua 10:12",
+      "context": "Joshua commands the sun to stop",
+      "hebrew": "שֶׁמֶשׁ בְּגִבְעוֹן דּוֹם",
+      "english": "Sun, stand still over Gibeon",
+      "mood": "audacious faith, commanding creation"
+    },
+    "spy-report": {
+      "source": "Numbers 14:8-9",
+      "context": "Joshua and Caleb's minority report",
+      "hebrew": "אַל תִּירְאוּ אֶת עַם הָאָרֶץ",
+      "english": "Do not fear the people of the land, for they are bread for us",
+      "mood": "courageous faith, against the majority"
+    },
+    "crossing-jordan": {
+      "source": "Joshua 3:17",
+      "context": "Priests stand in dry Jordan riverbed",
+      "hebrew": "וַיַּעַמְדוּ הַכֹּהֲנִים... בֶּחָרָבָה בְּתוֹךְ הַיַּרְדֵּן",
+      "english": "The priests stood firm on dry ground in the midst of the Jordan",
+      "mood": "faithful leadership, new beginning"
+    },
+    "servant-of-moses": {
+      "source": "Joshua 1:1",
+      "context": "Joshua's identity as Moses's servant",
+      "hebrew": "מְשָׁרֵת מֹשֶׁה",
+      "english": "Moses's assistant/servant",
+      "mood": "humble service, prepared successor"
+    }
+  }
+}

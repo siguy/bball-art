@@ -1,0 +1,62 @@
+{
+  "id": "elijah",
+  "name": "Elijah",
+  "defaultPose": "calling-fire",
+  "description": "Prophet of fire who challenged Baal and called fire from heaven. Taken up in chariot of fire. The prophet who changed everything.",
+  "poses": {
+    "calling-fire": {
+      "id": "calling-fire",
+      "name": "Calling Fire from Heaven",
+      "description": "Arms raised as fire falls on Mount Carmel",
+      "expression": "prophetic triumph, divine vindication",
+      "prompt": "arms raised toward sky as fire descends from heaven - fire consuming altar, water, and sacrifice, face showing mix of intensity and vindication, the moment that proved everything",
+      "energy": "divine fire, overwhelming proof",
+      "quoteId": "fire-from-heaven"
+    },
+    "challenging-prophets": {
+      "id": "challenging-prophets",
+      "name": "Challenging the Prophets",
+      "description": "Standing alone against 450 prophets of Baal",
+      "expression": "defiant confidence, one against many",
+      "prompt": "standing alone facing crowd of false prophets - confident defiant pose, outnumbered but unafraid, 'how long will you limp between two opinions', the lone voice of truth",
+      "energy": "prophetic defiance, one against many",
+      "quoteId": "how-long-limping"
+    },
+    "by-the-brook": {
+      "id": "by-the-brook",
+      "name": "Fed by Ravens",
+      "description": "By brook Cherith, ravens bringing food",
+      "expression": "quiet trust, supernatural provision",
+      "prompt": "seated by stream as ravens bring bread and meat - wilderness prophet being supernaturally fed, trusting in divine provision during drought",
+      "energy": "supernatural provision, wilderness trust",
+      "quoteId": "no-rain"
+    },
+    "still-small-voice": {
+      "id": "still-small-voice",
+      "name": "Hearing the Whisper",
+      "description": "In cave, hearing God's gentle whisper",
+      "expression": "quiet listening, intimate encounter",
+      "prompt": "standing at cave entrance, head bowed to listen - hand perhaps to ear, wind and fire passed, now hearing the still small voice, encountering God in whisper not storm",
+      "energy": "quiet revelation, intimate encounter",
+      "quoteId": "still-small-voice"
+    },
+    "chariot-of-fire": {
+      "id": "chariot-of-fire",
+      "name": "Ascending in Chariot",
+      "description": "Taken up to heaven in chariot of fire",
+      "expression": "supernatural departure, legend complete",
+      "prompt": "being carried up in chariot of fire - horses of fire, whirlwind, mantle falling to earth, ascending to heaven without dying, the legendary departure",
+      "energy": "supernatural exit, legend immortalized",
+      "quoteId": "chariot-of-fire"
+    },
+    "mantle-throw": {
+      "id": "mantle-throw",
+      "name": "Throwing the Mantle",
+      "description": "Throwing mantle on Elisha, calling successor",
+      "expression": "passing the torch, identifying successor",
+      "prompt": "throwing prophetic mantle onto young Elisha - the garment of power and calling, choosing the one who would carry double portion, succession moment",
+      "energy": "succession, passing the mantle",
+      "quoteId": null
+    }
+  }
+}

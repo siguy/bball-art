@@ -1,0 +1,56 @@
+{
+  "id": "dirk",
+  "name": "Dirk Nowitzki",
+  "defaultPose": "one-leg-fadeaway",
+  "description": "7'0\" power forward, changed the game for bigs. 2011 champion, MVP. The one-legged fadeaway. German legend who stayed loyal.",
+  "poses": {
+    "one-leg-fadeaway": {
+      "id": "one-leg-fadeaway",
+      "name": "One-Legged Fadeaway",
+      "description": "Signature unguardable shot - fading on one leg",
+      "expression": "confident release, this shot is money",
+      "prompt": "shooting one-legged fadeaway - standing on one leg fading backward, shooting arm extended high, ball at apex of release, 7-footer with guard skills, completely unguardable shot",
+      "energy": "unguardable innovation, big man revolution"
+    },
+    "championship-trophy": {
+      "id": "championship-trophy",
+      "name": "2011 Finals Trophy",
+      "description": "Holding Finals MVP trophy after beating Miami",
+      "expression": "vindication, proving doubters wrong",
+      "prompt": "clutching Finals MVP trophy - emotional expression of vindication, having just beaten the superteam, loyalty rewarded, the ultimate triumph for staying",
+      "energy": "loyalty rewarded, ultimate vindication"
+    },
+    "fist-pump": {
+      "id": "fist-pump",
+      "name": "Fist Pump",
+      "description": "Intense fist pump after big bucket",
+      "expression": "passionate intensity, fire inside",
+      "prompt": "intense fist pump celebration - arm pumping, face showing passionate intensity, the fire that burned beneath calm exterior, big moment energy",
+      "energy": "hidden fire, passionate intensity"
+    },
+    "sick-game": {
+      "id": "sick-game",
+      "name": "Playing Sick",
+      "description": "2011 Finals - dominating while visibly ill",
+      "expression": "warrior through illness, unstoppable will",
+      "prompt": "playing while visibly sick - slightly pale but still dominant, refusing to let illness stop championship quest, the 2011 Finals where he played through sickness and dominated",
+      "energy": "warrior mentality, unstoppable will"
+    },
+    "long-three": {
+      "id": "long-three",
+      "name": "Deep Three",
+      "description": "7-footer draining a deep three",
+      "expression": "range for days, guard skills in big body",
+      "prompt": "shooting deep three-pointer - 7-foot frame with perfect shooting form, ball leaving hands from well beyond arc, the shot that changed what big men could do",
+      "energy": "position revolution, stretch big pioneer"
+    },
+    "salute": {
+      "id": "salute",
+      "name": "Retirement Salute",
+      "description": "Saluting Dallas fans in final season",
+      "expression": "gratitude, loyalty, farewell",
+      "prompt": "saluting the crowd in emotional farewell - hand to forehead, eyes glistening, 21 years with one team, loyalty personified, saying goodbye to faithful fans",
+      "energy": "loyalty, gratitude, legend's farewell"
+    }
+  }
+}

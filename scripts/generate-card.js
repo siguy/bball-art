@@ -23,6 +23,9 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 const ROOT = join(__dirname, '..');
 
+// Court & Covenant logo for reference image
+const LOGO_PATH = join(ROOT, 'brand/logos/court and covenant logo - 1.png');
+
 // Parse command line arguments
 const args = process.argv.slice(2);
 const flags = {};
@@ -46,9 +49,11 @@ if (!pairingId || !cardType) {
   console.error('Example: node scripts/generate-card.js jordan-moses thunder-lightning');
   console.error('');
   console.error('Options:');
-  console.error('  --interaction <pose>  Override interaction pose');
-  console.error('  --model <model>       Use specific model');
-  console.error('  --dry-run             Generate prompt only');
+  console.error('  --interaction <pose>        Override interaction pose');
+  console.error('  --custom-player-action <a>  Custom player action description');
+  console.error('  --custom-figure-action <a>  Custom figure action description');
+  console.error('  --model <model>             Use specific model');
+  console.error('  --dry-run                   Generate prompt only');
   process.exit(1);
 }
 
@@ -84,6 +89,12 @@ async function generateCard() {
     if (flags.interaction) {
       options.interaction = flags.interaction;
     }
+    if (flags['custom-player-action']) {
+      options.customPlayerAction = flags['custom-player-action'];
+    }
+    if (flags['custom-figure-action']) {
+      options.customFigureAction = flags['custom-figure-action'];
+    }
 
     const prompt = template.generate(pairing, options);
 
@@ -111,9 +122,21 @@ async function generateCard() {
     console.log(`\nGenerating image...`);
     console.log(`Output: ${outputPath}`);
 
+    // Include logo as reference image for consistent branding
+    const referenceImages = [];
+    if (existsSync(LOGO_PATH)) {
+      referenceImages.push({
+        path: LOGO_PATH,
+        mimeType: 'image/png'
+      });
+    } else {
+      console.warn('Warning: Logo not found at', LOGO_PATH);
+    }
+
     const result = await generateImage(prompt, {
       outputPath,
-      model: flags.model
+      model: flags.model,
+      referenceImages
     });
 
     if (result.success) {

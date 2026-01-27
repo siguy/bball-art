@@ -1,0 +1,48 @@
+{
+  "id": "isiah-pharaoh",
+  "series": "court-covenant",
+  "player": {
+    "name": "Isiah Thomas",
+    "poseFileId": "isiah-thomas",
+    "displayName": "Zeke",
+    "era": "1980s",
+    "jerseyColors": {
+      "primary": { "base": "blue", "accent": "red" },
+      "secondary": { "base": "white", "accent": "blue" }
+    },
+    "signatureMoves": ["killer crossover", "floater", "ruthless competitiveness"],
+    "physicalDescription": "smaller 6'1\" guard, compact powerful build, bright smile that masked killer instinct, dark skin, baby-faced but fierce",
+    "archetype": "The Baby-Faced Assassin, led the Bad Boys, ruled through intimidation"
+  },
+  "figure": {
+    "name": "Pharaoh",
+    "poseFileId": "pharaoh",
+    "displayName": "Pharaoh",
+    "attribute": "crook and flail of Egypt",
+    "attributeDescription": "golden crook (heka) and flail (nekhakha), the royal symbols of Egyptian absolute power",
+    "visualStyle": "ancient Egyptian king, absolute ruler, oppressor of Israel",
+    "clothing": "elaborate royal Egyptian regalia: white linen kilt (shendyt), golden collar (usekh), double crown of Upper and Lower Egypt (pschent), golden sandals",
+    "physicalDescription": "regal imperious bearing, clean-shaven head, dark kohl-lined eyes, strong jaw, olive to brown skin, face of absolute authority and cruelty",
+    "anatomyNote": "two arms only, holding crook and flail crossed",
+    "archetype": "The Tyrant King, hardened his heart, ruled with iron fist"
+  },
+  "connection": {
+    "thematic": "Both ruled their domains with an iron fist and showed no mercy to opponents",
+    "narrative": "Pharaoh hardened his heart. Isiah and the Bad Boys hardened their elbows. Let my people go? Never.",
+    "relationship": "Ruthless rulers who tormented anyone who challenged them"
+  },
+  "interactions": [
+    {
+      "id": "back-to-back",
+      "description": "Two rulers surveying their domain, daring anyone to challenge them"
+    },
+    {
+      "id": "side-by-side",
+      "description": "Standing as tyrants, unmoved and unforgiving"
+    }
+  ],
+  "defaultInteraction": "back-to-back",
+  "cardVariants": ["thunder-lightning", "downtown"],
+  "priority": 15,
+  "status": "active"
+}

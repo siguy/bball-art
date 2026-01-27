@@ -1,0 +1,56 @@
+{
+  "id": "sga",
+  "name": "Shai Gilgeous-Alexander",
+  "defaultPose": "floater",
+  "description": "6'6\" guard, rising superstar. Unique pace, deadly floater, Canadian cool. Plays like he's moving in slow motion but always ahead.",
+  "poses": {
+    "floater": {
+      "id": "floater",
+      "name": "Silky Floater",
+      "description": "Signature floater in the paint - unguardable",
+      "expression": "calm in chaos, soft touch",
+      "prompt": "releasing floater over bigger defender - ball floating off fingertips, body contorted but controlled, calm expression amid chaos, the softest touch in traffic",
+      "energy": "soft touch, calm in chaos"
+    },
+    "change-of-pace": {
+      "id": "change-of-pace",
+      "name": "Change of Pace",
+      "description": "Slow-fast-slow dribble that freezes defenders",
+      "expression": "manipulation of time, defender frozen",
+      "prompt": "mid-change-of-pace move freezing defender - shifting speeds in way that defies logic, defender caught between fast and slow, the human manipulation of time",
+      "energy": "pace manipulation, time bender"
+    },
+    "step-back": {
+      "id": "step-back",
+      "name": "Step Back Three",
+      "description": "Creating space with step-back three",
+      "expression": "creating his own shot, star move",
+      "prompt": "executing step-back three-pointer - creating space from nothing, shooting over defender's contest, the star shot-creation that marks the elite",
+      "energy": "shot creation, superstar move"
+    },
+    "arms-out-shrug": {
+      "id": "arms-out-shrug",
+      "name": "Cold Shrug",
+      "description": "Arms out 'what do you want me to do' gesture",
+      "expression": "cold confidence, unbothered",
+      "prompt": "arms out to sides in cold shrug - 'what can I say' gesture after another bucket, Canadian cool, unbothered by the moment",
+      "energy": "ice cold, unbothered star"
+    },
+    "through-contact": {
+      "id": "through-contact",
+      "name": "Finishing Through",
+      "description": "Absorbing contact to finish at rim",
+      "expression": "strength in length, deceptive power",
+      "prompt": "finishing at rim through heavy contact - long body absorbing hit, still completing the play, deceptive strength in slim frame",
+      "energy": "deceptive strength, contact finisher"
+    },
+    "celebration-with-fans": {
+      "id": "celebration-with-fans",
+      "name": "OKC Love",
+      "description": "Celebrating with Thunder fans",
+      "expression": "embracing the city, rising together",
+      "prompt": "celebrating with Thunder fans - arms raised to crowd, smile of genuine connection, embracing Oklahoma City, rising star building something special",
+      "energy": "city embrace, building something"
+    }
+  }
+}

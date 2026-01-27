@@ -4,9 +4,12 @@
   "player": {
     "name": "Stephen Curry",
     "displayName": "Chef Curry",
+    "poseFileId": "curry",
     "era": "2010s",
-    "teamColors": ["blue", "gold", "white"],
-    "jerseyDescription": "blue and gold basketball jersey with white trim, no logos",
+    "jerseyColors": {
+      "primary": { "base": "blue", "accent": "gold" },
+      "secondary": { "base": "gold", "accent": "blue" }
+    },
     "signatureMoves": ["deep three-pointer", "behind-the-back dribble", "shimmy celebration"],
     "physicalDescription": "lean athletic build, light skin, baby-faced with confident smile",
     "archetype": "The Revolutionary, changed the game forever, unlimited range"
@@ -14,6 +17,7 @@
   "figure": {
     "name": "Elijah",
     "displayName": "Elijah",
+    "poseFileId": "elijah",
     "attribute": "mantle of fire",
     "attributeDescription": "prophet's hairy mantle/cloak wreathed in divine flames, fire descending from heaven above",
     "visualStyle": "intense biblical prophet, wild and powerful",

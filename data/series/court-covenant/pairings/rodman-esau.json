@@ -1,0 +1,48 @@
+{
+  "id": "rodman-esau",
+  "series": "court-covenant",
+  "player": {
+    "name": "Dennis Rodman",
+    "poseFileId": "rodman",
+    "displayName": "The Worm",
+    "era": "1990s",
+    "jerseyColors": {
+      "primary": { "base": "red", "accent": "white" },
+      "secondary": { "base": "black", "accent": "red" }
+    },
+    "signatureMoves": ["relentless rebounding", "lockdown defense", "chaotic energy"],
+    "physicalDescription": "tall 6'7\" forward, wiry muscular build, wild multi-colored hair (show as bright red or green), multiple piercings and tattoos visible, dark skin, intense wild eyes, untamed energy",
+    "archetype": "The Wild Card, lived by his own rules, rebounding savant, agent of chaos"
+  },
+  "figure": {
+    "name": "Esau",
+    "poseFileId": "esau",
+    "displayName": "Esau",
+    "attribute": "hunter's bow and wild game",
+    "attributeDescription": "powerful hunting bow, freshly caught wild game slung over shoulder, tools of the wild hunter",
+    "visualStyle": "wild hunter of the fields, firstborn who sold his birthright",
+    "clothing": "rough animal skins and furs, minimal clothing of a man who lives outdoors, leather straps and hunting gear",
+    "physicalDescription": "EXTREMELY HAIRY man covered in red hair all over body and arms (as described in Genesis), wild rugged appearance, powerful hunter's build, ruddy red complexion, fierce untamed eyes, lives by instinct",
+    "anatomyNote": "two arms only, may carry bow",
+    "archetype": "The Wild Man, lived for the moment, traded his future for today"
+  },
+  "connection": {
+    "thematic": "Both were wild, impulsive forces of nature who played by their own rules",
+    "narrative": "Esau sold his birthright for soup. Rodman sold convention for freedom. Both chose chaos.",
+    "relationship": "Untamed spirits who couldn't be controlled"
+  },
+  "interactions": [
+    {
+      "id": "back-to-back",
+      "description": "Two wild men, hair flowing, ready for anything"
+    },
+    {
+      "id": "simultaneous-action",
+      "description": "Rodman diving for a rebound while Esau hunts - primal instincts in action"
+    }
+  ],
+  "defaultInteraction": "back-to-back",
+  "cardVariants": ["thunder-lightning", "downtown"],
+  "priority": 17,
+  "status": "active"
+}

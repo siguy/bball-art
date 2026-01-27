@@ -1,0 +1,62 @@
+{
+  "id": "elisha",
+  "name": "Elisha",
+  "defaultPose": "receiving-mantle",
+  "description": "Elijah's successor, performed twice the miracles. Healed Naaman, raised the dead, fed multitudes. Faithful servant who asked for double portion.",
+  "poses": {
+    "receiving-mantle": {
+      "id": "receiving-mantle",
+      "name": "Receiving the Mantle",
+      "description": "Catching Elijah's mantle as he ascends",
+      "expression": "awe and determination, mantle of succession",
+      "prompt": "reaching up to catch falling mantle as master ascends in whirlwind - chariot of fire in background, moment of succession, receiving double portion of spirit",
+      "energy": "succession, inherited greatness",
+      "quoteId": "double-portion"
+    },
+    "healing-naaman": {
+      "id": "healing-naaman",
+      "name": "Healing Naaman",
+      "description": "Commanding the Syrian general to wash in Jordan",
+      "expression": "calm authority, simple instructions",
+      "prompt": "standing at doorway gesturing toward river - not even coming out to meet the great general, giving simple instructions that healed leprosy, humble power",
+      "energy": "humble authority, healing power",
+      "quoteId": "wash-seven-times"
+    },
+    "multiplying-oil": {
+      "id": "multiplying-oil",
+      "name": "Multiplying the Oil",
+      "description": "Widow's oil filling every vessel",
+      "expression": "miraculous provision, saving the helpless",
+      "prompt": "standing as widow pours oil into vessel after vessel - miracle of multiplication, saving her sons from slavery, provision that never stopped",
+      "energy": "miraculous provision, endless supply",
+      "quoteId": "borrow-vessels"
+    },
+    "raising-dead": {
+      "id": "raising-dead",
+      "name": "Raising the Shunammite's Son",
+      "description": "Stretching over the dead boy to revive him",
+      "expression": "intense prayer, life-giving power",
+      "prompt": "stretched over child on bed - mouth to mouth, eyes to eyes, hands to hands, warmth returning to cold body, resurrection power",
+      "energy": "resurrection, life over death",
+      "quoteId": "child-sneezed"
+    },
+    "seeing-armies": {
+      "id": "seeing-armies",
+      "name": "Seeing the Heavenly Army",
+      "description": "Revealing the mountain full of horses and chariots of fire",
+      "expression": "calm confidence, spiritual sight",
+      "prompt": "standing calm while servant fears - mountain behind filled with horses and chariots of fire, 'those with us are more than those with them', spiritual sight",
+      "energy": "spiritual vision, divine protection",
+      "quoteId": "open-his-eyes"
+    },
+    "striking-waters": {
+      "id": "striking-waters",
+      "name": "Parting the Jordan",
+      "description": "Using Elijah's mantle to part the waters",
+      "expression": "proving succession, inherited power",
+      "prompt": "striking water with rolled-up mantle - Jordan parting before him, 'where is the God of Elijah?', proving succession, same power in new hands",
+      "energy": "inherited authority, continuation",
+      "quoteId": "god-of-elijah"
+    }
+  }
+}

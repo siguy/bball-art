@@ -4,9 +4,12 @@
   "player": {
     "name": "Scottie Pippen",
     "displayName": "Pip",
+    "poseFileId": "pippen",
     "era": "1990s",
-    "teamColors": ["red", "black", "white"],
-    "jerseyDescription": "red and black basketball jersey with white trim, no logos",
+    "jerseyColors": {
+      "primary": { "base": "red", "accent": "white" },
+      "secondary": { "base": "white", "accent": "red" }
+    },
     "signatureMoves": ["coast-to-coast fast break", "perimeter defense", "outlet pass"],
     "physicalDescription": "SCOTTIE PIPPEN LIKENESS: tall (6'8\") and lean athletic build, distinctive long face with prominent nose and chin, 1990s style high-top fade haircut, calm cool expression, dark skin",
     "archetype": "The Ultimate Sidekick, criminally underrated, two-way excellence"
@@ -14,6 +17,7 @@
   "figure": {
     "name": "Aaron",
     "displayName": "Aaron",
+    "poseFileId": "aaron",
     "attribute": "high priest vestments and staff",
     "attributeDescription": "golden staff of the high priest, elaborate breastplate with 12 precious stones representing the 12 tribes of Israel",
     "visualStyle": "dignified High Priest of Israel, biblical",

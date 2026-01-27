@@ -1,0 +1,56 @@
+{
+  "id": "elijah",
+  "name": "Elijah",
+  "aliases": ["Eliyahu", "The Tishbite"],
+  "quotes": {
+    "fire-from-heaven": {
+      "source": "1 Kings 18:38",
+      "context": "God answers with fire on Mount Carmel",
+      "hebrew": "וַתִּפֹּל אֵשׁ יְהוָה",
+      "english": "Then the fire of the LORD fell",
+      "mood": "divine vindication, overwhelming display"
+    },
+    "how-long-limping": {
+      "source": "1 Kings 18:21",
+      "context": "Elijah's challenge to Israel at Carmel",
+      "hebrew": "עַד מָתַי אַתֶּם פֹּסְחִים עַל שְׁתֵּי הַסְּעִפִּים",
+      "english": "How long will you go limping between two opinions?",
+      "mood": "prophetic challenge, demanding decision"
+    },
+    "lord-he-is-god": {
+      "source": "1 Kings 18:39",
+      "context": "Israel's response to the fire",
+      "hebrew": "יְהוָה הוּא הָאֱלֹהִים",
+      "english": "The LORD, He is God! The LORD, He is God!",
+      "mood": "national revival, undeniable proof"
+    },
+    "still-small-voice": {
+      "source": "1 Kings 19:12",
+      "context": "God speaks to Elijah in a whisper",
+      "hebrew": "קוֹל דְּמָמָה דַקָּה",
+      "english": "A still small voice",
+      "mood": "quiet revelation, gentle presence"
+    },
+    "i-alone-am-left": {
+      "source": "1 Kings 19:10",
+      "context": "Elijah's despair after Carmel",
+      "hebrew": "וָאִוָּתֵר אֲנִי לְבַדִּי",
+      "english": "I alone am left, and they seek my life",
+      "mood": "prophetic loneliness, despair"
+    },
+    "chariot-of-fire": {
+      "source": "2 Kings 2:11",
+      "context": "Elijah's departure",
+      "hebrew": "וַיַּעַל אֵלִיָּהוּ בַּסְּעָרָה הַשָּׁמָיִם",
+      "english": "Elijah went up by a whirlwind into heaven",
+      "mood": "supernatural departure, legend's end"
+    },
+    "no-rain": {
+      "source": "1 Kings 17:1",
+      "context": "Elijah's first prophecy - drought",
+      "hebrew": "אִם יִהְיֶה הַשָּׁנִים הָאֵלֶּה טַל וּמָטָר כִּי אִם לְפִי דְבָרִי",
+      "english": "There shall be neither dew nor rain these years, except by my word",
+      "mood": "prophetic authority, controlling elements"
+    }
+  }
+}

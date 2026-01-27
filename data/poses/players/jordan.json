@@ -1,0 +1,56 @@
+{
+  "id": "jordan",
+  "name": "Michael Jordan",
+  "defaultPose": "tongue-out-dunk",
+  "description": "6'6\" shooting guard, the GOAT. 6 championships, 5 MVPs, 10 scoring titles. Assassin mentality, tongue out on drives, fist pump celebrations.",
+  "poses": {
+    "tongue-out-dunk": {
+      "id": "tongue-out-dunk",
+      "name": "Tongue Out Dunk",
+      "description": "Signature airborne dunk with tongue out, legs spread",
+      "expression": "fierce concentration, tongue out, eyes on rim",
+      "prompt": "soaring through air for powerful one-handed dunk - tongue out in signature style, legs spread wide, free arm extended for balance, eyes locked on rim, complete body control at apex of jump, gravity-defying hang time",
+      "energy": "airborne greatness, defying gravity"
+    },
+    "fist-pump": {
+      "id": "fist-pump",
+      "name": "Championship Fist Pump",
+      "description": "1996 Finals Game 6 - Fist pump after clinching",
+      "expression": "raw emotion, tears of joy, vindication",
+      "prompt": "powerful fist pump celebration - arm raised triumphantly, face showing raw emotion and tears, falling to knees or standing with intense release, the moment of championship victory, years of work paying off",
+      "energy": "ultimate vindication, emotional release"
+    },
+    "fadeaway": {
+      "id": "fadeaway",
+      "name": "Fadeaway Jumper",
+      "description": "The unguardable shot - leaning back, perfect form",
+      "expression": "calm confidence, already knows it's going in",
+      "prompt": "mid-fadeaway jump shot leaning back - body angled away from defender, shooting arm extended with perfect follow-through, off hand guiding, complete confidence that the shot will fall, the unguardable move",
+      "energy": "cold precision, unguardable"
+    },
+    "shrug": {
+      "id": "shrug",
+      "name": "The Shrug",
+      "description": "1992 Finals - Shrugging after hitting 6th three",
+      "expression": "palms up, disbelief at his own greatness",
+      "prompt": "standing with palms up in famous shrug gesture - shoulders raised, slight smile, looking at crowd or camera as if to say 'I can't explain it either', after hitting an impossible shot, even he's surprised",
+      "energy": "transcendent performance, even surprising himself"
+    },
+    "wagging-finger": {
+      "id": "wagging-finger",
+      "name": "Wagging Finger",
+      "description": "After blocking a shot - don't try that here",
+      "expression": "dismissive dominance, not in my house",
+      "prompt": "wagging finger side to side after emphatic block - pointing at opponent or toward bench, face showing 'not in my house' confidence, having just rejected a shot, defensive dominance",
+      "energy": "defensive intimidation, complete dominance"
+    },
+    "last-shot": {
+      "id": "last-shot",
+      "name": "The Last Shot",
+      "description": "1998 Finals Game 6 - The push-off, the shot, the pose",
+      "expression": "ice cold, destiny fulfilled",
+      "prompt": "follow-through held on game-winning shot - shooting arm extended and frozen, wrist flicked, watching ball travel to basket, perfect stillness knowing it's going in, the final shot of a dynasty",
+      "energy": "clutch personified, destiny fulfilled"
+    }
+  }
+}

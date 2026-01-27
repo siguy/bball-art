@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Court & Covenant - Card Visualizer</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header>
+    <div class="header-content">
+      <img src="/brand/logos/court and covenant logo - 1.png" alt="Court & Covenant" class="logo">
+      <h1>Card Visualizer</h1>
+    </div>
+    <nav class="header-nav">
+      <a href="/" class="nav-link active">Cards</a>
+      <a href="/pairings.html" class="nav-link">Pairings</a>
+    </nav>
+    <div class="stats" id="stats"></div>
+  </header>
+
+  <main>
+    <!-- Filters -->
+    <section class="filters">
+      <div class="filter-group">
+        <label for="filter-pairing">Pairing:</label>
+        <select id="filter-pairing">
+          <option value="">All Pairings</option>
+        </select>
+      </div>
+      <div class="filter-group">
+        <label for="filter-template">Template:</label>
+        <select id="filter-template">
+          <option value="">All Templates</option>
+        </select>
+      </div>
+      <div class="filter-group">
+        <label for="filter-interaction">Interaction:</label>
+        <select id="filter-interaction">
+          <option value="">All Interactions</option>
+        </select>
+      </div>
+      <div class="filter-group">
+        <label for="filter-feedback">Feedback:</label>
+        <select id="filter-feedback">
+          <option value="">All Cards</option>
+          <option value="loved">Loved</option>
+          <option value="liked">Liked</option>
+          <option value="issues">Has Issues</option>
+          <option value="none">No Feedback</option>
+        </select>
+      </div>
+      <button id="refresh-btn" class="btn">Refresh</button>
+      <button id="export-web-btn" class="btn btn-export">Export Loved to Web</button>
+    </section>
+
+    <!-- Card Gallery -->
+    <section class="gallery" id="gallery"></section>
+  </main>
+
+  <!-- Card Detail Modal -->
+  <div class="modal" id="card-modal">
+    <div class="modal-content">
+      <button class="modal-close" id="modal-close">&times;</button>
+
+      <div class="modal-grid">
+        <div class="modal-image">
+          <img id="modal-card-image" src="" alt="Card">
+          <div class="modal-nav">
+            <button class="nav-btn" id="prev-card">&larr; Previous</button>
+            <button class="nav-btn" id="next-card">Next &rarr;</button>
+          </div>
+        </div>
+
+        <div class="modal-details">
+          <h2 id="modal-title"></h2>
+
+          <div class="detail-section">
+            <h3>Card Info</h3>
+            <dl>
+              <dt>Pairing:</dt>
+              <dd id="detail-pairing"></dd>
+              <dt>Template:</dt>
+              <dd id="detail-template"></dd>
+              <dt>Interaction:</dt>
+              <dd id="detail-interaction"></dd>
+              <dt>Generated:</dt>
+              <dd id="detail-timestamp"></dd>
+            </dl>
+          </div>
+
+          <div class="detail-section">
+            <h3>Feedback</h3>
+            <p class="feedback-hint">Cards you "Love" will be exported to the public website</p>
+            <div class="feedback-buttons">
+              <button class="feedback-btn" data-rating="loved">
+                <span class="icon">&#10084;</span> Love It
+              </button>
+              <button class="feedback-btn" data-rating="liked">
+                <span class="icon">&#128077;</span> Like It
+              </button>
+              <button class="feedback-btn" data-rating="issues">
+                <span class="icon">&#9888;</span> Has Issues
+              </button>
+            </div>
+            <textarea id="feedback-notes" placeholder="Notes about this card..."></textarea>
+            <button id="save-feedback" class="btn btn-primary">Save Feedback</button>
+          </div>
+
+          <div class="detail-section">
+            <h3>Prompt</h3>
+            <div class="prompt-container">
+              <pre id="detail-prompt"></pre>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,56 @@
+{
+  "id": "aaron",
+  "name": "Aaron",
+  "aliases": ["Aaron the Priest", "High Priest"],
+  "quotes": {
+    "mouthpiece": {
+      "source": "Exodus 4:16",
+      "context": "Aaron appointed as Moses's spokesman",
+      "hebrew": "וְהָיָה הוּא יִהְיֶה לְּךָ לְפֶה",
+      "english": "He shall be your spokesman to the people",
+      "mood": "supporting role, essential partner"
+    },
+    "rod-becomes-serpent": {
+      "source": "Exodus 7:10",
+      "context": "Aaron's rod becomes a serpent before Pharaoh",
+      "hebrew": "וַיַּשְׁלֵךְ אַהֲרֹן אֶת מַטֵּהוּ לִפְנֵי פַרְעֹה... וַיְהִי לְתַנִּין",
+      "english": "Aaron cast down his rod before Pharaoh... and it became a serpent",
+      "mood": "divine signs, miracle worker"
+    },
+    "holy-garments": {
+      "source": "Exodus 28:2",
+      "context": "Description of the priestly garments",
+      "hebrew": "וְעָשִׂיתָ בִגְדֵי קֹדֶשׁ לְאַהֲרֹן אָחִיךָ לְכָבוֹד וּלְתִפְאָרֶת",
+      "english": "You shall make holy garments for Aaron your brother, for glory and for beauty",
+      "mood": "priestly dignity, sacred office"
+    },
+    "golden-calf": {
+      "source": "Exodus 32:24",
+      "context": "Aaron's weak excuse for the golden calf",
+      "hebrew": "וָאַשְׁלִכֵהוּ בָאֵשׁ וַיֵּצֵא הָעֵגֶל הַזֶּה",
+      "english": "I threw it into the fire, and out came this calf",
+      "mood": "failure, weak leadership"
+    },
+    "blessing-people": {
+      "source": "Numbers 6:24-26",
+      "context": "The Priestly Blessing",
+      "hebrew": "יְבָרֶכְךָ יְהוָה וְיִשְׁמְרֶךָ",
+      "english": "The LORD bless you and keep you",
+      "mood": "priestly blessing, sacred benediction"
+    },
+    "incense-plague": {
+      "source": "Numbers 16:48",
+      "context": "Aaron stops plague with incense",
+      "hebrew": "וַיַּעֲמֹד בֵּין הַמֵּתִים וּבֵין הַחַיִּים וַתֵּעָצַר הַמַּגֵּפָה",
+      "english": "He stood between the dead and the living, and the plague was stopped",
+      "mood": "intercessor, standing in the gap"
+    },
+    "rod-budded": {
+      "source": "Numbers 17:8",
+      "context": "Aaron's rod buds to confirm his calling",
+      "hebrew": "וַיִּגְמֹל שְׁקֵדִים",
+      "english": "It budded, and brought forth buds, and produced blossoms, and bore ripe almonds",
+      "mood": "divine confirmation, chosen priesthood"
+    }
+  }
+}

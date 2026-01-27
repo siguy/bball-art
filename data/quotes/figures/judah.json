@@ -1,0 +1,42 @@
+{
+  "id": "judah",
+  "name": "Judah Maccabee",
+  "aliases": ["The Hammer", "Judas Maccabeus", "Yehuda HaMakabi"],
+  "quotes": {
+    "who-like-you": {
+      "source": "Traditional (from Exodus 15:11)",
+      "context": "MACCABEE acronym - Mi Kamocha Ba'elim YHWH",
+      "hebrew": "מִי כָמֹכָה בָּאֵלִם יְהוָה",
+      "english": "Who is like You among the mighty, O LORD",
+      "mood": "battle cry, divine warrior"
+    },
+    "many-or-few": {
+      "source": "1 Maccabees 3:18-19",
+      "context": "Judah encouraging his outnumbered forces",
+      "hebrew": "אֵין לְפָנָיו הֶבְדֵּל לְהוֹשִׁיעַ בְּרַבִּים אוֹ בִמְעָט",
+      "english": "Victory in battle does not depend on the size of the army; strength comes from Heaven",
+      "mood": "underdog faith, divine strength"
+    },
+    "better-to-die": {
+      "source": "1 Maccabees 3:59",
+      "context": "Before facing superior forces",
+      "hebrew": "טוֹב לָנוּ לָמוּת בַּמִּלְחָמָה",
+      "english": "It is better for us to die in battle than to witness the destruction of our nation and sanctuary",
+      "mood": "martyrdom courage, sacred duty"
+    },
+    "arm-yourselves": {
+      "source": "1 Maccabees 3:58",
+      "context": "Rallying cry before battle",
+      "hebrew": "הֵחָזְקוּ וֶהֱיוּ לִבְנֵי חָיִל",
+      "english": "Arm yourselves and be courageous",
+      "mood": "call to arms, warrior spirit"
+    },
+    "restore-sanctuary": {
+      "source": "1 Maccabees 4:36",
+      "context": "After military victory",
+      "hebrew": "נַעֲלֶה וּנְטַהֵר אֶת הַמִּקְדָּשׁ",
+      "english": "Let us go up to cleanse and rededicate the sanctuary",
+      "mood": "sacred restoration, victory's purpose"
+    }
+  }
+}

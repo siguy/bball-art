@@ -1,0 +1,48 @@
+{
+  "id": "wilt-samson",
+  "series": "court-covenant",
+  "player": {
+    "name": "Wilt Chamberlain",
+    "displayName": "Wilt",
+    "poseFileId": "wilt",
+    "era": "1970s",
+    "jerseyColors": {
+      "primary": { "base": "purple", "accent": "gold" },
+      "secondary": { "base": "gold", "accent": "purple" }
+    },
+    "signatureMoves": ["finger roll", "fadeaway bank shot", "dominant rebounding"],
+    "physicalDescription": "legendary 7'1\" athletic frame, incredibly muscular for his era, goatee beard, confident proud expression, dark skin, physically perfect specimen",
+    "archetype": "The Record Breaker, 100-point game, statistics that seem mythological"
+  },
+  "figure": {
+    "name": "Samson",
+    "displayName": "Samson",
+    "poseFileId": "samson",
+    "attribute": "legendary long hair and jawbone weapon",
+    "attributeDescription": "flowing uncut hair reaching past shoulders - the source of his divine strength, donkey's jawbone gripped as weapon",
+    "visualStyle": "ancient Israelite strongman, Nazirite judge of supernatural strength",
+    "clothing": "simple Israelite tunic and cloth wrap, minimal clothing to show muscular physique, leather sandals",
+    "physicalDescription": "INCREDIBLY MUSCULAR powerful build like a bodybuilder, wild flowing long dark hair never cut, fierce intense eyes, rugged handsome face with beard, tanned skin, veins visible on massive arms",
+    "anatomyNote": "two arms only, may hold jawbone",
+    "archetype": "The Strongest Man, supernatural power, legendary feats of strength"
+  },
+  "connection": {
+    "thematic": "Both possessed almost supernatural physical abilities that defied belief",
+    "narrative": "100 points. Killed 1,000 with a jawbone. Some numbers just don't make sense.",
+    "relationship": "Legendary strongmen whose feats became mythology"
+  },
+  "interactions": [
+    {
+      "id": "simultaneous-action",
+      "description": "Wilt finger-rolling while Samson tears down pillars - feats of impossible strength"
+    },
+    {
+      "id": "back-to-back",
+      "description": "Two strongmen standing together, muscles on display"
+    }
+  ],
+  "defaultInteraction": "simultaneous-action",
+  "cardVariants": ["thunder-lightning", "downtown"],
+  "priority": 8,
+  "status": "active"
+}

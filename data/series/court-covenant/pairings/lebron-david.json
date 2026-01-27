@@ -4,9 +4,12 @@
   "player": {
     "name": "LeBron James",
     "displayName": "King James",
+    "poseFileId": "lebron",
     "era": "2010s",
-    "teamColors": ["purple", "gold", "white"],
-    "jerseyDescription": "purple and gold basketball jersey with white trim, no logos",
+    "jerseyColors": {
+      "primary": { "base": "purple", "accent": "gold" },
+      "secondary": { "base": "gold", "accent": "purple" }
+    },
     "signatureMoves": ["chase-down block", "tomahawk dunk", "no-look pass"],
     "physicalDescription": "powerful muscular build, receding hairline, intense determined expression",
     "archetype": "The King, versatile greatness, longevity personified"
@@ -14,6 +17,7 @@
   "figure": {
     "name": "King David",
     "displayName": "David",
+    "poseFileId": "david",
     "attribute": "golden crown and sling",
     "attributeDescription": "simple golden crown of ancient Israel, leather shepherd's sling with smooth river stones",
     "visualStyle": "biblical warrior-king, ancient Israelite royalty",

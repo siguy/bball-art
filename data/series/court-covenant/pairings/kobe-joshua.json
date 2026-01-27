@@ -4,9 +4,12 @@
   "player": {
     "name": "Kobe Bryant",
     "displayName": "Mamba",
+    "poseFileId": "kobe",
     "era": "2000s",
-    "teamColors": ["purple", "gold", "white"],
-    "jerseyDescription": "purple and gold basketball jersey with white trim, no logos",
+    "jerseyColors": {
+      "primary": { "base": "purple", "accent": "gold" },
+      "secondary": { "base": "gold", "accent": "purple" }
+    },
     "signatureMoves": ["fadeaway jumper", "footwork in the post", "clutch dagger"],
     "physicalDescription": "athletic build, shaved head, intense killer instinct in eyes",
     "archetype": "The Black Mamba, relentless work ethic, succeeded the GOAT"
@@ -14,6 +17,7 @@
   "figure": {
     "name": "Joshua",
     "displayName": "Joshua",
+    "poseFileId": "joshua",
     "attribute": "warrior's sword and ram's horn",
     "attributeDescription": "bronze sword raised high, shofar (ram's horn trumpet) at his side",
     "visualStyle": "ancient Israelite military commander, biblical warrior",

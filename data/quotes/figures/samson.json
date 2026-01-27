@@ -1,0 +1,56 @@
+{
+  "id": "samson",
+  "name": "Samson",
+  "aliases": ["Shimshon", "Judge of Israel"],
+  "quotes": {
+    "lion-bare-hands": {
+      "source": "Judges 14:6",
+      "context": "Samson kills a lion",
+      "hebrew": "וַיְשַׁסְּעֵהוּ כְּשַׁסַּע הַגְּדִי",
+      "english": "He tore the lion apart as one would tear a young goat",
+      "mood": "supernatural strength, casual power"
+    },
+    "jawbone-thousand": {
+      "source": "Judges 15:16",
+      "context": "Samson's battle cry after slaying Philistines",
+      "hebrew": "בִּלְחִי הַחֲמוֹר חֲמוֹר חֲמֹרָתָיִם בִּלְחִי הַחֲמוֹר הִכֵּיתִי אֶלֶף אִישׁ",
+      "english": "With the jawbone of a donkey I have slain a thousand men",
+      "mood": "victorious boast, impossible feat"
+    },
+    "strength-in-hair": {
+      "source": "Judges 16:17",
+      "context": "Samson reveals his secret to Delilah",
+      "hebrew": "וְסָר מִמֶּנִּי כֹחִי",
+      "english": "If my head is shaved, my strength will leave me",
+      "mood": "fatal weakness revealed, betrayed"
+    },
+    "grinding-in-prison": {
+      "source": "Judges 16:21",
+      "context": "Samson's humiliation",
+      "hebrew": "וַיְהִי טוֹחֵן בְּבֵית הָאֲסוּרִים",
+      "english": "He was grinding grain in the prison",
+      "mood": "humiliation, fallen hero"
+    },
+    "one-more-time": {
+      "source": "Judges 16:28",
+      "context": "Samson's final prayer",
+      "hebrew": "זָכְרֵנִי נָא וְחַזְּקֵנִי נָא אַךְ הַפַּעַם הַזֶּה",
+      "english": "Remember me and strengthen me only this once",
+      "mood": "desperate prayer, final redemption"
+    },
+    "die-with-philistines": {
+      "source": "Judges 16:30",
+      "context": "Samson's final act",
+      "hebrew": "תָּמוֹת נַפְשִׁי עִם פְּלִשְׁתִּים",
+      "english": "Let me die with the Philistines",
+      "mood": "sacrificial victory, redemptive death"
+    },
+    "gates-of-gaza": {
+      "source": "Judges 16:3",
+      "context": "Samson carries away city gates",
+      "hebrew": "וַיִּסָּעֵם עִם הַבְּרִיחַ",
+      "english": "He pulled them up, bar and all",
+      "mood": "impossible strength, humiliating enemies"
+    }
+  }
+}

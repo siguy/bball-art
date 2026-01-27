@@ -1,0 +1,56 @@
+{
+  "id": "jokic",
+  "name": "Nikola Jokic",
+  "defaultPose": "no-look-pass",
+  "description": "6'11\" center, 41st pick became 3x MVP. 2023 champion. Sombor shuffle, supernatural passing, plays at his own pace. The Joker.",
+  "poses": {
+    "no-look-pass": {
+      "id": "no-look-pass",
+      "name": "No-Look Dime",
+      "description": "Ridiculous no-look pass from the post",
+      "expression": "seeing what no one else sees, savant vision",
+      "prompt": "delivering no-look pass from post position - eyes looking one direction, ball traveling completely different way, threading impossible needle, point-center vision that defies logic",
+      "energy": "savant vision, passing genius"
+    },
+    "sombor-shuffle": {
+      "id": "sombor-shuffle",
+      "name": "Sombor Shuffle",
+      "description": "Signature fadeaway with the shuffle step",
+      "expression": "unorthodox but unstoppable",
+      "prompt": "executing Sombor Shuffle fadeaway - shuffle step into fadeaway jumper, unorthodox footwork that only he can do, unstoppable despite not looking athletic",
+      "energy": "unique mastery, Sombor special"
+    },
+    "laughing": {
+      "id": "laughing",
+      "name": "Joker Laughing",
+      "description": "Laughing during game - joy of playing",
+      "expression": "pure joy, basketball as fun",
+      "prompt": "laughing during game or after play - genuine joy, playing like a kid, the game is fun and he shows it, infectious happiness",
+      "energy": "pure joy, playing for fun"
+    },
+    "slow-motion": {
+      "id": "slow-motion",
+      "name": "Playing Slow",
+      "description": "Moving at his own pace while dominating",
+      "expression": "controlled tempo, playing chess",
+      "prompt": "moving deliberately in half-court offense - playing at his own slow tempo, controlling pace, making everyone else play at his speed, the pace manipulator",
+      "energy": "tempo control, his pace"
+    },
+    "outlet-pass": {
+      "id": "outlet-pass",
+      "name": "Full Court Outlet",
+      "description": "Baseball pass full court for easy layup",
+      "expression": "court vision, transition triggering",
+      "prompt": "throwing full-court outlet pass - ball traveling length of court, finding cutting teammate in stride, the center who runs fast breaks from the rebound",
+      "energy": "transition trigger, point-center"
+    },
+    "horse-riding": {
+      "id": "horse-riding",
+      "name": "Horse Lover",
+      "description": "The man who loves horses and racing",
+      "expression": "simple pleasures, life outside basketball",
+      "prompt": "relaxed expression thinking about horses - the champion who would rather be with his horses than collecting trophies, simple joys, Serbian horse racing enthusiast",
+      "energy": "simple joys, authentic person"
+    }
+  }
+}

@@ -1,0 +1,48 @@
+{
+  "id": "laimbeer-haman",
+  "series": "court-covenant",
+  "player": {
+    "name": "Bill Laimbeer",
+    "poseFileId": "laimbeer",
+    "displayName": "Laimbeer",
+    "era": "1980s",
+    "jerseyColors": {
+      "primary": { "base": "blue", "accent": "red" },
+      "secondary": { "base": "white", "accent": "blue" }
+    },
+    "signatureMoves": ["hard foul", "three-point shooting", "flopping"],
+    "physicalDescription": "tall 6'11\" center, gangly build, curly dark hair, smug villainous expression, white skin, the face you love to hate",
+    "archetype": "The Villain, most hated player of his era, schemer and agitator"
+  },
+  "figure": {
+    "name": "Haman",
+    "poseFileId": "haman",
+    "displayName": "Haman",
+    "attribute": "royal signet ring and gallows rope",
+    "attributeDescription": "the king's signet ring he used to seal death decrees, coiled rope representing the gallows he built",
+    "visualStyle": "Persian court official, schemer and villain of the Purim story",
+    "clothing": "elaborate Persian noble robes, rich purple and blue fabrics, golden chains of office, pointed Persian cap",
+    "physicalDescription": "tall thin figure, pointed beard in Persian style, scheming narrow eyes, arrogant sneer, pale olive skin, the look of a man plotting evil",
+    "anatomyNote": "two arms only",
+    "archetype": "The Schemer, plotted genocide, hoisted by his own petard"
+  },
+  "connection": {
+    "thematic": "Both were villains everyone loved to hate, schemers who drew satisfaction from others' suffering",
+    "narrative": "Haman built gallows for his enemies. Laimbeer built a reputation the same way. Ultimate villains.",
+    "relationship": "Heel-turn specialists who embraced being the bad guy"
+  },
+  "interactions": [
+    {
+      "id": "side-by-side",
+      "description": "Two villains standing smugly, enjoying their notoriety"
+    },
+    {
+      "id": "back-to-back",
+      "description": "Schemers watching for their next victim"
+    }
+  ],
+  "defaultInteraction": "side-by-side",
+  "cardVariants": ["thunder-lightning", "downtown"],
+  "priority": 16,
+  "status": "active"
+}

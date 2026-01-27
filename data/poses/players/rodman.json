@@ -1,0 +1,61 @@
+{
+  "id": "rodman",
+  "name": "Dennis Rodman",
+  "defaultPose": "diving-loose-ball",
+  "poses": {
+    "diving-loose-ball": {
+      "id": "diving-loose-ball",
+      "name": "Diving for Loose Ball",
+      "description": "Horizontal dive for loose ball - body completely parallel to ground, arms fully stretched reaching for ball",
+      "hairColor": "bright red",
+      "expression": "intense wild eyes, maniacal grin",
+      "prompt": "horizontal dive for loose ball - body completely parallel to ground, arms fully stretched reaching for ball, wild hair flowing, intense wild eyes, maniacal grin",
+      "energy": "chaos incarnate, hustle personified"
+    },
+    "tipping-rebound": {
+      "id": "tipping-rebound",
+      "name": "Tipping Rebound",
+      "description": "Tipping a rebound at the apex - fingertips touching ball at highest point, body fully extended vertically",
+      "hairColor": "neon green",
+      "expression": "fierce determination",
+      "prompt": "tipping a rebound at the apex - fingertips touching ball at highest point, body fully extended vertically, wild hair spiked up, fierce determination on face",
+      "energy": "classic hustle, relentless effort"
+    },
+    "defensive-stance-laughing": {
+      "id": "defensive-stance-laughing",
+      "name": "Defensive Stance Laughing",
+      "description": "Deep defensive stance, knees bent, arms wide, maniacal laugh on face",
+      "hairColor": "leopard print blonde with black spots",
+      "expression": "maniacal cackling laugh, wild eyes",
+      "prompt": "deep defensive stance - knees bent low, arms spread wide for lockdown defense, maniacal cackling laugh on face, wild eyes full of chaos, intimidating yet amused",
+      "energy": "villain energy, psychological warfare"
+    },
+    "screaming-celebration": {
+      "id": "screaming-celebration",
+      "name": "Screaming Celebration",
+      "description": "Screaming celebration after ripping down a contested rebound",
+      "hairColor": "electric blue",
+      "expression": "primal scream, veins popping",
+      "prompt": "screaming celebration after contested rebound - ball clutched to chest, head thrown back in primal scream, veins visible, pure raw emotion unleashed",
+      "energy": "wild triumph, primal victory"
+    },
+    "laying-floor-smirking": {
+      "id": "laying-floor-smirking",
+      "name": "Laying on Floor Smirking",
+      "description": "Laying on the court floor casually, ball tucked under arm, smirking",
+      "hairColor": "hot pink",
+      "expression": "knowing smirk, unbothered",
+      "prompt": "laying casually on court floor - ball tucked under one arm, head propped on other hand, knowing smirk on face, completely unbothered and in control",
+      "energy": "I don't care attitude, cool chaos"
+    }
+  },
+  "hairColors": {
+    "red": "bright red wild hair",
+    "green": "neon green wild hair spiked up",
+    "blue": "electric blue wild hair",
+    "pink": "hot pink wild hair",
+    "leopard": "leopard print hair - blonde with black spots",
+    "blonde": "bleached blonde wild hair",
+    "rainbow": "multi-colored rainbow wild hair"
+  }
+}

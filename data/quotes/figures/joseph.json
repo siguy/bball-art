@@ -1,0 +1,56 @@
+{
+  "id": "joseph",
+  "name": "Joseph",
+  "aliases": ["Yosef", "Zaphenath-Paneah"],
+  "quotes": {
+    "coat-of-colors": {
+      "source": "Genesis 37:3",
+      "context": "Jacob's gift to his favorite son",
+      "hebrew": "כְּתֹנֶת פַּסִּים",
+      "english": "A coat of many colors",
+      "mood": "favored son, brotherly jealousy"
+    },
+    "dreamer": {
+      "source": "Genesis 37:19",
+      "context": "Brothers mock Joseph",
+      "hebrew": "הִנֵּה בַּעַל הַחֲלֹמוֹת הַלָּזֶה בָּא",
+      "english": "Behold, this dreamer comes",
+      "mood": "mocking contempt, visionary dismissed"
+    },
+    "god-meant-for-good": {
+      "source": "Genesis 50:20",
+      "context": "Joseph's forgiveness to his brothers",
+      "hebrew": "אַתֶּם חֲשַׁבְתֶּם עָלַי רָעָה אֱלֹהִים חֲשָׁבָהּ לְטֹבָה",
+      "english": "You meant evil against me, but God meant it for good",
+      "mood": "divine providence, redemptive forgiveness"
+    },
+    "resist-temptation": {
+      "source": "Genesis 39:9",
+      "context": "Refusing Potiphar's wife",
+      "hebrew": "וְחָטָאתִי לֵאלֹהִים",
+      "english": "How can I do this great wickedness and sin against God?",
+      "mood": "moral strength, integrity tested"
+    },
+    "interpreting-dreams": {
+      "source": "Genesis 41:16",
+      "context": "Before Pharaoh",
+      "hebrew": "בִּלְעָדָי אֱלֹהִים יַעֲנֶה אֶת שְׁלוֹם פַּרְעֹה",
+      "english": "It is not in me; God will give Pharaoh a favorable answer",
+      "mood": "humble credit to God, gifted interpreter"
+    },
+    "reveal-to-brothers": {
+      "source": "Genesis 45:3",
+      "context": "The dramatic reveal",
+      "hebrew": "אֲנִי יוֹסֵף הַעוֹד אָבִי חָי",
+      "english": "I am Joseph! Is my father still alive?",
+      "mood": "emotional reveal, family reunion"
+    },
+    "second-in-egypt": {
+      "source": "Genesis 41:43",
+      "context": "Joseph's elevation",
+      "hebrew": "וַיַּרְכֵּב אֹתוֹ בְּמִרְכֶּבֶת הַמִּשְׁנֶה",
+      "english": "He had him ride in his second chariot",
+      "mood": "exaltation, slave to ruler"
+    }
+  }
+}

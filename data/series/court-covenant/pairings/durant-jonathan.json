@@ -1,0 +1,48 @@
+{
+  "id": "durant-jonathan",
+  "series": "court-covenant",
+  "player": {
+    "name": "Kevin Durant",
+    "displayName": "KD",
+    "poseFileId": "durant",
+    "era": "2010s",
+    "jerseyColors": {
+      "primary": { "base": "blue", "accent": "gold" },
+      "secondary": { "base": "white", "accent": "blue" }
+    },
+    "signatureMoves": ["pull-up jumper", "unstoppable scoring", "silky smooth shooting"],
+    "physicalDescription": "extremely tall 6'10\" with impossibly long arms and lean frame, slim build, short hair, facial hair, dark skin, effortless athletic grace",
+    "archetype": "The Slim Reaper, pure scorer, complicated legacy and loyalties"
+  },
+  "figure": {
+    "name": "Jonathan",
+    "displayName": "Jonathan",
+    "poseFileId": "jonathan",
+    "attribute": "royal bow and arrows",
+    "attributeDescription": "finely crafted bow of a prince and skilled archer, quiver of arrows, symbol of his warrior prowess",
+    "visualStyle": "prince of Israel, beloved friend of David, noble warrior",
+    "clothing": "prince's tunic of fine quality but practical for battle, light armor, royal but understated compared to his father Saul",
+    "physicalDescription": "handsome noble young man, athletic warrior's build, kind loyal eyes, short dark hair and beard, olive skin, carries himself with quiet dignity",
+    "anatomyNote": "two arms only",
+    "archetype": "The Loyal Prince, elite warrior, chose friendship over throne"
+  },
+  "connection": {
+    "thematic": "Both possessed elite talent but complex loyalties that defined their legacies",
+    "narrative": "Jonathan had Saul's throne waiting. KD had OKC's love. Both made choices that still spark debate.",
+    "relationship": "Elite talents whose loyalty decisions became their defining stories"
+  },
+  "interactions": [
+    {
+      "id": "side-by-side",
+      "description": "Two elite talents standing together, complicated but capable"
+    },
+    {
+      "id": "dap-up",
+      "description": "Brotherhood between those who understand the weight of choices"
+    }
+  ],
+  "defaultInteraction": "side-by-side",
+  "cardVariants": ["thunder-lightning", "downtown"],
+  "priority": 12,
+  "status": "active"
+}

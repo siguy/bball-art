@@ -1,0 +1,62 @@
+{
+  "id": "david",
+  "name": "David",
+  "defaultPose": "slinging-stone",
+  "description": "Shepherd boy who became greatest king. Giant-slayer, psalmist, warrior-poet. Flawed but beloved, a man after God's heart.",
+  "poses": {
+    "slinging-stone": {
+      "id": "slinging-stone",
+      "name": "Slinging at Goliath",
+      "description": "Sling whirling, about to release the stone",
+      "expression": "focused determination, fearless youth",
+      "prompt": "young shepherd with sling whirling overhead - about to release stone, intense focus, no armor just simple tunic, facing unseen giant with complete confidence, the moment before victory",
+      "energy": "giant-slayer faith, fearless youth",
+      "quoteId": "goliath-challenge"
+    },
+    "playing-harp": {
+      "id": "playing-harp",
+      "name": "Playing the Harp",
+      "description": "Young David playing harp, soothing Saul's spirit",
+      "expression": "musical peace, artistic soul",
+      "prompt": "seated playing lyre/harp - fingers on strings, peaceful expression, the musician who soothed a tormented king, shepherd-poet creating psalms",
+      "energy": "artistic soul, peaceful worship",
+      "quoteId": "psalm-23"
+    },
+    "dancing-before-ark": {
+      "id": "dancing-before-ark",
+      "name": "Dancing Before the Ark",
+      "description": "Leaping and dancing as Ark enters Jerusalem",
+      "expression": "uninhibited worship, joyful abandon",
+      "prompt": "leaping in ecstatic dance - ephod swirling, arms raised, face showing pure joy, dancing with all his might before the Lord, king becoming worshipper",
+      "energy": "joyful worship, uninhibited praise",
+      "quoteId": "dancing-before-ark"
+    },
+    "crowned-king": {
+      "id": "crowned-king",
+      "name": "Crowned King",
+      "description": "David anointed/crowned as King of Israel",
+      "expression": "humble acceptance, destiny fulfilled",
+      "prompt": "standing as crown placed on head - royal robes, expression of humble acceptance, the shepherd boy finally king over united Israel, promise fulfilled",
+      "energy": "destiny fulfilled, humble king",
+      "quoteId": "heart-after-god"
+    },
+    "leading-mighty-men": {
+      "id": "leading-mighty-men",
+      "name": "Leading the Mighty Men",
+      "description": "David with his elite warriors",
+      "expression": "warrior-king, band of brothers",
+      "prompt": "standing among elite warriors - sword drawn, surrounded by loyal mighty men, battle-ready, the warrior-king who inspired legendary loyalty",
+      "energy": "warrior brotherhood, inspiring leader",
+      "quoteId": "mighty-men"
+    },
+    "repentant-prayer": {
+      "id": "repentant-prayer",
+      "name": "Repentant Prayer",
+      "description": "On knees after Nathan confronts him",
+      "expression": "broken, contrite, seeking mercy",
+      "prompt": "kneeling in repentant prayer - head bowed, perhaps tears, broken before God after sin exposed, the flawed king seeking forgiveness, Psalm 51 moment",
+      "energy": "broken repentance, seeking mercy",
+      "quoteId": "broken-contrite"
+    }
+  }
+}

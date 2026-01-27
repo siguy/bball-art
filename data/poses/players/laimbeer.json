@@ -1,0 +1,48 @@
+{
+  "id": "laimbeer",
+  "name": "Bill Laimbeer",
+  "defaultPose": "flagrant-foul",
+  "description": "6'11\" center, Bad Boy Pistons enforcer. Two-time champion, 4-time All-Star. The most hated player in the NBA - flopper, cheap shot artist, villain everyone loved to hate.",
+  "poses": {
+    "flagrant-foul": {
+      "id": "flagrant-foul",
+      "name": "Flagrant Foul",
+      "description": "Mid-hard-foul, the kind that started fights",
+      "expression": "unapologetic aggression, zero remorse",
+      "prompt": "tall center delivering hard flagrant foul - elbow out making contact, body leaning into opponent, face showing zero remorse, the kind of foul that started brawls, pure unapologetic aggression",
+      "energy": "enforcer violence, no regrets"
+    },
+    "theatrical-flop": {
+      "id": "theatrical-flop",
+      "name": "Theatrical Flop",
+      "description": "The most dramatic flop in NBA history",
+      "expression": "exaggerated agony, selling the call",
+      "prompt": "tall center falling backward in dramatic flop - arms flailing, head snapping back, selling minimal contact like a gunshot wound, theatrical performance worthy of an Oscar, the art of deception",
+      "energy": "master manipulator, selling the call"
+    },
+    "trash-talking": {
+      "id": "trash-talking",
+      "name": "Trash Talking",
+      "description": "Getting in opponent's face, constant verbal warfare",
+      "expression": "sneering contempt, verbal assault",
+      "prompt": "tall center trash talking directly in opponent's face - finger pointing, mouth open mid-insult, sneering contempt, invading personal space, psychological warfare through constant verbal abuse",
+      "energy": "verbal assault, mental warfare"
+    },
+    "setting-hard-screen": {
+      "id": "setting-hard-screen",
+      "name": "Illegal Screen",
+      "description": "The 'accidentally' illegal screen that levels opponents",
+      "expression": "false innocence masking malice",
+      "prompt": "tall center setting brutal illegal screen - shoulder and hip extended into opponent's path, making it look legal while maximizing damage, slight smirk knowing exactly what he's doing, plausible deniability",
+      "energy": "dirty work, technically legal"
+    },
+    "arms-raised-innocent": {
+      "id": "arms-raised-innocent",
+      "name": "False Innocence",
+      "description": "The 'Who, me?' after every foul",
+      "expression": "mock surprise, theatrical innocence",
+      "prompt": "tall center with arms raised in mock innocence after flagrant foul - palms up, eyebrows raised, mouth open in fake surprise, 'Who me?' expression while opponent writhes on floor, the villain's signature move",
+      "energy": "false innocence, shameless denial"
+    }
+  }
+}

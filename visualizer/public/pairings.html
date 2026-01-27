@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Court & Covenant - Pairing Dashboard</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="pairings.css">
+</head>
+<body>
+  <header>
+    <div class="header-content">
+      <img src="/brand/logos/court and covenant logo - 1.png" alt="Court & Covenant" class="logo">
+      <h1>Pairing Dashboard</h1>
+    </div>
+    <nav class="header-nav">
+      <a href="/" class="nav-link">Cards</a>
+      <a href="/pairings.html" class="nav-link active">Pairings</a>
+    </nav>
+  </header>
+
+  <main>
+    <div class="controls">
+      <div class="filter-group">
+        <label for="filter-category">Category:</label>
+        <select id="filter-category">
+          <option value="">All Pairings</option>
+          <option value="heroes">Heroes</option>
+          <option value="villains">Villains</option>
+        </select>
+      </div>
+      <button id="refresh-btn" class="btn">Refresh</button>
+    </div>
+
+    <div class="pairings-grid" id="pairings-grid">
+      <!-- Pairing cards will be rendered here -->
+    </div>
+  </main>
+
+  <!-- Generate Modal -->
+  <div class="modal" id="generate-modal">
+    <div class="modal-content modal-small">
+      <button class="modal-close" id="modal-close">&times;</button>
+      <h2>Generate Card</h2>
+      <div id="generate-pairing-name" class="generate-pairing-name"></div>
+
+      <div class="form-group">
+        <label for="select-template">Template:</label>
+        <select id="select-template">
+          <option value="thunder-lightning">Thunder & Lightning</option>
+          <option value="beam-team">Beam Team</option>
+          <option value="downtown">Downtown</option>
+          <option value="kaboom">Kaboom</option>
+          <option value="metal-universe">Metal Universe</option>
+          <option value="prizm-silver">Prizm Silver</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="select-interaction">Interaction:</label>
+        <select id="select-interaction">
+          <!-- Will be populated dynamically -->
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Custom Action (optional):</label>
+        <div class="custom-action-inputs">
+          <input type="text" id="custom-player-action" placeholder="Player action (e.g., 'fadeaway jumper')">
+          <input type="text" id="custom-figure-action" placeholder="Figure action (e.g., 'parting the sea')">
+        </div>
+        <p class="hint">Leave blank to use selected interaction</p>
+      </div>
+
+      <div class="generate-actions">
+        <button id="btn-generate" class="btn btn-primary btn-large">Generate Card</button>
+      </div>
+
+      <div id="generate-status" class="generate-status"></div>
+    </div>
+  </div>
+
+  <!-- Add Interaction Modal -->
+  <div class="modal" id="interaction-modal">
+    <div class="modal-content modal-small">
+      <button class="modal-close" id="interaction-modal-close">&times;</button>
+      <h2>Add Custom Interaction</h2>
+      <div id="interaction-pairing-name" class="generate-pairing-name"></div>
+
+      <div class="form-group">
+        <label for="new-interaction-id">Interaction ID:</label>
+        <input type="text" id="new-interaction-id" placeholder="e.g., parting-defenders">
+      </div>
+
+      <div class="form-group">
+        <label for="new-interaction-name">Display Name:</label>
+        <input type="text" id="new-interaction-name" placeholder="e.g., Parting the Defense">
+      </div>
+
+      <div class="form-group">
+        <label for="new-player-action">Player Action:</label>
+        <textarea id="new-player-action" placeholder="Describe exactly what the player is doing..."></textarea>
+      </div>
+
+      <div class="form-group">
+        <label for="new-figure-action">Figure Action:</label>
+        <textarea id="new-figure-action" placeholder="Describe exactly what the biblical figure is doing..."></textarea>
+      </div>
+
+      <div class="form-group">
+        <label for="new-interaction-energy">Energy/Mood:</label>
+        <input type="text" id="new-interaction-energy" placeholder="e.g., Powerful, unstoppable, legendary">
+      </div>
+
+      <button id="btn-save-interaction" class="btn btn-primary">Save Interaction</button>
+    </div>
+  </div>
+
+  <script src="pairings.js"></script>
+</body>
+</html>

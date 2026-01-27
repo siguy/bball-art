@@ -1,0 +1,62 @@
+{
+  "id": "jonathan",
+  "name": "Jonathan",
+  "defaultPose": "covenant-with-david",
+  "description": "Saul's son, David's closest friend. Chose friendship over throne. Loyal despite father's jealousy. 'Your love was more wonderful than the love of women.'",
+  "poses": {
+    "covenant-with-david": {
+      "id": "covenant-with-david",
+      "name": "Covenant of Friendship",
+      "description": "Making covenant with David, giving his robe",
+      "expression": "deep loyalty, sacrificial love",
+      "prompt": "giving robe and weapons to David - stripping himself of royal insignia, choosing friendship over throne, covenant stronger than blood",
+      "energy": "sacrificial friendship, royal renunciation",
+      "quoteId": "soul-knit"
+    },
+    "warrior-prince": {
+      "id": "warrior-prince",
+      "name": "Warrior Prince",
+      "description": "Jonathan in battle, fearless commander",
+      "expression": "royal courage, elite warrior",
+      "prompt": "climbing cliff to attack Philistine garrison - only armor bearer with him, impossible assault, faith that moved mountains",
+      "energy": "impossible courage, elite warrior",
+      "quoteId": "nothing-hinders"
+    },
+    "warning-david": {
+      "id": "warning-david",
+      "name": "The Arrow Signal",
+      "description": "Shooting arrows to warn David of Saul's intent",
+      "expression": "torn loyalty, protective warning",
+      "prompt": "shooting arrow as signal - boy running to retrieve it, secret warning to David, protecting friend against own father",
+      "energy": "protective loyalty, dangerous friendship",
+      "quoteId": "go-in-peace"
+    },
+    "weeping-farewell": {
+      "id": "weeping-farewell",
+      "name": "The Farewell",
+      "description": "Final embrace with David",
+      "expression": "heartbroken parting, undying loyalty",
+      "prompt": "embracing David in field - both weeping, knowing they may never meet again, friendship that transcended kingdoms",
+      "energy": "heartbreaking farewell, eternal bond",
+      "quoteId": "go-in-peace"
+    },
+    "defying-saul": {
+      "id": "defying-saul",
+      "name": "Standing Against His Father",
+      "description": "Defending David before angry Saul",
+      "expression": "moral courage, divided loyalty",
+      "prompt": "standing before angry Saul defending David - spear about to be thrown, son against father, loyalty that cost everything",
+      "energy": "moral courage, costly loyalty",
+      "quoteId": "why-should-he-die"
+    },
+    "fallen-on-gilboa": {
+      "id": "fallen-on-gilboa",
+      "name": "Fallen at Gilboa",
+      "description": "The tragic end on Mount Gilboa",
+      "expression": "noble death, tragic hero",
+      "prompt": "fallen warrior on Mount Gilboa - arrows piercing him, died alongside father despite everything, noble to the end",
+      "energy": "tragic nobility, faithful unto death",
+      "quoteId": "how-mighty-fallen"
+    }
+  }
+}

@@ -1,0 +1,48 @@
+{
+  "id": "shaq-goliath",
+  "series": "court-covenant",
+  "player": {
+    "name": "Shaquille O'Neal",
+    "poseFileId": "shaq",
+    "displayName": "Shaq",
+    "era": "1990s",
+    "jerseyColors": {
+      "primary": { "base": "purple", "accent": "gold" },
+      "secondary": { "base": "gold", "accent": "purple" }
+    },
+    "signatureMoves": ["powerful dunk", "drop step", "backboard-shattering slam"],
+    "physicalDescription": "MASSIVE 7'1\" 325-pound frame, incredibly muscular, shaved head, playful yet intimidating expression, dark skin, largest player on any court",
+    "archetype": "The Dominant Force, unstoppable physical presence, broke backboards and spirits"
+  },
+  "figure": {
+    "name": "Goliath",
+    "poseFileId": "goliath",
+    "displayName": "Goliath",
+    "attribute": "massive bronze spear and shield",
+    "attributeDescription": "enormous bronze-tipped spear the size of a weaver's beam, large bronze shield carried before him",
+    "visualStyle": "Philistine giant warrior, ancient Near Eastern military champion",
+    "clothing": "bronze scale armor coat weighing 125 pounds, bronze greaves on legs, bronze javelin slung on back, Philistine warrior helmet with plume",
+    "physicalDescription": "TOWERING GIANT over 9 feet tall, massively muscled warrior build, fierce bearded face, battle-scarred, olive skin, intimidating presence that struck fear into armies",
+    "anatomyNote": "two arms only, one holding spear",
+    "archetype": "The Champion Giant, undefeated warrior who terrified nations"
+  },
+  "connection": {
+    "thematic": "Both were physical anomalies whose sheer size and power made them seem unbeatable",
+    "narrative": "Two giants. One ancient battlefield. One modern court. Same energy: unstoppable force.",
+    "relationship": "Dominant giants who made opponents feel small"
+  },
+  "interactions": [
+    {
+      "id": "back-to-back",
+      "description": "Two giants standing back-to-back, towering over everything"
+    },
+    {
+      "id": "simultaneous-action",
+      "description": "Shaq dunking while Goliath thrusts spear - parallel displays of overwhelming power"
+    }
+  ],
+  "defaultInteraction": "back-to-back",
+  "cardVariants": ["thunder-lightning", "downtown"],
+  "priority": 7,
+  "status": "active"
+}

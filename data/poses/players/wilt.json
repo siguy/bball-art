@@ -1,0 +1,56 @@
+{
+  "id": "wilt",
+  "name": "Wilt Chamberlain",
+  "defaultPose": "100-point-game",
+  "description": "7'1\" center, most dominant individual ever. 100 points in a game, 50 ppg season, 55 rebounds in a game. The records seem fictional.",
+  "poses": {
+    "100-point-game": {
+      "id": "100-point-game",
+      "name": "100 Point Game",
+      "description": "Holding up paper showing '100' after historic game",
+      "expression": "satisfied smile, unbelievable achievement",
+      "prompt": "holding up piece of paper showing '100' - seated in locker room, slight smile of satisfaction, after scoring 100 points in a single game, a feat that will never be repeated",
+      "energy": "unrepeatable legend, statistical impossibility"
+    },
+    "finger-roll": {
+      "id": "finger-roll",
+      "name": "Finger Roll",
+      "description": "Signature soft finger roll over defenders",
+      "expression": "gentle touch, giant with finesse",
+      "prompt": "executing delicate finger roll at the rim - massive frame but soft touch, ball rolling off fingertips into basket, giant capable of surprising gentleness, unstoppable close-range",
+      "energy": "gentle giant, unstoppable touch"
+    },
+    "blocking-shot": {
+      "id": "blocking-shot",
+      "name": "Goaltending Height",
+      "description": "Blocking shot at a height that seems impossible",
+      "expression": "effortless dominance, changing the rules",
+      "prompt": "blocking shot well above the rim - arm extended to impossible height, plucking ball from its downward arc, changing the rules of basketball, the reason goaltending exists",
+      "energy": "rule-changing dominance, unfair advantage"
+    },
+    "rebounding-above-all": {
+      "id": "rebounding-above-all",
+      "name": "55 Rebounds",
+      "description": "Grabbing rebound above a crowd of players",
+      "expression": "physical supremacy, board man",
+      "prompt": "grabbing rebound high above multiple opposing players - arms fully extended, ball secured, multiple smaller players below reaching helplessly, 55 rebounds in a game",
+      "energy": "rebounding machine, physical freak"
+    },
+    "fadeaway-finger-point": {
+      "id": "fadeaway-finger-point",
+      "name": "Pointing After Score",
+      "description": "Pointing at defender after scoring easily",
+      "expression": "playful dominance, too easy",
+      "prompt": "pointing at defender after easy basket - slight smile, playful confidence, 'you can't stop me' gesture, making domination look fun",
+      "energy": "playful dominance, unstoppable"
+    },
+    "muscular-pose": {
+      "id": "muscular-pose",
+      "name": "Physical Specimen",
+      "description": "Showing off incredible physique",
+      "expression": "athletic supremacy, peak physical form",
+      "prompt": "standing showing incredible muscular physique - massive shoulders, arms, and frame, the physical specimen that track and field and basketball shared, pure athletic dominance",
+      "energy": "superhuman physique, ultimate athlete"
+    }
+  }
+}

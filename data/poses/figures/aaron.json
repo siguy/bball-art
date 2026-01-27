@@ -1,0 +1,62 @@
+{
+  "id": "aaron",
+  "name": "Aaron",
+  "defaultPose": "blessing-people",
+  "description": "Moses's brother, first High Priest. The mouthpiece, the supporter, essential partner. Flawed but faithful, the priest who blessed Israel.",
+  "poses": {
+    "blessing-people": {
+      "id": "blessing-people",
+      "name": "Priestly Blessing",
+      "description": "Hands raised pronouncing blessing over Israel",
+      "expression": "sacred authority, fatherly blessing",
+      "prompt": "standing with hands raised in priestly blessing - wearing high priest garments with breastplate, pronouncing Aaronic blessing over the people, 'The Lord bless you and keep you'",
+      "energy": "sacred benediction, priestly authority",
+      "quoteId": "blessing-people"
+    },
+    "rod-to-serpent": {
+      "id": "rod-to-serpent",
+      "name": "Rod to Serpent",
+      "description": "Casting rod before Pharaoh, becoming serpent",
+      "expression": "confident display, divine power",
+      "prompt": "casting rod to ground before Egyptian throne - rod mid-transformation into serpent, confident expression, demonstrating God's power to Pharaoh",
+      "energy": "divine signs, confronting power",
+      "quoteId": "rod-becomes-serpent"
+    },
+    "standing-beside-moses": {
+      "id": "standing-beside-moses",
+      "name": "Beside Moses",
+      "description": "Standing as Moses's essential partner",
+      "expression": "supportive strength, partnership",
+      "prompt": "standing beside Moses in supportive position - the essential partner, ready to speak or act, two brothers united in mission",
+      "energy": "faithful support, essential partner",
+      "quoteId": "mouthpiece"
+    },
+    "holding-up-moses-arms": {
+      "id": "holding-up-moses-arms",
+      "name": "Holding Moses's Arms",
+      "description": "Supporting Moses's tired arms during battle",
+      "expression": "supportive strength, winning together",
+      "prompt": "holding up Moses's raised arms during battle - supporting weary leader, Hur on other side, the battle won through support, essential role in victory",
+      "energy": "supporting the leader, winning together",
+      "quoteId": "mouthpiece"
+    },
+    "stopping-plague": {
+      "id": "stopping-plague",
+      "name": "Stopping the Plague",
+      "description": "Standing between living and dead with incense",
+      "expression": "intercessory courage, standing in gap",
+      "prompt": "standing with incense censer between dead and living - smoke rising, plague stopping at his feet, the intercessor who stood in the gap and saved Israel",
+      "energy": "intercessory courage, plague stopped",
+      "quoteId": "incense-plague"
+    },
+    "high-priest-garments": {
+      "id": "high-priest-garments",
+      "name": "In Full Vestments",
+      "description": "Wearing complete High Priest garments",
+      "expression": "sacred dignity, clothed in glory",
+      "prompt": "standing in full High Priest vestments - breastplate with twelve stones, ephod, turban with gold plate, 'for glory and for beauty', the weight of priestly office",
+      "energy": "sacred office, priestly glory",
+      "quoteId": "holy-garments"
+    }
+  }
+}

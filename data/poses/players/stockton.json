@@ -1,0 +1,56 @@
+{
+  "id": "stockton",
+  "name": "John Stockton",
+  "defaultPose": "pick-and-roll",
+  "description": "6'1\" point guard, all-time assists and steals leader. 10x All-Star. Short shorts, fundamental perfection, Malone's partner for 18 years.",
+  "poses": {
+    "pick-and-roll": {
+      "id": "pick-and-roll",
+      "name": "Pick and Roll Pass",
+      "description": "Threading pass to rolling big man - perfected 15,000+ times",
+      "expression": "surgical precision, perfect read",
+      "prompt": "delivering bounce pass to rolling big man off pick - ball threading through defenders, eyes having already read the play, the pick and roll perfected over 18 years, assist number 15,000",
+      "energy": "surgical precision, assist king"
+    },
+    "short-shorts-stance": {
+      "id": "short-shorts-stance",
+      "name": "Old School Ready",
+      "description": "In stance with signature short shorts",
+      "expression": "fundamental perfection, no frills",
+      "prompt": "in defensive stance wearing signature short shorts - no flash, all fundamentals, compact powerful frame, the everyman who became legend through work",
+      "energy": "fundamental excellence, old school"
+    },
+    "stealing-ball": {
+      "id": "stealing-ball",
+      "name": "All-Time Steals",
+      "description": "Quick hands deflecting pass - record 3,265 steals",
+      "expression": "anticipation, quick hands",
+      "prompt": "hands deflecting pass for steal - quick hands darting into passing lane, anticipation reading the play before it happens, record 3,265 career steals",
+      "energy": "quickest hands, all-time thief"
+    },
+    "hard-screen": {
+      "id": "hard-screen",
+      "name": "Brutal Screen",
+      "description": "Setting hard screen that levels defender",
+      "expression": "toughness hidden in small frame",
+      "prompt": "setting brutally hard screen on unsuspecting defender - compact frame creating immovable wall, toughness that belied size, the screens that freed Malone",
+      "energy": "hidden toughness, immovable"
+    },
+    "pointing-play": {
+      "id": "pointing-play",
+      "name": "Calling the Play",
+      "description": "Directing traffic, calling out the set",
+      "expression": "coach on the floor, total control",
+      "prompt": "pointing and calling out play to teammates - directing traffic at top of key, every movement with purpose, the coach on the floor who ran the offense perfectly",
+      "energy": "floor general, tactical genius"
+    },
+    "playoff-intensity": {
+      "id": "playoff-intensity",
+      "name": "Playoff Intensity",
+      "description": "The raised level in playoffs - more aggressive",
+      "expression": "elevated intensity, different gear",
+      "prompt": "playoff-mode intensity - more aggressive stance, fiercer expression, the level that rose when it mattered most, three Finals appearances",
+      "energy": "playoff elevation, championship pursuit"
+    }
+  }
+}

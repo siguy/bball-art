@@ -1,0 +1,62 @@
+{
+  "id": "isaac",
+  "name": "Isaac",
+  "defaultPose": "bound-on-altar",
+  "description": "Child of promise, nearly sacrificed. Dug wells, blessed Jacob. Patient patriarch who received rather than seized. The quiet one between Abraham and Jacob.",
+  "poses": {
+    "bound-on-altar": {
+      "id": "bound-on-altar",
+      "name": "The Binding",
+      "description": "Bound on altar at Moriah, willing sacrifice",
+      "expression": "willing submission, faith unto death",
+      "prompt": "young man bound on stone altar - wood beneath, father's knife raised, willing sacrifice, the Akedah that echoed through history",
+      "energy": "ultimate submission, faith tested",
+      "quoteId": "where-is-lamb"
+    },
+    "digging-wells": {
+      "id": "digging-wells",
+      "name": "Digging the Wells",
+      "description": "Re-digging Abraham's wells",
+      "expression": "patient persistence, quiet faithfulness",
+      "prompt": "digging well in desert - reclaiming father's inheritance, Philistines filled them but he digs again, patient persistence over confrontation",
+      "energy": "patient reclamation, quiet strength",
+      "quoteId": "room-for-us"
+    },
+    "blessing-jacob": {
+      "id": "blessing-jacob",
+      "name": "The Mistaken Blessing",
+      "description": "Old and blind, blessing Jacob",
+      "expression": "aged wisdom, deceived yet sovereign",
+      "prompt": "elderly blind patriarch touching son's hands - goatskin on smooth hands, giving blessing that cannot be taken back, divine purposes in human deception",
+      "energy": "irrevocable blessing, sovereign purposes",
+      "quoteId": "voice-is-jacob"
+    },
+    "meeting-rebekah": {
+      "id": "meeting-rebekah",
+      "name": "Finding Rebekah",
+      "description": "First seeing Rebekah at the well",
+      "expression": "love at first sight, divine appointment",
+      "prompt": "looking up from meditation in field - seeing camels approach, Rebekah dismounting, love that was destined, comfort after mother's death",
+      "energy": "destined love, divine matchmaking",
+      "quoteId": "loved-her"
+    },
+    "meditating-field": {
+      "id": "meditating-field",
+      "name": "Meditating in the Field",
+      "description": "Evening meditation, contemplative patriarch",
+      "expression": "quiet contemplation, inner life",
+      "prompt": "walking alone in field at evening - deep in thought and prayer, the contemplative patriarch, quiet strength over dramatic action",
+      "energy": "contemplative peace, inner depth",
+      "quoteId": null
+    },
+    "reconciling-esau": {
+      "id": "reconciling-esau",
+      "name": "Father of Two Nations",
+      "description": "Between his conflicting sons",
+      "expression": "fatherly concern, divided heart",
+      "prompt": "elderly patriarch between two very different sons - Esau wild and hairy, Jacob smooth and cunning, loving both but purposes differ",
+      "energy": "divided love, prophetic fatherhood",
+      "quoteId": "two-nations"
+    }
+  }
+}

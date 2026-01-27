@@ -1,0 +1,56 @@
+{
+  "id": "daniel",
+  "name": "Daniel",
+  "aliases": ["Belteshazzar", "The Prophet", "Interpreter of Dreams"],
+  "quotes": {
+    "shut-lions-mouths": {
+      "source": "Daniel 6:22",
+      "context": "Daniel explains his survival",
+      "hebrew": "אֱלָהִי שְׁלַח מַלְאֲכֵהּ וּסֲגַר פֻּם אַרְיָוָתָא",
+      "english": "My God sent His angel and shut the lions' mouths",
+      "mood": "calm testimony, faith vindicated"
+    },
+    "god-reveals-mysteries": {
+      "source": "Daniel 2:28",
+      "context": "Before interpreting Nebuchadnezzar's dream",
+      "hebrew": "אִיתַי אֱלָהּ בִּשְׁמַיָּא גָּלֵא רָזִין",
+      "english": "There is a God in heaven who reveals mysteries",
+      "mood": "divine wisdom, humble credit"
+    },
+    "mene-mene": {
+      "source": "Daniel 5:25-26",
+      "context": "Reading the writing on the wall",
+      "hebrew": "מְנֵא מְנֵא תְּקֵל וּפַרְסִין",
+      "english": "MENE, MENE, TEKEL, UPHARSIN - You have been weighed and found wanting",
+      "mood": "divine judgment, fearless prophecy"
+    },
+    "not-defile-himself": {
+      "source": "Daniel 1:8",
+      "context": "Daniel's first act of faithfulness",
+      "hebrew": "וַיָּשֶׂם דָּנִיֵּאל עַל לִבּוֹ אֲשֶׁר לֹא יִתְגָּאַל",
+      "english": "Daniel resolved that he would not defile himself",
+      "mood": "youthful conviction, principled stand"
+    },
+    "three-times-daily": {
+      "source": "Daniel 6:10",
+      "context": "Praying despite the decree",
+      "hebrew": "וְזִמְנִין תְּלָתָא בְּיוֹמָא הוּא בָּרֵךְ עַל בִּרְכוֹהִי",
+      "english": "Three times a day he got down on his knees and prayed",
+      "mood": "defiant faithfulness, unchanging devotion"
+    },
+    "vision-of-night": {
+      "source": "Daniel 7:2",
+      "context": "Beginning of apocalyptic visions",
+      "hebrew": "חָזֵה הֲוֵית בְּחֶזְוִי עִם לֵילְיָא",
+      "english": "I saw in my vision by night",
+      "mood": "prophetic burden, apocalyptic sight"
+    },
+    "god-we-serve": {
+      "source": "Daniel 3:17",
+      "context": "His three friends before the furnace",
+      "hebrew": "אֱלָהֲנָא דִּי אֲנַחְנָא פָלְחִין יָכִל לְשֵׁיזָבוּתַנָא",
+      "english": "The God we serve is able to deliver us... But even if He does not",
+      "mood": "unconditional faith, regardless of outcome"
+    }
+  }
+}

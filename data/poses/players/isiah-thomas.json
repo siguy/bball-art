@@ -1,0 +1,48 @@
+{
+  "id": "isiah-thomas",
+  "name": "Isiah Thomas",
+  "defaultPose": "jordan-rules-signal",
+  "description": "6'1\" point guard, leader of the Bad Boy Pistons. Two-time champion, 12-time All-Star. Small but fearless, orchestrated the Jordan Rules, walked off court in 1991 ECF.",
+  "poses": {
+    "walking-off-court": {
+      "id": "walking-off-court",
+      "name": "Walking Off Court",
+      "description": "1991 ECF - Walking off without shaking hands, ultimate disrespect",
+      "expression": "chin up, defiant pride, no regrets",
+      "prompt": "walking off basketball court with chin held high - back partially turned, not looking back, defiant pride in every step, refusing to acknowledge opponents, the infamous walkoff, smaller guard with fierce intensity",
+      "energy": "defiant exit, no respect given"
+    },
+    "jordan-rules-signal": {
+      "id": "jordan-rules-signal",
+      "name": "Jordan Rules Signal",
+      "description": "Orchestrating the defensive scheme that shut down the GOAT",
+      "expression": "calculating, commanding, chess master",
+      "prompt": "point guard signaling defensive scheme to teammates - finger pointing, directing traffic like a general, calculating eyes reading the court, small but completely in command, the mastermind orchestrating the attack",
+      "energy": "tactical genius, defensive mastermind"
+    },
+    "celebratory-fist-pump": {
+      "id": "celebratory-fist-pump",
+      "name": "Championship Celebration",
+      "description": "1989/90 Finals - Back-to-back champion celebration",
+      "expression": "triumphant joy, vindication, king of the world",
+      "prompt": "small guard with explosive fist pump celebration - arm raised triumphantly, face showing pure joy and vindication, championship moment, proving all doubters wrong, the little guy who conquered the league",
+      "energy": "championship glory, sweet vindication"
+    },
+    "driving-layup": {
+      "id": "driving-layup",
+      "name": "Fearless Drive",
+      "description": "Signature fearless drive into traffic, heart of a lion",
+      "expression": "fearless determination, refusing to be intimidated",
+      "prompt": "small point guard driving fearlessly into lane against bigger defenders - body contorting mid-air, eyes on the rim, no fear despite size disadvantage, attacking the basket with reckless courage, heart bigger than his frame",
+      "energy": "fearless attack, undersized warrior"
+    },
+    "ice-cold-stare": {
+      "id": "ice-cold-stare",
+      "name": "Ice Cold Stare",
+      "description": "The intimidating look that said 'this is my court'",
+      "expression": "cold, calculating, psychologically dominant",
+      "prompt": "point guard with ice cold intimidating stare - eyes locked on opponent, slight smirk of superiority, arms crossed or hands on hips, radiating psychological dominance despite smaller stature, the look that broke opponents mentally",
+      "energy": "psychological warfare, mental dominance"
+    }
+  }
+}

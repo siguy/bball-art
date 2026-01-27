@@ -1,0 +1,48 @@
+{
+  "id": "kareem-solomon",
+  "series": "court-covenant",
+  "player": {
+    "name": "Kareem Abdul-Jabbar",
+    "displayName": "Kareem",
+    "poseFileId": "kareem",
+    "era": "1970s",
+    "jerseyColors": {
+      "primary": { "base": "purple", "accent": "gold" },
+      "secondary": { "base": "gold", "accent": "purple" }
+    },
+    "signatureMoves": ["skyhook", "post moves", "intelligent positioning"],
+    "physicalDescription": "extremely tall 7'2\" lean frame, distinctive goggles, bald head, serious intellectual expression, goatee, dark skin, elegant movement",
+    "archetype": "The Philosopher King, all-time leading scorer, longevity and wisdom personified"
+  },
+  "figure": {
+    "name": "King Solomon",
+    "displayName": "Solomon",
+    "poseFileId": "solomon",
+    "attribute": "scroll of wisdom and royal scepter",
+    "attributeDescription": "ancient scroll representing his 3,000 proverbs, golden royal scepter of Israel's wealthiest king",
+    "visualStyle": "wisest king of Israel, wealthy and scholarly",
+    "clothing": "magnificent royal robes of purple and gold with intricate embroidery, golden crown more elaborate than David's, jeweled rings, fine linen",
+    "physicalDescription": "dignified middle-aged king, neatly trimmed dark beard, calm knowing eyes full of wisdom, serene composed expression, olive skin, regal bearing",
+    "anatomyNote": "two arms only",
+    "archetype": "The Wisest King, built the Temple, authored Proverbs, unmatched wisdom"
+  },
+  "connection": {
+    "thematic": "Both combined supreme skill with profound wisdom and unprecedented longevity at the top",
+    "narrative": "Solomon wrote the book on wisdom. Kareem wrote the book on scoring. Both played the long game.",
+    "relationship": "Wise rulers who dominated through intelligence, not just talent"
+  },
+  "interactions": [
+    {
+      "id": "side-by-side",
+      "description": "Standing as dignified equals, wisdom emanating from both"
+    },
+    {
+      "id": "dap-up",
+      "description": "Mutual respect between two who mastered the mental game"
+    }
+  ],
+  "defaultInteraction": "side-by-side",
+  "cardVariants": ["thunder-lightning", "downtown"],
+  "priority": 9,
+  "status": "active"
+}

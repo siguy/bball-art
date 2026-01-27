@@ -1,0 +1,63 @@
+{
+  "id": "pharaoh",
+  "name": "Pharaoh",
+  "aliases": ["King of Egypt"],
+  "quotes": {
+    "who-is-lord": {
+      "source": "Exodus 5:2",
+      "context": "Pharaoh's defiant response to Moses",
+      "hebrew": "מִי יְהוָה אֲשֶׁר אֶשְׁמַע בְּקֹלוֹ",
+      "english": "Who is the LORD that I should heed Him?",
+      "mood": "arrogant, dismissive"
+    },
+    "will-not-let-go": {
+      "source": "Exodus 5:2",
+      "context": "Pharaoh refuses to free Israel",
+      "hebrew": "לֹא אֲשַׁלַּח אֶת יִשְׂרָאֵל",
+      "english": "I will not let Israel go",
+      "mood": "defiant, stubborn"
+    },
+    "hardened-heart": {
+      "source": "Exodus 9:12",
+      "context": "Pharaoh's heart remains hardened",
+      "hebrew": "וַיְחַזֵּק יְהוָה אֶת לֵב פַּרְעֹה",
+      "english": "The LORD hardened the heart of Pharaoh",
+      "mood": "obstinate, unyielding"
+    },
+    "more-bricks": {
+      "source": "Exodus 5:7-8",
+      "context": "Pharaoh increases the burden on Israelites",
+      "hebrew": "תִּכְבַּד הָעֲבֹדָה עַל הָאֲנָשִׁים",
+      "english": "Let heavier work be laid on the men",
+      "mood": "cruel, oppressive"
+    },
+    "this-time-sinned": {
+      "source": "Exodus 9:27",
+      "context": "Pharaoh admits sin during plague of hail",
+      "hebrew": "חָטָאתִי הַפָּעַם",
+      "english": "This time I have sinned",
+      "mood": "momentary weakness, deception"
+    },
+    "go-serve": {
+      "source": "Exodus 12:31",
+      "context": "Pharaoh finally releases Israel after death of firstborn",
+      "hebrew": "קוּמוּ צְּאוּ מִתּוֹךְ עַמִּי",
+      "english": "Rise up, go out from among my people!",
+      "mood": "broken, defeated"
+    },
+    "chase-them-down": {
+      "source": "Exodus 14:5",
+      "context": "Pharaoh changes his mind and pursues",
+      "hebrew": "מַה זֹּאת עָשִׂינוּ כִּי שִׁלַּחְנוּ אֶת יִשְׂרָאֵל",
+      "english": "What have we done, letting Israel go?",
+      "mood": "regretful, vengeful"
+    },
+    "trapped-at-sea": {
+      "source": "Exodus 14:25",
+      "context": "Pharaoh's army realizes God fights for Israel",
+      "hebrew": "אָנוּסָה מִפְּנֵי יִשְׂרָאֵל כִּי יְהוָה נִלְחָם לָהֶם",
+      "english": "Let us flee from Israel, for the LORD fights for them",
+      "mood": "terrified, doomed"
+    }
+  }
+}

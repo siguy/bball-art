@@ -1,0 +1,70 @@
+{
+  "id": "jokic-isaac",
+  "series": "court-covenant",
+  "player": {
+    "name": "Nikola Jokic",
+    "displayName": "Joker",
+    "poseFileId": "jokic",
+    "era": "2020s",
+    "jerseyColors": {
+      "primary": {
+        "base": "navy",
+        "accent": "gold"
+      },
+      "secondary": {
+        "base": "white",
+        "accent": "navy"
+      }
+    },
+    "signatureMoves": [
+      "no-look pass",
+      "sombor shuffle",
+      "post playmaking"
+    ],
+    "physicalDescription": "large 6'11\" doughy body type, not traditionally athletic looking, pale white skin, brown hair, scraggly beard, sleepy unbothered expression, Serbian",
+    "archetype": "The Joker, MVP who looks like he wandered in from a pickup game, genius disguised as casual"
+  },
+  "figure": {
+    "name": "Isaac",
+    "displayName": "Isaac",
+    "poseFileId": "isaac",
+    "attribute": "bundle of wood and peaceful demeanor",
+    "attributeDescription": "bundle of firewood on his back recalling the binding, staff of a wealthy patriarch",
+    "visualStyle": "peaceful patriarch of Israel, the promised son",
+    "clothing": "fine robes of a wealthy patriarch, earth tones and cream colors, comfortable dignified garments",
+    "physicalDescription": "gentle patient expression, medium build, balding with white remaining hair, long white beard, kind tired eyes that have seen much, olive skin, peaceful demeanor",
+    "anatomyNote": "two arms only",
+    "archetype": "The Patient One, waited and trusted, blessed despite setbacks"
+  },
+  "connection": {
+    "thematic": "Both were underestimated and patient, rising to greatness through quiet trust in their path",
+    "narrative": "Second-round pick. Second son. Both just waited their turn and inherited everything.",
+    "relationship": "Patient souls who received more than anyone expected"
+  },
+  "interactions": [
+    {
+      "id": "side-by-side",
+      "description": "Two patient figures, unbothered by the chaos around them"
+    },
+    {
+      "id": "dap-up",
+      "description": "Casual acknowledgment between those who don't need to prove anything"
+    }
+  ],
+  "defaultInteraction": "side-by-side",
+  "cardVariants": [
+    "thunder-lightning",
+    "downtown"
+  ],
+  "priority": 13,
+  "status": "active",
+  "customInteractions": [
+    {
+      "id": "no-look-akeida",
+      "name": "No Look Akeida",
+      "playerAction": "threading a no-look pass through defenders, eyes looking away, ball finding its target",
+      "figureAction": "tied up and submitting with perfect faith",
+      "energy": "Powerful and legendary"
+    }
+  ]
+}

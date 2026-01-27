@@ -1,0 +1,62 @@
+{
+  "id": "joshua",
+  "name": "Joshua",
+  "defaultPose": "sword-raised-jericho",
+  "description": "Moses's successor who conquered the Promised Land. Military genius, faithful servant who became leader. 'Be strong and courageous.'",
+  "poses": {
+    "sword-raised-jericho": {
+      "id": "sword-raised-jericho",
+      "name": "At Jericho's Walls",
+      "description": "Sword raised as walls of Jericho fall",
+      "expression": "victorious commander, faith rewarded",
+      "prompt": "standing with sword raised as walls crumble behind - dust and debris falling, face showing triumphant faith, unconventional victory through obedience, the walls fall flat",
+      "energy": "miraculous victory, faith over strategy",
+      "quoteId": "walls-fall-down"
+    },
+    "commanding-sun": {
+      "id": "commanding-sun",
+      "name": "Commanding the Sun",
+      "description": "Arm raised commanding sun to stand still",
+      "expression": "audacious faith, commanding creation",
+      "prompt": "arm raised toward sky commanding sun to stop - bold expression, speaking to creation itself, the day God listened to a man's voice, audacious faith in battle",
+      "energy": "audacious authority, commanding creation",
+      "quoteId": "sun-stand-still"
+    },
+    "leading-army": {
+      "id": "leading-army",
+      "name": "Leading Israel's Army",
+      "description": "At head of troops marching into battle",
+      "expression": "decisive leadership, confident command",
+      "prompt": "leading army into battle - sword drawn, confident stride, troops following, the military leader who conquered the land, decisive commander",
+      "energy": "military leadership, conquering commander",
+      "quoteId": "be-strong-courageous"
+    },
+    "crossing-jordan": {
+      "id": "crossing-jordan",
+      "name": "Crossing the Jordan",
+      "description": "Leading Israel across the parted Jordan",
+      "expression": "new beginning, following in Moses's footsteps",
+      "prompt": "leading people across parted Jordan river - priests with ark ahead, people following, entering the Promised Land, new chapter beginning",
+      "energy": "new beginning, promise fulfilled",
+      "quoteId": "crossing-jordan"
+    },
+    "choose-this-day": {
+      "id": "choose-this-day",
+      "name": "Choose This Day",
+      "description": "Challenging Israel to commit to the LORD",
+      "expression": "passionate challenge, decisive moment",
+      "prompt": "standing before assembled Israel with arm raised in challenge - passionate expression, calling for decision, 'as for me and my house, we will serve the LORD'",
+      "energy": "decisive challenge, faithful commitment",
+      "quoteId": "choose-this-day"
+    },
+    "spy-mission": {
+      "id": "spy-mission",
+      "name": "Faithful Spy",
+      "description": "Young Joshua returning from spying the land",
+      "expression": "courageous minority, faithful report",
+      "prompt": "standing with Caleb against the ten other spies - minority report, confident expression, 'we are well able to take it', courage against fearful majority",
+      "energy": "courageous faith, minority report",
+      "quoteId": "spy-report"
+    }
+  }
+}

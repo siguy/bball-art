@@ -1,0 +1,56 @@
+{
+  "id": "pippen",
+  "name": "Scottie Pippen",
+  "defaultPose": "lockdown-defense",
+  "description": "6'8\" small forward, ultimate sidekick who was a superstar. 6 championships, 7x All-Defense. Long arms, suffocating D, underrated playmaker.",
+  "poses": {
+    "lockdown-defense": {
+      "id": "lockdown-defense",
+      "name": "Lockdown Defense",
+      "description": "Full-court press, arms spread, denying everything",
+      "expression": "intense focus, suffocating pressure",
+      "prompt": "in elite defensive stance full-court pressing ball handler - incredibly long arms spread wide, knees bent, eyes locked on opponent's chest, suffocating on-ball defense that made stars disappear",
+      "energy": "defensive nightmare, all-NBA defense"
+    },
+    "coast-to-coast": {
+      "id": "coast-to-coast",
+      "name": "Coast to Coast",
+      "description": "Rebound to dunk without a dribble stop",
+      "expression": "fluid athleticism, point-forward",
+      "prompt": "sprinting coast to coast with ball after rebound - long strides covering huge ground, ball in one hand, about to finish with powerful dunk, the point-forward running the break",
+      "energy": "transition terror, point-forward greatness"
+    },
+    "poster-dunk": {
+      "id": "poster-dunk",
+      "name": "Posterizing Ewing",
+      "description": "The dunk over Patrick Ewing - standing over him after",
+      "expression": "fierce dominance, statement made",
+      "prompt": "rising over defender for powerful two-handed dunk - dunking directly over or through taller opponent, face showing fierce determination, about to stand over victim, signature poster moment",
+      "energy": "poster material, baptizing the big man"
+    },
+    "passing-vision": {
+      "id": "passing-vision",
+      "name": "Point Forward Vision",
+      "description": "Threading the needle pass, seeing the whole court",
+      "expression": "court vision, seeing what others can't",
+      "prompt": "delivering no-look or thread-the-needle pass - ball leaving hands at unusual angle, eyes looking elsewhere, complete court vision, the underrated playmaker in action",
+      "energy": "elite vision, underrated playmaker"
+    },
+    "migraine-game": {
+      "id": "migraine-game",
+      "name": "Migraine Game",
+      "description": "Playing through migraine in Finals - grimacing but dominant",
+      "expression": "pain and determination, warrior spirit",
+      "prompt": "playing through visible pain - hand to head between plays, grimacing but still competing, warrior who wouldn't quit despite migraine, toughness personified",
+      "energy": "warrior mentality, playing through pain"
+    },
+    "arms-up-celebration": {
+      "id": "arms-up-celebration",
+      "name": "Championship Celebration",
+      "description": "Arms raised after another Bulls championship",
+      "expression": "joy of winning, earned glory",
+      "prompt": "both arms raised in championship celebration - smile of pure joy, confetti falling, celebrating alongside teammates, the essential partner finally getting his due",
+      "energy": "championship joy, essential partner"
+    }
+  }
+}

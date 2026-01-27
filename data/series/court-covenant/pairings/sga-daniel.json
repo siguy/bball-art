@@ -1,0 +1,48 @@
+{
+  "id": "sga-daniel",
+  "series": "court-covenant",
+  "player": {
+    "name": "Shai Gilgeous-Alexander",
+    "displayName": "SGA",
+    "poseFileId": "sga",
+    "era": "2020s",
+    "jerseyColors": {
+      "primary": { "base": "blue", "accent": "orange" },
+      "secondary": { "base": "white", "accent": "blue" }
+    },
+    "signatureMoves": ["crafty floater", "change of pace", "mid-range mastery"],
+    "physicalDescription": "tall 6'6\" guard with long arms, slim athletic build, unique style with braided hair, calm composed expression, dark skin, effortlessly cool demeanor",
+    "archetype": "The Rising King, smooth operator, unflappable under pressure"
+  },
+  "figure": {
+    "name": "Daniel",
+    "displayName": "Daniel",
+    "poseFileId": "daniel",
+    "attribute": "scroll of visions and lion's presence",
+    "attributeDescription": "scroll of apocalyptic prophecies, ethereal presence of lions representing his survival in the den",
+    "visualStyle": "young Hebrew exile who rose to power in Babylon, interpreter of dreams",
+    "clothing": "fine Babylonian court robes befitting his high position, purple and blue with gold trim, but maintaining modest Hebrew style underneath",
+    "physicalDescription": "young handsome man, composed dignified bearing far beyond his years, intelligent piercing eyes, clean-shaven in Babylonian style, olive skin, radiates calm authority",
+    "anatomyNote": "two arms only",
+    "archetype": "The Composed Youth, thrived in hostile territory, unshakeable faith"
+  },
+  "connection": {
+    "thematic": "Both are young stars who remain impossibly calm under pressure in hostile environments",
+    "narrative": "Daniel walked into a lion's den unbothered. SGA walks into hostile arenas the same way. Built different.",
+    "relationship": "Young leaders whose composure defies their circumstances"
+  },
+  "interactions": [
+    {
+      "id": "side-by-side",
+      "description": "Two composed young stars, calm amidst the chaos"
+    },
+    {
+      "id": "back-to-back",
+      "description": "Ready to face any challenge with supernatural calm"
+    }
+  ],
+  "defaultInteraction": "side-by-side",
+  "cardVariants": ["thunder-lightning", "downtown"],
+  "priority": 14,
+  "status": "active"
+}

@@ -1,0 +1,48 @@
+{
+  "id": "magic-joseph",
+  "series": "court-covenant",
+  "player": {
+    "name": "Magic Johnson",
+    "displayName": "Magic",
+    "poseFileId": "magic",
+    "era": "1980s",
+    "jerseyColors": {
+      "primary": { "base": "purple", "accent": "gold" },
+      "secondary": { "base": "gold", "accent": "purple" }
+    },
+    "signatureMoves": ["no-look pass", "baby hook", "fast break orchestration"],
+    "physicalDescription": "tall 6'9\" point guard build, radiant megawatt smile, high-top fade haircut, expressive animated face, dark skin",
+    "archetype": "The Showman, made everyone around him better, pure joy on the court"
+  },
+  "figure": {
+    "name": "Joseph",
+    "displayName": "Joseph",
+    "poseFileId": "joseph",
+    "attribute": "coat of many colors",
+    "attributeDescription": "magnificent multi-colored robe with vibrant stripes of red, blue, gold, purple, and green - the famous coat given by his father",
+    "visualStyle": "young Hebrew vizier of Egypt, dreamer and interpreter",
+    "clothing": "the legendary coat of many colors over a fine linen Egyptian-style tunic, golden collar of Egyptian nobility",
+    "physicalDescription": "young handsome Hebrew man, clean-shaven in Egyptian style, dignified bearing, wise knowing eyes that see beyond the present, olive skin",
+    "anatomyNote": "two arms only",
+    "archetype": "The Dreamer, rose from slavery to save nations, saw what others couldn't"
+  },
+  "connection": {
+    "thematic": "Both were visionaries who elevated everyone around them and saw possibilities others missed",
+    "narrative": "Joseph saw the future in dreams. Magic saw the future in fast breaks. Both made believers out of doubters.",
+    "relationship": "Visionaries whose gift was seeing what others couldn't"
+  },
+  "interactions": [
+    {
+      "id": "side-by-side",
+      "description": "Standing together as visionaries, radiating confidence and joy"
+    },
+    {
+      "id": "high-five",
+      "description": "Celebratory connection between two who elevated their teams"
+    }
+  ],
+  "defaultInteraction": "side-by-side",
+  "cardVariants": ["thunder-lightning", "downtown"],
+  "priority": 6,
+  "status": "active"
+}

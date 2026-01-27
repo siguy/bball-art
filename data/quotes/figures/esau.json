@@ -1,0 +1,63 @@
+{
+  "id": "esau",
+  "name": "Esau",
+  "aliases": ["Edom"],
+  "quotes": {
+    "birthright-sold": {
+      "source": "Genesis 25:32",
+      "context": "Esau sells his birthright for lentil stew",
+      "hebrew": "הִנֵּה אָנֹכִי הוֹלֵךְ לָמוּת וְלָמָּה זֶּה לִי בְּכֹרָה",
+      "english": "I am about to die; of what use is a birthright to me?",
+      "mood": "desperate, impulsive"
+    },
+    "red-stew": {
+      "source": "Genesis 25:30",
+      "context": "Esau demands the red stew",
+      "hebrew": "הַלְעִיטֵנִי נָא מִן הָאָדֹם הָאָדֹם הַזֶּה",
+      "english": "Let me gulp down some of that red stuff!",
+      "mood": "ravenous, demanding"
+    },
+    "blessing-stolen": {
+      "source": "Genesis 27:34",
+      "context": "Esau discovers Jacob stole his blessing",
+      "hebrew": "בָּרְכֵנִי גַם אָנִי אָבִי",
+      "english": "Bless me too, Father!",
+      "mood": "anguished, betrayed"
+    },
+    "bitter-cry": {
+      "source": "Genesis 27:38",
+      "context": "Esau weeps over the stolen blessing",
+      "hebrew": "הַבְרָכָה אַחַת הִוא לְךָ אָבִי",
+      "english": "Have you but one blessing, Father?",
+      "mood": "desperate, heartbroken"
+    },
+    "hunter-returns": {
+      "source": "Genesis 27:30-31",
+      "context": "Esau returns from hunting to find blessing gone",
+      "hebrew": "יָקֻם אָבִי וְיֹאכַל מִצֵּיד בְּנוֹ",
+      "english": "Let my father arise and eat of his son's game",
+      "mood": "confident, unaware"
+    },
+    "vow-of-vengeance": {
+      "source": "Genesis 27:41",
+      "context": "Esau vows to kill Jacob after mourning period",
+      "hebrew": "יִקְרְבוּ יְמֵי אֵבֶל אָבִי וַאַהַרְגָה אֶת יַעֲקֹב אָחִי",
+      "english": "The days of mourning for my father are near; then I will kill my brother Jacob",
+      "mood": "murderous, patient rage"
+    },
+    "skilled-hunter": {
+      "source": "Genesis 25:27",
+      "context": "Description of Esau as a hunter",
+      "hebrew": "אִישׁ יֹדֵעַ צַיִד אִישׁ שָׂדֶה",
+      "english": "A skillful hunter, a man of the field",
+      "mood": "wild, primal"
+    },
+    "hairy-man": {
+      "source": "Genesis 27:11",
+      "context": "Jacob describes Esau's hairiness",
+      "hebrew": "הֵן עֵשָׂו אָחִי אִישׁ שָׂעִר",
+      "english": "My brother Esau is a hairy man",
+      "mood": "descriptive, wild appearance"
+    }
+  }
+}

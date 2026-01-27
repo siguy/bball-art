@@ -1,0 +1,56 @@
+{
+  "id": "durant",
+  "name": "Kevin Durant",
+  "defaultPose": "pull-up-jumper",
+  "description": "6'10\" forward, most skilled scorer ever at his size. 2 championships, 1 MVP. Silky smooth game, unstoppable length, complicated legacy.",
+  "poses": {
+    "pull-up-jumper": {
+      "id": "pull-up-jumper",
+      "name": "Pull-Up Midrange",
+      "description": "Silky smooth pull-up from midrange - unguardable",
+      "expression": "effortless skill, too easy",
+      "prompt": "shooting pull-up midrange jumper - silky smooth form, ball releasing from 7-foot release point, impossibly long arms making the shot uncontestable, pure skill",
+      "energy": "effortless scoring, unguardable length"
+    },
+    "rip-through": {
+      "id": "rip-through",
+      "name": "Rip Through Move",
+      "description": "Ball fake rip-through drawing foul",
+      "expression": "clever manipulation, getting to the line",
+      "prompt": "executing rip-through move drawing foul - ball swinging through defender's arms, drawing contact and whistle, the savvy veteran move",
+      "energy": "clever manipulation, foul drawing"
+    },
+    "dagger-three": {
+      "id": "dagger-three",
+      "name": "Dagger Three",
+      "description": "Game-sealing three with leg kick",
+      "expression": "cold-blooded, series over",
+      "prompt": "shooting clutch three-pointer with signature leg kick - one leg extended forward on release, perfect form, game on the line, dagger delivered",
+      "energy": "cold-blooded, dagger mentality"
+    },
+    "blocking-shot": {
+      "id": "blocking-shot",
+      "name": "Weak Side Block",
+      "description": "Coming from weak side for monster block",
+      "expression": "length weaponized, two-way star",
+      "prompt": "blocking shot from weak side - impossibly long arm swatting ball from behind, the length that makes him elite on both ends, two-way dominance",
+      "energy": "two-way excellence, length weaponized"
+    },
+    "stare-down": {
+      "id": "stare-down",
+      "name": "Silent Stare",
+      "description": "Quiet stare after big moment - no celebration needed",
+      "expression": "quiet confidence, no celebration needed",
+      "prompt": "quiet stare at opponent or camera after big basket - no excessive celebration, just confident acknowledgment, letting the work speak, silent assassin",
+      "energy": "quiet confidence, silent killer"
+    },
+    "twitter-fingers": {
+      "id": "twitter-fingers",
+      "name": "On His Phone",
+      "description": "The social media presence - always online",
+      "expression": "connected generation, unfiltered",
+      "prompt": "looking at phone with slight smirk - the most online superstar, burner accounts, direct engagement with fans and critics, modern athlete",
+      "energy": "unfiltered modern star"
+    }
+  }
+}
