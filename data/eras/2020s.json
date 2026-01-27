@@ -1,0 +1,25 @@
+{
+  "id": "2020s",
+  "name": "2020s",
+  "years": "2020-present",
+  "visualCharacteristics": {
+    "colors": ["neon gradients", "holographic rainbow", "vibrant pink", "electric blue", "cosmic purple"],
+    "gradients": "neon, holographic, maximal",
+    "backgrounds": "cosmic swirls, holographic patterns, neon explosions, digital effects",
+    "effects": ["rainbow holographic", "neon glow", "cosmic swirl", "digital glitch"],
+    "filmGrain": false
+  },
+  "typography": {
+    "style": "bold contemporary",
+    "treatment": "gradient fill, neon, holographic",
+    "examples": ["Gilroy", "Circular", "Product Sans"]
+  },
+  "culturalVibe": "Digital native, maximal design, holographic everything, social first",
+  "cardBrands": ["panini"],
+  "popularInserts": [
+    "optic-holo",
+    "choice-nebula",
+    "gold-vinyl",
+    "color-blast"
+  ]
+}

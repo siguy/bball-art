@@ -1,0 +1,25 @@
+{
+  "id": "2000s",
+  "name": "2000s",
+  "years": "2000-2009",
+  "visualCharacteristics": {
+    "colors": ["chrome silver", "ice blue", "gold bling", "gunmetal", "platinum"],
+    "gradients": "chrome, metallic, ice",
+    "backgrounds": "chrome surfaces, acetate layers, die-cut windows, bling patterns",
+    "effects": ["chrome shine", "acetate transparency", "diamond bling", "futuristic glow"],
+    "filmGrain": false
+  },
+  "typography": {
+    "style": "sleek futuristic",
+    "treatment": "chrome, embossed, metallic",
+    "examples": ["Bank Gothic", "Eurostile", "OCR"]
+  },
+  "culturalVibe": "Y2K futurism, bling era, high-end luxury, premium everything",
+  "cardBrands": ["upper-deck", "topps-chrome", "fleer"],
+  "popularInserts": [
+    "exquisite-patch",
+    "spx-spectrum",
+    "chrome-refractor",
+    "credentials"
+  ]
+}

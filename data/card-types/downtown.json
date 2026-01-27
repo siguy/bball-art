@@ -1,0 +1,41 @@
+{
+  "id": "downtown",
+  "name": "Downtown",
+  "source": "2018-present Panini Optic",
+  "era": "2010s",
+  "brand": "panini",
+  "rarity": "rare-insert",
+  "description": "Stylized city skyline background, neon urban atmosphere, geometric buildings",
+  "visual": {
+    "background": {
+      "type": "urban-skyline",
+      "primaryColors": ["deep navy", "sunset orange", "neon pink"],
+      "secondaryColors": ["purple", "gold"],
+      "effects": ["city skyline silhouette", "neon signs", "geometric buildings", "sunset gradient"],
+      "lightingEffects": ["dramatic sunset backlighting with neon glow accents"]
+    },
+    "composition": {
+      "layout": "dual-figure",
+      "leftFigure": "primary subject silhouetted against skyline",
+      "rightFigure": "secondary subject in urban setting",
+      "interaction": "both figures dominating the downtown skyline"
+    },
+    "finish": {
+      "type": "refractor",
+      "effect": "light-bending refractor finish"
+    },
+    "typography": {
+      "title": {
+        "text": "DOWNTOWN",
+        "style": "urban modern",
+        "treatment": "neon glow",
+        "position": "top"
+      },
+      "names": {
+        "style": "street sign style",
+        "position": "bottom"
+      }
+    }
+  },
+  "promptTemplate": "downtown"
+}

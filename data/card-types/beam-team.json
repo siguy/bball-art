@@ -1,0 +1,41 @@
+{
+  "id": "beam-team",
+  "name": "Beam Team",
+  "source": "1992-93 Stadium Club",
+  "era": "1990s",
+  "brand": "stadium-club",
+  "rarity": "insert",
+  "description": "Holographic light beams, stadium spotlight effects, dark arena backgrounds",
+  "visual": {
+    "background": {
+      "type": "arena-dark",
+      "primaryColors": ["deep black", "dark blue"],
+      "secondaryColors": ["neon green", "electric blue"],
+      "effects": ["laser beams", "holographic light", "neon geometric shapes", "spotlight convergence"],
+      "lightingEffects": ["stadium spotlights converging on subjects", "holographic beam intersection"]
+    },
+    "composition": {
+      "layout": "dual-figure",
+      "leftFigure": "primary subject illuminated by beams",
+      "rightFigure": "secondary subject in complementary lighting",
+      "interaction": "both figures lit by converging light beams"
+    },
+    "finish": {
+      "type": "laser-hologram",
+      "effect": "holographic laser pattern with shifting rainbow colors"
+    },
+    "typography": {
+      "title": {
+        "text": "BEAM TEAM",
+        "style": "retro-tech block lettering",
+        "treatment": "neon glow",
+        "position": "top"
+      },
+      "names": {
+        "style": "clean bar",
+        "position": "bottom"
+      }
+    }
+  },
+  "promptTemplate": "beam-team"
+}

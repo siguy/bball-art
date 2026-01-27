@@ -1,0 +1,41 @@
+{
+  "id": "kaboom",
+  "name": "Kaboom",
+  "source": "2013-14 Panini Innovation",
+  "era": "2010s",
+  "brand": "panini",
+  "rarity": "ultra-rare-insert",
+  "description": "Comic book style, hand-drawn aesthetic, bold pop art colors",
+  "visual": {
+    "background": {
+      "type": "comic-explosion",
+      "primaryColors": ["bright red", "yellow", "orange"],
+      "secondaryColors": ["white", "black"],
+      "effects": ["explosion burst", "action lines", "halftone dots", "starburst patterns"],
+      "lightingEffects": ["flat comic book lighting with bold shadows"]
+    },
+    "composition": {
+      "layout": "dual-figure",
+      "leftFigure": "primary subject in exaggerated action pose, comic style",
+      "rightFigure": "secondary subject in dynamic comic pose",
+      "interaction": "both rendered in bold comic book illustration style"
+    },
+    "finish": {
+      "type": "matte",
+      "effect": "premium matte with bold printed colors"
+    },
+    "typography": {
+      "title": {
+        "text": "KABOOM!",
+        "style": "comic book explosion lettering",
+        "treatment": "bold outline, action burst",
+        "position": "top"
+      },
+      "names": {
+        "style": "comic book caption box",
+        "position": "bottom"
+      }
+    }
+  },
+  "promptTemplate": "kaboom"
+}

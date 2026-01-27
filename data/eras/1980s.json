@@ -1,0 +1,24 @@
+{
+  "id": "1980s",
+  "name": "1980s",
+  "years": "1980-1989",
+  "visualCharacteristics": {
+    "colors": ["neon pink", "electric blue", "chrome silver", "hot pink", "teal"],
+    "gradients": "neon, geometric, chrome",
+    "backgrounds": "geometric shapes, grid patterns, chrome surfaces, neon grids",
+    "effects": ["neon glow", "chrome reflections", "geometric patterns", "laser lines"],
+    "filmGrain": true
+  },
+  "typography": {
+    "style": "bold geometric",
+    "treatment": "chrome, neon glow, 3D extrusion",
+    "examples": ["Avant Garde", "Bauhaus", "Chrome Block"]
+  },
+  "culturalVibe": "MTV era, big hair energy, neon nights, arcade culture",
+  "cardBrands": ["fleer", "star-company"],
+  "popularInserts": [
+    "fleer-sticker",
+    "starting-lineup",
+    "slam-dunk"
+  ]
+}

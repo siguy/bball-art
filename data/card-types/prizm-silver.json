@@ -1,0 +1,41 @@
+{
+  "id": "prizm-silver",
+  "name": "Prizm Silver",
+  "source": "2012-present Panini Prizm",
+  "era": "2010s",
+  "brand": "panini",
+  "rarity": "parallel",
+  "description": "Clean lines, silver shimmer, signature prizm geometric pattern",
+  "visual": {
+    "background": {
+      "type": "geometric-minimal",
+      "primaryColors": ["silver", "white"],
+      "secondaryColors": ["light gray", "platinum"],
+      "effects": ["geometric line pattern", "subtle shimmer", "light refraction"],
+      "lightingEffects": ["even clean lighting with holographic highlights"]
+    },
+    "composition": {
+      "layout": "dual-figure",
+      "leftFigure": "primary subject in dynamic pose",
+      "rightFigure": "secondary subject in complementary pose",
+      "interaction": "both figures against clean prizm background"
+    },
+    "finish": {
+      "type": "prizm",
+      "effect": "signature prizm pattern with silver shimmer and light refraction"
+    },
+    "typography": {
+      "title": {
+        "text": "PRIZM",
+        "style": "clean modern sans-serif",
+        "treatment": "silver foil",
+        "position": "top"
+      },
+      "names": {
+        "style": "minimal bar",
+        "position": "bottom"
+      }
+    }
+  },
+  "promptTemplate": "prizm-silver"
+}

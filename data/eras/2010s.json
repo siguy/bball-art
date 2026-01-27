@@ -1,0 +1,26 @@
+{
+  "id": "2010s",
+  "name": "2010s",
+  "years": "2010-2019",
+  "visualCharacteristics": {
+    "colors": ["silver", "white", "black", "rose gold", "holographic"],
+    "gradients": "silver shimmer, holographic, minimal",
+    "backgrounds": "clean geometric patterns, subtle shimmer, minimal design",
+    "effects": ["holographic shimmer", "prizm pattern", "light refraction", "subtle glow"],
+    "filmGrain": false
+  },
+  "typography": {
+    "style": "clean modern sans-serif",
+    "treatment": "minimal, crisp, silver foil",
+    "examples": ["Gotham", "Proxima Nova", "Avenir"]
+  },
+  "culturalVibe": "Social media age, clean aesthetics, premium minimal, technical precision",
+  "cardBrands": ["panini"],
+  "popularInserts": [
+    "prizm-silver",
+    "select-courtside",
+    "kaboom",
+    "downtown",
+    "mosaic"
+  ]
+}

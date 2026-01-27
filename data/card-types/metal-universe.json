@@ -1,0 +1,41 @@
+{
+  "id": "metal-universe",
+  "name": "Metal Universe",
+  "source": "1997-98 Fleer Metal",
+  "era": "1990s",
+  "brand": "fleer",
+  "rarity": "insert",
+  "description": "Chrome metallic, industrial futuristic, etched patterns, neon accents",
+  "visual": {
+    "background": {
+      "type": "industrial-metal",
+      "primaryColors": ["chrome silver", "gunmetal"],
+      "secondaryColors": ["neon green", "electric blue"],
+      "effects": ["metal etchings", "circuit board patterns", "neon accent lines", "industrial textures"],
+      "lightingEffects": ["harsh industrial lighting with chrome reflections"]
+    },
+    "composition": {
+      "layout": "dual-figure",
+      "leftFigure": "primary subject with metallic sheen",
+      "rightFigure": "secondary subject with chrome elements",
+      "interaction": "both figures emerging from industrial metal background"
+    },
+    "finish": {
+      "type": "etched-foil",
+      "effect": "metallic foil with etched pattern details"
+    },
+    "typography": {
+      "title": {
+        "text": "METAL UNIVERSE",
+        "style": "distorted futuristic",
+        "treatment": "chrome embossed",
+        "position": "top"
+      },
+      "names": {
+        "style": "industrial plate",
+        "position": "bottom"
+      }
+    }
+  },
+  "promptTemplate": "metal-universe"
+}

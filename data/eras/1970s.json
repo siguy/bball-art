@@ -1,0 +1,23 @@
+{
+  "id": "1970s",
+  "name": "1970s",
+  "years": "1970-1979",
+  "visualCharacteristics": {
+    "colors": ["burnt orange", "avocado green", "mustard yellow", "brown", "rust"],
+    "gradients": "earth tones, warm sunset",
+    "backgrounds": "groovy patterns, warm textures, retro vibes, ABA flair",
+    "effects": ["warm film grain", "vintage texture", "soft focus", "warm light leak"],
+    "filmGrain": true
+  },
+  "typography": {
+    "style": "groovy retro",
+    "treatment": "rounded, warm, organic",
+    "examples": ["Cooper Black", "ITC Souvenir", "Bookman"]
+  },
+  "culturalVibe": "Funk, soul, ABA flair, bell bottoms, disco era",
+  "cardBrands": ["topps"],
+  "popularInserts": [
+    "big-man",
+    "stars"
+  ]
+}
