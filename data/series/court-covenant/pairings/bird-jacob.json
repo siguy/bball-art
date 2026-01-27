@@ -3,6 +3,7 @@
   "series": "court-covenant",
   "player": {
     "name": "Larry Bird",
+    "poseFileId": "bird",
     "displayName": "Larry Legend",
     "era": "1980s",
     "jerseyColors": {
@@ -15,6 +16,7 @@
   },
   "figure": {
     "name": "Jacob",
+    "poseFileId": "jacob",
     "displayName": "Jacob",
     "attribute": "shepherd's staff and spotted flocks",
     "attributeDescription": "shepherd's staff, surrounded by spotted and speckled sheep and goats representing his clever dealings with Laban",

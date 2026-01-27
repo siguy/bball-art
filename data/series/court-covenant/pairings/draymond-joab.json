@@ -3,6 +3,7 @@
   "series": "court-covenant",
   "player": {
     "name": "Draymond Green",
+    "poseFileId": "draymond",
     "displayName": "Draymond",
     "era": "2010s",
     "jerseyColors": {
@@ -15,6 +16,7 @@
   },
   "figure": {
     "name": "Joab",
+    "poseFileId": "joab",
     "displayName": "Joab",
     "attribute": "general's sword and bloody hands",
     "attributeDescription": "battle-worn sword of David's general, hands that did what needed to be done",

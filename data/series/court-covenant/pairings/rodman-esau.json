@@ -3,6 +3,7 @@
   "series": "court-covenant",
   "player": {
     "name": "Dennis Rodman",
+    "poseFileId": "rodman",
     "displayName": "The Worm",
     "era": "1990s",
     "jerseyColors": {
@@ -15,6 +16,7 @@
   },
   "figure": {
     "name": "Esau",
+    "poseFileId": "esau",
     "displayName": "Esau",
     "attribute": "hunter's bow and wild game",
     "attributeDescription": "powerful hunting bow, freshly caught wild game slung over shoulder, tools of the wild hunter",

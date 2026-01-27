@@ -3,13 +3,14 @@
  * Generate Card with Character Poses
  *
  * Simplified card generation using the character poses database.
+ * Loads pairing data to get explicit poseFileId references.
  *
  * Usage:
  *   node scripts/generate-with-poses.js <pairing> <template> --player-pose <pose> --figure-pose <pose>
  *
  * Examples:
  *   node scripts/generate-with-poses.js rodman-esau thunder-lightning-dark --player-pose diving-loose-ball --figure-pose drawing-bow
- *   node scripts/generate-with-poses.js rodman-esau beam-team-shadow --player-pose tipping-rebound --figure-pose stalking-prey --hair green
+ *   node scripts/generate-with-poses.js isiah-pharaoh metal-universe-dark --player-pose walking-off-court --figure-pose throne-defiance
  *
  * Options:
  *   --player-pose <id>   Player pose ID (or 'default')
@@ -20,6 +21,7 @@
  */
 
 import { spawn } from 'child_process';
+import { readFileSync, existsSync } from 'fs';
 import { join, dirname } from 'path';
 import { fileURLToPath } from 'url';
 import {
@@ -32,6 +34,7 @@ import {
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
+const ROOT = join(__dirname, '..');
 
 // Parse arguments
 const args = process.argv.slice(2);
@@ -54,28 +57,55 @@ for (let i = 0; i < args.length; i++) {
 
 const [pairingId, template] = positional;
 
-// Extract player and figure IDs from pairing
-function extractIds(pairingId) {
-  const parts = pairingId.split('-');
-  // Handle cases like "rodman-esau" or potentially longer names
-  // For now, assume format is "player-figure"
-  return {
-    playerId: parts[0],
-    figureId: parts.slice(1).join('-')
-  };
+/**
+ * Load pairing data from JSON file
+ * Returns { playerId, figureId, pairing } where IDs are from poseFileId fields
+ */
+function loadPairingData(pairingId) {
+  // Try to find pairing file in court-covenant series
+  const pairingPath = join(ROOT, 'data/series/court-covenant/pairings', `${pairingId}.json`);
+
+  if (!existsSync(pairingPath)) {
+    console.error(`Pairing file not found: ${pairingPath}`);
+    return null;
+  }
+
+  const pairing = JSON.parse(readFileSync(pairingPath, 'utf-8'));
+
+  // Get pose file IDs - use explicit poseFileId if available, otherwise fall back to name-based ID
+  const playerId = pairing.player.poseFileId || generateFallbackId(pairing.player.name);
+  const figureId = pairing.figure.poseFileId || generateFallbackId(pairing.figure.name);
+
+  return { playerId, figureId, pairing };
 }
 
-// List available poses
+/**
+ * Generate a fallback ID from a name (for backwards compatibility)
+ * "Isiah Thomas" -> "isiah-thomas"
+ * "Dennis Rodman" -> "dennis-rodman"
+ */
+function generateFallbackId(name) {
+  return name.toLowerCase().replace(/\s+/g, '-');
+}
+
+// Validate pairing argument exists for list-poses
 if (flags['list-poses'] && pairingId) {
-  const { playerId, figureId } = extractIds(pairingId);
+  const pairingData = loadPairingData(pairingId);
+  if (!pairingData) {
+    process.exit(1);
+  }
+
+  const { playerId, figureId, pairing } = pairingData;
 
   console.log(`\n=== POSES FOR ${pairingId.toUpperCase()} ===\n`);
 
-  console.log(`PLAYER: ${playerId}`);
-  console.log('-'.repeat(40));
+  console.log(`PLAYER: ${pairing.player.name} (pose file: ${playerId})`);
+  console.log('-'.repeat(50));
   const playerPoses = listPlayerPoses(playerId);
   if (playerPoses.length === 0) {
-    console.log('  No poses defined yet. Create: data/poses/players/' + playerId + '.json');
+    console.log('  No poses defined yet.');
+    console.log(`  Create: data/poses/players/${playerId}.json`);
+    console.log(`  Or add poseFileId to pairing: "${playerId}"`);
   } else {
     playerPoses.forEach(p => {
       const defaultTag = p.isDefault ? ' (DEFAULT)' : '';
@@ -85,11 +115,13 @@ if (flags['list-poses'] && pairingId) {
     });
   }
 
-  console.log(`\nFIGURE: ${figureId}`);
-  console.log('-'.repeat(40));
+  console.log(`\nFIGURE: ${pairing.figure.name} (pose file: ${figureId})`);
+  console.log('-'.repeat(50));
   const figurePoses = listFigurePoses(figureId);
   if (figurePoses.length === 0) {
-    console.log('  No poses defined yet. Create: data/poses/figures/' + figureId + '.json');
+    console.log('  No poses defined yet.');
+    console.log(`  Create: data/poses/figures/${figureId}.json`);
+    console.log(`  Or add poseFileId to pairing: "${figureId}"`);
   } else {
     figurePoses.forEach(p => {
       const defaultTag = p.isDefault ? ' (DEFAULT)' : '';
@@ -100,8 +132,8 @@ if (flags['list-poses'] && pairingId) {
 
   const hairColors = listPlayerHairColors(playerId);
   if (hairColors.length > 0) {
-    console.log(`\nHAIR COLORS for ${playerId}:`);
-    console.log('-'.repeat(40));
+    console.log(`\nHAIR COLORS for ${pairing.player.name}:`);
+    console.log('-'.repeat(50));
     hairColors.forEach(h => {
       console.log(`  ${h.id}: ${h.description}`);
     });
@@ -117,7 +149,7 @@ Usage: node scripts/generate-with-poses.js <pairing> <template> [options]
 
 Examples:
   node scripts/generate-with-poses.js rodman-esau thunder-lightning-dark --player-pose diving-loose-ball --figure-pose drawing-bow
-  node scripts/generate-with-poses.js rodman-esau beam-team-shadow --player-pose default --figure-pose default
+  node scripts/generate-with-poses.js isiah-pharaoh metal-universe-dark --player-pose default --figure-pose default
 
 Options:
   --player-pose <id>   Player pose ID (or 'default')
@@ -129,23 +161,31 @@ Options:
   process.exit(1);
 }
 
-const { playerId, figureId } = extractIds(pairingId);
+// Load pairing data to get pose file IDs
+const pairingData = loadPairingData(pairingId);
+if (!pairingData) {
+  process.exit(1);
+}
+
+const { playerId, figureId, pairing } = pairingData;
 const playerPoseId = flags['player-pose'] || 'default';
 const figurePoseId = flags['figure-pose'] || 'default';
 const hairColor = flags['hair'] || null;
 
-// Get the poses
+// Get the poses using the correct pose file IDs
 const playerPose = getPlayerPose(playerId, playerPoseId, hairColor);
 const figurePose = getFigurePose(figureId, figurePoseId);
 
 if (!playerPose) {
   console.error(`Player pose not found: ${playerId}/${playerPoseId}`);
+  console.error(`Expected pose file: data/poses/players/${playerId}.json`);
   console.error(`Run with --list-poses to see available options`);
   process.exit(1);
 }
 
 if (!figurePose) {
   console.error(`Figure pose not found: ${figureId}/${figurePoseId}`);
+  console.error(`Expected pose file: data/poses/figures/${figureId}.json`);
   console.error(`Run with --list-poses to see available options`);
   process.exit(1);
 }
@@ -163,7 +203,10 @@ const cmdArgs = [
 
 if (flags['dry-run']) {
   console.log('\n=== DRY RUN ===\n');
-  console.log('Command:');
+  console.log('Pairing:', pairing.player.name, '&', pairing.figure.name);
+  console.log('Player pose file:', playerId);
+  console.log('Figure pose file:', figureId);
+  console.log('\nCommand:');
   console.log(`node scripts/generate-card.js ${pairingId} ${template} \\`);
   console.log(`  --interaction simultaneous-action \\`);
   console.log(`  --custom-player-action "${playerPose.prompt}" \\`);
@@ -176,8 +219,8 @@ if (flags['dry-run']) {
 
 // Execute
 console.log(`\nGenerating ${pairingId} / ${template}`);
-console.log(`  Player: ${playerPose.name}`);
-console.log(`  Figure: ${figurePose.name}`);
+console.log(`  Player: ${playerPose.name} (from ${playerId}.json)`);
+console.log(`  Figure: ${figurePose.name} (from ${figureId}.json)`);
 console.log('');
 
 const child = spawn('node', cmdArgs, { stdio: 'inherit' });

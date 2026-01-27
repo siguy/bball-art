@@ -3,6 +3,7 @@
   "series": "court-covenant",
   "player": {
     "name": "Shaquille O'Neal",
+    "poseFileId": "shaq",
     "displayName": "Shaq",
     "era": "1990s",
     "jerseyColors": {
@@ -15,6 +16,7 @@
   },
   "figure": {
     "name": "Goliath",
+    "poseFileId": "goliath",
     "displayName": "Goliath",
     "attribute": "massive bronze spear and shield",
     "attributeDescription": "enormous bronze-tipped spear the size of a weaver's beam, large bronze shield carried before him",

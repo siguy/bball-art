@@ -3,6 +3,7 @@
   "series": "court-covenant",
   "player": {
     "name": "Bill Laimbeer",
+    "poseFileId": "laimbeer",
     "displayName": "Laimbeer",
     "era": "1980s",
     "jerseyColors": {
@@ -15,6 +16,7 @@
   },
   "figure": {
     "name": "Haman",
+    "poseFileId": "haman",
     "displayName": "Haman",
     "attribute": "royal signet ring and gallows rope",
     "attributeDescription": "the king's signet ring he used to seal death decrees, coiled rope representing the gallows he built",

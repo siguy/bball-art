@@ -3,6 +3,7 @@
   "series": "court-covenant",
   "player": {
     "name": "Isiah Thomas",
+    "poseFileId": "isiah-thomas",
     "displayName": "Zeke",
     "era": "1980s",
     "jerseyColors": {
@@ -15,6 +16,7 @@
   },
   "figure": {
     "name": "Pharaoh",
+    "poseFileId": "pharaoh",
     "displayName": "Pharaoh",
     "attribute": "crook and flail of Egypt",
     "attributeDescription": "golden crook (heka) and flail (nekhakha), the royal symbols of Egyptian absolute power",
