@@ -9,14 +9,15 @@ A **contemporary art project** creating collectible basketball cards that pair N
 
 ## Project Status
 
-**Current Phase**: Phase 0-1 (Setup & Foundation)
+**Current Phase**: Phase 1-2 (Foundation & Generation Ready)
 - [x] Directory structure created
 - [x] CLAUDE.md written
-- [ ] Git/GitHub initialized
-- [ ] First pairing data (Jordan/Moses)
-- [ ] First prompt template (Thunder & Lightning)
+- [x] Git/GitHub initialized (https://github.com/siguy/bball-art)
+- [x] First pairing data (Jordan/Moses)
+- [x] First prompt template (Thunder & Lightning)
+- [x] Prompt generator script working
 - [ ] Logo concepts generated
-- [ ] First test card generated
+- [ ] First test card generated with Nano Banana
 
 ## Core Principles
 
