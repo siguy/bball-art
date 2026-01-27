@@ -1,0 +1,46 @@
+{
+  "id": "kobe-joshua",
+  "series": "court-covenant",
+  "player": {
+    "name": "Kobe Bryant",
+    "displayName": "Mamba",
+    "era": "2000s",
+    "teamColors": ["purple", "gold", "white"],
+    "jerseyDescription": "purple and gold basketball jersey with white trim, no logos",
+    "signatureMoves": ["fadeaway jumper", "footwork in the post", "clutch dagger"],
+    "physicalDescription": "athletic build, shaved head, intense killer instinct in eyes",
+    "archetype": "The Black Mamba, relentless work ethic, succeeded the GOAT"
+  },
+  "figure": {
+    "name": "Yehoshua",
+    "displayName": "Joshua",
+    "attribute": "warrior's sword and ram's horn",
+    "attributeDescription": "bronze sword raised high and shofar (ram's horn) at his side",
+    "visualStyle": "commanding warrior, battle-tested, successor's determination",
+    "physicalDescription": "strong warrior build, short beard, armor and robes, fierce eyes",
+    "archetype": "The Conqueror, succeeded Moses, finished the mission"
+  },
+  "connection": {
+    "thematic": "Both inherited impossible legacies and carved their own legendary paths",
+    "narrative": "Moses got them to the edge. Joshua took the land. MJ built it. Kobe finished it.",
+    "relationship": "The successor who proved worthy of the mantle"
+  },
+  "interactions": [
+    {
+      "id": "back-to-back",
+      "description": "Back-to-back in warrior stances, both ready for battle"
+    },
+    {
+      "id": "charge-forward",
+      "description": "Both charging forward in attack, sword and ball raised"
+    },
+    {
+      "id": "victory-pose",
+      "description": "Arms raised in triumph, champions who conquered their promised land"
+    }
+  ],
+  "defaultInteraction": "back-to-back",
+  "cardVariants": ["thunder-lightning", "spx-spectrum", "chrome-refractor"],
+  "priority": 4,
+  "status": "active"
+}

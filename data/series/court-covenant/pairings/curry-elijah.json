@@ -1,0 +1,46 @@
+{
+  "id": "curry-elijah",
+  "series": "court-covenant",
+  "player": {
+    "name": "Stephen Curry",
+    "displayName": "Chef Curry",
+    "era": "2010s",
+    "teamColors": ["blue", "gold", "white"],
+    "jerseyDescription": "blue and gold basketball jersey with white trim, no logos",
+    "signatureMoves": ["deep three-pointer", "behind-the-back dribble", "shimmy celebration"],
+    "physicalDescription": "lean athletic build, light skin, baby-faced with confident smile",
+    "archetype": "The Revolutionary, changed the game forever, unlimited range"
+  },
+  "figure": {
+    "name": "Elijah",
+    "displayName": "Elijah",
+    "attribute": "mantle of fire",
+    "attributeDescription": "prophet's cloak wreathed in divine flames, fire descending from above",
+    "visualStyle": "intense prophet, fire-caller, game-changer",
+    "physicalDescription": "weathered but powerful, wild hair and beard, eyes blazing with fire",
+    "archetype": "The Fire Prophet, called down fire from heaven, changed everything"
+  },
+  "connection": {
+    "thematic": "Both brought fire that changed everything - one from heaven, one from 35 feet",
+    "narrative": "Elijah called down fire from the sky. Steph rains fire from the logo. Different era, same energy.",
+    "relationship": "Revolutionary forces who made the impossible look routine"
+  },
+  "interactions": [
+    {
+      "id": "back-to-back",
+      "description": "Back-to-back with fire and light swirling around them"
+    },
+    {
+      "id": "fire-rain",
+      "description": "Curry shooting, Elijah calling fire, flames falling from above"
+    },
+    {
+      "id": "celebration",
+      "description": "Both in triumphant poses, fire crackling, shimmy and prophecy fulfilled"
+    }
+  ],
+  "defaultInteraction": "fire-rain",
+  "cardVariants": ["thunder-lightning", "prizm-silver", "downtown"],
+  "priority": 5,
+  "status": "active"
+}

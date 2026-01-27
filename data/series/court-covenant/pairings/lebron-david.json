@@ -1,0 +1,46 @@
+{
+  "id": "lebron-david",
+  "series": "court-covenant",
+  "player": {
+    "name": "LeBron James",
+    "displayName": "King James",
+    "era": "2010s",
+    "teamColors": ["purple", "gold", "white"],
+    "jerseyDescription": "purple and gold basketball jersey with white trim, no logos",
+    "signatureMoves": ["chase-down block", "tomahawk dunk", "no-look pass"],
+    "physicalDescription": "powerful muscular build, receding hairline, intense determined expression",
+    "archetype": "The King, versatile greatness, longevity personified"
+  },
+  "figure": {
+    "name": "King David",
+    "displayName": "David",
+    "attribute": "golden crown and sling",
+    "attributeDescription": "ornate golden crown and leather sling with smooth stones",
+    "visualStyle": "regal, majestic, warrior-king",
+    "physicalDescription": "strong build, dark beard, royal robes over warrior's frame",
+    "archetype": "The Shepherd King, rose from nothing to greatest ruler"
+  },
+  "connection": {
+    "thematic": "Both rose from humble beginnings to become the undisputed king of their domain",
+    "narrative": "From Akron to the throne. From shepherd to king. Built different.",
+    "relationship": "Self-made kings who earned their crowns"
+  },
+  "interactions": [
+    {
+      "id": "back-to-back",
+      "description": "Standing back-to-back in regal poses, both wearing crowns of their domain"
+    },
+    {
+      "id": "throne-room",
+      "description": "Both seated on thrones, scepters crossed, dual kings"
+    },
+    {
+      "id": "warrior-stance",
+      "description": "Battle-ready poses, David with sling, LeBron in defensive stance"
+    }
+  ],
+  "defaultInteraction": "back-to-back",
+  "cardVariants": ["thunder-lightning", "prizm-silver", "select-courtside"],
+  "priority": 2,
+  "status": "active"
+}

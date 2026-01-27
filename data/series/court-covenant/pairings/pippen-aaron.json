@@ -1,0 +1,46 @@
+{
+  "id": "pippen-aaron",
+  "series": "court-covenant",
+  "player": {
+    "name": "Scottie Pippen",
+    "displayName": "Pip",
+    "era": "1990s",
+    "teamColors": ["red", "black", "white"],
+    "jerseyDescription": "red and black basketball jersey with white trim, no logos",
+    "signatureMoves": ["coast-to-coast fast break", "perimeter defense", "outlet pass"],
+    "physicalDescription": "tall and lean athletic build, high top fade, calm focused expression",
+    "archetype": "The Ultimate Sidekick, criminally underrated, two-way excellence"
+  },
+  "figure": {
+    "name": "Aaron",
+    "displayName": "Aaron",
+    "attribute": "high priest staff and breastplate",
+    "attributeDescription": "golden priestly staff and jeweled breastplate of the high priest",
+    "visualStyle": "dignified, priestly, supportive presence",
+    "physicalDescription": "tall and dignified bearing, long white beard, priestly robes",
+    "archetype": "The High Priest, Moses's essential partner, spoke for the leader"
+  },
+  "connection": {
+    "thematic": "Both were the essential partners who made greatness possible, often overlooked",
+    "narrative": "Scottie and Aaron: Elite support, criminally underrated. Some things never change.",
+    "relationship": "The indispensable right-hand who made the leader complete"
+  },
+  "interactions": [
+    {
+      "id": "back-to-back",
+      "description": "Back-to-back with their leaders' silhouettes in the background"
+    },
+    {
+      "id": "assist-pose",
+      "description": "Pippen passing, Aaron gesturing to speak, both in service"
+    },
+    {
+      "id": "side-by-side",
+      "description": "Standing together as equals, finally getting their due"
+    }
+  ],
+  "defaultInteraction": "back-to-back",
+  "cardVariants": ["thunder-lightning", "beam-team", "metal-universe"],
+  "priority": 3,
+  "status": "active"
+}
