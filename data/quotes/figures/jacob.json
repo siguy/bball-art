@@ -1,0 +1,63 @@
+{
+  "id": "jacob",
+  "name": "Jacob",
+  "aliases": ["Israel", "The Supplanter"],
+  "quotes": {
+    "grabbed-heel": {
+      "source": "Genesis 25:26",
+      "context": "Jacob born grasping Esau's heel",
+      "hebrew": "וְיָדוֹ אֹחֶזֶת בַּעֲקֵב עֵשָׂו",
+      "english": "His hand grasping Esau's heel",
+      "mood": "competitive from birth"
+    },
+    "sell-birthright": {
+      "source": "Genesis 25:31",
+      "context": "Jacob demands the birthright for soup",
+      "hebrew": "מִכְרָה כַיּוֹם אֶת בְּכֹרָתְךָ לִי",
+      "english": "Sell me your birthright today",
+      "mood": "opportunistic, calculating"
+    },
+    "i-am-esau": {
+      "source": "Genesis 27:19",
+      "context": "Jacob deceives Isaac for the blessing",
+      "hebrew": "אָנֹכִי עֵשָׂו בְּכֹרֶךָ",
+      "english": "I am Esau your firstborn",
+      "mood": "deceptive, bold lie"
+    },
+    "smooth-skin": {
+      "source": "Genesis 27:11",
+      "context": "Jacob worries about getting caught",
+      "hebrew": "וְאָנֹכִי אִישׁ חָלָק",
+      "english": "I am a smooth-skinned man",
+      "mood": "cautious, cunning"
+    },
+    "wrestled-angel": {
+      "source": "Genesis 32:25",
+      "context": "Jacob wrestles with divine being",
+      "hebrew": "וַיֵּאָבֵק אִישׁ עִמּוֹ עַד עֲלוֹת הַשָּׁחַר",
+      "english": "A man wrestled with him until dawn",
+      "mood": "relentless, refuses to yield"
+    },
+    "will-not-release": {
+      "source": "Genesis 32:27",
+      "context": "Jacob demands blessing from angel",
+      "hebrew": "לֹא אֲשַׁלֵּחֲךָ כִּי אִם בֵּרַכְתָּנִי",
+      "english": "I will not let you go unless you bless me",
+      "mood": "determined, relentless"
+    },
+    "named-israel": {
+      "source": "Genesis 32:29",
+      "context": "Jacob receives new name after wrestling",
+      "hebrew": "כִּי שָׂרִיתָ עִם אֱלֹהִים וְעִם אֲנָשִׁים וַתּוּכָל",
+      "english": "You have striven with God and with humans, and have prevailed",
+      "mood": "victorious, transformed"
+    },
+    "quiet-tent-dweller": {
+      "source": "Genesis 25:27",
+      "context": "Description of young Jacob",
+      "hebrew": "אִישׁ תָּם יֹשֵׁב אֹהָלִים",
+      "english": "A quiet man, dwelling in tents",
+      "mood": "calculating patience"
+    }
+  }
+}

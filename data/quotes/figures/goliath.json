@@ -1,0 +1,63 @@
+{
+  "id": "goliath",
+  "name": "Goliath",
+  "aliases": ["Goliath of Gath", "The Philistine Champion"],
+  "quotes": {
+    "choose-a-man": {
+      "source": "1 Samuel 17:8",
+      "context": "Goliath challenges Israel to single combat",
+      "hebrew": "בְּרוּ לָכֶם אִישׁ וְיֵרֵד אֵלָי",
+      "english": "Choose a man for yourselves, and let him come down to me",
+      "mood": "confident, challenging"
+    },
+    "am-i-a-dog": {
+      "source": "1 Samuel 17:43",
+      "context": "Goliath mocks David coming with a staff",
+      "hebrew": "הֲכֶלֶב אָנֹכִי כִּי אַתָּה בָא אֵלַי בַּמַּקְלוֹת",
+      "english": "Am I a dog, that you come to me with sticks?",
+      "mood": "contemptuous, mocking"
+    },
+    "curse-by-gods": {
+      "source": "1 Samuel 17:43",
+      "context": "Goliath curses David by his gods",
+      "hebrew": "וַיְקַלֵּל הַפְּלִשְׁתִּי אֶת דָּוִד בֵּאלֹהָיו",
+      "english": "The Philistine cursed David by his gods",
+      "mood": "blasphemous, menacing"
+    },
+    "give-flesh-to-birds": {
+      "source": "1 Samuel 17:44",
+      "context": "Goliath's threat to David",
+      "hebrew": "וְאֶתְּנָה אֶת בְּשָׂרְךָ לְעוֹף הַשָּׁמַיִם",
+      "english": "I will give your flesh to the birds of the air",
+      "mood": "threatening, savage"
+    },
+    "defied-israel": {
+      "source": "1 Samuel 17:10",
+      "context": "Goliath's daily challenge",
+      "hebrew": "אֲנִי חֵרַפְתִּי אֶת מַעַרְכוֹת יִשְׂרָאֵל",
+      "english": "I defy the ranks of Israel this day",
+      "mood": "arrogant, relentless"
+    },
+    "come-to-me": {
+      "source": "1 Samuel 17:44",
+      "context": "Goliath beckons David forward",
+      "hebrew": "לְכָה אֵלַי",
+      "english": "Come to me",
+      "mood": "commanding, dismissive"
+    },
+    "forty-days": {
+      "source": "1 Samuel 17:16",
+      "context": "Goliath's persistence",
+      "hebrew": "וַיִּגַּשׁ הַפְּלִשְׁתִּי הַשְׁכֵּם וְהַעֲרֵב וַיִּתְיַצֵּב אַרְבָּעִים יוֹם",
+      "english": "The Philistine drew near morning and evening for forty days",
+      "mood": "relentless intimidation"
+    },
+    "height-description": {
+      "source": "1 Samuel 17:4",
+      "context": "Goliath's imposing stature",
+      "hebrew": "גָּבְהוֹ שֵׁשׁ אַמּוֹת וָזָרֶת",
+      "english": "His height was six cubits and a span",
+      "mood": "imposing, fearsome"
+    }
+  }
+}

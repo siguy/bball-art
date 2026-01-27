@@ -10,7 +10,8 @@
       "description": "Goliath calling out to Israel's ranks, defying them to send a champion",
       "expression": "arrogant contempt, mocking confidence",
       "prompt": "TOWERING GIANT nearly 10 feet tall calling out challenge to enemy army - massive bronze-armored frame, spear raised to sky, mouth open bellowing defiant challenge, bronze helmet with plume, contemptuous arrogance on bearded face, shield-bearer cowering nearby for scale",
-      "energy": "undefeated champion, terrifying presence"
+      "energy": "undefeated champion, terrifying presence",
+      "quoteId": "choose-a-man"
     },
     "spear-thrust": {
       "id": "spear-thrust",
@@ -18,7 +19,8 @@
       "description": "Goliath thrusting his massive spear forward in attack",
       "expression": "battle fury, lethal intent",
       "prompt": "TOWERING GIANT thrusting massive spear forward - enormous bronze-tipped spear the size of a weaver's beam lunging toward enemy, nearly 10 feet of warrior muscle behind the strike, bronze scale armor gleaming, face twisted in battle fury, unstoppable killing blow",
-      "energy": "lethal force, warrior's strike"
+      "energy": "lethal force, warrior's strike",
+      "quoteId": "give-flesh-to-birds"
     },
     "intimidating-stance": {
       "id": "intimidating-stance",
@@ -26,7 +28,8 @@
       "description": "Goliath standing in full armor, weapons ready, striking fear",
       "expression": "cold confidence, terrifying calm",
       "prompt": "TOWERING GIANT in full battle stance - nearly 10 feet tall in bronze scale armor weighing 125 pounds, bronze greaves on legs, massive spear in one hand, bronze javelin slung on back, bronze helmet with plume, cold confident expression that struck terror into armies, an army-breaker",
-      "energy": "living weapon, armies flee"
+      "energy": "living weapon, armies flee",
+      "quoteId": "height-description"
     },
     "mocking-david": {
       "id": "mocking-david",
@@ -34,7 +37,8 @@
       "description": "Goliath scorning young David, cursing him by his gods",
       "expression": "contemptuous laughter, cruel mockery",
       "prompt": "TOWERING GIANT laughing in contempt at tiny opponent - nearly 10 feet tall looking DOWN at small challenger, cruel mocking smile on bearded face, one hand gesturing dismissively, spear held casually, 'Am I a dog that you come at me with sticks?'",
-      "energy": "fatal arrogance, underestimating the enemy"
+      "energy": "fatal arrogance, underestimating the enemy",
+      "quoteId": "am-i-a-dog"
     },
     "stone-struck": {
       "id": "stone-struck",
@@ -42,7 +46,8 @@
       "description": "The moment of Goliath's fall - stone sinking into forehead",
       "expression": "shock, the fall of a giant",
       "prompt": "TOWERING GIANT in moment of defeat - nearly 10 feet of warrior FALLING face-forward, stone embedded in forehead, eyes wide with shock, massive spear dropping from limp hand, bronze armor clanging, the impossible happening - a giant falls",
-      "energy": "the bigger they are, mighty fall"
+      "energy": "the bigger they are, mighty fall",
+      "quoteId": null
     },
     "roaring-threat": {
       "id": "roaring-threat",
@@ -50,7 +55,8 @@
       "description": "Goliath roaring threats - promising to give flesh to birds and beasts",
       "expression": "savage rage, terrifying promise",
       "prompt": "TOWERING GIANT roaring terrifying threat - nearly 10 feet tall, head thrown back in savage roar, promising to give enemy's flesh to birds and beasts, spear raised overhead, bronze armor catching light, the stuff of nightmares, psychological warfare",
-      "energy": "primal terror, death promised"
+      "energy": "primal terror, death promised",
+      "quoteId": "give-flesh-to-birds"
     },
     "advancing-doom": {
       "id": "advancing-doom",
@@ -58,7 +64,17 @@
       "description": "Goliath slowly advancing toward opponent, inevitable doom approaching",
       "expression": "patient menace, inevitable victory",
       "prompt": "TOWERING GIANT advancing slowly toward enemy - nearly 10 feet tall taking deliberate menacing steps, shield-bearer before him, massive spear ready, each footstep shaking ground, patient predator who knows prey cannot escape, doom walking",
-      "energy": "inevitable, unstoppable advance"
+      "energy": "inevitable, unstoppable advance",
+      "quoteId": "forty-days"
+    },
+    "cursing-by-gods": {
+      "id": "cursing-by-gods",
+      "name": "Cursing by His Gods",
+      "description": "Goliath invoking his gods' curse upon his enemy",
+      "expression": "blasphemous fury, divine invocation",
+      "prompt": "TOWERING GIANT invoking dark curse - nearly 10 feet tall, one hand raised to sky calling upon Philistine gods, face twisted in blasphemous rage, other hand gripping spear, bronze armor gleaming with otherworldly menace, calling doom upon enemy in the name of false gods",
+      "energy": "supernatural menace, divine wrath invoked",
+      "quoteId": "curse-by-gods"
     }
   }
 }

@@ -1,0 +1,63 @@
+{
+  "id": "haman",
+  "name": "Haman",
+  "aliases": ["Haman the Agagite", "Enemy of the Jews"],
+  "quotes": {
+    "will-not-bow": {
+      "source": "Esther 3:5",
+      "context": "Mordecai refuses to bow to Haman",
+      "hebrew": "וְלֹא קָם וְלֹא זָע מִמֶּנּוּ",
+      "english": "He neither rose nor trembled before him",
+      "mood": "defiance triggers rage"
+    },
+    "scattered-people": {
+      "source": "Esther 3:8",
+      "context": "Haman's accusation against the Jews",
+      "hebrew": "יֶשְׁנוֹ עַם אֶחָד מְפֻזָּר וּמְפֹרָד בֵּין הָעַמִּים",
+      "english": "There is a certain people scattered and dispersed among the peoples",
+      "mood": "scheming, persuasive"
+    },
+    "their-laws-different": {
+      "source": "Esther 3:8",
+      "context": "Haman argues for destruction of Jews",
+      "hebrew": "וְדָתֵיהֶם שֹׁנוֹת מִכָּל עָם",
+      "english": "Their laws are different from those of every other people",
+      "mood": "calculating, hateful"
+    },
+    "destroy-all-jews": {
+      "source": "Esther 3:13",
+      "context": "The decree to annihilate",
+      "hebrew": "לְהַשְׁמִיד לַהֲרֹג וּלְאַבֵּד אֶת כָּל הַיְּהוּדִים",
+      "english": "To destroy, to kill, and to annihilate all Jews",
+      "mood": "genocidal, final solution"
+    },
+    "fifty-cubits-gallows": {
+      "source": "Esther 5:14",
+      "context": "Haman builds gallows for Mordecai",
+      "hebrew": "יַעֲשׂוּ עֵץ גָּבֹהַּ חֲמִשִּׁים אַמָּה",
+      "english": "Let a gallows fifty cubits high be made",
+      "mood": "vengeful, overconfident"
+    },
+    "whom-king-delights": {
+      "source": "Esther 6:6",
+      "context": "Haman assumes he is the honoree",
+      "hebrew": "לְמִי יַחְפֹּץ הַמֶּלֶךְ לַעֲשׂוֹת יְקָר יוֹתֵר מִמֶּנִּי",
+      "english": "Whom would the king wish to honor more than me?",
+      "mood": "arrogant, self-absorbed"
+    },
+    "face-covered": {
+      "source": "Esther 7:8",
+      "context": "Haman's fate is sealed",
+      "hebrew": "וּפְנֵי הָמָן חָפוּ",
+      "english": "They covered Haman's face",
+      "mood": "humiliated, doomed"
+    },
+    "fallen-before-mordecai": {
+      "source": "Esther 6:13",
+      "context": "Haman's wife predicts his downfall",
+      "hebrew": "אִם מִזֶּרַע הַיְּהוּדִים מָרְדֳּכַי... נָפוֹל תִּפּוֹל לְפָנָיו",
+      "english": "If Mordecai is of Jewish descent... you will surely fall before him",
+      "mood": "prophetic doom"
+    }
+  }
+}

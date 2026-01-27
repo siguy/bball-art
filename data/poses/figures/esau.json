@@ -9,7 +9,8 @@
       "description": "Drawing powerful hunting bow, arrow nocked and pulled back, eyes locked on prey",
       "expression": "predator focus, hunter's intensity",
       "prompt": "drawing powerful hunting bow - arrow nocked and string pulled back to cheek, eyes locked on distant prey with predator focus, extremely hairy body covered in red hair, fierce hunter's expression, muscles tensed for the shot",
-      "energy": "primal predator, lethal focus"
+      "energy": "primal predator, lethal focus",
+      "quoteId": "skilled-hunter"
     },
     "chugging-soup": {
       "id": "chugging-soup",
@@ -17,7 +18,8 @@
       "description": "Desperately chugging lentil soup from a clay bowl, the fatal trade",
       "expression": "desperate hunger, consumed by appetite",
       "prompt": "desperately chugging lentil soup from rough clay bowl - head tilted back, soup dripping down into red beard, extremely hairy body, eyes half-closed in desperate satisfaction, consumed by immediate hunger",
-      "energy": "the fatal trade, living for the moment"
+      "energy": "the fatal trade, living for the moment",
+      "quoteId": "red-stew"
     },
     "screaming-birthright": {
       "id": "screaming-birthright",
@@ -25,7 +27,8 @@
       "description": "Screaming in anguish after realizing he lost the birthright",
       "expression": "anguished rage, devastating realization",
       "prompt": "screaming in anguish - fists raised to sky, face contorted in devastating realization, extremely hairy body covered in red hair, tears of rage, the moment everything was lost, primal scream of betrayal",
-      "energy": "villain origin story, moment of transformation"
+      "energy": "villain origin story, moment of transformation",
+      "quoteId": "blessing-stolen"
     },
     "stalking-prey": {
       "id": "stalking-prey",
@@ -33,7 +36,8 @@
       "description": "Crouched low stalking prey through brush, bow ready",
       "expression": "narrowed eyes, predator patience",
       "prompt": "crouched low stalking prey through brush - hunting bow ready in hands, body low to ground, extremely hairy body covered in red hair, eyes narrowed with predator focus, patient and deadly",
-      "energy": "primal hunter, wild instinct"
+      "energy": "primal hunter, wild instinct",
+      "quoteId": "skilled-hunter"
     },
     "triumphant-kill": {
       "id": "triumphant-kill",
@@ -41,7 +45,17 @@
       "description": "Holding fresh kill over shoulder, triumphant but savage",
       "expression": "savage triumph, wild pride",
       "prompt": "standing triumphant with fresh kill slung over shoulder - wild game trophy of the hunt, extremely hairy body covered in red hair, savage grin of pride, bow in other hand, master of the wild",
-      "energy": "hunter's pride, savage victory"
+      "energy": "hunter's pride, savage victory",
+      "quoteId": "hunter-returns"
+    },
+    "vowing-revenge": {
+      "id": "vowing-revenge",
+      "name": "Vowing Revenge",
+      "description": "Esau making his vow to kill Jacob after mourning",
+      "expression": "cold fury, patient vengeance",
+      "prompt": "standing in shadow with clenched fists - extremely hairy body covered in red hair, jaw set in cold determination, eyes burning with patient hatred, calculating the day of reckoning, hunter planning his greatest hunt",
+      "energy": "patient vengeance, the long game",
+      "quoteId": "vow-of-vengeance"
     }
   }
 }

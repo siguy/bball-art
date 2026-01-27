@@ -1,0 +1,63 @@
+{
+  "id": "joab",
+  "name": "Joab",
+  "aliases": ["Joab son of Zeruiah", "Commander of David's Army"],
+  "quotes": {
+    "killed-abner": {
+      "source": "2 Samuel 3:27",
+      "context": "Joab murders Abner in revenge",
+      "hebrew": "וַיַּכֵּהוּ שָׁם הַחֹמֶשׁ",
+      "english": "He struck him there in the stomach",
+      "mood": "treacherous, vengeful"
+    },
+    "blood-on-joab": {
+      "source": "2 Samuel 3:29",
+      "context": "David curses Joab for killing Abner",
+      "hebrew": "יָחֻלוּ עַל רֹאשׁ יוֹאָב",
+      "english": "Let it fall upon the head of Joab",
+      "mood": "cursed, bloody hands"
+    },
+    "killed-amasa": {
+      "source": "2 Samuel 20:10",
+      "context": "Joab murders Amasa with a hidden dagger",
+      "hebrew": "וְהַחֶרֶב אֲשֶׁר בְּיַד יוֹאָב",
+      "english": "The sword that was in Joab's hand",
+      "mood": "cunning assassination"
+    },
+    "absalom-dead": {
+      "source": "2 Samuel 18:14",
+      "context": "Joab kills Absalom against David's orders",
+      "hebrew": "וַיִּקַּח שְׁלֹשָׁה שְׁבָטִים בְּכַפּוֹ",
+      "english": "He took three javelins in his hand",
+      "mood": "defiant, brutal"
+    },
+    "why-pursue": {
+      "source": "2 Samuel 2:26",
+      "context": "Joab negotiates end to civil war battle",
+      "hebrew": "הֲלָנֶצַח תֹּאכַל חֶרֶב",
+      "english": "Shall the sword devour forever?",
+      "mood": "pragmatic warrior"
+    },
+    "count-the-army": {
+      "source": "2 Samuel 24:3",
+      "context": "Joab questions David's census",
+      "hebrew": "וְלָמָּה יַחְפֹּץ בָּזֶה אֲדֹנִי הַמֶּלֶךְ",
+      "english": "Why does my lord the king want this?",
+      "mood": "questioning, loyal"
+    },
+    "grabs-altar-horns": {
+      "source": "1 Kings 2:28",
+      "context": "Joab flees to altar for sanctuary",
+      "hebrew": "וַיַּחֲזֵק בְּקַרְנוֹת הַמִּזְבֵּחַ",
+      "english": "He caught hold of the horns of the altar",
+      "mood": "desperate, cornered"
+    },
+    "die-here": {
+      "source": "1 Kings 2:30",
+      "context": "Joab refuses to leave the altar",
+      "hebrew": "כִּי פֹה אָמוּת",
+      "english": "No, I will die here",
+      "mood": "defiant to the end"
+    }
+  }
+}
