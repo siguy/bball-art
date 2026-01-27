@@ -1,0 +1,62 @@
+{
+  "id": "pharaoh",
+  "name": "Pharaoh",
+  "defaultPose": "throne-defiance",
+  "description": "King of Egypt who enslaved Israel and defied God through ten plagues. His hardened heart became his doom as he pursued Israel to the Red Sea.",
+  "poses": {
+    "throne-defiance": {
+      "id": "throne-defiance",
+      "name": "Throne Defiance",
+      "description": "Seated on throne, dismissing Moses with arrogant wave",
+      "expression": "arrogant contempt, dismissive superiority",
+      "prompt": "Egyptian Pharaoh seated on golden throne in full royal regalia - double crown of Egypt, golden crook and flail crossed over chest, one hand raised in dismissive wave, face showing utter contempt, 'Who is the LORD that I should obey him?'",
+      "energy": "divine arrogance, untouchable ruler",
+      "quoteId": "who-is-lord"
+    },
+    "hardened-heart": {
+      "id": "hardened-heart",
+      "name": "Hardened Heart",
+      "description": "Fist to chest, refusing to yield despite plagues",
+      "expression": "stubborn defiance, unyielding will",
+      "prompt": "Egyptian Pharaoh standing with fist pressed to chest - jaw set in stubborn defiance, eyes blazing with unyielding will, plague effects visible around him but unmoved, heart of stone refusing to break, doubling down on destruction",
+      "energy": "fatal stubbornness, pride before fall",
+      "quoteId": "hardened-heart"
+    },
+    "commanding-slaves": {
+      "id": "commanding-slaves",
+      "name": "Commanding Slaves",
+      "description": "Cruel overseer demanding more bricks without straw",
+      "expression": "cruel satisfaction, merciless authority",
+      "prompt": "Egyptian Pharaoh pointing down with cruel expression - standing above laborers, dressed in royal Egyptian garments, face showing merciless satisfaction at suffering below, demanding more while giving less, tyranny personified",
+      "energy": "cruel oppression, heartless tyrant",
+      "quoteId": "more-bricks"
+    },
+    "chariot-pursuit": {
+      "id": "chariot-pursuit",
+      "name": "Chariot Pursuit",
+      "description": "Standing in war chariot, pursuing Israel to the sea",
+      "expression": "vengeful rage, hunting prey",
+      "prompt": "Egyptian Pharaoh standing in golden war chariot - whip raised, reins in other hand, face twisted in vengeful pursuit, royal headdress streaming behind, army behind him, chasing escaped slaves to their doom at the sea",
+      "energy": "vengeful pursuit, fatal chase",
+      "quoteId": "chase-them-down"
+    },
+    "broken-by-plague": {
+      "id": "broken-by-plague",
+      "name": "Broken by Plague",
+      "description": "Momentary weakness after plague, but not true repentance",
+      "expression": "temporary defeat, false repentance",
+      "prompt": "Egyptian Pharaoh with head slightly bowed - hand to forehead in moment of weakness, royal composure cracking, admitting sin but eyes still calculating, false repentance that will fade when pressure lifts",
+      "energy": "hollow contrition, temporary weakness",
+      "quoteId": "this-time-sinned"
+    },
+    "final-command": {
+      "id": "final-command",
+      "name": "Release Israel",
+      "description": "The moment after death of firstborn - broken, commanding them to leave",
+      "expression": "shattered, defeated, empty",
+      "prompt": "Egyptian Pharaoh in grief and defeat - royal garments disheveled, eyes hollow from loss of firstborn, arm weakly gesturing for Israel to leave, broken king who finally learned the cost of defiance, too late",
+      "energy": "devastating loss, pyrrhic defeat",
+      "quoteId": "go-serve"
+    }
+  }
+}

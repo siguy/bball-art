@@ -1,0 +1,62 @@
+{
+  "id": "haman",
+  "name": "Haman",
+  "defaultPose": "expecting-honor",
+  "description": "Chief advisor to King Ahasuerus, the Agagite who plotted genocide against the Jews. Built gallows for Mordecai but was hanged on them himself.",
+  "poses": {
+    "expecting-honor": {
+      "id": "expecting-honor",
+      "name": "Expecting Honor",
+      "description": "Preening, certain the king's honor is meant for him",
+      "expression": "smug self-satisfaction, blind arrogance",
+      "prompt": "Persian noble in luxurious robes preening with smug satisfaction - chin raised, slight smile of certainty, hands adjusting fine garments, absolutely certain he is the one the king wishes to honor, peak arrogance before the fall",
+      "energy": "blind arrogance, pride before destruction",
+      "quoteId": "whom-king-delights"
+    },
+    "rage-at-mordecai": {
+      "id": "rage-at-mordecai",
+      "name": "Rage at Mordecai",
+      "description": "Fury at the one man who won't bow",
+      "expression": "seething hatred, murderous rage",
+      "prompt": "Persian noble with face contorted in rage - fists clenched, veins visible, staring down at someone who refuses to bow, all his honor meaningless because of one man's defiance, hatred consuming reason",
+      "energy": "obsessive hatred, pride wounded",
+      "quoteId": "will-not-bow"
+    },
+    "presenting-decree": {
+      "id": "presenting-decree",
+      "name": "Presenting the Decree",
+      "description": "Holding the scroll ordering genocide, satisfied smile",
+      "expression": "cold satisfaction, genocidal calm",
+      "prompt": "Persian noble holding royal scroll with satisfied expression - the decree to destroy all Jews, signet ring visible, calm smile of a man who has solved his problem permanently, evil wrapped in bureaucracy",
+      "energy": "calculated evil, final solution",
+      "quoteId": "destroy-all-jews"
+    },
+    "building-gallows": {
+      "id": "building-gallows",
+      "name": "Overseeing Gallows",
+      "description": "Watching construction of the 50-cubit gallows for Mordecai",
+      "expression": "anticipatory pleasure, counting down revenge",
+      "prompt": "Persian noble overseeing construction of massive gallows - pointing upward at the towering structure, face showing anticipatory pleasure, imagining enemy's death, the gallows that would become his own doom",
+      "energy": "ironic doom, revenge anticipated",
+      "quoteId": "fifty-cubits-gallows"
+    },
+    "face-covered-doom": {
+      "id": "face-covered-doom",
+      "name": "Face Covered",
+      "description": "The moment of downfall - guards covering his face",
+      "expression": "shock, terror, reversal of fortune",
+      "prompt": "Persian noble with face being covered by guards' hands - eyes wide with shock and terror, fine robes now disheveled, the moment when hunter becomes hunted, fortune completely reversed, doom sealed",
+      "energy": "poetic justice, tables turned",
+      "quoteId": "face-covered"
+    },
+    "leading-mordecai": {
+      "id": "leading-mordecai",
+      "name": "Leading Mordecai",
+      "description": "Forced to lead his enemy through streets in honor",
+      "expression": "humiliated fury, bitter defeat",
+      "prompt": "Persian noble leading horse through streets - forced to proclaim honor for his enemy, face showing barely contained humiliation and rage, the ultimate reversal, having to honor the man he planned to kill",
+      "energy": "cosmic humiliation, bitter irony",
+      "quoteId": "fallen-before-mordecai"
+    }
+  }
+}

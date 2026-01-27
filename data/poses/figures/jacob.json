@@ -1,0 +1,62 @@
+{
+  "id": "jacob",
+  "name": "Jacob",
+  "defaultPose": "wrestling-angel",
+  "description": "Son of Isaac, twin of Esau. The supplanter who grabbed his brother's heel, stole the birthright and blessing, then wrestled God and became Israel.",
+  "poses": {
+    "grasping-heel": {
+      "id": "grasping-heel",
+      "name": "Grasping the Heel",
+      "description": "The birth moment - hand grasping Esau's heel",
+      "expression": "determination from birth, competitive nature",
+      "prompt": "newborn or young man's hand grasping another's heel - the defining moment of Jacob's character, refusing to be second even from the womb, determination visible even in infant grip, born competing",
+      "energy": "born competitor, second-born refusing second place",
+      "quoteId": "grabbed-heel"
+    },
+    "offering-soup": {
+      "id": "offering-soup",
+      "name": "Offering the Soup",
+      "description": "Holding bowl of lentils, calculating the trade",
+      "expression": "calculating patience, seeing the opportunity",
+      "prompt": "young shepherd holding clay bowl of red lentil stew - calculating expression, one hand on bowl, waiting for hungry brother's desperation, patient opportunist who sees the moment to strike, quiet cunning",
+      "energy": "patient opportunism, seeing the angle",
+      "quoteId": "sell-birthright"
+    },
+    "wearing-skins": {
+      "id": "wearing-skins",
+      "name": "The Deception",
+      "description": "Disguised in goat skins, approaching blind Isaac",
+      "expression": "nervous determination, committed to the con",
+      "prompt": "young man with goat skins on arms and neck - approaching elderly blind figure, face showing mix of fear and determination, committed to the deception despite the risk, 'I am Esau your firstborn'",
+      "energy": "bold deception, high stakes gamble",
+      "quoteId": "i-am-esau"
+    },
+    "wrestling-angel": {
+      "id": "wrestling-angel",
+      "name": "Wrestling the Angel",
+      "description": "Locked in struggle with divine being until dawn",
+      "expression": "relentless determination, refusing to yield",
+      "prompt": "man locked in wrestling hold with luminous divine figure - muscles straining, face showing absolute refusal to let go, hip out of joint but still fighting, the struggle that lasted until dawn, becoming Israel through combat",
+      "energy": "relentless struggle, wrestling destiny",
+      "quoteId": "wrestled-angel"
+    },
+    "demanding-blessing": {
+      "id": "demanding-blessing",
+      "name": "Demanding the Blessing",
+      "description": "Gripping the angel, refusing to release without blessing",
+      "expression": "desperate determination, will not be denied",
+      "prompt": "man gripping divine figure with desperate strength - face showing absolute determination, 'I will not let you go unless you bless me', demanding what he wants through sheer persistence, the ultimate negotiator",
+      "energy": "relentless persistence, demanding destiny",
+      "quoteId": "will-not-release"
+    },
+    "renamed-israel": {
+      "id": "renamed-israel",
+      "name": "Becoming Israel",
+      "description": "The moment of transformation - limping but victorious",
+      "expression": "exhausted triumph, transformed identity",
+      "prompt": "man at dawn limping but standing tall - touched hip causing limp, face showing exhausted triumph, no longer Jacob the supplanter but Israel who strove with God, transformation through struggle, new name earned",
+      "energy": "painful transformation, identity earned",
+      "quoteId": "named-israel"
+    }
+  }
+}

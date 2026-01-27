@@ -73,8 +73,6 @@ ${figure.name.toUpperCase()}:
 - Style: Classical figure rendered with metallic/chrome accents, biblical period accurate
 - Anatomy: Exactly two arms${figure.anatomyNote ? ` - ${figure.anatomyNote}` : ''}
 
-INTERACTION: powerful allies rendered in chrome and metal, futuristic legends.
-
 === COMPOSITION ===
 IMPORTANT: ${player.name} (basketball player) must be on the LEFT side of the card. ${figure.name} (biblical figure) must be on the RIGHT side of the card. This ensures names at bottom align with their figures.
 

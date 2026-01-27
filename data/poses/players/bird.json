@@ -1,0 +1,56 @@
+{
+  "id": "bird",
+  "name": "Larry Bird",
+  "defaultPose": "trash-talk-shooting",
+  "description": "6'9\" small forward, Boston Celtics legend. 3-time champion, 3-time MVP, 12-time All-Star. Ultimate competitor - trash talked, then backed it up. Blue collar superstar.",
+  "poses": {
+    "trash-talk-shooting": {
+      "id": "trash-talk-shooting",
+      "name": "Trash Talk Then Shoot",
+      "description": "Telling defender exactly where he'll shoot from, then doing it",
+      "expression": "cold confidence, arrogant certainty",
+      "prompt": "tall forward in shooting stance with slight smirk - one hand pointing to the spot where he just told defender he'd shoot from, other hand following through on jumper, ice cold confidence, backing up every word of trash talk",
+      "energy": "ultimate confidence, words become reality"
+    },
+    "left-hand-game": {
+      "id": "left-hand-game",
+      "name": "Left Hand Challenge",
+      "description": "1986 - Shooting lefty because righty was too easy",
+      "expression": "bored dominance, seeking challenge",
+      "prompt": "tall forward shooting with left hand instead of dominant right - casual expression like this is still too easy, handicapping himself for fun, pure boredom with normal competition, legend seeking any challenge",
+      "energy": "transcendent boredom, self-imposed handicap"
+    },
+    "diving-for-loose-ball": {
+      "id": "diving-for-loose-ball",
+      "name": "Diving for Loose Ball",
+      "description": "Full extension dive - blue collar hustle from a superstar",
+      "expression": "desperate hustle, will to win",
+      "prompt": "tall forward diving full extension for loose ball - body completely horizontal, arms stretched to maximum, willing to sacrifice body for possession, superstar playing like scrappy role player, blue collar effort",
+      "energy": "maximum effort, hustle never stops"
+    },
+    "game-winner-release": {
+      "id": "game-winner-release",
+      "name": "Game Winner",
+      "description": "The perfect release on a clutch shot, ice in veins",
+      "expression": "calm certainty, already knows it's going in",
+      "prompt": "tall forward at apex of jump shot release - perfect form, high release point, eyes tracking ball to basket, complete calm in clutch moment, face showing zero doubt because he already knows it's going in",
+      "energy": "clutch gene, ice cold execution"
+    },
+    "stare-down": {
+      "id": "stare-down",
+      "name": "Cold-Blooded Stare",
+      "description": "The look after a dagger - no emotion, just dominance",
+      "expression": "emotionless dominance, cold blooded",
+      "prompt": "tall forward with cold emotionless stare at opponent after big shot - no celebration needed, just stone cold eye contact, slight head tilt, letting the silence speak, psychological destruction through calm dominance",
+      "energy": "cold blooded killer, silent dominance"
+    },
+    "steal-and-assist": {
+      "id": "steal-and-assist",
+      "name": "The Steal",
+      "description": "1987 ECF Game 5 - The iconic steal off Isiah's inbound",
+      "expression": "anticipation, seeing the play before it happens",
+      "prompt": "tall forward lunging to intercept inbound pass - body extended, eyes locked on ball, reading the play before it happened, the instinct of a basketball genius, stealing victory from the jaws of defeat",
+      "energy": "basketball IQ, clutch instinct"
+    }
+  }
+}

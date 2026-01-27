@@ -1,0 +1,56 @@
+{
+  "id": "draymond",
+  "name": "Draymond Green",
+  "defaultPose": "screaming-and-one",
+  "description": "6'6\" power forward, Warriors dynasty linchpin. 4-time champion, DPOY, 4-time All-Star. Does the dirty work - screens, defense, technicals. The emotional engine.",
+  "poses": {
+    "natural-shooting-motion": {
+      "id": "natural-shooting-motion",
+      "name": "Natural Shooting Motion",
+      "description": "2016 Finals - The infamous kick that cost the Warriors",
+      "expression": "exaggerated follow-through, plausible deniability",
+      "prompt": "power forward with leg kicked out high after shot attempt - the infamous 'natural shooting motion' with foot at groin level, arms extended from jumper, slight smirk knowing exactly what happened, controversial but effective",
+      "energy": "dirty play disguised, walking the line"
+    },
+    "screaming-and-one": {
+      "id": "screaming-and-one",
+      "name": "Screaming And-One",
+      "description": "Signature celebration - flexing and screaming after big play",
+      "expression": "primal scream, flexing intensity",
+      "prompt": "power forward screaming and flexing after and-one basket - veins popping, mouth wide open in primal roar, muscles tensed, fists clenched, pure emotional explosion, the heart and soul of a dynasty",
+      "energy": "emotional explosion, warrior's roar"
+    },
+    "defensive-stance": {
+      "id": "defensive-stance",
+      "name": "DPOY Stance",
+      "description": "Lockdown defensive position, switching onto anyone",
+      "expression": "intense focus, predator stalking",
+      "prompt": "power forward in perfect defensive stance - knees bent low, arms wide, eyes locked on ball handler, ready to switch onto any position 1-5, the defensive anchor who guards everyone, switchable nightmare",
+      "energy": "lockdown defense, versatile stopper"
+    },
+    "technical-foul-argument": {
+      "id": "technical-foul-argument",
+      "name": "Arguing Technical",
+      "description": "In the referee's face, animated protest",
+      "expression": "outraged disbelief, animated fury",
+      "prompt": "power forward arguing intensely with referee - arms gesturing wildly, face contorted in outrage, stepping toward official, veins visible, the kind of argument that earns technicals, passion boiling over",
+      "energy": "righteous fury, crossing the line"
+    },
+    "celebrating-teammate": {
+      "id": "celebrating-teammate",
+      "name": "Hyping Teammates",
+      "description": "The ultimate teammate - celebrating Curry or Klay's shot",
+      "expression": "pure joy for others, team-first energy",
+      "prompt": "power forward celebrating teammate's big shot - jumping and pointing at shooter, face showing pure joy, arms raised in celebration of someone else's success, the glue guy who makes stars shine brighter",
+      "energy": "selfless celebration, team catalyst"
+    },
+    "podcast-face": {
+      "id": "podcast-face",
+      "name": "Podcast Smirk",
+      "description": "The knowing smirk when he's about to say something controversial",
+      "expression": "mischievous, stirring the pot",
+      "prompt": "power forward with knowing smirk and raised eyebrow - the look before dropping a hot take, slight lean forward, eyes gleaming with mischief, about to say something that will trend for days",
+      "energy": "media savvy, pot stirrer"
+    }
+  }
+}

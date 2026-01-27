@@ -1,0 +1,62 @@
+{
+  "id": "joab",
+  "name": "Joab",
+  "defaultPose": "hidden-dagger",
+  "description": "Commander of David's army, son of Zeruiah. Brilliant general who did the dirty work - assassinated Abner, Amasa, and Absalom. Loyal but ruthless, cursed but indispensable.",
+  "poses": {
+    "hidden-dagger": {
+      "id": "hidden-dagger",
+      "name": "Hidden Dagger",
+      "description": "Greeting with one hand, dagger concealed in other",
+      "expression": "false warmth masking lethal intent",
+      "prompt": "ancient Israelite general in greeting pose - one hand extended in friendship, other hand concealing dagger behind back or in belt, warm smile that doesn't reach calculating eyes, the assassin's welcome",
+      "energy": "deadly deception, false friendship",
+      "quoteId": "killed-amasa"
+    },
+    "executing-strike": {
+      "id": "executing-strike",
+      "name": "The Strike",
+      "description": "Mid-assassination, doing the dirty work David couldn't",
+      "expression": "cold efficiency, doing what must be done",
+      "prompt": "ancient Israelite general mid-strike with weapon - face showing cold efficiency not rage, military precision in the killing blow, doing the dirty work that kings can't be seen doing, necessary evil",
+      "energy": "ruthless efficiency, bloody pragmatism",
+      "quoteId": "killed-abner"
+    },
+    "defying-david": {
+      "id": "defying-david",
+      "name": "Defying Orders",
+      "description": "Standing over Absalom's body, unapologetic for disobeying",
+      "expression": "defiant loyalty, knowing better than the king",
+      "prompt": "ancient Israelite general standing over fallen prince - three javelins in hand or nearby, face showing defiant certainty that he was right, unapologetic for disobeying king's order to spare Absalom, doing what had to be done",
+      "energy": "loyal defiance, brutal pragmatism",
+      "quoteId": "absalom-dead"
+    },
+    "commanding-army": {
+      "id": "commanding-army",
+      "name": "Commanding Forces",
+      "description": "Leading David's army, brilliant tactical mind",
+      "expression": "tactical genius, commanding presence",
+      "prompt": "ancient Israelite general on elevated position commanding troops - arm raised directing forces, face showing tactical brilliance, warrior's armor and bearing, the general who never lost, indispensable despite his crimes",
+      "energy": "military genius, indispensable warrior",
+      "quoteId": "count-the-army"
+    },
+    "grasping-altar": {
+      "id": "grasping-altar",
+      "name": "Grasping Altar Horns",
+      "description": "Final stand - hands on altar horns, defiant to the end",
+      "expression": "cornered defiance, refusing to beg",
+      "prompt": "ancient Israelite general grasping horns of altar - hands gripping sanctuary's horns for protection, face showing defiant refusal to beg or flee, 'No, I will die here', the warrior's last stand, dignity in doom",
+      "energy": "defiant end, dignity in death",
+      "quoteId": "die-here"
+    },
+    "sword-never-departs": {
+      "id": "sword-never-departs",
+      "name": "Blood on His Hands",
+      "description": "The weight of all the blood - cursed but unrepentant",
+      "expression": "weary acceptance, blood-soaked hands",
+      "prompt": "ancient Israelite general looking at his own hands - sword at side, expression showing awareness of all the blood spilled, cursed by David but unapologetic, the price of doing what others wouldn't",
+      "energy": "bloody legacy, cursed warrior",
+      "quoteId": "blood-on-joab"
+    }
+  }
+}

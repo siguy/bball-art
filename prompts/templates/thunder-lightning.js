@@ -81,8 +81,6 @@ ${figure.name.toUpperCase()}:
 - Style: Classical artistic interpretation, biblical period accurate
 - Anatomy: Exactly two arms${figure.anatomyNote ? ` - ${figure.anatomyNote}` : ''}
 
-INTERACTION: confident, united, powerful allies. The two figures are connected by the composition, energy flowing between them.
-
 === COMPOSITION ===
 IMPORTANT: ${player.name} (basketball player) must be on the LEFT side of the card. ${figure.name} (biblical figure) must be on the RIGHT side of the card. This ensures names at bottom align with their figures.
 
