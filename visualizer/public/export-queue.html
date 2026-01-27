@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Export Queue - Court & Covenant</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header>
+    <div class="header-content">
+      <img src="/brand/logos/court and covenant logo - 1.png" alt="Court & Covenant" class="logo">
+      <h1>Export Queue</h1>
+    </div>
+    <nav class="header-nav">
+      <a href="/" class="nav-link">Cards</a>
+      <a href="/pairings.html" class="nav-link">Pairings</a>
+      <a href="/export-queue.html" class="nav-link active">Export Queue</a>
+    </nav>
+    <div class="stats" id="stats"></div>
+  </header>
+
+  <main class="queue-container">
+    <section class="queue-header">
+      <h2>Pending Exports</h2>
+      <div class="queue-actions">
+        <button id="refresh-queue-btn" class="btn">Refresh</button>
+        <button id="process-all-btn" class="btn btn-primary">Process All Pending</button>
+      </div>
+    </section>
+
+    <section class="queue-list" id="queue-list">
+      <!-- Queue items will be rendered here -->
+    </section>
+
+    <section class="queue-header" style="margin-top: 2rem;">
+      <h2>Recently Processed</h2>
+    </section>
+
+    <section class="queue-list" id="processed-list">
+      <!-- Processed items will be rendered here -->
+    </section>
+  </main>
+
+  <script>
+    const API_BASE = '';
+    let queueData = { queue: [], processed: [] };
+    let manifest = { cards: [] };
+    let pairingData = {};
+
+    async function init() {
+      await Promise.all([
+        fetchQueue(),
+        fetchManifest(),
+        fetchPairings()
+      ]);
+      renderQueue();
+      renderProcessed();
+      updateStats();
+    }
+
+    async function fetchQueue() {
+      try {
+        const res = await fetch(`${API_BASE}/api/export/queue`);
+        queueData = await res.json();
+      } catch (err) {
+        console.error('Failed to fetch queue:', err);
+      }
+    }
+
+    async function fetchManifest() {
+      try {
+        const res = await fetch(`${API_BASE}/api/manifest`);
+        manifest = await res.json();
+      } catch (err) {
+        console.error('Failed to fetch manifest:', err);
+      }
+    }
+
+    async function fetchPairings() {
+      try {
+        const res = await fetch(`${API_BASE}/api/pairings`);
+        pairingData = await res.json();
+      } catch (err) {
+        console.error('Failed to fetch pairings:', err);
+      }
+    }
+
+    function updateStats() {
+      const stats = document.getElementById('stats');
+      stats.textContent = `${queueData.queue.length} pending | ${queueData.processed.length} processed`;
+    }
+
+    function formatDate(isoString) {
+      if (!isoString) return '';
+      const date = new Date(isoString);
+      return date.toLocaleDateString() + ' ' + date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    }
+
+    function renderQueue() {
+      const container = document.getElementById('queue-list');
+
+      if (queueData.queue.length === 0) {
+        container.innerHTML = `
+          <div class="empty-queue">
+            <h3>No pending exports</h3>
+            <p>Add cards to the queue from the Cards page</p>
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = queueData.queue.map(item => {
+        const card = manifest.cards.find(c => c.id === item.cardId);
+        const pairing = card ? pairingData[card.pairingId] : null;
+        const title = pairing ? `${pairing.playerName} & ${pairing.figureName}` : item.cardId;
+
+        return `
+          <div class="queue-item" data-id="${item.id}">
+            <img class="queue-item-image" src="${card?.path || ''}" alt="${title}">
+            <div class="queue-item-info">
+              <h4>${title}</h4>
+              <div class="queue-item-meta">
+                <span>Added: ${formatDate(item.createdAt)}</span>
+                ${item.scheduledAt ? `<span>Scheduled: ${formatDate(item.scheduledAt)}</span>` : ''}
+              </div>
+              <div class="queue-item-destinations">
+                ${item.destinations.map(d => `<span class="destination-badge ${d}">${d}</span>`).join('')}
+              </div>
+            </div>
+            <div class="queue-item-actions">
+              <button class="btn btn-small" onclick="removeFromQueue('${item.id}')">Remove</button>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function renderProcessed() {
+      const container = document.getElementById('processed-list');
+      const recentProcessed = queueData.processed.slice(-10).reverse();
+
+      if (recentProcessed.length === 0) {
+        container.innerHTML = `
+          <div class="empty-queue">
+            <h3>No processed exports yet</h3>
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = recentProcessed.map(item => {
+        const card = manifest.cards.find(c => c.id === item.cardId);
+        const pairing = card ? pairingData[card.pairingId] : null;
+        const title = pairing ? `${pairing.playerName} & ${pairing.figureName}` : item.cardId;
+
+        return `
+          <div class="queue-item" data-id="${item.id}" style="opacity: 0.7;">
+            <img class="queue-item-image" src="${card?.path || ''}" alt="${title}">
+            <div class="queue-item-info">
+              <h4>${title}</h4>
+              <div class="queue-item-meta">
+                <span>Processed: ${formatDate(item.processedAt)}</span>
+              </div>
+              <div class="queue-item-destinations">
+                ${item.destinations.map(d => {
+                  const result = item.results?.[d];
+                  const statusClass = result?.success ? 'success' : 'failed';
+                  return `<span class="destination-badge ${d}" title="${result?.error || 'Success'}">${d}</span>`;
+                }).join('')}
+              </div>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    async function removeFromQueue(id) {
+      try {
+        await fetch(`${API_BASE}/api/export/queue/${id}`, { method: 'DELETE' });
+        await fetchQueue();
+        renderQueue();
+        updateStats();
+      } catch (err) {
+        console.error('Failed to remove from queue:', err);
+      }
+    }
+
+    async function processAll() {
+      const btn = document.getElementById('process-all-btn');
+      btn.textContent = 'Processing...';
+      btn.disabled = true;
+
+      try {
+        const res = await fetch(`${API_BASE}/api/export/process`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' }
+        });
+        const result = await res.json();
+
+        btn.textContent = `Processed ${result.processed} items!`;
+        setTimeout(() => {
+          btn.textContent = 'Process All Pending';
+          btn.disabled = false;
+        }, 2000);
+
+        await fetchQueue();
+        renderQueue();
+        renderProcessed();
+        updateStats();
+      } catch (err) {
+        console.error('Failed to process queue:', err);
+        btn.textContent = 'Process Failed';
+        setTimeout(() => {
+          btn.textContent = 'Process All Pending';
+          btn.disabled = false;
+        }, 2000);
+      }
+    }
+
+    // Event Listeners
+    document.getElementById('refresh-queue-btn').addEventListener('click', async () => {
+      await fetchQueue();
+      await fetchManifest();
+      renderQueue();
+      renderProcessed();
+      updateStats();
+    });
+
+    document.getElementById('process-all-btn').addEventListener('click', processAll);
+
+    // Initialize
+    init();
+  </script>
+</body>
+</html>

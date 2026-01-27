@@ -9,8 +9,11 @@ const API_BASE = '';
 let manifest = { cards: [], pairings: [], templates: [], interactions: [] };
 let feedback = {};
 let pairingData = {};
+let pairingsFull = {};
 let filteredCards = [];
 let currentCardIndex = 0;
+let currentPlatformTab = 'instagram';
+let captions = { instagram: '', twitter: '' };
 
 // DOM Elements
 const gallery = document.getElementById('gallery');
@@ -26,7 +29,8 @@ async function init() {
   await Promise.all([
     fetchManifest(),
     fetchFeedback(),
-    fetchPairings()
+    fetchPairings(),
+    fetchPairingsFull()
   ]);
 
   populateFilters();
@@ -81,33 +85,201 @@ async function fetchPairings() {
   }
 }
 
-async function exportToWeb() {
+async function fetchPairingsFull() {
   try {
-    const btn = document.getElementById('export-web-btn');
-    btn.textContent = 'Exporting...';
-    btn.disabled = true;
+    const res = await fetch(`${API_BASE}/api/pairings-full`);
+    pairingsFull = await res.json();
+  } catch (err) {
+    console.error('Failed to fetch full pairings:', err);
+  }
+}
 
-    const res = await fetch(`${API_BASE}/api/export-loved`, {
+// Export Functions
+function getSelectedDestinations() {
+  const destinations = [];
+  if (document.getElementById('export-website')?.checked) destinations.push('website');
+  if (document.getElementById('export-instagram')?.checked) destinations.push('instagram');
+  if (document.getElementById('export-twitter')?.checked) destinations.push('twitter');
+  return destinations;
+}
+
+function updateExportUI() {
+  const destinations = getSelectedDestinations();
+  const hasSocial = destinations.includes('instagram') || destinations.includes('twitter');
+
+  const captionEditor = document.getElementById('caption-editor');
+  const addToQueueBtn = document.getElementById('add-to-queue-btn');
+  const exportNowBtn = document.getElementById('export-now-btn');
+
+  // Show caption editor if social platforms selected
+  if (captionEditor) {
+    captionEditor.classList.toggle('hidden', !hasSocial);
+  }
+
+  // Enable/disable buttons
+  if (addToQueueBtn) addToQueueBtn.disabled = destinations.length === 0;
+  if (exportNowBtn) exportNowBtn.disabled = destinations.length === 0;
+}
+
+async function generateCaption(templateId, platform) {
+  const card = filteredCards[currentCardIndex];
+  if (!card) return '';
+
+  try {
+    const res = await fetch(`${API_BASE}/api/caption/generate`, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' }
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        templateId,
+        platform,
+        pairingId: card.pairingId
+      })
+    });
+    const result = await res.json();
+    return result.caption || '';
+  } catch (err) {
+    console.error('Failed to generate caption:', err);
+    return '';
+  }
+}
+
+async function handleGenerateCaption() {
+  const templateSelect = document.getElementById('caption-template');
+  const templateId = templateSelect?.value || 'standard';
+
+  // Generate for both platforms
+  const [instagramCaption, twitterCaption] = await Promise.all([
+    generateCaption(templateId, 'instagram'),
+    generateCaption(templateId, 'twitter')
+  ]);
+
+  captions.instagram = instagramCaption;
+  captions.twitter = twitterCaption;
+
+  // Update textareas
+  document.getElementById('caption-instagram').value = instagramCaption;
+  document.getElementById('caption-twitter').value = twitterCaption;
+
+  updateCharCount();
+}
+
+function updateCharCount() {
+  const textarea = document.getElementById(`caption-${currentPlatformTab}`);
+  const countEl = document.getElementById('char-count-value');
+  const maxEl = document.getElementById('char-count-max');
+  const container = document.querySelector('.char-count');
+
+  if (!textarea || !countEl) return;
+
+  const count = textarea.value.length;
+  const max = currentPlatformTab === 'twitter' ? 280 : 2200;
+
+  countEl.textContent = count;
+  maxEl.textContent = max;
+
+  if (container) {
+    container.classList.toggle('over-limit', count > max);
+  }
+}
+
+function switchCaptionTab(platform) {
+  currentPlatformTab = platform;
+
+  // Update tab active state
+  document.querySelectorAll('.caption-tab').forEach(tab => {
+    tab.classList.toggle('active', tab.dataset.platform === platform);
+  });
+
+  // Show/hide textareas
+  document.getElementById('caption-instagram').classList.toggle('hidden', platform !== 'instagram');
+  document.getElementById('caption-twitter').classList.toggle('hidden', platform !== 'twitter');
+
+  updateCharCount();
+}
+
+async function addToQueue() {
+  const card = filteredCards[currentCardIndex];
+  if (!card) return;
+
+  const destinations = getSelectedDestinations();
+  if (destinations.length === 0) return;
+
+  // Get current captions from textareas
+  const captionData = {
+    instagram: document.getElementById('caption-instagram')?.value || '',
+    twitter: document.getElementById('caption-twitter')?.value || ''
+  };
+
+  try {
+    const res = await fetch(`${API_BASE}/api/export/queue`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        cardId: card.id,
+        destinations,
+        captions: captionData
+      })
     });
     const result = await res.json();
 
     if (result.success) {
-      btn.textContent = `Exported ${result.exported} cards!`;
+      const btn = document.getElementById('add-to-queue-btn');
+      btn.textContent = 'Added!';
+      setTimeout(() => { btn.textContent = 'Add to Queue'; }, 1500);
+    }
+  } catch (err) {
+    console.error('Failed to add to queue:', err);
+  }
+}
+
+async function exportNow() {
+  const card = filteredCards[currentCardIndex];
+  if (!card) return;
+
+  const destinations = getSelectedDestinations();
+  if (destinations.length === 0) return;
+
+  const captionData = {
+    instagram: document.getElementById('caption-instagram')?.value || '',
+    twitter: document.getElementById('caption-twitter')?.value || ''
+  };
+
+  const btn = document.getElementById('export-now-btn');
+  btn.textContent = 'Exporting...';
+  btn.disabled = true;
+
+  try {
+    const res = await fetch(`${API_BASE}/api/export/single`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        cardId: card.id,
+        destinations,
+        captions: captionData
+      })
+    });
+    const result = await res.json();
+
+    if (result.success) {
+      btn.textContent = 'Exported!';
       setTimeout(() => {
-        btn.textContent = 'Export Loved to Web';
+        btn.textContent = 'Export Now';
         btn.disabled = false;
       }, 2000);
     } else {
       btn.textContent = 'Export Failed';
       setTimeout(() => {
-        btn.textContent = 'Export Loved to Web';
+        btn.textContent = 'Export Now';
         btn.disabled = false;
       }, 2000);
     }
   } catch (err) {
     console.error('Export failed:', err);
+    btn.textContent = 'Export Failed';
+    setTimeout(() => {
+      btn.textContent = 'Export Now';
+      btn.disabled = false;
+    }, 2000);
   }
 }
 
@@ -252,6 +424,16 @@ function openModal(index) {
     }
   });
 
+  // Reset export UI
+  ['export-website', 'export-instagram', 'export-twitter'].forEach(id => {
+    const checkbox = document.getElementById(id);
+    if (checkbox) checkbox.checked = false;
+  });
+  document.getElementById('caption-instagram').value = '';
+  document.getElementById('caption-twitter').value = '';
+  captions = { instagram: '', twitter: '' };
+  updateExportUI();
+
   modal.classList.add('active');
   document.body.style.overflow = 'hidden';
 }
@@ -284,8 +466,46 @@ function setupEventListeners() {
     applyFilters();
   });
 
-  // Export to web button
-  document.getElementById('export-web-btn').addEventListener('click', exportToWeb);
+  // Export destination checkboxes
+  ['export-website', 'export-instagram', 'export-twitter'].forEach(id => {
+    const checkbox = document.getElementById(id);
+    if (checkbox) {
+      checkbox.addEventListener('change', updateExportUI);
+    }
+  });
+
+  // Caption template generation
+  const generateCaptionBtn = document.getElementById('generate-caption-btn');
+  if (generateCaptionBtn) {
+    generateCaptionBtn.addEventListener('click', handleGenerateCaption);
+  }
+
+  // Caption tab switching
+  document.querySelectorAll('.caption-tab').forEach(tab => {
+    tab.addEventListener('click', () => switchCaptionTab(tab.dataset.platform));
+  });
+
+  // Caption textarea char count
+  ['caption-instagram', 'caption-twitter'].forEach(id => {
+    const textarea = document.getElementById(id);
+    if (textarea) {
+      textarea.addEventListener('input', () => {
+        captions[id.replace('caption-', '')] = textarea.value;
+        updateCharCount();
+      });
+    }
+  });
+
+  // Export buttons
+  const addToQueueBtn = document.getElementById('add-to-queue-btn');
+  if (addToQueueBtn) {
+    addToQueueBtn.addEventListener('click', addToQueue);
+  }
+
+  const exportNowBtn = document.getElementById('export-now-btn');
+  if (exportNowBtn) {
+    exportNowBtn.addEventListener('click', exportNow);
+  }
 
   // Card clicks
   gallery.addEventListener('click', (e) => {

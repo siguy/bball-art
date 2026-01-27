@@ -4,6 +4,12 @@ import { readFileSync, writeFileSync, existsSync, readdirSync, statSync, mkdirSy
 import { join, dirname } from 'path';
 import { fileURLToPath } from 'url';
 import { spawn } from 'child_process';
+import { v4 as uuidv4 } from 'uuid';
+
+// Import lib modules
+import imageProcessor from './lib/image-processor.js';
+import captionGenerator from './lib/caption-generator.js';
+import bufferClient from './lib/buffer-client.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -25,6 +31,10 @@ const MANIFEST_PATH = join(__dirname, 'data/manifest.json');
 const FEEDBACK_PATH = join(__dirname, 'data/feedback.json');
 const WEB_CARDS_DIR = join(ROOT, 'web/cards');
 const WEB_DATA_PATH = join(ROOT, 'web/js/data.js');
+const EXPORT_QUEUE_PATH = join(__dirname, 'data/export-queue.json');
+const EXPORT_CONFIG_PATH = join(__dirname, 'data/export-config.json');
+const CAPTION_TEMPLATES_PATH = join(__dirname, 'data/caption-templates.json');
+const EXPORT_OUTPUT_DIR = join(ROOT, 'output/exports');
 
 /**
  * Scan output directory and build manifest
@@ -416,6 +426,378 @@ export const pairings = ${JSON.stringify(webPairings, null, 2)};
   } catch (err) {
     console.error('Export error:', err);
     res.status(500).json({ success: false, error: err.message });
+  }
+});
+
+// ========================================
+// EXPORT SYSTEM - Queue & Caption APIs
+// ========================================
+
+/**
+ * Load or initialize export queue
+ */
+function loadExportQueue() {
+  if (existsSync(EXPORT_QUEUE_PATH)) {
+    return JSON.parse(readFileSync(EXPORT_QUEUE_PATH, 'utf-8'));
+  }
+  return { queue: [], carousels: [], threads: [], processed: [] };
+}
+
+function saveExportQueue(data) {
+  writeFileSync(EXPORT_QUEUE_PATH, JSON.stringify(data, null, 2));
+}
+
+/**
+ * Load export config
+ */
+function loadExportConfig() {
+  return JSON.parse(readFileSync(EXPORT_CONFIG_PATH, 'utf-8'));
+}
+
+// --- Caption API Endpoints ---
+
+// Get available caption templates
+app.get('/api/caption/templates', (req, res) => {
+  try {
+    const templates = captionGenerator.getAvailableTemplates();
+    res.json(templates);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// Generate caption from template
+app.post('/api/caption/generate', (req, res) => {
+  try {
+    const { templateId, platform, pairingId, playerPoseId, figurePoseId, quoteId } = req.body;
+
+    if (!templateId || !platform || !pairingId) {
+      return res.status(400).json({ error: 'Missing required fields: templateId, platform, pairingId' });
+    }
+
+    const result = captionGenerator.generateCaption({
+      templateId,
+      platform,
+      pairingId,
+      playerPoseId,
+      figurePoseId,
+      quoteId
+    });
+
+    res.json(result);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// Get available quotes for a figure
+app.get('/api/caption/quotes/:figureId', (req, res) => {
+  try {
+    const quotes = captionGenerator.getAvailableQuotes(req.params.figureId);
+    res.json(quotes);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// Get available poses for a character
+app.get('/api/caption/poses/:type/:poseFileId', (req, res) => {
+  try {
+    const { type, poseFileId } = req.params;
+    if (type !== 'player' && type !== 'figure') {
+      return res.status(400).json({ error: 'Type must be "player" or "figure"' });
+    }
+    const poses = captionGenerator.getAvailablePoses(type, poseFileId);
+    res.json(poses);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// Get hashtags for a pairing
+app.get('/api/caption/hashtags/:pairingId', (req, res) => {
+  try {
+    const hashtags = captionGenerator.getHashtags(req.params.pairingId);
+    res.json(hashtags);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// --- Export Queue API Endpoints ---
+
+// Get export queue
+app.get('/api/export/queue', (req, res) => {
+  try {
+    const queue = loadExportQueue();
+    res.json(queue);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// Add item to export queue
+app.post('/api/export/queue', (req, res) => {
+  try {
+    const { cardId, destinations, captions, scheduledAt } = req.body;
+
+    if (!cardId || !destinations || destinations.length === 0) {
+      return res.status(400).json({ error: 'Missing required fields: cardId, destinations' });
+    }
+
+    const queue = loadExportQueue();
+    const item = {
+      id: uuidv4(),
+      cardId,
+      destinations,
+      captions: captions || {},
+      scheduledAt: scheduledAt || null,
+      status: 'pending',
+      createdAt: new Date().toISOString()
+    };
+
+    queue.queue.push(item);
+    saveExportQueue(queue);
+
+    res.json({ success: true, item });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// Update queue item
+app.put('/api/export/queue/:id', (req, res) => {
+  try {
+    const { id } = req.params;
+    const updates = req.body;
+
+    const queue = loadExportQueue();
+    const index = queue.queue.findIndex(item => item.id === id);
+
+    if (index === -1) {
+      return res.status(404).json({ error: 'Queue item not found' });
+    }
+
+    queue.queue[index] = {
+      ...queue.queue[index],
+      ...updates,
+      updatedAt: new Date().toISOString()
+    };
+
+    saveExportQueue(queue);
+    res.json({ success: true, item: queue.queue[index] });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// Delete queue item
+app.delete('/api/export/queue/:id', (req, res) => {
+  try {
+    const { id } = req.params;
+    const queue = loadExportQueue();
+    queue.queue = queue.queue.filter(item => item.id !== id);
+    saveExportQueue(queue);
+    res.json({ success: true });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// Process export queue (export all pending items)
+app.post('/api/export/process', async (req, res) => {
+  try {
+    const manifest = buildManifest();
+    const queue = loadExportQueue();
+    const config = loadExportConfig();
+    const results = [];
+
+    // Ensure export output directories exist
+    if (!existsSync(EXPORT_OUTPUT_DIR)) {
+      mkdirSync(EXPORT_OUTPUT_DIR, { recursive: true });
+    }
+
+    for (const item of queue.queue.filter(i => i.status === 'pending')) {
+      const card = manifest.cards.find(c => c.id === item.cardId);
+      if (!card) {
+        results.push({ id: item.id, success: false, error: 'Card not found' });
+        continue;
+      }
+
+      const sourcePath = join(ROOT, 'output/cards', card.pairingId, card.filename);
+      if (!existsSync(sourcePath)) {
+        results.push({ id: item.id, success: false, error: 'Source image not found' });
+        continue;
+      }
+
+      const exportResults = {};
+
+      // Process each destination
+      for (const destination of item.destinations) {
+        if (destination === 'website') {
+          // Export to web/cards
+          const webFilename = `${card.pairingId}-${card.template}-${Date.now()}.png`;
+          const destPath = join(WEB_CARDS_DIR, webFilename);
+
+          if (!existsSync(WEB_CARDS_DIR)) {
+            mkdirSync(WEB_CARDS_DIR, { recursive: true });
+          }
+
+          copyFileSync(sourcePath, destPath);
+          exportResults.website = { success: true, path: `cards/${webFilename}` };
+        } else {
+          // Process for social platforms (instagram, twitter)
+          const platformConfig = config.platforms[destination];
+          if (!platformConfig) {
+            exportResults[destination] = { success: false, error: 'Platform not configured' };
+            continue;
+          }
+
+          const outputDir = join(EXPORT_OUTPUT_DIR, destination);
+          const result = await imageProcessor.processForPlatform(
+            sourcePath,
+            outputDir,
+            destination,
+            `${card.pairingId}-${card.template}-${Date.now()}`
+          );
+
+          exportResults[destination] = result;
+        }
+      }
+
+      // Move item to processed
+      item.status = 'processed';
+      item.processedAt = new Date().toISOString();
+      item.results = exportResults;
+
+      results.push({ id: item.id, success: true, results: exportResults });
+    }
+
+    // Update queue
+    const processedItems = queue.queue.filter(i => i.status === 'processed');
+    queue.processed.push(...processedItems);
+    queue.queue = queue.queue.filter(i => i.status !== 'processed');
+    saveExportQueue(queue);
+
+    res.json({ success: true, processed: results.length, results });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// Export single item immediately
+app.post('/api/export/single', async (req, res) => {
+  try {
+    const { cardId, destinations, captions } = req.body;
+
+    if (!cardId || !destinations || destinations.length === 0) {
+      return res.status(400).json({ error: 'Missing required fields: cardId, destinations' });
+    }
+
+    const manifest = buildManifest();
+    const config = loadExportConfig();
+    const card = manifest.cards.find(c => c.id === cardId);
+
+    if (!card) {
+      return res.status(404).json({ error: 'Card not found' });
+    }
+
+    const sourcePath = join(ROOT, 'output/cards', card.pairingId, card.filename);
+    if (!existsSync(sourcePath)) {
+      return res.status(404).json({ error: 'Source image not found' });
+    }
+
+    const exportResults = {};
+
+    // Ensure export output directory exists
+    if (!existsSync(EXPORT_OUTPUT_DIR)) {
+      mkdirSync(EXPORT_OUTPUT_DIR, { recursive: true });
+    }
+
+    for (const destination of destinations) {
+      if (destination === 'website') {
+        const webFilename = `${card.pairingId}-${card.template}-${Date.now()}.png`;
+        const destPath = join(WEB_CARDS_DIR, webFilename);
+
+        if (!existsSync(WEB_CARDS_DIR)) {
+          mkdirSync(WEB_CARDS_DIR, { recursive: true });
+        }
+
+        copyFileSync(sourcePath, destPath);
+        exportResults.website = { success: true, path: `cards/${webFilename}` };
+      } else {
+        const outputDir = join(EXPORT_OUTPUT_DIR, destination);
+        const result = await imageProcessor.processForPlatform(
+          sourcePath,
+          outputDir,
+          destination,
+          `${card.pairingId}-${card.template}-${Date.now()}`
+        );
+        exportResults[destination] = result;
+      }
+    }
+
+    res.json({ success: true, results: exportResults });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// Get export config
+app.get('/api/export/config', (req, res) => {
+  try {
+    const config = loadExportConfig();
+    res.json(config);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// --- Buffer API Endpoints ---
+
+// Check Buffer status
+app.get('/api/buffer/status', (req, res) => {
+  try {
+    const status = bufferClient.checkBufferStatus();
+    res.json(status);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// Get Buffer profiles (connected social accounts)
+app.get('/api/buffer/profiles', async (req, res) => {
+  try {
+    const status = bufferClient.checkBufferStatus();
+    if (!status.configured) {
+      return res.status(400).json({ error: status.reason });
+    }
+    const profiles = await bufferClient.getProfiles();
+    res.json(profiles);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// Schedule post to Buffer
+app.post('/api/buffer/post', async (req, res) => {
+  try {
+    const { captions, mediaUrl, scheduledAt } = req.body;
+
+    const status = bufferClient.checkBufferStatus();
+    if (!status.configured) {
+      return res.status(400).json({ error: status.reason });
+    }
+
+    const result = await bufferClient.createMultiPlatformPost({
+      captions,
+      mediaUrl,
+      scheduledAt: scheduledAt ? new Date(scheduledAt) : null
+    });
+
+    res.json(result);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
   }
 });
 

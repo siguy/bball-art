@@ -15,6 +15,7 @@
     <nav class="header-nav">
       <a href="/" class="nav-link active">Cards</a>
       <a href="/pairings.html" class="nav-link">Pairings</a>
+      <a href="/export-queue.html" class="nav-link">Export Queue</a>
     </nav>
     <div class="stats" id="stats"></div>
   </header>
@@ -51,7 +52,7 @@
         </select>
       </div>
       <button id="refresh-btn" class="btn">Refresh</button>
-      <button id="export-web-btn" class="btn btn-export">Export Loved to Web</button>
+      <a href="/export-queue.html" class="btn btn-export">Export Queue</a>
     </section>
 
     <!-- Card Gallery -->
@@ -91,7 +92,6 @@
 
           <div class="detail-section">
             <h3>Feedback</h3>
-            <p class="feedback-hint">Cards you "Love" will be exported to the public website</p>
             <div class="feedback-buttons">
               <button class="feedback-btn" data-rating="loved">
                 <span class="icon">&#10084;</span> Love It
@@ -105,6 +105,59 @@
             </div>
             <textarea id="feedback-notes" placeholder="Notes about this card..."></textarea>
             <button id="save-feedback" class="btn btn-primary">Save Feedback</button>
+          </div>
+
+          <div class="detail-section export-section">
+            <h3>Export</h3>
+            <div class="export-destinations">
+              <label class="export-checkbox">
+                <input type="checkbox" id="export-website" value="website">
+                <span class="checkmark"></span>
+                Website
+              </label>
+              <label class="export-checkbox">
+                <input type="checkbox" id="export-instagram" value="instagram">
+                <span class="checkmark"></span>
+                Instagram
+              </label>
+              <label class="export-checkbox">
+                <input type="checkbox" id="export-twitter" value="twitter">
+                <span class="checkmark"></span>
+                Twitter/X
+              </label>
+            </div>
+
+            <div id="caption-editor" class="caption-editor hidden">
+              <div class="caption-template-row">
+                <label for="caption-template">Template:</label>
+                <select id="caption-template">
+                  <option value="standard">Standard</option>
+                  <option value="with-quote">With Quote</option>
+                  <option value="storytelling">Storytelling</option>
+                  <option value="hebrew">Hebrew Quote</option>
+                  <option value="minimal">Minimal</option>
+                </select>
+                <button id="generate-caption-btn" class="btn btn-small">Generate</button>
+              </div>
+
+              <div class="caption-tabs">
+                <button class="caption-tab active" data-platform="instagram">Instagram</button>
+                <button class="caption-tab" data-platform="twitter">Twitter</button>
+              </div>
+
+              <div class="caption-textarea-container">
+                <textarea id="caption-instagram" class="caption-textarea" placeholder="Instagram caption..."></textarea>
+                <textarea id="caption-twitter" class="caption-textarea hidden" placeholder="Twitter caption..."></textarea>
+                <div class="char-count">
+                  <span id="char-count-value">0</span> / <span id="char-count-max">2200</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="export-actions">
+              <button id="add-to-queue-btn" class="btn" disabled>Add to Queue</button>
+              <button id="export-now-btn" class="btn btn-primary" disabled>Export Now</button>
+            </div>
           </div>
 
           <div class="detail-section">

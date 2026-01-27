@@ -1,0 +1,36 @@
+{
+  "platforms": {
+    "website": {
+      "enabled": true,
+      "maxWidth": 1200,
+      "format": "png",
+      "quality": 100,
+      "outputDir": "../web/cards"
+    },
+    "instagram": {
+      "enabled": true,
+      "maxWidth": 1080,
+      "format": "jpeg",
+      "quality": 95,
+      "maxCaptionLength": 2200
+    },
+    "twitter": {
+      "enabled": true,
+      "maxWidth": 1200,
+      "format": "jpeg",
+      "quality": 90,
+      "maxCaptionLength": 280
+    }
+  },
+  "buffer": {
+    "enabled": false,
+    "profileIds": {
+      "instagram": null,
+      "twitter": null
+    }
+  },
+  "naming": {
+    "seriesPrefix": "s1",
+    "seriesName": "court-covenant"
+  }
+}

@@ -25,13 +25,15 @@ A **contemporary art project** creating collectible basketball cards that pair N
 - [x] **Quotes database** (Hebrew + English biblical quotes)
 - [x] **80+ cards generated!**
 - [x] **Card Visualizer built** (local web app for review & feedback)
+- [x] **Multi-Platform Export System** (Website, Instagram, Twitter)
 
 ### In Progress
 - [ ] Merging villain-template-refactor branch
 - [ ] Testing pose system with all pairings
+- [ ] Buffer API integration for social scheduling
 
 ### Up Next
-- Phase 3: Social Media Strategy
+- Phase 3: Social Media Strategy (export system ready!)
 - Phase 4: Website
 - Phase 5: NBA Jam-Style Arcade Game
 
@@ -305,7 +307,7 @@ Bad: Corporate speak, explaining jokes, being preachy.
 
 ## Card Visualizer
 
-A local web app for reviewing generated cards and providing feedback.
+A local web app for reviewing generated cards, providing feedback, and exporting to multiple platforms.
 
 **Start the visualizer:**
 ```bash
@@ -320,12 +322,88 @@ cd visualizer && npm start
 - Feedback system (Love It / Like It / Has Issues + notes)
 - **Auto-saves** feedback to `visualizer/data/feedback.json`
 - Keyboard navigation (arrow keys, Escape)
+- **Multi-Platform Export** (Website, Instagram, Twitter)
+- **Caption Editor** with templates and Hebrew quotes
+- **Export Queue** for batch processing
+
+**Pages:**
+- `/` - Card gallery with feedback & export
+- `/pairings.html` - Pairing management
+- `/export-queue.html` - Export queue management
 
 **API Endpoints:**
+
+*Core:*
 - `GET /api/manifest` - Rebuilds and returns card index
 - `GET /api/feedback` - All feedback data
 - `POST /api/feedback/:cardId` - Save feedback for a card
 - `GET /api/pairings` - Pairing metadata
+- `GET /api/pairings-full` - Full pairing data with poses
+
+*Caption:*
+- `GET /api/caption/templates` - Available caption templates
+- `POST /api/caption/generate` - Generate caption from template
+- `GET /api/caption/quotes/:figureId` - Quotes for a figure
+- `GET /api/caption/poses/:type/:poseFileId` - Poses for a character
+
+*Export:*
+- `GET /api/export/queue` - Get export queue
+- `POST /api/export/queue` - Add to queue
+- `PUT /api/export/queue/:id` - Update queue item
+- `DELETE /api/export/queue/:id` - Remove from queue
+- `POST /api/export/process` - Process all pending
+- `POST /api/export/single` - Export single card immediately
+- `GET /api/export/config` - Export configuration
+
+*Buffer (Social Scheduling):*
+- `GET /api/buffer/status` - Check Buffer configuration
+- `GET /api/buffer/profiles` - Get connected profiles
+- `POST /api/buffer/post` - Schedule post to Buffer
+
+## Multi-Platform Export System
+
+Export cards to Website, Instagram, and Twitter with auto-generated captions.
+
+### Platform Configurations
+
+| Platform | Max Width | Format | Quality | Caption Limit |
+|----------|-----------|--------|---------|---------------|
+| Website | 1200px | PNG | 100% | N/A |
+| Instagram | 1080px | JPEG | 95% | 2200 chars |
+| Twitter | 1200px | JPEG | 90% | 280 chars |
+
+### Caption Templates
+
+| Template | Description |
+|----------|-------------|
+| `standard` | Narrative + thematic + hashtags |
+| `with-quote` | Biblical quote + narrative |
+| `storytelling` | Player meets figure + pose energy |
+| `hebrew` | Hebrew quote + English translation |
+| `minimal` | Just "Player × Figure" |
+
+### Export Flow
+
+1. Open card in visualizer modal
+2. Select destinations (Website / Instagram / Twitter)
+3. Choose caption template and generate
+4. Edit caption as needed
+5. "Export Now" for immediate export, or "Add to Queue"
+6. Process queue from Export Queue page
+
+### Files
+
+```
+visualizer/
+├── lib/
+│   ├── image-processor.js    # Sharp-based resize/format
+│   ├── caption-generator.js  # Template-based captions
+│   └── buffer-client.js      # Buffer API wrapper
+└── data/
+    ├── export-queue.json     # Queue storage
+    ├── export-config.json    # Platform configs
+    └── caption-templates.json # Caption templates + hashtags
+```
 
 ## Quick Commands
 
@@ -364,6 +442,7 @@ node -e "require('./data/series/court-covenant/pairings/jordan-moses.json')"
 GOOGLE_CLOUD_PROJECT=your-project-id
 GOOGLE_APPLICATION_CREDENTIALS=path/to/service-account.json
 INSTAGRAM_ACCESS_TOKEN=your-long-lived-token
+BUFFER_ACCESS_TOKEN=your-buffer-api-token  # For social scheduling
 ```
 
 ## Common Tasks

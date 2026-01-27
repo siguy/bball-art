@@ -1,0 +1,71 @@
+{
+  "templates": {
+    "standard": {
+      "name": "Standard",
+      "instagram": "{narrative}\n\n{thematic}\n\n#CourtAndCovenant #{player_hashtag} #{figure_hashtag}",
+      "twitter": "{narrative}\n\n#CourtAndCovenant"
+    },
+    "with-quote": {
+      "name": "With Quote",
+      "instagram": "\"{figure_quote_english}\"\n\u2014 {figure_quote_source}\n\n{narrative}\n\n#CourtAndCovenant #{player_hashtag} #{figure_hashtag}",
+      "twitter": "\"{figure_quote_english}\"\n\n{narrative}"
+    },
+    "storytelling": {
+      "name": "Storytelling",
+      "instagram": "COURT & COVENANT: {player} meets {figure}\n\n{narrative}\n\n{player_pose_energy} meets {figure_pose_energy}\n\n#CourtAndCovenant #{player_hashtag}",
+      "twitter": "{player} meets {figure}.\n\n{narrative}"
+    },
+    "hebrew": {
+      "name": "Hebrew Quote",
+      "instagram": "{figure_quote_hebrew}\n\n\"{figure_quote_english}\"\n\u2014 {figure_quote_source}\n\n{narrative}\n\n#CourtAndCovenant #{player_hashtag}",
+      "twitter": "{figure_quote_hebrew}\n\n{narrative}"
+    },
+    "minimal": {
+      "name": "Minimal",
+      "instagram": "{player} \u00d7 {figure}\n\n#CourtAndCovenant",
+      "twitter": "{player} \u00d7 {figure}"
+    }
+  },
+  "pairingHashtags": {
+    "jordan-moses": { "player": "MichaelJordan", "figure": "Moses", "extra": ["Bulls", "GOAT", "AirJordan"] },
+    "lebron-david": { "player": "LeBronJames", "figure": "KingDavid", "extra": ["Lakers", "TheKing"] },
+    "pippen-aaron": { "player": "ScottiePippen", "figure": "Aaron", "extra": ["Bulls", "SidekickEra"] },
+    "kobe-joshua": { "player": "KobeBryant", "figure": "Joshua", "extra": ["Lakers", "Mamba", "Mamba24"] },
+    "curry-elijah": { "player": "StephenCurry", "figure": "Elijah", "extra": ["Warriors", "SplashBrother"] },
+    "magic-joseph": { "player": "MagicJohnson", "figure": "Joseph", "extra": ["Lakers", "Showtime"] },
+    "shaq-goliath": { "player": "ShaquilleONeal", "figure": "Goliath", "extra": ["Lakers", "Diesel"] },
+    "wilt-samson": { "player": "WiltChamberlain", "figure": "Samson", "extra": ["76ers", "Lakers", "The100PointGame"] },
+    "kareem-solomon": { "player": "KareemAbdulJabbar", "figure": "Solomon", "extra": ["Lakers", "Skyhook"] },
+    "stockton-elisha": { "player": "JohnStockton", "figure": "Elisha", "extra": ["Jazz", "AssistKing"] },
+    "dirk-judah": { "player": "DirkNowitzki", "figure": "JudahMaccabee", "extra": ["Mavs", "DirkDiggler"] },
+    "durant-jonathan": { "player": "KevinDurant", "figure": "Jonathan", "extra": ["Nets", "EasyMoney", "Slim"] },
+    "jokic-isaac": { "player": "NikolaJokic", "figure": "Isaac", "extra": ["Nuggets", "Joker"] },
+    "sga-daniel": { "player": "ShaiGilgeousAlexander", "figure": "Daniel", "extra": ["Thunder", "SGA"] },
+    "isiah-pharaoh": { "player": "IsiahThomas", "figure": "Pharaoh", "extra": ["Pistons", "BadBoys"] },
+    "laimbeer-haman": { "player": "BillLaimbeer", "figure": "Haman", "extra": ["Pistons", "BadBoys"] },
+    "rodman-esau": { "player": "DennisRodman", "figure": "Esau", "extra": ["Pistons", "Bulls", "TheWorm"] },
+    "draymond-joab": { "player": "DraymondGreen", "figure": "Joab", "extra": ["Warriors", "DPOY"] },
+    "bird-jacob": { "player": "LarryBird", "figure": "Jacob", "extra": ["Celtics", "LarryLegend"] }
+  },
+  "defaultQuotes": {
+    "moses": "let-my-people-go",
+    "david": "smooth-stones",
+    "aaron": "priestly-blessing",
+    "joshua": "be-strong-courageous",
+    "elijah": "fire-from-heaven",
+    "joseph": "god-meant-for-good",
+    "samson": "die-with-philistines",
+    "solomon": "ask-for-wisdom",
+    "elisha": "double-portion",
+    "judah": "who-like-you",
+    "jonathan": "soul-knit",
+    "isaac": "god-will-provide",
+    "daniel": "shut-lions-mouths",
+    "goliath": "choose-a-man",
+    "esau": "birthright-sold",
+    "pharaoh": "who-is-lord",
+    "haman": "what-shall-be-done",
+    "joab": "for-the-king",
+    "jacob": "i-am-esau"
+  }
+}
