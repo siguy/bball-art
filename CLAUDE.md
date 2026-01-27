@@ -9,15 +9,24 @@ A **contemporary art project** creating collectible basketball cards that pair N
 
 ## Project Status
 
-**Current Phase**: Phase 1-2 (Foundation & Generation Ready)
+**Current Phase**: Phase 2 (Content Generation Active)
 - [x] Directory structure created
 - [x] CLAUDE.md written
 - [x] Git/GitHub initialized (https://github.com/siguy/bball-art)
-- [x] First pairing data (Jordan/Moses)
-- [x] First prompt template (Thunder & Lightning)
-- [x] Prompt generator script working
-- [ ] Logo concepts generated
-- [ ] First test card generated with Nano Banana
+- [x] All priority pairing data created (5 pairings)
+- [x] Prompt templates working (Thunder & Lightning)
+- [x] Nano Banana client working (AI Studio API)
+- [x] Logo concepts generated (gold + dark versions)
+- [x] All era definitions (1970s-2020s)
+- [x] Multiple card types defined (6 styles)
+- [x] **5 Thunder & Lightning cards generated!**
+
+### Generated Cards
+- Jordan/Moses (Thunder & Lightning)
+- LeBron/David (Thunder & Lightning)
+- Pippen/Aaron (Thunder & Lightning)
+- Kobe/Joshua (Thunder & Lightning)
+- Curry/Elijah (Thunder & Lightning)
 
 ## Core Principles
 
@@ -83,11 +92,17 @@ Bad: Corporate speak, explaining jokes, being preachy.
 ## Quick Commands
 
 ```bash
-# Generate a prompt
-node scripts/generate-prompt.js jordan-moses thunder-lightning
+# Test API connection
+node scripts/nano-banana-client.js test
 
-# Batch generate cards
-node scripts/batch-generate.js court-covenant
+# Generate a card (end-to-end)
+node scripts/generate-card.js jordan-moses thunder-lightning
+
+# Generate a prompt only (no API call)
+node scripts/generate-card.js jordan-moses thunder-lightning --dry-run
+
+# Generate with specific interaction pose
+node scripts/generate-card.js curry-elijah thunder-lightning --interaction fire-rain
 
 # Validate JSON data
 node -e "require('./data/series/court-covenant/pairings/jordan-moses.json')"
