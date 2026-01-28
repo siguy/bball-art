@@ -1,0 +1,49 @@
+{
+  "id": "nehemiah",
+  "name": "Nehemiah",
+  "aliases": ["Nechemyah", "Nehemiah ben Hacaliah"],
+  "quotes": {
+    "let-us-build": {
+      "source": "Nehemiah 2:17-18",
+      "context": "Nehemiah rallies the people to rebuild Jerusalem's walls",
+      "hebrew": "לְכוּ וְנִבְנֶה אֶת־חוֹמַת יְרוּשָׁלַיִם... נָקוּם וּבָנִינוּ",
+      "english": "Come, let us rebuild the wall of Jerusalem... Let us start building!",
+      "mood": "rallying cry, inspiring action"
+    },
+    "great-work": {
+      "source": "Nehemiah 6:3",
+      "context": "Nehemiah refuses to be distracted by enemies",
+      "hebrew": "מְלָאכָה גְדוֹלָה אֲנִי עֹשֶׂה וְלֹא אוּכַל לָרֶדֶת",
+      "english": "I am engaged in a great work and cannot come down",
+      "mood": "focused determination, refusing distraction"
+    },
+    "fifty-two-days": {
+      "source": "Nehemiah 6:15",
+      "context": "The wall completed in record time",
+      "hebrew": "וַתִּשְׁלַם הַחוֹמָה... לַחֲמִשִּׁים וּשְׁנַיִם יוֹם",
+      "english": "The wall was finished... after fifty-two days",
+      "mood": "triumphant completion, impossible achieved"
+    },
+    "sword-and-trowel": {
+      "source": "Nehemiah 4:17",
+      "context": "Builders worked armed against attack",
+      "hebrew": "אֵין־אֲנַחְנוּ פֹשְׁטִים בְּגָדֵינוּ אִישׁ שִׁלְחוֹ הַמָּיִם",
+      "english": "We never took off our clothes, each kept his weapon",
+      "mood": "vigilant builder, warrior and worker"
+    },
+    "why-sad-face": {
+      "source": "Nehemiah 2:2",
+      "context": "The king notices Nehemiah's troubled heart",
+      "hebrew": "מַדּוּעַ פָּנֶיךָ רָעִים",
+      "english": "Why does your face look so sad?",
+      "mood": "burden revealed, pain for homeland"
+    },
+    "god-of-heaven": {
+      "source": "Nehemiah 2:4",
+      "context": "Nehemiah prays before answering the king",
+      "hebrew": "וָאֶתְפַּלֵּל אֶל־אֱלֹהֵי הַשָּׁמָיִם",
+      "english": "I prayed to the God of heaven",
+      "mood": "quick prayer, faith under pressure"
+    }
+  }
+}

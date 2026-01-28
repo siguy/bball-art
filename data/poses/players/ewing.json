@@ -1,0 +1,56 @@
+{
+  "id": "ewing",
+  "name": "Patrick Ewing",
+  "defaultPose": "fadeaway-baseline",
+  "description": "7'0\" center, Georgetown legend, #1 overall pick. King of New York who never won a championship. Dominated the 90s but always fell to Jordan's Bulls. Iconic sweaty warrior, finger roll specialist, intimidating presence. So close, so many times.",
+  "poses": {
+    "fadeaway-baseline": {
+      "id": "fadeaway-baseline",
+      "name": "Baseline Fadeaway",
+      "description": "Signature mid-range jumper from the baseline",
+      "expression": "fierce concentration, warrior's focus",
+      "prompt": "releasing fadeaway jumper from baseline - body leaning back, arm extended with soft touch, the shot that made him an All-Star eleven times, warrior's intensity",
+      "energy": "skilled warrior, perennial star"
+    },
+    "finger-roll": {
+      "id": "finger-roll",
+      "name": "Finger Roll",
+      "description": "Delicate finger roll at the rim - soft touch for a big man",
+      "expression": "gentle concentration, feather touch",
+      "prompt": "extending arm for soft finger roll at rim - delicate touch despite size, ball rolling off fingertips, the finesse that surprised opponents",
+      "energy": "gentle giant, soft touch"
+    },
+    "intimidation-stare": {
+      "id": "intimidation-stare",
+      "name": "Georgetown Intimidation",
+      "description": "The famous Hoya Paranoia stare",
+      "expression": "intimidating intensity, Hoya Paranoia",
+      "prompt": "standing with intense intimidating stare - sweat glistening, eyes burning with intensity, the Georgetown intimidation that terrorized opponents, don't come in the paint",
+      "energy": "Hoya Paranoia, intimidation"
+    },
+    "blocked-layup": {
+      "id": "blocked-layup",
+      "name": "1994 Finals Block",
+      "description": "The blocked layup that cost the championship",
+      "expression": "shock, disbelief, so close",
+      "prompt": "reacting to blocked shot in crucial moment - face showing shock as championship slips away, hand still extended from attempt, the moment that defined a career of almosts",
+      "energy": "heartbreak, so close"
+    },
+    "sweat-warrior": {
+      "id": "sweat-warrior",
+      "name": "Sweating Warrior",
+      "description": "The iconic image - drenched in sweat, still fighting",
+      "expression": "exhausted determination, never quit",
+      "prompt": "standing drenched in sweat mid-game - jersey soaked, sweat dripping, but eyes still fierce, the warrior who gave everything every night even without championship reward",
+      "energy": "warrior spirit, tireless effort"
+    },
+    "watching-jordan": {
+      "id": "watching-jordan",
+      "name": "Watching Jordan Celebrate",
+      "description": "The recurring nightmare - watching MJ win again",
+      "expression": "bitter defeat, watching rival triumph",
+      "prompt": "standing defeated watching opponent celebrate - shoulders slumped, watching the celebration he never got to have, the king of New York who was never king of the NBA",
+      "energy": "eternal runner-up, bitter witness"
+    }
+  }
+}

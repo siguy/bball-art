@@ -1,0 +1,53 @@
+{
+  "id": "russell-nehemiah",
+  "series": "court-covenant",
+  "type": "hero",
+  "player": {
+    "name": "Bill Russell",
+    "displayName": "The Champion",
+    "poseFileId": "russell",
+    "era": "1960s",
+    "jerseyColors": {
+      "primary": { "base": "green", "accent": "white" },
+      "secondary": { "base": "white", "accent": "green" }
+    },
+    "signatureMoves": ["blocked shot", "outlet pass", "rebounding", "defensive positioning"],
+    "physicalDescription": "6'10\" center, long athletic frame, goatee, intelligent piercing eyes, dignified bearing",
+    "archetype": "Ultimate winner who built dynasties through defense and leadership under adversity"
+  },
+  "figure": {
+    "name": "Nehemiah",
+    "displayName": "Nehemiah",
+    "poseFileId": "nehemiah",
+    "attribute": "builder's trowel and sword",
+    "attributeDescription": "mason's trowel for building, sword strapped to side for defense - the tools of a builder under siege",
+    "visualStyle": "Persian-era Jewish leader, practical builder",
+    "clothing": "practical working robes suitable for construction, leather belt with sword, sleeves rolled for labor",
+    "physicalDescription": "strong capable build of a working leader, determined focused eyes, hands calloused from labor, dignified despite humble dress",
+    "anatomyNote": "two arms, often holding tools or gesturing in leadership",
+    "archetype": "Builder who restored Jerusalem's walls in 52 days while enemies mocked"
+  },
+  "connection": {
+    "thematic": "Both built something lasting while facing hostility, proving doubters wrong through action",
+    "narrative": "11 rings. 52 days to rebuild the wall. Impossible made real.",
+    "relationship": "Builders under siege who silenced critics with results"
+  },
+  "interactions": [
+    {
+      "id": "side-by-side",
+      "description": "Two builders standing together - championship banners and restored walls"
+    },
+    {
+      "id": "back-to-back",
+      "description": "Defending what they built - warrior and champion"
+    },
+    {
+      "id": "simultaneous-action",
+      "description": "Russell blocking shot while Nehemiah places stones"
+    }
+  ],
+  "defaultInteraction": "side-by-side",
+  "cardVariants": ["metal-universe", "prizm-silver", "thunder-lightning"],
+  "priority": 10,
+  "status": "active"
+}

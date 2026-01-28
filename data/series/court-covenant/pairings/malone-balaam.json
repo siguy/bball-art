@@ -1,0 +1,53 @@
+{
+  "id": "malone-balaam",
+  "series": "court-covenant",
+  "type": "villain",
+  "player": {
+    "name": "Karl Malone",
+    "displayName": "The Mailman",
+    "poseFileId": "malone",
+    "era": "1990s",
+    "jerseyColors": {
+      "primary": { "base": "purple", "accent": "gold" },
+      "secondary": { "base": "white", "accent": "purple" }
+    },
+    "signatureMoves": ["elbow jumper", "pick-and-roll", "power dunk", "post up"],
+    "physicalDescription": "6'9\" power forward, incredibly muscular build, bald head, intense eyes, most physically imposing player of his era",
+    "archetype": "The Mailman who always delivered... except in the Finals"
+  },
+  "figure": {
+    "name": "Balaam",
+    "displayName": "Balaam",
+    "poseFileId": "balaam",
+    "attribute": "prophet's staff",
+    "attributeDescription": "ornate staff of a hired prophet, symbol of mercenary spiritual power",
+    "visualStyle": "ancient Near Eastern prophet, hired sorcerer",
+    "clothing": "elaborate robes of a paid prophet, foreign mystical garb, turban or headdress",
+    "physicalDescription": "bearded prophet with cunning eyes, calculating expression, dressed richly from his fees, the look of a man who sells his gifts",
+    "anatomyNote": "two arms, often holding staff or raised in attempted curse",
+    "archetype": "Prophet for hire who couldn't deliver when paid to curse"
+  },
+  "connection": {
+    "thematic": "Both were hired to deliver but failed at the crucial moment",
+    "narrative": "The Mailman always delivers. Except in the Finals. Balaam couldn't curse.",
+    "relationship": "Mercenaries who had all the talent but couldn't finish the job"
+  },
+  "interactions": [
+    {
+      "id": "back-to-back",
+      "description": "Two failed deliverymen, unable to face their shortcomings"
+    },
+    {
+      "id": "simultaneous-action",
+      "description": "Malone missing free throw while Balaam's curse becomes blessing"
+    },
+    {
+      "id": "side-by-side",
+      "description": "Standing together in their shared failure to deliver"
+    }
+  ],
+  "defaultInteraction": "simultaneous-action",
+  "cardVariants": ["thunder-lightning-dark", "metal-universe-dark"],
+  "priority": 8,
+  "status": "active"
+}

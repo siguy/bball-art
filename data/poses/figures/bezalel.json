@@ -1,0 +1,62 @@
+{
+  "id": "bezalel",
+  "name": "Bezalel",
+  "defaultPose": "crafting-ark",
+  "description": "Master craftsman chosen by God to build the Tabernacle. Filled with divine spirit of wisdom, understanding, and knowledge. The original artist-engineer, working in gold, silver, bronze, stone, and wood.",
+  "poses": {
+    "crafting-ark": {
+      "id": "crafting-ark",
+      "name": "Crafting the Ark",
+      "description": "Building the Ark of the Covenant, his greatest work",
+      "expression": "deep concentration, reverent focus, steady hands",
+      "prompt": "carefully crafting the Ark of the Covenant - hands working gold overlay with precise movements, tools laid out methodically, cherubim wings taking shape, complete focus on sacred work, divine light illuminating the craftsmanship",
+      "energy": "sacred precision, masterwork",
+      "quoteId": "ark-of-testimony"
+    },
+    "measuring-precisely": {
+      "id": "measuring-precisely",
+      "name": "Precise Measurement",
+      "description": "Taking exact measurements for the sacred objects",
+      "expression": "calculating focus, perfectionist attention",
+      "prompt": "measuring with ancient tools - cubit rod in hand, examining dimensions with perfectionist eye, blueprints or plans visible, ensuring every measurement exact to divine specifications, methodical and unhurried",
+      "energy": "fundamental precision, exactness",
+      "quoteId": "every-kind-of-craft"
+    },
+    "hands-on-materials": {
+      "id": "hands-on-materials",
+      "name": "Working the Materials",
+      "description": "Hands deep in gold, silver, and bronze",
+      "expression": "tactile mastery, confident expertise",
+      "prompt": "hands working precious metals - gold leaf, silver vessels, bronze fittings spread before him, skilled fingers shaping material with practiced ease, workshop full of sacred objects in progress",
+      "energy": "material mastery, craftsman's touch",
+      "quoteId": "gold-silver-copper"
+    },
+    "teaching-apprentice": {
+      "id": "teaching-apprentice",
+      "name": "Teaching the Craft",
+      "description": "Passing wisdom to the next generation",
+      "expression": "patient instruction, generous knowledge",
+      "prompt": "demonstrating technique to apprentice - hands guiding, pointing to specific detail, sharing wisdom accumulated through divine gift, the teacher ensuring the craft continues",
+      "energy": "passing wisdom, generous mastery",
+      "quoteId": "to-give-directions"
+    },
+    "divine-inspiration": {
+      "id": "divine-inspiration",
+      "name": "Receiving Divine Wisdom",
+      "description": "The moment of being filled with the spirit",
+      "expression": "awe, enlightenment dawning, humble reception",
+      "prompt": "receiving divine inspiration - eyes lifted slightly, light seeming to enter him, hands open to receive wisdom, the moment when skill and knowledge flow from above, humble vessel of sacred ability",
+      "energy": "divine filling, humble mastery",
+      "quoteId": "filled-with-spirit"
+    },
+    "examining-work": {
+      "id": "examining-work",
+      "name": "Quality Inspection",
+      "description": "Examining completed work for perfection",
+      "expression": "critical eye, satisfied with excellence",
+      "prompt": "holding completed sacred object up to light - examining every detail, turning it slowly, checking for any flaw, the perfectionist ensuring nothing less than excellence for the divine dwelling",
+      "energy": "quality obsession, silent excellence",
+      "quoteId": "wisdom-of-heart"
+    }
+  }
+}

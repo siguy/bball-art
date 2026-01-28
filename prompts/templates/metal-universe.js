@@ -7,7 +7,7 @@
  * futuristic sci-fi elements, highly reflective surfaces.
  */
 
-import { generatePoseBlock } from '../components/poses.js';
+import { generatePoseBlock, generateSoloPoseBlock } from '../components/poses.js';
 
 export const metalUniverseTemplate = {
   id: "metal-universe",
@@ -82,9 +82,77 @@ Industrial chrome and steel environment. Polished metal surfaces with reflection
 === TEXT ELEMENTS (render exactly as specified) ===
 TOP: Write "METAL UNIVERSE" in bold chrome/silver 3D metallic font with strong reflections and industrial feel. Looks like polished steel. Centered at top.
 
-LOGO: Below the title, render the provided "Court & Covenant" logo image in chrome/silver metallic finish with reflective quality. Smaller than the title.
+LOGO: Below the title, render the provided "Court & Covenant" logo image in SHINY GOLD metallic finish with rich reflective quality, gleaming and luxurious. Smaller than the title.
 
 BOTTOM: Write "${player.name} & ${figure.displayName}" in chrome gradient text with 3D metallic effect. Industrial premium typography.
+
+=== FINISH ===
+Highly reflective chrome card finish. Everything has a polished metal quality. Premium 1990s Metal Universe insert card aesthetic.
+`.trim();
+
+    return prompt;
+  },
+
+  /**
+   * Generate a solo character card (single player or figure)
+   */
+  generateSolo(character, options = {}) {
+    const isPlayer = character.type === 'player';
+    const pose = character.pose;
+    const jersey = options.jersey || { base: 'red', accent: 'white' };
+
+    const poseBlock = generateSoloPoseBlock(character.name, pose, character.type);
+
+    let characterDescription;
+    if (isPlayer) {
+      characterDescription = `
+${character.name.toUpperCase()}:
+- Physical: ${character.physicalDescription}
+- Wearing: PLAIN SOLID ${jersey.base.toUpperCase()} basketball tank top and shorts with ${jersey.accent} trim. COMPLETELY BLANK uniform.
+- Style: Stylized artistic rendering with chrome/metallic highlights on skin and uniform
+`.trim();
+    } else {
+      const figureClothing = character.clothing || `${character.visualStyle} robes and garments`;
+      characterDescription = `
+${character.name.toUpperCase()}:
+- Physical: ${character.physicalDescription}
+- Wearing: ${figureClothing}
+- Style: Classical figure rendered with metallic/chrome accents, biblical period accurate
+- Anatomy: Exactly two arms${character.anatomyNote ? ` - ${character.anatomyNote}` : ''}
+`.trim();
+    }
+
+    const prompt = `
+A vertical premium basketball card in 3:4 aspect ratio, styled after 1997-98 Fleer Metal Universe insert set.
+
+=== CRITICAL REQUIREMENTS ===
+1. SINGLE CHARACTER CARD - Only ONE figure on this card
+2. ${isPlayer ? `The basketball player's jersey AND SHORTS must be COMPLETELY BLANK - solid ${jersey.base} color only with ${jersey.accent} trim` : 'Biblical figure in period-accurate attire'}
+3. DO NOT add any team names, NBA logos, or brand marks
+4. The figure must have exactly TWO ARMS
+5. This is STYLIZED ART for a collectible card, not a photograph
+
+${poseBlock}
+
+=== CHARACTER DESCRIPTION ===
+
+${characterDescription}
+
+=== COMPOSITION ===
+SOLO CARD: ${character.name} is the ONLY figure on this card.
+- Character should be CENTERED and LARGE, filling approximately 80% of the card's vertical space
+- Show from approximately knee-level up
+- Dynamic pose that showcases their signature style
+
+=== BACKGROUND ===
+Industrial chrome and steel environment. Polished metal surfaces with reflections. Geometric patterns of rivets and panels. Deep blue and silver color scheme with metallic sheen throughout. Sci-fi futuristic aesthetic. Chrome pipes and machinery silhouettes. The entire scene has a liquid metal quality.
+
+=== TEXT ELEMENTS (render exactly as specified) ===
+TOP: Write "METAL UNIVERSE" in bold chrome/silver 3D metallic font with strong reflections. Centered at top.
+
+LOGO: Below the title, render the provided "Court & Covenant" logo image in SHINY GOLD metallic finish with rich reflective quality.
+
+BOTTOM: Write "${character.displayName || character.name}" in chrome gradient text with 3D metallic effect. Centered at bottom.
 
 === FINISH ===
 Highly reflective chrome card finish. Everything has a polished metal quality. Premium 1990s Metal Universe insert card aesthetic.

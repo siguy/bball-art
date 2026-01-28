@@ -1,0 +1,49 @@
+{
+  "id": "saul",
+  "name": "Saul",
+  "aliases": ["King Saul", "Shaul HaMelech"],
+  "quotes": {
+    "head-and-shoulders": {
+      "source": "1 Samuel 9:2",
+      "context": "Saul's physical description - tallest in Israel",
+      "hebrew": "מִשִּׁכְמוֹ וָמַעְלָה גָּבֹהַּ מִכָּל־הָעָם",
+      "english": "He was a head taller than any of the people",
+      "mood": "physical dominance, kingly stature"
+    },
+    "thousands-tens-thousands": {
+      "source": "1 Samuel 18:7",
+      "context": "The song that sparked Saul's jealousy of David",
+      "hebrew": "הִכָּה שָׁאוּל בַּאֲלָפָיו וְדָוִד בְּרִבְבֹתָיו",
+      "english": "Saul has slain his thousands; David, his tens of thousands!",
+      "mood": "jealousy ignited, overshadowed"
+    },
+    "jealous-eye": {
+      "source": "1 Samuel 18:9",
+      "context": "The beginning of Saul's obsession with David",
+      "hebrew": "וַיְהִי שָׁאוּל עוֹיֵן אֶת־דָּוִד",
+      "english": "From that day on Saul kept a jealous eye on David",
+      "mood": "consuming jealousy, watching the rival"
+    },
+    "fallen-on-sword": {
+      "source": "1 Samuel 31:4",
+      "context": "Saul's tragic end on Mount Gilboa",
+      "hebrew": "וַיִּקַּח שָׁאוּל אֶת־הַחֶרֶב וַיִּפֹּל עָלֶיהָ",
+      "english": "Saul grasped the sword and fell upon it",
+      "mood": "tragic end, desperate final act"
+    },
+    "how-mighty-fallen": {
+      "source": "2 Samuel 1:19",
+      "context": "David's lament for Saul",
+      "hebrew": "אֵיךְ נָפְלוּ גִבּוֹרִים",
+      "english": "How have the mighty fallen!",
+      "mood": "tragic elegy, fallen greatness"
+    },
+    "only-the-kingship": {
+      "source": "1 Samuel 18:8",
+      "context": "Saul realizes David threatens his throne",
+      "hebrew": "וְעוֹד לוֹ אַךְ הַמְּלוּכָה",
+      "english": "All that he lacks is the kingship!",
+      "mood": "paranoid realization, throne slipping"
+    }
+  }
+}

@@ -1,0 +1,56 @@
+{
+  "id": "hakeem",
+  "name": "Hakeem Olajuwon",
+  "defaultPose": "dream-shake",
+  "description": "7'0\" center, 'The Dream'. Back-to-back championships 1994-95. Born in Lagos, Nigeria. Devout Muslim who fasted during Ramadan playoffs. Greatest footwork ever, dominant shot blocker. Graceful giant.",
+  "poses": {
+    "dream-shake": {
+      "id": "dream-shake",
+      "name": "The Dream Shake",
+      "description": "Signature post move - series of fakes leaving defender helpless",
+      "expression": "fluid confidence, effortless mastery",
+      "prompt": "mid-Dream Shake post move - body faking one direction while going another, defender completely frozen, ball controlled with soft hands, the most beautiful footwork in basketball history, graceful despite size",
+      "energy": "fluid mastery, unstoppable grace"
+    },
+    "block-swat": {
+      "id": "block-swat",
+      "name": "Rejection",
+      "description": "Emphatic blocked shot - perfect timing",
+      "expression": "protective intensity, perfect timing",
+      "prompt": "swatting shot with perfect timing - arm fully extended, ball being redirected, the moment of defensive dominance, long arms creating a wall, opponent's shot denied",
+      "energy": "protective fortress, timing perfected"
+    },
+    "up-and-under": {
+      "id": "up-and-under",
+      "name": "Up and Under",
+      "description": "Classic post move - fake up, go under",
+      "expression": "patient deception, calculated movement",
+      "prompt": "executing up-and-under move - having faked defender into air, now going beneath for easy layup, patient footwork, the teacher schooling the student",
+      "energy": "patient mastery, cerebral dominance"
+    },
+    "championship-embrace": {
+      "id": "championship-embrace",
+      "name": "Championship MVP",
+      "description": "Holding the trophy - back-to-back champion",
+      "expression": "humble triumph, grateful joy",
+      "prompt": "holding championship trophy close - humble smile rather than boastful celebration, the gratitude of achievement, representing his adopted city and homeland, quiet joy",
+      "energy": "humble triumph, grateful champion"
+    },
+    "prayer-focus": {
+      "id": "prayer-focus",
+      "name": "Devout Focus",
+      "description": "The spiritual warrior - faith and basketball united",
+      "expression": "peaceful concentration, spiritual grounding",
+      "prompt": "moment of focused prayer or meditation - eyes closed, centered and grounded, the devout athlete whose faith fueled his game, inner peace visible even in competition",
+      "energy": "spiritual grounding, faithful warrior"
+    },
+    "fadeaway-touch": {
+      "id": "fadeaway-touch",
+      "name": "Soft Touch Fadeaway",
+      "description": "Gentle fadeaway jumper - impossible touch for a big man",
+      "expression": "gentle concentration, feather touch",
+      "prompt": "releasing soft fadeaway jumper - ball leaving fingertips with impossible touch for a 7-footer, body fading away gracefully, the shot that defied physics for a man his size",
+      "energy": "gentle giant, impossible touch"
+    }
+  }
+}

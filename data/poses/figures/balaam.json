@@ -1,0 +1,62 @@
+{
+  "id": "balaam",
+  "name": "Balaam",
+  "defaultPose": "failed-curse",
+  "description": "Prophet for hire who was paid to curse Israel but couldn't do it. His curses kept coming out as blessings. Famously rebuked by his talking donkey. A mercenary whose greatest failure became Israel's blessing.",
+  "poses": {
+    "failed-curse": {
+      "id": "failed-curse",
+      "name": "The Failed Curse",
+      "description": "Arms raised to curse but words won't come - or come out as blessing",
+      "expression": "frustration, straining, failure",
+      "prompt": "arms raised in attempt to curse - face showing strain and frustration, mouth open but wrong words emerging, the moment of failure when curse becomes blessing, visibly struggling against divine will",
+      "energy": "frustrated failure, impotent rage",
+      "quoteId": "cannot-curse"
+    },
+    "donkey-confrontation": {
+      "id": "donkey-confrontation",
+      "name": "Rebuked by Donkey",
+      "description": "The humiliating moment when his donkey speaks truth",
+      "expression": "shock, humiliation, caught",
+      "prompt": "confronted by speaking donkey - face showing shock and embarrassment, the great prophet humiliated by his own beast, staff in hand but powerless, the comedic low point",
+      "energy": "humiliated prophet, divine comedy",
+      "quoteId": "donkey-speaks"
+    },
+    "overlooking-israel": {
+      "id": "overlooking-israel",
+      "name": "Overlooking the Camp",
+      "description": "Standing on mountain looking down at Israel's tents",
+      "expression": "calculating, hired gun, mercenary assessment",
+      "prompt": "standing on mountaintop overlooking vast camp below - staff in hand, eyes calculating, the mercenary prophet surveying his target, preparing to curse but destined to bless",
+      "energy": "mercenary calculation, doomed mission",
+      "quoteId": "mah-tovu"
+    },
+    "receiving-payment": {
+      "id": "receiving-payment",
+      "name": "Prophet for Hire",
+      "description": "Taking payment from Balak to curse Israel",
+      "expression": "greedy anticipation, mercenary",
+      "prompt": "receiving bags of silver or gold - hands reaching for payment, the prophet who sells his gift, greedy gleam in eye, about to take on a job he cannot complete",
+      "energy": "mercenary prophet, hired failure",
+      "quoteId": "they-are-blessed"
+    },
+    "forced-blessing": {
+      "id": "forced-blessing",
+      "name": "Involuntary Blessing",
+      "description": "Hands raised but blessing instead of cursing",
+      "expression": "bewilderment, words escaping control",
+      "prompt": "hands raised with blessing emerging instead of curse - face showing confusion as beautiful words pour out against his will, the prophet whose mouth betrays his intentions",
+      "energy": "divine override, reluctant blessing",
+      "quoteId": "word-in-mouth"
+    },
+    "seeing-angel": {
+      "id": "seeing-angel",
+      "name": "Eyes Finally Opened",
+      "description": "The moment Balaam sees the angel his donkey saw",
+      "expression": "sudden terror, realization, submission",
+      "prompt": "falling back in terror as eyes are opened to see angel - the prophet who couldn't see what his donkey saw, finally confronted with divine reality, sword-bearing angel before him",
+      "energy": "blind prophet seeing, divine confrontation",
+      "quoteId": "star-from-jacob"
+    }
+  }
+}

@@ -1,0 +1,53 @@
+{
+  "id": "ewing-saul",
+  "series": "court-covenant",
+  "type": "villain",
+  "player": {
+    "name": "Patrick Ewing",
+    "displayName": "The Franchise",
+    "poseFileId": "ewing",
+    "era": "1990s",
+    "jerseyColors": {
+      "primary": { "base": "blue", "accent": "orange" },
+      "secondary": { "base": "white", "accent": "blue" }
+    },
+    "signatureMoves": ["fadeaway jumper", "finger roll", "blocked shot", "post up"],
+    "physicalDescription": "7'0\" center, muscular imposing frame, intense eyes, always glistening with sweat, intimidating presence",
+    "archetype": "King of New York who never won the crown, always overshadowed by Jordan"
+  },
+  "figure": {
+    "name": "Saul",
+    "displayName": "King Saul",
+    "poseFileId": "saul",
+    "attribute": "crown and spear",
+    "attributeDescription": "heavy golden crown of Israel's first king, spear that he threw at David in jealous rage",
+    "visualStyle": "ancient Israelite king, tragic royalty",
+    "clothing": "royal robes befitting Israel's first king, armor beneath, crown that weighs heavily",
+    "physicalDescription": "tallest man in Israel, head and shoulders above others, dark brooding eyes, handsome but haunted features",
+    "anatomyNote": "two arms, often holding spear or seated with crown",
+    "archetype": "First king of Israel who watched helplessly as David took his place"
+  },
+  "connection": {
+    "thematic": "Both wore the crown but watched someone else become the true king",
+    "narrative": "Both wore the crown. Both watched someone else take it.",
+    "relationship": "Tragic kings overshadowed by the ones who came after"
+  },
+  "interactions": [
+    {
+      "id": "back-to-back",
+      "description": "Two tragic kings, unable to face what they've lost"
+    },
+    {
+      "id": "simultaneous-action",
+      "description": "Ewing watching Jordan while Saul watches David"
+    },
+    {
+      "id": "side-by-side",
+      "description": "Standing tall together - the height, the crown, the tragedy"
+    }
+  ],
+  "defaultInteraction": "back-to-back",
+  "cardVariants": ["thunder-lightning", "thunder-lightning-dark", "beam-team", "beam-team-shadow"],
+  "priority": 9,
+  "status": "active"
+}

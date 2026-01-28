@@ -1,0 +1,62 @@
+{
+  "id": "saul",
+  "name": "Saul",
+  "defaultPose": "tormented-throne",
+  "description": "First king of Israel, tallest man in the nation. Began with promise but descended into jealousy and madness as David's star rose. Died tragically on Mount Gilboa. The king who had everything but couldn't hold it.",
+  "poses": {
+    "tormented-throne": {
+      "id": "tormented-throne",
+      "name": "Tormented on Throne",
+      "description": "Sitting on throne but consumed by dark thoughts",
+      "expression": "brooding torment, paranoid vigilance",
+      "prompt": "seated on throne but hunched with inner torment - crown heavy on head, eyes dark and suspicious, the king consumed by jealousy rather than enjoying his reign, evil spirit tormenting him",
+      "energy": "tormented ruler, consumed by shadow",
+      "quoteId": "jealous-eye"
+    },
+    "throwing-spear": {
+      "id": "throwing-spear",
+      "name": "Throwing Spear at David",
+      "description": "The moment of attempted murder - rage unleashed",
+      "expression": "murderous rage, jealousy exploding",
+      "prompt": "hurling spear with full force - face twisted with rage, arm extended in throw, the king trying to kill the one he fears, jealousy turned to violence",
+      "energy": "jealous rage, murderous intent",
+      "quoteId": "thousands-tens-thousands"
+    },
+    "crowned-king": {
+      "id": "crowned-king",
+      "name": "Crowned King",
+      "description": "The moment of anointing - before the fall",
+      "expression": "humble majesty, promise unfulfilled",
+      "prompt": "standing tall receiving crown or newly crowned - head and shoulders above others, the moment of promise before everything went wrong, regal and hopeful",
+      "energy": "kingly promise, tragic potential",
+      "quoteId": "head-and-shoulders"
+    },
+    "consulting-witch": {
+      "id": "consulting-witch",
+      "name": "Witch of Endor",
+      "description": "Desperate consultation with the forbidden",
+      "expression": "desperate fear, seeking forbidden help",
+      "prompt": "kneeling or bowing before witch in dark cave - the mighty king reduced to seeking forbidden counsel, desperation in his posture, the low point before the end",
+      "energy": "desperate king, forbidden counsel",
+      "quoteId": "only-the-kingship"
+    },
+    "fallen-gilboa": {
+      "id": "fallen-gilboa",
+      "name": "Fallen on Gilboa",
+      "description": "The tragic end - falling on his own sword",
+      "expression": "tragic resignation, final act",
+      "prompt": "falling upon sword on battlefield - the tragic end of the first king, choosing death over capture, Mount Gilboa around him, sons fallen nearby",
+      "energy": "tragic end, fallen king",
+      "quoteId": "fallen-on-sword"
+    },
+    "watching-david": {
+      "id": "watching-david",
+      "name": "Watching David's Rise",
+      "description": "Observing from shadows as David is celebrated",
+      "expression": "bitter jealousy, watching replacement",
+      "prompt": "standing in shadow watching celebration in distance - the king observing David being praised, bitter jealousy consuming him, crown feeling heavier, the watcher being replaced",
+      "energy": "jealous observer, fading king",
+      "quoteId": "how-mighty-fallen"
+    }
+  }
+}

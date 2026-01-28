@@ -1,0 +1,56 @@
+{
+  "id": "abraham",
+  "name": "Abraham",
+  "aliases": ["Avraham", "Avraham Avinu", "Father Abraham"],
+  "quotes": {
+    "lech-lecha": {
+      "source": "Genesis 12:1",
+      "context": "God's call to Abraham to leave his homeland",
+      "hebrew": "לֶךְ־לְךָ מֵאַרְצְךָ וּמִמּוֹלַדְתְּךָ וּמִבֵּית אָבִיךָ",
+      "english": "Go forth from your native land and from your father's house",
+      "mood": "divine calling, leap of faith"
+    },
+    "father-of-nations": {
+      "source": "Genesis 17:4-5",
+      "context": "God's covenant promise to Abraham",
+      "hebrew": "וְהָיִיתָ לְאַב הֲמוֹן גּוֹיִם",
+      "english": "You shall be the father of a multitude of nations",
+      "mood": "destiny fulfilled, legacy promised"
+    },
+    "count-the-stars": {
+      "source": "Genesis 15:5",
+      "context": "God shows Abraham the night sky",
+      "hebrew": "הַבֶּט־נָא הַשָּׁמַיְמָה וּסְפֹר הַכּוֹכָבִים... כֹּה יִהְיֶה זַרְעֶךָ",
+      "english": "Look toward heaven and count the stars... So shall your offspring be",
+      "mood": "infinite promise, awe"
+    },
+    "hineni": {
+      "source": "Genesis 22:1",
+      "context": "Abraham's response when God calls him",
+      "hebrew": "הִנֵּנִי",
+      "english": "Here I am",
+      "mood": "complete readiness, faithful obedience"
+    },
+    "counted-as-righteousness": {
+      "source": "Genesis 15:6",
+      "context": "Abraham's faith credited to him",
+      "hebrew": "וְהֶאֱמִן בַּיהֹוָה וַיַּחְשְׁבֶהָ לּוֹ צְדָקָה",
+      "english": "And he put his trust in God, who reckoned it to his merit",
+      "mood": "pure faith, trust rewarded"
+    },
+    "god-will-provide": {
+      "source": "Genesis 22:8",
+      "context": "Abraham's answer to Isaac on Mount Moriah",
+      "hebrew": "אֱלֹהִים יִרְאֶה־לּוֹ הַשֶּׂה",
+      "english": "God will provide the lamb",
+      "mood": "faith under trial, trust in providence"
+    },
+    "blessing-to-nations": {
+      "source": "Genesis 12:3",
+      "context": "The blessing that flows through Abraham",
+      "hebrew": "וְנִבְרְכוּ בְךָ כֹּל מִשְׁפְּחֹת הָאֲדָמָה",
+      "english": "All the families of the earth shall bless themselves by you",
+      "mood": "universal blessing, foundational promise"
+    }
+  }
+}

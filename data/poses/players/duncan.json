@@ -1,0 +1,56 @@
+{
+  "id": "duncan",
+  "name": "Tim Duncan",
+  "defaultPose": "bank-shot",
+  "description": "6'11\" power forward, the Big Fundamental. 5 championships, 2 MVPs, 3 Finals MVPs with San Antonio. Emotionless demeanor, fundamental excellence, quiet leadership. Bank shot specialist, elite post defender, played D&D.",
+  "poses": {
+    "bank-shot": {
+      "id": "bank-shot",
+      "name": "Bank Shot",
+      "description": "The signature glass kiss - perfect fundamentals",
+      "expression": "calm focus, already knows it's going in",
+      "prompt": "releasing perfect bank shot off the glass - arm extended with textbook follow-through, slight arc, eyes tracking ball to the square on the backboard, body balanced and controlled, the shot every coach teaches",
+      "energy": "fundamental perfection, automatic"
+    },
+    "post-defense": {
+      "id": "post-defense",
+      "name": "Fundamental Post Defense",
+      "description": "Perfect defensive positioning in the post",
+      "expression": "patient intensity, reading the offense",
+      "prompt": "in fundamental defensive stance guarding the post - knees bent, arms wide, positioned perfectly between man and basket, patient and immovable, forcing opponent into worst possible shot",
+      "energy": "defensive anchor, unmovable"
+    },
+    "stone-face": {
+      "id": "stone-face",
+      "name": "Stone Face",
+      "description": "No emotion after a big play - trademark blank expression",
+      "expression": "completely emotionless, unfazed, blank",
+      "prompt": "standing with completely blank expression after huge play - no celebration, no emotion, same face whether up 20 or down 20, the ultimate poker face, teammates celebrating while he walks back stoically",
+      "energy": "emotional void, unreadable"
+    },
+    "championship-stoic": {
+      "id": "championship-stoic",
+      "name": "Stoic Champion",
+      "description": "Winning the championship without excessive celebration",
+      "expression": "quiet satisfaction, understated joy",
+      "prompt": "holding championship trophy with quiet satisfaction - slight smile but no over-the-top celebration, teammates going wild around him while he simply appreciates the moment, humble champion",
+      "energy": "quiet greatness, humble triumph"
+    },
+    "fundamental-footwork": {
+      "id": "fundamental-footwork",
+      "name": "Textbook Post Move",
+      "description": "Perfect footwork in the post - drop step or up-and-under",
+      "expression": "methodical execution, practiced precision",
+      "prompt": "executing textbook post move - perfect footwork, shoulder into defender, ball protected, pivot foot planted, every movement efficient and practiced ten thousand times, fundamental mastery",
+      "energy": "technical perfection, practiced art"
+    },
+    "high-five-teammates": {
+      "id": "high-five-teammates",
+      "name": "Quiet Team Leader",
+      "description": "Simple acknowledgment of teammates",
+      "expression": "understated connection, team-first",
+      "prompt": "giving simple high-five or fist bump to teammate - no elaborate handshakes, just quiet acknowledgment, leading by example not words, the teammate everyone wants",
+      "energy": "quiet leadership, team-first"
+    }
+  }
+}

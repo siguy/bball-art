@@ -1,0 +1,49 @@
+{
+  "id": "balaam",
+  "name": "Balaam",
+  "aliases": ["Bilaam", "Balaam son of Beor"],
+  "quotes": {
+    "cannot-curse": {
+      "source": "Numbers 23:8",
+      "context": "Balaam unable to curse Israel despite being hired to",
+      "hebrew": "מָה אֶקֹּב לֹא קַבֹּה אֵל",
+      "english": "How can I damn whom God has not damned?",
+      "mood": "frustrated failure, powerless"
+    },
+    "they-are-blessed": {
+      "source": "Numbers 22:12",
+      "context": "God tells Balaam he cannot curse Israel",
+      "hebrew": "לֹא תָאֹר אֶת־הָעָם כִּי בָרוּךְ הוּא",
+      "english": "You must not curse that people, for they are blessed",
+      "mood": "divine prohibition, blocked"
+    },
+    "mah-tovu": {
+      "source": "Numbers 24:5",
+      "context": "Balaam's curse becomes a blessing - now a Jewish prayer",
+      "hebrew": "מַה־טֹּבוּ אֹהָלֶיךָ יַעֲקֹב מִשְׁכְּנֹתֶיךָ יִשְׂרָאֵל",
+      "english": "How fair are your tents, O Jacob, your dwellings, O Israel!",
+      "mood": "involuntary blessing, words turned"
+    },
+    "donkey-speaks": {
+      "source": "Numbers 22:28",
+      "context": "Balaam's donkey rebukes him",
+      "hebrew": "מֶה־עָשִׂיתִי לְךָ כִּי הִכִּיתַנִי זֶה שָׁלֹשׁ רְגָלִים",
+      "english": "What have I done to you that you have beaten me these three times?",
+      "mood": "humiliation, corrected by beast"
+    },
+    "word-in-mouth": {
+      "source": "Numbers 22:38",
+      "context": "Balaam admits he can only speak what God allows",
+      "hebrew": "הֲדָבָר אֲשֶׁר יָשִׂים אֱלֹהִים בְּפִי אֹתוֹ אֲדַבֵּר",
+      "english": "The word that God puts in my mouth, that I must speak",
+      "mood": "constrained, powerless prophet"
+    },
+    "star-from-jacob": {
+      "source": "Numbers 24:17",
+      "context": "Balaam's prophecy of Israel's future king",
+      "hebrew": "דָּרַךְ כּוֹכָב מִיַּעֲקֹב",
+      "english": "A star rises from Jacob",
+      "mood": "reluctant prophecy, messianic vision"
+    }
+  }
+}
