@@ -1,0 +1,53 @@
+{
+  "id": "wembanyama-enoch",
+  "series": "court-covenant",
+  "type": "hero",
+  "player": {
+    "name": "Victor Wembanyama",
+    "displayName": "The Alien",
+    "poseFileId": "wembanyama",
+    "era": "2020s",
+    "jerseyColors": {
+      "primary": { "base": "silver", "accent": "black" },
+      "secondary": { "base": "black", "accent": "silver" }
+    },
+    "signatureMoves": ["rim protection", "three-pointer", "ball handling", "chase-down block"],
+    "physicalDescription": "7'4\" center with 8'0\" wingspan, impossibly long limbs, fluid movement, humble demeanor",
+    "archetype": "Otherworldly talent that defies conventional basketball understanding"
+  },
+  "figure": {
+    "name": "Enoch",
+    "displayName": "Enoch",
+    "poseFileId": "enoch",
+    "attribute": "divine light",
+    "attributeDescription": "ethereal glow from walking with God, otherworldly presence",
+    "visualStyle": "Pre-flood patriarch, transcendent bearing, between worlds",
+    "clothing": "simple ancient robes with ethereal quality, light seeming to emanate from within",
+    "physicalDescription": "tall figure with serene otherworldly presence, eyes that see beyond mortal realm",
+    "anatomyNote": "two arms, often raised toward heaven or in walking posture",
+    "archetype": "Transcendent being who walked between heaven and earth"
+  },
+  "connection": {
+    "thematic": "Both exist on a plane that others cannot comprehend, doing things that shouldn't be possible",
+    "narrative": "He moves like no 7'4\" should. Enoch walked where no mortal had. Both transcend their form.",
+    "relationship": "Otherworldly beings whose existence defies normal understanding"
+  },
+  "interactions": [
+    {
+      "id": "side-by-side",
+      "description": "Two transcendent beings standing together"
+    },
+    {
+      "id": "ascending",
+      "description": "Both reaching upward - Wemby for a block, Enoch toward heaven"
+    },
+    {
+      "id": "otherworldly",
+      "description": "Both glowing with something beyond normal existence"
+    }
+  ],
+  "defaultInteraction": "side-by-side",
+  "cardVariants": ["prizm-silver", "metal-universe", "downtown"],
+  "priority": 9,
+  "status": "active"
+}

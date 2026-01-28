@@ -1,0 +1,41 @@
+{
+  "id": "caleb",
+  "name": "Caleb",
+  "quotes": {
+    "we-can-take-them": {
+      "source": "Numbers 13:30",
+      "context": "Caleb silences the doubters after spying the land",
+      "hebrew": "עָלֹה נַעֲלֶה וְיָרַשְׁנוּ אֹתָהּ כִּי־יָכוֹל נוּכַל לָהּ",
+      "english": "Let us by all means go up, and we shall gain possession of it, for we shall surely overcome it",
+      "mood": "confident, bold"
+    },
+    "different-spirit": {
+      "source": "Numbers 14:24",
+      "context": "God recognizes Caleb's unique faith",
+      "hebrew": "וְעַבְדִּי כָלֵב עֵקֶב הָיְתָה רוּחַ אַחֶרֶת עִמּוֹ וַיְמַלֵּא אַחֲרָי",
+      "english": "But My servant Caleb, because he was imbued with a different spirit and remained loyal to Me",
+      "mood": "distinguished, faithful"
+    },
+    "still-strong": {
+      "source": "Joshua 14:11",
+      "context": "Caleb at 85 still ready for battle",
+      "hebrew": "עוֹדֶנִּי הַיּוֹם חָזָק כַּאֲשֶׁר בְּיוֹם שְׁלֹחַ אוֹתִי מֹשֶׁה כְּכֹחִי אָז וּכְכֹחִי עָתָּה",
+      "english": "I am still as strong today as on the day that Moses sent me; my strength is the same now as it was then",
+      "mood": "ageless warrior"
+    },
+    "give-me-this-mountain": {
+      "source": "Joshua 14:12",
+      "context": "Caleb demands the hardest territory",
+      "hebrew": "תְּנָה־לִּי אֶת־הָהָר הַזֶּה",
+      "english": "Give me this hill country",
+      "mood": "fearless, demanding"
+    },
+    "followed-fully": {
+      "source": "Joshua 14:8",
+      "context": "Caleb's testimony of complete faithfulness",
+      "hebrew": "וָאֲמַלֵּא אַחֲרֵי יְהוָה אֱלֹהָי",
+      "english": "I wholly followed the Lord my God",
+      "mood": "devoted, complete"
+    }
+  }
+}

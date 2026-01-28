@@ -1,0 +1,41 @@
+{
+  "id": "ruth",
+  "name": "Ruth",
+  "quotes": {
+    "where-you-go": {
+      "source": "Ruth 1:16",
+      "context": "Ruth's declaration of loyalty to Naomi",
+      "hebrew": "כִּי אֶל־אֲשֶׁר תֵּלְכִי אֵלֵךְ וּבַאֲשֶׁר תָּלִינִי אָלִין עַמֵּךְ עַמִּי וֵאלֹהַיִךְ אֱלֹהָי",
+      "english": "Wherever you go, I will go; wherever you lodge, I will lodge; your people shall be my people, and your God my God",
+      "mood": "devoted, loyal"
+    },
+    "death-alone-parts": {
+      "source": "Ruth 1:17",
+      "context": "Ruth's ultimate commitment",
+      "hebrew": "בַּאֲשֶׁר תָּמוּתִי אָמוּת וְשָׁם אֶקָּבֵר",
+      "english": "Where you die, I will die, and there I will be buried",
+      "mood": "absolute commitment"
+    },
+    "left-everything": {
+      "source": "Ruth 2:11",
+      "context": "Boaz praises Ruth's sacrifice",
+      "hebrew": "וַתַּעַזְבִי אָבִיךְ וְאִמֵּךְ וְאֶרֶץ מוֹלַדְתֵּךְ וַתֵּלְכִי אֶל־עַם אֲשֶׁר לֹא־יָדַעַתְּ",
+      "english": "You left your father and mother and the land of your birth and came to a people you had not known",
+      "mood": "sacrifice, courage"
+    },
+    "under-his-wings": {
+      "source": "Ruth 2:12",
+      "context": "Boaz blesses Ruth",
+      "hebrew": "יְשַׁלֵּם יְהוָה פָּעֳלֵךְ וּתְהִי מַשְׂכֻּרְתֵּךְ שְׁלֵמָה מֵעִם יְהוָה אֱלֹהֵי יִשְׂרָאֵל אֲשֶׁר־בָּאת לַחֲסוֹת תַּחַת־כְּנָפָיו",
+      "english": "May you have a full recompense from the Lord, under whose wings you have sought refuge",
+      "mood": "blessing, protection"
+    },
+    "gleaning-fields": {
+      "source": "Ruth 2:2",
+      "context": "Ruth volunteers to work",
+      "hebrew": "אֵלְכָה־נָּא הַשָּׂדֶה וַאֲלַקֳטָה בַשִּׁבֳּלִים",
+      "english": "Let me go to the field and glean among the ears of grain",
+      "mood": "humble, hardworking"
+    }
+  }
+}

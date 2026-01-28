@@ -1,0 +1,56 @@
+{
+  "id": "wembanyama",
+  "name": "Victor Wembanyama",
+  "defaultPose": "rim-protection",
+  "description": "7'4\" center from France, 'The Alien'. Unprecedented combination of height, wingspan (8'0\"), skill, and mobility. Generational prospect, humble prodigy.",
+  "poses": {
+    "rim-protection": {
+      "id": "rim-protection",
+      "name": "The Tower",
+      "description": "Protecting the rim",
+      "expression": "calm, inevitable",
+      "prompt": "standing at rim with arms extended upward - impossibly long limbs creating a wall, shots altered just by his presence, the tower that changes everything",
+      "energy": "intimidating presence"
+    },
+    "three-point-stroke": {
+      "id": "three-point-stroke",
+      "name": "7'4\" Shooter",
+      "description": "Shooting three over defender",
+      "expression": "smooth, effortless",
+      "prompt": "releasing three-pointer over helpless defender - ball at apex of impossibly high release point, smooth stroke, the big man who shoots like a guard",
+      "energy": "unicorn skill"
+    },
+    "handle-moves": {
+      "id": "handle-moves",
+      "name": "Guard Skills",
+      "description": "Handling ball like a point guard",
+      "expression": "fluid, confident",
+      "prompt": "crossing over at 7'4\" - ball on a string despite massive frame, defender stumbling, the alien doing things his size shouldn't allow",
+      "energy": "impossible combination"
+    },
+    "humble-prodigy": {
+      "id": "humble-prodigy",
+      "name": "Humble Giant",
+      "description": "The unassuming superstar",
+      "expression": "shy, genuine",
+      "prompt": "slight smile, humble posture despite towering height - the prodigy who remains grounded, genuine and unaffected by the hype",
+      "energy": "humble greatness"
+    },
+    "chase-down": {
+      "id": "chase-down",
+      "name": "Chase Down",
+      "description": "Blocking from behind",
+      "expression": "focused, effortless",
+      "prompt": "chasing down fast break from behind - impossibly long strides covering court, about to erase what looked like easy layup, casual dominance",
+      "energy": "effortless dominance"
+    },
+    "finger-roll": {
+      "id": "finger-roll",
+      "name": "Touch at the Rim",
+      "description": "Delicate finish despite size",
+      "expression": "soft, skilled",
+      "prompt": "releasing delicate finger roll over defender - massive hand but softest touch, the skill that defies his size, artistry from a giant",
+      "energy": "gentle giant"
+    }
+  }
+}

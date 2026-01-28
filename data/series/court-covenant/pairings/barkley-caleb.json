@@ -1,0 +1,53 @@
+{
+  "id": "barkley-caleb",
+  "series": "court-covenant",
+  "type": "hero",
+  "player": {
+    "name": "Charles Barkley",
+    "displayName": "Sir Charles",
+    "poseFileId": "barkley",
+    "era": "1990s",
+    "jerseyColors": {
+      "primary": { "base": "purple", "accent": "orange" },
+      "secondary": { "base": "orange", "accent": "purple" }
+    },
+    "signatureMoves": ["power rebound", "coast to coast", "turnaround jumper"],
+    "physicalDescription": "6'6\" power forward, stocky muscular build, undersized but dominant, expressive face",
+    "archetype": "Undersized warrior who dominated through will and confidence"
+  },
+  "figure": {
+    "name": "Caleb",
+    "displayName": "Caleb",
+    "poseFileId": "caleb",
+    "attribute": "giant grapes",
+    "attributeDescription": "massive grape cluster from Canaan, proof of the promised land's bounty",
+    "visualStyle": "Israelite spy, warrior bearing, weathered by wilderness",
+    "clothing": "traveling robes suitable for scouting, leather sandals, carrying pole for grapes",
+    "physicalDescription": "strong and capable despite age, confident bearing, eyes that see victory where others see defeat",
+    "anatomyNote": "two arms, often carrying grapes or raised in confident gesture",
+    "archetype": "Bold spy who believed when everyone else doubted"
+  },
+  "connection": {
+    "thematic": "Both undersized warriors who saw victory where others saw defeat",
+    "narrative": "6'6\" against 7-footers. Caleb against giants. Neither saw the odds - only the opportunity.",
+    "relationship": "Outspoken believers who refused to be intimidated"
+  },
+  "interactions": [
+    {
+      "id": "side-by-side",
+      "description": "Standing together as undersized warriors"
+    },
+    {
+      "id": "defiant-stance",
+      "description": "Both facing down giants with confidence"
+    },
+    {
+      "id": "silencing-doubt",
+      "description": "Barkley trash-talking, Caleb silencing fearful spies"
+    }
+  ],
+  "defaultInteraction": "side-by-side",
+  "cardVariants": ["thunder-lightning", "metal-universe", "kaboom"],
+  "priority": 8,
+  "status": "active"
+}

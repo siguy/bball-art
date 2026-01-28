@@ -1,0 +1,56 @@
+{
+  "id": "giannis",
+  "name": "Giannis Antetokounmpo",
+  "defaultPose": "eurostep-dunk",
+  "description": "6'11\" forward from Greece, 'The Greek Freak'. From street vendor in Athens to NBA champion and 2x MVP. Impossible wingspan, relentless motor.",
+  "poses": {
+    "eurostep-dunk": {
+      "id": "eurostep-dunk",
+      "name": "The Eurostep",
+      "description": "Signature move driving to basket",
+      "expression": "explosive, determined",
+      "prompt": "mid-eurostep driving to basket - impossibly long stride, ball extended in massive hand, defender frozen, about to elevate for emphatic dunk, pure athletic explosion",
+      "energy": "explosive, unstoppable"
+    },
+    "championship-trophy": {
+      "id": "championship-trophy",
+      "name": "Championship Embrace",
+      "description": "Holding the Larry O'Brien trophy",
+      "expression": "emotional, triumphant",
+      "prompt": "cradling championship trophy to chest - tears in eyes, emotional triumph, the immigrant kid who became champion, pure joy and disbelief",
+      "energy": "emotional triumph"
+    },
+    "monster-block": {
+      "id": "monster-block",
+      "name": "The Block",
+      "description": "Chasedown block from behind",
+      "expression": "fierce, protective",
+      "prompt": "soaring for chasedown block from behind - impossibly long arm swatting ball, defender thought they were alone, the freak athleticism on full display",
+      "energy": "defensive monster"
+    },
+    "humble-beginning": {
+      "id": "humble-beginning",
+      "name": "The Street Vendor",
+      "description": "Remembering humble origins",
+      "expression": "grateful, grounded",
+      "prompt": "in basketball pose but humble expression - remembering selling goods on Athens streets, the gratitude visible in his eyes, never forgetting where he came from",
+      "energy": "humble gratitude"
+    },
+    "free-throw-routine": {
+      "id": "free-throw-routine",
+      "name": "Free Throw Focus",
+      "description": "The long routine at the line",
+      "expression": "focused, methodical",
+      "prompt": "at free throw line in deep concentration - bouncing ball slowly, long exhale, the mental routine, imperfect but determined",
+      "energy": "focused determination"
+    },
+    "screaming-and-one": {
+      "id": "screaming-and-one",
+      "name": "And One!",
+      "description": "Celebrating through contact",
+      "expression": "primal, fierce",
+      "prompt": "screaming after finishing through contact - mouth wide, veins visible, primal celebration after and-one dunk, pure competitive fire",
+      "energy": "primal intensity"
+    }
+  }
+}

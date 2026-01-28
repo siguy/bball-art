@@ -1,0 +1,61 @@
+{
+  "id": "gideon",
+  "name": "Gideon",
+  "defaultPose": "three-hundred",
+  "description": "Judge who defeated the Midianite army with just 300 men using torches and jars. Refused kingship, declaring God alone should rule.",
+  "poses": {
+    "three-hundred": {
+      "id": "three-hundred",
+      "name": "The Three Hundred",
+      "description": "Leading his elite 300 warriors",
+      "expression": "determined, unconventional",
+      "prompt": "standing before his 300 chosen warriors at night - torches and empty jars ready, small band against massive army, unconventional warfare about to begin",
+      "energy": "elite few, unconventional",
+      "quoteId": "three-hundred-men"
+    },
+    "torch-and-horn": {
+      "id": "torch-and-horn",
+      "name": "Torch and Horn",
+      "description": "Battle cry moment",
+      "expression": "fierce, battle cry",
+      "prompt": "holding torch high in one hand, horn in other - mouth open shouting 'Sword of the Lord and Gideon!', jar shattered at feet, the moment of chaos unleashed",
+      "energy": "battle cry, psychological warfare",
+      "quoteId": "sword-of-the-lord"
+    },
+    "threshing-wheat": {
+      "id": "threshing-wheat",
+      "name": "Called from the Winepress",
+      "description": "Hiding when the angel arrives",
+      "expression": "surprised, doubtful",
+      "prompt": "threshing wheat in winepress hiding from Midianites - looking up startled as angel calls him 'mighty warrior', the unlikely hero's beginning",
+      "energy": "humble beginnings",
+      "quoteId": "mighty-warrior"
+    },
+    "refusing-crown": {
+      "id": "refusing-crown",
+      "name": "Refusing the Crown",
+      "description": "Turning down kingship",
+      "expression": "humble, principled",
+      "prompt": "pushing away offered crown with raised palm - people offering kingship, Gideon refusing, pointing upward to true King",
+      "energy": "humble refusal",
+      "quoteId": "the-lord-shall-rule"
+    },
+    "testing-fleece": {
+      "id": "testing-fleece",
+      "name": "The Fleece Test",
+      "description": "Testing God with the fleece",
+      "expression": "uncertain, seeking",
+      "prompt": "kneeling before wet fleece on dry ground - seeking confirmation, the doubter who needed signs, honest uncertainty",
+      "energy": "honest doubt, seeking confirmation"
+    },
+    "surprise-attack": {
+      "id": "surprise-attack",
+      "name": "Midnight Chaos",
+      "description": "Leading the nighttime assault",
+      "expression": "fierce, commanding",
+      "prompt": "in midst of midnight chaos - broken jars, blazing torches, enemy camp in confusion, Gideon directing his men, psychological warfare perfected",
+      "energy": "chaos commander",
+      "quoteId": "sword-of-the-lord"
+    }
+  }
+}

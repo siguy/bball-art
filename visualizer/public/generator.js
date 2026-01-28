@@ -65,6 +65,37 @@ async function init() {
   populatePairings();
   populateTemplates();
   setupEventListeners();
+
+  // Check for URL parameters (e.g., from Characters page redirect)
+  handleUrlParams();
+}
+
+// Handle URL parameters for pre-selection
+function handleUrlParams() {
+  const params = new URLSearchParams(window.location.search);
+
+  const urlMode = params.get('mode');
+  const urlType = params.get('type');
+  const urlCharacter = params.get('character');
+
+  if (urlMode === 'solo' && urlType && urlCharacter) {
+    // Switch to solo mode
+    document.querySelector('input[name="mode"][value="solo"]').checked = true;
+    onModeChange({ target: { value: 'solo' } });
+
+    // Set character type
+    characterTypeSelect.value = urlType;
+    onCharacterTypeChange();
+
+    // Wait for character list to populate, then select character
+    setTimeout(() => {
+      characterSelect.value = urlCharacter;
+      onCharacterChange();
+    }, 100);
+
+    // Clear URL params
+    window.history.replaceState({}, '', '/generator.html');
+  }
 }
 
 // API Calls
@@ -657,7 +688,7 @@ async function onGenerateSolo() {
       logOutput.textContent += result.output || 'Generation complete!\n';
 
       // Build the image path based on solo structure
-      const imagePath = `/cards/solo/${currentCharacterType}s/${currentCharacterId}/${result.filename}`;
+      const imagePath = `/cards/solo-${currentCharacterType}-${currentCharacterId}/${result.filename}`;
       resultImage.src = imagePath + '?t=' + Date.now();
       resultViewLink.href = `/?card=${result.cardId}`;
 

@@ -1,0 +1,41 @@
+{
+  "id": "gideon",
+  "name": "Gideon",
+  "quotes": {
+    "mighty-warrior": {
+      "source": "Judges 6:12",
+      "context": "Angel greets the unlikely hero",
+      "hebrew": "יְהוָה עִמְּךָ גִּבּוֹר הֶחָיִל",
+      "english": "The Lord is with you, mighty warrior",
+      "mood": "calling, potential"
+    },
+    "sword-of-the-lord": {
+      "source": "Judges 7:20",
+      "context": "Battle cry of Gideon's 300",
+      "hebrew": "חֶרֶב לַיהוָה וּלְגִדְעוֹן",
+      "english": "A sword for the Lord and for Gideon!",
+      "mood": "battle cry, fierce"
+    },
+    "too-many-troops": {
+      "source": "Judges 7:2",
+      "context": "God reduces Gideon's army",
+      "hebrew": "רַב הָעָם אֲשֶׁר אִתָּךְ מִתִּתִּי אֶת־מִדְיָן בְּיָדָם",
+      "english": "You have too many troops with you for Me to deliver Midian into their hands",
+      "mood": "unconventional, trust"
+    },
+    "three-hundred-men": {
+      "source": "Judges 7:7",
+      "context": "The final selection",
+      "hebrew": "בִּשְׁלֹשׁ מֵאוֹת הָאִישׁ הַמְלַקְקִים אוֹשִׁיעַ אֶתְכֶם",
+      "english": "With the three hundred men who lapped I will save you",
+      "mood": "chosen few, elite"
+    },
+    "the-lord-shall-rule": {
+      "source": "Judges 8:23",
+      "context": "Gideon refuses kingship",
+      "hebrew": "לֹא־אֶמְשֹׁל אֲנִי בָכֶם יְהוָה יִמְשֹׁל בָּכֶם",
+      "english": "I will not rule over you; the Lord shall rule over you",
+      "mood": "humble, principled"
+    }
+  }
+}

@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Court & Covenant - Characters</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="characters.css">
+</head>
+<body>
+  <header>
+    <div class="header-content">
+      <img src="/brand/logos/court and covenant logo - 1.png" alt="Court & Covenant" class="logo">
+      <h1>Characters</h1>
+    </div>
+    <nav class="header-nav">
+      <a href="/" class="nav-link">Cards</a>
+      <a href="/generator.html" class="nav-link">Generator</a>
+      <a href="/characters.html" class="nav-link active">Characters</a>
+      <a href="/pairings.html" class="nav-link">Pairings</a>
+      <a href="/export-queue.html" class="nav-link">Export Queue</a>
+    </nav>
+  </header>
+
+  <main class="characters-main">
+    <!-- Grid View -->
+    <section class="characters-grid-view" id="grid-view">
+      <div class="grid-header">
+        <div class="grid-filters">
+          <select id="type-filter">
+            <option value="all">All Characters</option>
+            <option value="player">NBA Players</option>
+            <option value="figure">Biblical Figures</option>
+          </select>
+          <input type="text" id="search-input" placeholder="Search by name...">
+        </div>
+        <button id="new-character-btn" class="btn btn-primary">
+          + New Character
+        </button>
+      </div>
+
+      <div class="characters-grid" id="characters-grid">
+        <!-- Character cards populated by JS -->
+      </div>
+
+      <div class="empty-state hidden" id="empty-state">
+        <p>No characters found</p>
+      </div>
+    </section>
+
+    <!-- Create/Edit View -->
+    <section class="character-form-view hidden" id="form-view">
+      <!-- Step 1: Research Input -->
+      <div class="form-step" id="step-research">
+        <div class="form-header">
+          <button class="btn btn-back" id="back-to-grid">← Back</button>
+          <h2>Create New Character</h2>
+        </div>
+
+        <div class="research-form">
+          <div class="form-group">
+            <label>Character Type</label>
+            <div class="radio-group">
+              <label class="radio-option">
+                <input type="radio" name="char-type" value="player" checked>
+                <span>NBA Player</span>
+              </label>
+              <label class="radio-option">
+                <input type="radio" name="char-type" value="figure">
+                <span>Biblical Figure</span>
+              </label>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="research-name">Character Name</label>
+            <input type="text" id="research-name" placeholder="e.g., Allen Iverson or Elijah">
+          </div>
+
+          <button id="research-btn" class="btn btn-primary btn-large">
+            <span class="btn-text">Research Character</span>
+            <span class="btn-loading hidden">Researching...</span>
+          </button>
+
+          <div class="research-hint">
+            Enter a name and we'll research iconic moments, signature moves, and physical description to auto-generate character data.
+          </div>
+
+          <div class="research-error hidden" id="research-error"></div>
+        </div>
+      </div>
+
+      <!-- Step 2: Review & Edit -->
+      <div class="form-step hidden" id="step-edit">
+        <div class="form-header">
+          <button class="btn btn-back" id="back-to-research">← Back</button>
+          <h2 id="edit-title">Review Character</h2>
+          <div class="form-actions-top">
+            <button id="save-character-btn" class="btn btn-primary">Save Character</button>
+          </div>
+        </div>
+
+        <div class="edit-form">
+          <!-- Character Info Section -->
+          <div class="form-section">
+            <h3>Character Info</h3>
+
+            <div class="form-row">
+              <label for="edit-id">ID</label>
+              <input type="text" id="edit-id" readonly>
+              <span class="field-hint">Auto-generated, used in filenames</span>
+            </div>
+
+            <div class="form-row">
+              <label for="edit-name">Name</label>
+              <input type="text" id="edit-name">
+            </div>
+
+            <div class="form-row">
+              <label for="edit-display-name">Display Name</label>
+              <input type="text" id="edit-display-name" placeholder="Nickname or title">
+              <span class="field-hint">Shown on cards (e.g., "The Answer", "Sir Charles")</span>
+            </div>
+
+            <div class="form-row">
+              <label for="edit-era">Era</label>
+              <select id="edit-era">
+                <option value="1970s">1970s</option>
+                <option value="1980s">1980s</option>
+                <option value="1990s">1990s</option>
+                <option value="2000s">2000s</option>
+                <option value="2010s">2010s</option>
+                <option value="2020s">2020s</option>
+                <option value="biblical">Biblical Era</option>
+              </select>
+            </div>
+
+            <div class="form-row">
+              <label for="edit-physical">Physical Description</label>
+              <textarea id="edit-physical" rows="3" placeholder="Height, build, distinguishing features..."></textarea>
+            </div>
+
+            <div class="form-row">
+              <label for="edit-archetype">Archetype</label>
+              <textarea id="edit-archetype" rows="2" placeholder="Character essence, role, style..."></textarea>
+            </div>
+          </div>
+
+          <!-- Jersey Colors (players only) -->
+          <div class="form-section player-only" id="jersey-section">
+            <h3>Jersey Colors</h3>
+
+            <div class="color-grid">
+              <div class="color-set">
+                <span class="color-label">Primary</span>
+                <div class="color-inputs">
+                  <input type="text" id="jersey-primary-base" placeholder="Base (e.g., blue)">
+                  <input type="text" id="jersey-primary-accent" placeholder="Accent (e.g., red)">
+                </div>
+              </div>
+              <div class="color-set">
+                <span class="color-label">Secondary</span>
+                <div class="color-inputs">
+                  <input type="text" id="jersey-secondary-base" placeholder="Base (e.g., white)">
+                  <input type="text" id="jersey-secondary-accent" placeholder="Accent (e.g., blue)">
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Clothing (figures only) -->
+          <div class="form-section figure-only hidden" id="clothing-section">
+            <h3>Clothing</h3>
+            <div class="form-row">
+              <textarea id="edit-clothing" rows="2" placeholder="Robes, armor, accessories..."></textarea>
+            </div>
+          </div>
+
+          <!-- Poses Section -->
+          <div class="form-section">
+            <div class="section-header">
+              <h3>Poses</h3>
+              <button id="add-pose-btn" class="btn btn-small">+ Add Pose</button>
+            </div>
+
+            <div id="poses-container">
+              <!-- Pose cards populated by JS -->
+            </div>
+          </div>
+
+          <!-- Bottom Actions -->
+          <div class="form-actions-bottom">
+            <button id="delete-character-btn" class="btn btn-danger hidden">Delete Character</button>
+            <button id="save-character-btn-bottom" class="btn btn-primary btn-large">Save Character</button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Pose Card Template (hidden, cloned by JS) -->
+  <template id="pose-card-template">
+    <div class="pose-card" data-pose-id="">
+      <div class="pose-header">
+        <input type="text" class="pose-name" placeholder="Pose Name">
+        <button class="btn btn-icon btn-remove-pose" title="Remove pose">×</button>
+      </div>
+      <div class="pose-body">
+        <div class="pose-row">
+          <label>ID</label>
+          <input type="text" class="pose-id" placeholder="kebab-case-id" readonly>
+        </div>
+        <div class="pose-row">
+          <label>Description</label>
+          <input type="text" class="pose-description" placeholder="Brief description">
+        </div>
+        <div class="pose-row">
+          <label>Expression</label>
+          <input type="text" class="pose-expression" placeholder="Facial expression, emotion">
+        </div>
+        <div class="pose-row full-width">
+          <label>Prompt</label>
+          <textarea class="pose-prompt" rows="3" placeholder="Detailed pose description for image generation..."></textarea>
+        </div>
+        <div class="pose-row">
+          <label>Energy</label>
+          <input type="text" class="pose-energy" placeholder="2-3 word mood (e.g., lethal, iconic)">
+        </div>
+      </div>
+    </div>
+  </template>
+
+  <script src="characters.js"></script>
+</body>
+</html>

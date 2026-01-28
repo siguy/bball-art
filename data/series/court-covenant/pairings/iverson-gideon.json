@@ -1,0 +1,53 @@
+{
+  "id": "iverson-gideon",
+  "series": "court-covenant",
+  "type": "hero",
+  "player": {
+    "name": "Allen Iverson",
+    "displayName": "The Answer",
+    "poseFileId": "iverson",
+    "era": "2000s",
+    "jerseyColors": {
+      "primary": { "base": "red", "accent": "blue" },
+      "secondary": { "base": "blue", "accent": "red" }
+    },
+    "signatureMoves": ["crossover", "step-over", "driving layup", "fearless attack"],
+    "physicalDescription": "6'0\" guard, small but explosive, cornrows, tattoos, arm sleeve, cultural icon",
+    "archetype": "Smallest MVP who defeated giants through heart and unconventional warfare"
+  },
+  "figure": {
+    "name": "Gideon",
+    "displayName": "Gideon",
+    "poseFileId": "gideon",
+    "attribute": "torch and horn",
+    "attributeDescription": "torch in jar and ram's horn, the unconventional weapons of psychological warfare",
+    "visualStyle": "Israelite judge, warrior but unconventional, chosen from obscurity",
+    "clothing": "simple warrior garb, not flashy armor, practical for guerrilla tactics",
+    "physicalDescription": "capable warrior with intelligent eyes, doesn't look like a traditional general",
+    "anatomyNote": "two arms, often holding torch and horn or sword",
+    "archetype": "Unconventional warrior who defeated armies with 300 men and psychological tactics"
+  },
+  "connection": {
+    "thematic": "Both used unconventional methods to defeat overwhelming odds, changing the game itself",
+    "narrative": "6'0\" against giants. 300 against thousands. Both weaponized what others didn't see coming.",
+    "relationship": "Unconventional warriors who rewrote the rules of battle"
+  },
+  "interactions": [
+    {
+      "id": "side-by-side",
+      "description": "Two unconventional warriors standing together"
+    },
+    {
+      "id": "battle-stance",
+      "description": "Iverson in crossover stance, Gideon with torch raised"
+    },
+    {
+      "id": "underdog-triumph",
+      "description": "Both having defeated the giants through unconventional means"
+    }
+  ],
+  "defaultInteraction": "side-by-side",
+  "cardVariants": ["thunder-lightning", "kaboom", "beam-team"],
+  "priority": 9,
+  "status": "active"
+}

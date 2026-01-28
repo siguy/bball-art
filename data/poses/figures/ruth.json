@@ -1,0 +1,61 @@
+{
+  "id": "ruth",
+  "name": "Ruth",
+  "defaultPose": "gleaning-fields",
+  "description": "Moabite woman who left everything to follow Naomi, became ancestor of King David through loyalty and hard work.",
+  "poses": {
+    "gleaning-fields": {
+      "id": "gleaning-fields",
+      "name": "Gleaning the Fields",
+      "description": "Gathering grain in Boaz's field",
+      "expression": "humble determination, quiet dignity",
+      "prompt": "bent in field gathering stalks of grain - hands full of wheat, modest dress, working among the harvesters, the foreigner earning her place through labor, sun on her back",
+      "energy": "humble worker, earning respect",
+      "quoteId": "gleaning-fields"
+    },
+    "declaration-to-naomi": {
+      "id": "declaration-to-naomi",
+      "name": "The Declaration",
+      "description": "Pledging loyalty to Naomi on the road",
+      "expression": "fierce devotion, emotional strength",
+      "prompt": "standing before Naomi with hand on heart - eyes locked, passionate declaration, refusing to turn back, the moment of ultimate commitment, dusty road behind them",
+      "energy": "devoted, unwavering",
+      "quoteId": "where-you-go"
+    },
+    "meeting-boaz": {
+      "id": "meeting-boaz",
+      "name": "Meeting Boaz",
+      "description": "First encounter with her future husband",
+      "expression": "humble, hopeful",
+      "prompt": "bowing before Boaz in the field - head lowered respectfully, grain gathered beside her, the humble foreigner meeting the generous landowner, destiny unfolding",
+      "energy": "humility meets destiny"
+    },
+    "at-threshing-floor": {
+      "id": "at-threshing-floor",
+      "name": "The Threshing Floor",
+      "description": "Bold move at Boaz's feet",
+      "expression": "courageous, vulnerable",
+      "prompt": "lying at feet of sleeping Boaz on threshing floor - night scene, bold yet modest, the risky move that secured her future, trust and courage combined",
+      "energy": "bold vulnerability",
+      "quoteId": "under-his-wings"
+    },
+    "mother-of-dynasty": {
+      "id": "mother-of-dynasty",
+      "name": "Mother of a Dynasty",
+      "description": "Holding baby Obed, David's grandfather",
+      "expression": "fulfilled, blessed",
+      "prompt": "holding infant Obed with Naomi looking on - the foreigner now part of Israel's greatest lineage, joy and completion, grandmother of kings",
+      "energy": "fulfilled destiny",
+      "quoteId": "under-his-wings"
+    },
+    "leaving-moab": {
+      "id": "leaving-moab",
+      "name": "Leaving Moab",
+      "description": "Walking away from homeland",
+      "expression": "determined, forward-looking",
+      "prompt": "walking away from Moab with small bundle - back to homeland, face toward unknown future, Naomi beside her, leaving everything familiar for loyalty",
+      "energy": "courageous departure",
+      "quoteId": "left-everything"
+    }
+  }
+}

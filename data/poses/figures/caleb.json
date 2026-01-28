@@ -1,0 +1,61 @@
+{
+  "id": "caleb",
+  "name": "Caleb",
+  "defaultPose": "silencing-crowd",
+  "description": "One of only two spies who believed Israel could conquer Canaan. At 85, still demanded the hardest territory.",
+  "poses": {
+    "silencing-crowd": {
+      "id": "silencing-crowd",
+      "name": "Silencing the Crowd",
+      "description": "Hushing the fearful Israelites",
+      "expression": "confident, commanding",
+      "prompt": "hand raised silencing fearful crowd before Moses - standing tall against the tide of doubt, eyes blazing with confidence, the one voice saying 'we can do this'",
+      "energy": "bold confidence, silencing doubt",
+      "quoteId": "we-can-take-them"
+    },
+    "returning-with-grapes": {
+      "id": "returning-with-grapes",
+      "name": "The Giant Grapes",
+      "description": "Carrying massive grape cluster from Canaan",
+      "expression": "excited, triumphant",
+      "prompt": "carrying pole with enormous grape cluster between him and Joshua - the proof of the promised land's bounty, muscles straining with the weight, eyes bright with possibility",
+      "energy": "abundance, proof of promise"
+    },
+    "different-spirit": {
+      "id": "different-spirit",
+      "name": "Different Spirit",
+      "description": "Standing apart from fearful spies",
+      "expression": "resolute, set apart",
+      "prompt": "standing alone while other spies cower - upright posture, determined jaw, the different spirit visible in his bearing, faith against fear",
+      "energy": "distinguished, faithful",
+      "quoteId": "different-spirit"
+    },
+    "claiming-hebron": {
+      "id": "claiming-hebron",
+      "name": "Give Me This Mountain",
+      "description": "At 85, demanding Hebron with its giants",
+      "expression": "fierce determination, ageless warrior",
+      "prompt": "elderly but powerful warrior pointing at mountain fortress - gray-haired but strong, demanding the hardest territory, the giants' stronghold, still ready for battle",
+      "energy": "ageless warrior, fearless",
+      "quoteId": "give-me-this-mountain"
+    },
+    "facing-giants": {
+      "id": "facing-giants",
+      "name": "Facing the Giants",
+      "description": "Confronting the Anakim",
+      "expression": "unintimidated, ready",
+      "prompt": "standing before towering Anakim warriors - dwarfed in size but not in spirit, sword drawn, the man who saw giants as conquerable",
+      "energy": "fearless against odds",
+      "quoteId": "still-strong"
+    },
+    "old-warrior": {
+      "id": "old-warrior",
+      "name": "Still Strong",
+      "description": "85 years old and battle-ready",
+      "expression": "proud, undiminished",
+      "prompt": "standing in full battle gear at 85 - weathered face, strong body, sword in hand, the warrior who time could not diminish",
+      "energy": "timeless strength",
+      "quoteId": "still-strong"
+    }
+  }
+}

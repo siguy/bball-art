@@ -327,7 +327,13 @@ function formatTemplateName(template) {
 }
 
 function formatInteractionName(interaction) {
+  if (!interaction) return 'N/A';
   return interaction.split('-').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
+}
+
+function formatCharacterName(characterId) {
+  if (!characterId) return 'Unknown';
+  return characterId.split('-').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
 }
 
 function applyFilters() {
@@ -376,8 +382,18 @@ function renderGallery() {
     const isLoved = cardFeedback?.rating === 'loved';
     const badgeClass = cardFeedback?.rating ? `card-badge ${cardFeedback.rating}` : '';
     const badgeText = cardFeedback?.rating ? (isLoved ? 'EXPORT' : cardFeedback.rating) : '';
-    const pairing = pairingData[card.pairingId];
-    const title = pairing ? `${pairing.playerName} & ${pairing.figureName}` : card.pairingId;
+
+    // Handle both pairing cards and solo cards
+    let title;
+    if (card.mode === 'solo') {
+      // Solo card - use character info
+      const charType = card.characterType === 'player' ? '🏀' : '📜';
+      title = `${charType} ${formatCharacterName(card.characterId)} (Solo)`;
+    } else {
+      // Pairing card
+      const pairing = pairingData[card.pairingId];
+      title = pairing ? `${pairing.playerName} & ${pairing.figureName}` : card.pairingId;
+    }
 
     return `
       <div class="card ${isLoved ? 'card-loved' : ''}" data-index="${index}">
@@ -401,14 +417,30 @@ function openModal(index) {
   const card = filteredCards[index];
   if (!card) return;
 
-  const pairing = pairingData[card.pairingId];
-  const title = pairing ? `${pairing.playerName} & ${pairing.figureName}` : card.pairingId;
+  // Handle both pairing cards and solo cards
+  let title;
+  let pairingLabel;
+  let interactionLabel;
+
+  if (card.mode === 'solo') {
+    // Solo card
+    const charType = card.characterType === 'player' ? 'Player' : 'Figure';
+    title = `${formatCharacterName(card.characterId)} (Solo)`;
+    pairingLabel = `Solo ${charType}: ${formatCharacterName(card.characterId)}`;
+    interactionLabel = 'Solo Card';
+  } else {
+    // Pairing card
+    const pairing = pairingData[card.pairingId];
+    title = pairing ? `${pairing.playerName} & ${pairing.figureName}` : card.pairingId;
+    pairingLabel = title;
+    interactionLabel = formatInteractionName(card.interaction);
+  }
 
   document.getElementById('modal-card-image').src = card.path;
   document.getElementById('modal-title').textContent = title;
-  document.getElementById('detail-pairing').textContent = title;
+  document.getElementById('detail-pairing').textContent = pairingLabel;
   document.getElementById('detail-template').textContent = formatTemplateName(card.template);
-  document.getElementById('detail-interaction').textContent = formatInteractionName(card.interaction);
+  document.getElementById('detail-interaction').textContent = interactionLabel;
   document.getElementById('detail-timestamp').textContent = card.timestamp;
   document.getElementById('detail-prompt').textContent = card.prompt || 'No prompt saved';
 

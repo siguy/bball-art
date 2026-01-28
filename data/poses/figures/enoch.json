@@ -1,0 +1,59 @@
+{
+  "id": "enoch",
+  "name": "Enoch",
+  "defaultPose": "walking-with-god",
+  "description": "Mysterious figure who 'walked with God' for 300 years and was taken to heaven without dying. Transcendent, otherworldly.",
+  "poses": {
+    "walking-with-god": {
+      "id": "walking-with-god",
+      "name": "Walking with God",
+      "description": "The eternal walk of communion",
+      "expression": "serene, transcendent",
+      "prompt": "walking in divine light with ethereal glow - feet barely touching ground, face turned upward in communion, otherworldly presence, the man who walked between worlds",
+      "energy": "transcendent communion",
+      "quoteId": "walked-with-god"
+    },
+    "ascending": {
+      "id": "ascending",
+      "name": "The Ascension",
+      "description": "Being taken by God",
+      "expression": "peaceful, otherworldly",
+      "prompt": "rising from earth surrounded by divine light - feet leaving ground, arms slightly raised, face peaceful, the moment of translation to heaven, no death only departure",
+      "energy": "transcendent departure",
+      "quoteId": "was-no-more"
+    },
+    "between-worlds": {
+      "id": "between-worlds",
+      "name": "Between Worlds",
+      "description": "Existing in both realms",
+      "expression": "mysterious, knowing",
+      "prompt": "standing with one foot in earthly realm, one in heavenly light - split between dimensions, mysterious knowing expression, the man who saw both worlds",
+      "energy": "liminal, mysterious"
+    },
+    "three-hundred-years": {
+      "id": "three-hundred-years",
+      "name": "Three Hundred Years",
+      "description": "The long faithful walk",
+      "expression": "patient, enduring",
+      "prompt": "walking through changing seasons and landscapes - time passing around him while he remains constant, the three-hundred-year journey of faith",
+      "energy": "eternal patience",
+      "quoteId": "three-hundred-years"
+    },
+    "teaching-methuselah": {
+      "id": "teaching-methuselah",
+      "name": "Teaching His Son",
+      "description": "Passing wisdom to Methuselah",
+      "expression": "wise, fatherly",
+      "prompt": "speaking to young Methuselah with hand on his shoulder - passing down divine wisdom, the father of the longest-lived man, legacy of faith",
+      "energy": "wisdom transfer"
+    },
+    "heavenly-vision": {
+      "id": "heavenly-vision",
+      "name": "Heavenly Vision",
+      "description": "Seeing what others cannot",
+      "expression": "awestruck, illuminated",
+      "prompt": "eyes open wide seeing heavenly realm - face bathed in divine light, glimpsing what mortal eyes cannot see, the prophet who saw beyond",
+      "energy": "prophetic sight"
+    }
+  }
+}

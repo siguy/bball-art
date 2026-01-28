@@ -1,6 +1,6 @@
 import express from 'express';
 import cors from 'cors';
-import { readFileSync, writeFileSync, existsSync, readdirSync, statSync, mkdirSync, copyFileSync } from 'fs';
+import { readFileSync, writeFileSync, existsSync, readdirSync, statSync, mkdirSync, copyFileSync, unlinkSync } from 'fs';
 import { join, dirname } from 'path';
 import { fileURLToPath } from 'url';
 import { spawn } from 'child_process';
@@ -48,10 +48,11 @@ function buildManifest() {
     return { cards: [], pairings: [], templates: [], soloCharacters: [], generated: new Date().toISOString() };
   }
 
-  // Scan pairing cards
+  // Scan pairing cards (exclude solo directories)
   const pairingDirs = readdirSync(cardsDir).filter(f => {
     const stat = statSync(join(cardsDir, f));
-    return stat.isDirectory() && f !== 'solo';
+    // Exclude 'solo' directory and any 'solo-*' directories
+    return stat.isDirectory() && f !== 'solo' && !f.startsWith('solo-');
   });
 
   for (const pairingId of pairingDirs) {
@@ -1413,6 +1414,401 @@ app.post('/api/generate-solo', async (req, res) => {
 
   } catch (err) {
     res.status(500).json({ success: false, error: err.message });
+  }
+});
+
+// ============================================================
+// Character Management Endpoints
+// ============================================================
+
+/**
+ * Research a character and generate data
+ * POST /api/characters/research
+ */
+app.post('/api/characters/research', async (req, res) => {
+  const { type, name } = req.body;
+
+  if (!type || !name) {
+    return res.status(400).json({ error: 'Type and name are required' });
+  }
+
+  if (!['player', 'figure'].includes(type)) {
+    return res.status(400).json({ error: 'Type must be "player" or "figure"' });
+  }
+
+  try {
+    // Generate character ID from name
+    const id = name.toLowerCase()
+      .replace(/[^a-z0-9]+/g, '-')
+      .replace(/^-+|-+$/g, '');
+
+    // Build character data based on type
+    let character, poses;
+
+    if (type === 'player') {
+      character = await researchPlayer(name, id);
+      poses = await generatePlayerPoses(name, character);
+    } else {
+      character = await researchFigure(name, id);
+      poses = await generateFigurePoses(name, character);
+    }
+
+    res.json({ character, poses });
+
+  } catch (err) {
+    console.error('Research error:', err);
+    res.status(500).json({ error: err.message || 'Research failed' });
+  }
+});
+
+/**
+ * Research an NBA player using web search
+ */
+async function researchPlayer(name, id) {
+  // For now, generate sensible defaults that user can edit
+  // In a full implementation, this would use web search APIs
+
+  const character = {
+    id,
+    name,
+    displayName: '',
+    poseFileId: id,
+    era: '2000s',
+    jerseyColors: {
+      primary: { base: 'blue', accent: 'white' },
+      secondary: { base: 'white', accent: 'blue' }
+    },
+    physicalDescription: `Professional basketball player, athletic build`,
+    archetype: `${name} - NBA player`
+  };
+
+  // Try to determine era from common knowledge
+  const eraHints = {
+    'wilt': '1970s', 'kareem': '1970s', 'dr j': '1970s', 'julius erving': '1970s',
+    'magic': '1980s', 'bird': '1980s', 'isiah': '1980s',
+    'jordan': '1990s', 'pippen': '1990s', 'barkley': '1990s', 'stockton': '1990s', 'malone': '1990s', 'shaq': '1990s', 'rodman': '1990s',
+    'kobe': '2000s', 'iverson': '2000s', 'duncan': '2000s', 'garnett': '2000s',
+    'lebron': '2010s', 'curry': '2010s', 'durant': '2010s', 'westbrook': '2010s',
+    'jokic': '2020s', 'giannis': '2020s', 'luka': '2020s', 'sga': '2020s', 'tatum': '2020s'
+  };
+
+  const nameLower = name.toLowerCase();
+  for (const [hint, era] of Object.entries(eraHints)) {
+    if (nameLower.includes(hint)) {
+      character.era = era;
+      break;
+    }
+  }
+
+  return character;
+}
+
+/**
+ * Research a biblical figure using Sefaria/web search
+ */
+async function researchFigure(name, id) {
+  const character = {
+    id,
+    name,
+    displayName: name,
+    poseFileId: id,
+    era: 'biblical',
+    clothing: 'robes and sandals, period-accurate biblical attire',
+    physicalDescription: `Biblical figure, dignified bearing`,
+    archetype: `${name} - biblical figure`
+  };
+
+  return character;
+}
+
+/**
+ * Generate default poses for a player
+ */
+async function generatePlayerPoses(name, character) {
+  // Generate common basketball poses that user can customize
+  const poses = {
+    'signature-move': {
+      id: 'signature-move',
+      name: 'Signature Move',
+      description: `${name}'s signature basketball move`,
+      expression: 'focused intensity',
+      prompt: `executing signature basketball move - athletic form, focused expression, powerful body control`,
+      energy: 'dominant, skilled'
+    },
+    'celebration': {
+      id: 'celebration',
+      name: 'Victory Celebration',
+      description: 'Celebrating a big moment',
+      expression: 'joy, triumph',
+      prompt: `celebrating victory - fist pump or arms raised, expression of pure joy, the moment of triumph`,
+      energy: 'triumphant, electric'
+    },
+    'defensive-stance': {
+      id: 'defensive-stance',
+      name: 'Defensive Stance',
+      description: 'Low defensive position',
+      expression: 'intense focus',
+      prompt: `in low defensive stance - knees bent, arms wide, eyes locked on opponent, ready to react`,
+      energy: 'intense, lockdown'
+    },
+    'dunk': {
+      id: 'dunk',
+      name: 'Powerful Dunk',
+      description: 'Rising for a powerful dunk',
+      expression: 'fierce determination',
+      prompt: `rising for powerful one-handed dunk - body elevated, arm cocked back, eyes on rim, athletic explosion`,
+      energy: 'explosive, powerful'
+    }
+  };
+
+  return {
+    poses,
+    defaultPose: 'signature-move'
+  };
+}
+
+/**
+ * Generate default poses for a biblical figure
+ */
+async function generateFigurePoses(name, character) {
+  const poses = {
+    'iconic-moment': {
+      id: 'iconic-moment',
+      name: 'Iconic Moment',
+      description: `${name}'s most famous biblical moment`,
+      expression: 'divine authority',
+      prompt: `in moment of greatest significance - dignified pose, period-accurate clothing, powerful presence`,
+      energy: 'powerful, iconic'
+    },
+    'commanding-presence': {
+      id: 'commanding-presence',
+      name: 'Commanding Presence',
+      description: 'Standing with authority',
+      expression: 'confident authority',
+      prompt: `standing with commanding presence - robes flowing, dignified bearing, the weight of destiny`,
+      energy: 'authoritative, majestic'
+    },
+    'contemplation': {
+      id: 'contemplation',
+      name: 'Contemplation',
+      description: 'Deep in thought or prayer',
+      expression: 'thoughtful, reverent',
+      prompt: `in moment of contemplation - head slightly bowed or gazing upward, hands folded or raised, spiritual connection`,
+      energy: 'reverent, peaceful'
+    }
+  };
+
+  return {
+    poses,
+    defaultPose: 'iconic-moment'
+  };
+}
+
+/**
+ * Save a new character and pose file
+ * POST /api/characters/save
+ */
+app.post('/api/characters/save', (req, res) => {
+  const { type, character, poses } = req.body;
+
+  if (!type || !character || !poses) {
+    return res.status(400).json({ error: 'Type, character, and poses are required' });
+  }
+
+  if (!['player', 'figure'].includes(type)) {
+    return res.status(400).json({ error: 'Type must be "player" or "figure"' });
+  }
+
+  if (!character.id || !character.name) {
+    return res.status(400).json({ error: 'Character must have id and name' });
+  }
+
+  try {
+    const typeDir = type === 'player' ? 'players' : 'figures';
+
+    // Ensure directories exist
+    const characterDir = join(ROOT, 'data/characters', typeDir);
+    const poseDir = join(ROOT, 'data/poses', typeDir);
+
+    if (!existsSync(characterDir)) {
+      mkdirSync(characterDir, { recursive: true });
+    }
+    if (!existsSync(poseDir)) {
+      mkdirSync(poseDir, { recursive: true });
+    }
+
+    // Write character file
+    const characterPath = join(characterDir, `${character.id}.json`);
+    writeFileSync(characterPath, JSON.stringify(character, null, 2));
+
+    // Write pose file
+    const poseData = {
+      id: character.id,
+      name: character.name,
+      defaultPose: poses.defaultPose || Object.keys(poses.poses)[0],
+      description: character.physicalDescription,
+      poses: poses.poses
+    };
+
+    const posePath = join(poseDir, `${character.id}.json`);
+    writeFileSync(posePath, JSON.stringify(poseData, null, 2));
+
+    console.log(`Saved character: ${character.name} (${type})`);
+    console.log(`  Character file: ${characterPath}`);
+    console.log(`  Pose file: ${posePath}`);
+
+    res.json({
+      success: true,
+      characterPath,
+      posePath
+    });
+
+  } catch (err) {
+    console.error('Save error:', err);
+    res.status(500).json({ error: err.message || 'Save failed' });
+  }
+});
+
+/**
+ * Get a single character with poses
+ * GET /api/characters/:type/:id
+ */
+app.get('/api/characters/:type/:id', (req, res) => {
+  const { type, id } = req.params;
+
+  if (!['player', 'figure'].includes(type)) {
+    return res.status(400).json({ error: 'Type must be "player" or "figure"' });
+  }
+
+  try {
+    const typeDir = type === 'player' ? 'players' : 'figures';
+
+    // Try standalone character file first
+    let character = null;
+    const standaloneCharPath = join(ROOT, 'data/characters', typeDir, `${id}.json`);
+
+    if (existsSync(standaloneCharPath)) {
+      character = JSON.parse(readFileSync(standaloneCharPath, 'utf-8'));
+    } else {
+      // Try to find in pairings
+      const pairingsDir = join(ROOT, 'data/series/court-covenant/pairings');
+      if (existsSync(pairingsDir)) {
+        const pairingFiles = readdirSync(pairingsDir).filter(f => f.endsWith('.json'));
+        for (const file of pairingFiles) {
+          const pairing = JSON.parse(readFileSync(join(pairingsDir, file), 'utf-8'));
+          const charKey = type === 'player' ? 'player' : 'figure';
+          if (pairing[charKey]?.poseFileId === id || pairing[charKey]?.id === id) {
+            character = pairing[charKey];
+            break;
+          }
+        }
+      }
+    }
+
+    if (!character) {
+      return res.status(404).json({ error: 'Character not found' });
+    }
+
+    // Load poses
+    let poses = {};
+    const posePath = join(ROOT, 'data/poses', typeDir, `${id}.json`);
+    if (existsSync(posePath)) {
+      const poseData = JSON.parse(readFileSync(posePath, 'utf-8'));
+      poses = poseData.poses || {};
+    }
+
+    res.json({ character, poses });
+
+  } catch (err) {
+    console.error('Get character error:', err);
+    res.status(500).json({ error: err.message });
+  }
+});
+
+/**
+ * Update an existing character
+ * PUT /api/characters/:type/:id
+ */
+app.put('/api/characters/:type/:id', (req, res) => {
+  const { type, id } = req.params;
+  const { character, poses } = req.body;
+
+  if (!['player', 'figure'].includes(type)) {
+    return res.status(400).json({ error: 'Type must be "player" or "figure"' });
+  }
+
+  try {
+    const typeDir = type === 'player' ? 'players' : 'figures';
+
+    // Update character file
+    const characterDir = join(ROOT, 'data/characters', typeDir);
+    if (!existsSync(characterDir)) {
+      mkdirSync(characterDir, { recursive: true });
+    }
+
+    const characterPath = join(characterDir, `${id}.json`);
+    writeFileSync(characterPath, JSON.stringify(character, null, 2));
+
+    // Update pose file
+    if (poses) {
+      const poseDir = join(ROOT, 'data/poses', typeDir);
+      if (!existsSync(poseDir)) {
+        mkdirSync(poseDir, { recursive: true });
+      }
+
+      const poseData = {
+        id: character.id,
+        name: character.name,
+        defaultPose: poses.defaultPose || Object.keys(poses.poses)[0],
+        description: character.physicalDescription,
+        poses: poses.poses
+      };
+
+      const posePath = join(poseDir, `${id}.json`);
+      writeFileSync(posePath, JSON.stringify(poseData, null, 2));
+    }
+
+    res.json({ success: true });
+
+  } catch (err) {
+    console.error('Update error:', err);
+    res.status(500).json({ error: err.message });
+  }
+});
+
+/**
+ * Delete a character
+ * DELETE /api/characters/:type/:id
+ */
+app.delete('/api/characters/:type/:id', (req, res) => {
+  const { type, id } = req.params;
+
+  if (!['player', 'figure'].includes(type)) {
+    return res.status(400).json({ error: 'Type must be "player" or "figure"' });
+  }
+
+  try {
+    const typeDir = type === 'player' ? 'players' : 'figures';
+
+    // Delete character file
+    const characterPath = join(ROOT, 'data/characters', typeDir, `${id}.json`);
+    if (existsSync(characterPath)) {
+      unlinkSync(characterPath);
+    }
+
+    // Delete pose file
+    const posePath = join(ROOT, 'data/poses', typeDir, `${id}.json`);
+    if (existsSync(posePath)) {
+      unlinkSync(posePath);
+    }
+
+    console.log(`Deleted character: ${id} (${type})`);
+
+    res.json({ success: true });
+
+  } catch (err) {
+    console.error('Delete error:', err);
+    res.status(500).json({ error: err.message });
   }
 });
 

@@ -1,0 +1,56 @@
+{
+  "id": "iverson",
+  "name": "Allen Iverson",
+  "defaultPose": "crossover",
+  "description": "6'0\" guard, 'The Answer'. Smallest MVP ever, cultural icon. Heart of a giant, played through pain, changed the game and the culture.",
+  "poses": {
+    "crossover": {
+      "id": "crossover",
+      "name": "The Crossover",
+      "description": "Signature move breaking ankles",
+      "expression": "fierce, in control",
+      "prompt": "executing signature crossover - ball whipping side to side, defender stumbling, cornrows flying, the move that changed basketball, small man dominating giants",
+      "energy": "ankle breaker, iconic"
+    },
+    "step-over": {
+      "id": "step-over",
+      "name": "The Step Over",
+      "description": "Standing over fallen Lue",
+      "expression": "defiant, dominant",
+      "prompt": "stepping over fallen defender after hitting shot - looking down with cold stare, the iconic moment of small man dominance, defiance personified",
+      "energy": "defiant dominance"
+    },
+    "practice-rant": {
+      "id": "practice-rant",
+      "name": "Practice?",
+      "description": "The famous press conference",
+      "expression": "exasperated, passionate",
+      "prompt": "animated at press conference podium - hands gesturing, incredulous expression, 'we talking about practice?', the realest interview ever",
+      "energy": "unfiltered, authentic"
+    },
+    "heart-over-height": {
+      "id": "heart-over-height",
+      "name": "Heart Over Height",
+      "description": "Driving through giants",
+      "expression": "fearless, determined",
+      "prompt": "driving lane between towering defenders - tiny frame surrounded by giants, fearless attack at basket, heart bigger than any center",
+      "energy": "fearless warrior"
+    },
+    "arm-sleeve-swag": {
+      "id": "arm-sleeve-swag",
+      "name": "The Trendsetter",
+      "description": "Cultural icon pose",
+      "expression": "cool, confident",
+      "prompt": "standing in full gear with arm sleeve and headband - cornrows braided tight, tattoos visible, the look that changed NBA fashion, street style meets league",
+      "energy": "cultural icon, trendsetter"
+    },
+    "playing-hurt": {
+      "id": "playing-hurt",
+      "name": "Playing Hurt",
+      "description": "Competing through injury",
+      "expression": "grimacing, determined",
+      "prompt": "limping but still attacking - wrapped ankle, pain visible, refusing to quit, the warrior who played through everything, heart on display",
+      "energy": "warrior spirit"
+    }
+  }
+}

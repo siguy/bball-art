@@ -1,0 +1,53 @@
+{
+  "id": "giannis-ruth",
+  "series": "court-covenant",
+  "type": "hero",
+  "player": {
+    "name": "Giannis Antetokounmpo",
+    "displayName": "The Greek Freak",
+    "poseFileId": "giannis",
+    "era": "2020s",
+    "jerseyColors": {
+      "primary": { "base": "green", "accent": "cream" },
+      "secondary": { "base": "cream", "accent": "green" }
+    },
+    "signatureMoves": ["eurostep", "dunk", "block", "transition"],
+    "physicalDescription": "6'11\" forward, impossibly long wingspan, athletic build, infectious smile, intense game face",
+    "archetype": "Immigrant who became champion through relentless work and humble heart"
+  },
+  "figure": {
+    "name": "Ruth",
+    "displayName": "Ruth",
+    "poseFileId": "ruth",
+    "attribute": "bundle of grain",
+    "attributeDescription": "sheaves of wheat from gleaning in the fields, symbol of her humble work",
+    "visualStyle": "Moabite woman, modest dress, hardworking appearance",
+    "clothing": "simple modest dress suitable for field work, head covering, practical sandals",
+    "physicalDescription": "young woman with determined eyes, strong from labor, humble bearing despite inner strength",
+    "anatomyNote": "two arms, often carrying grain or in gesture of devotion",
+    "archetype": "Foreigner who became royalty through loyalty and humble work"
+  },
+  "connection": {
+    "thematic": "Both left everything for a foreign land and earned their place through relentless work and loyalty",
+    "narrative": "From Athens street vendor to Milwaukee champion. From Moab widow to David's ancestor. Foreigners who became royalty.",
+    "relationship": "Immigrants whose loyalty and work ethic rewrote their destiny"
+  },
+  "interactions": [
+    {
+      "id": "side-by-side",
+      "description": "Standing together as outsiders who earned their place"
+    },
+    {
+      "id": "working-together",
+      "description": "Both in their element - Giannis on court, Ruth in fields"
+    },
+    {
+      "id": "triumphant",
+      "description": "Both celebrating their earned victories - trophy and family"
+    }
+  ],
+  "defaultInteraction": "side-by-side",
+  "cardVariants": ["thunder-lightning", "prizm-silver", "beam-team"],
+  "priority": 8,
+  "status": "active"
+}
