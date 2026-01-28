@@ -168,6 +168,84 @@ Dark reflective gunmetal chrome card finish. Everything has a blackened polished
 `.trim();
 
     return prompt;
+  },
+
+  /**
+   * Generate a solo character card - DARK VILLAIN EDITION
+   */
+  generateSolo(character, options = {}) {
+    const isPlayer = character.type === 'player';
+    const pose = character.pose;
+    const villainColors = { base: "black", accent: "dark crimson" };
+
+    const poseBlock = `
+=== ${isPlayer ? 'BASKETBALL LEGEND' : 'BIBLICAL FIGURE'} POSE (DARK METAL) ===
+${character.name.toUpperCase()}:
+${pose.prompt}
+
+Energy/Mood: ${pose.energy}
+`.trim();
+
+    let characterDescription;
+    if (isPlayer) {
+      characterDescription = `
+${character.name.toUpperCase()}:
+- Physical: ${character.physicalDescription}
+- Expression: MENACING - cold ruthless stare, fierce battle intensity, or intimidating glare
+- Wearing: PLAIN SOLID ${villainColors.base.toUpperCase()} basketball tank top and shorts with ${villainColors.accent.toUpperCase()} trim. COMPLETELY BLANK uniform.
+- Style: Stylized artistic rendering with DARK chrome/gunmetal metallic highlights, skin gleaming like blackened steel
+`.trim();
+    } else {
+      const figureClothing = character.clothing || `${character.visualStyle} robes and garments`;
+      characterDescription = `
+${character.name.toUpperCase()}:
+- Physical: ${character.physicalDescription}
+- Expression: FIERCE - battle rage, cruel determination, terrifying war face
+- Wearing: ${figureClothing}
+- Style: Classical figure rendered with dark metallic/black chrome accents, biblical period accurate
+- Anatomy: Exactly two arms${character.anatomyNote ? ` - ${character.anatomyNote}` : ''}
+`.trim();
+    }
+
+    const prompt = `
+A vertical premium basketball card in 3:4 aspect ratio, styled after 1997-98 Fleer Metal Universe insert set - DARK VILLAIN EDITION.
+
+=== CRITICAL REQUIREMENTS ===
+1. SINGLE CHARACTER CARD - Only ONE figure on this card
+2. ${isPlayer ? `The basketball player's jersey AND SHORTS must be COMPLETELY BLANK - solid ${villainColors.base} color only with ${villainColors.accent} trim` : 'Biblical figure in period-accurate attire'}
+3. DO NOT add any team names, NBA logos, or brand marks
+4. The figure must have exactly TWO ARMS
+5. This is STYLIZED ART for a collectible card, not a photograph
+6. VILLAIN CARD - expression should be SINISTER, MENACING, or INTIMIDATING
+
+${poseBlock}
+
+=== CHARACTER DESCRIPTION ===
+
+${characterDescription}
+
+=== COMPOSITION ===
+SOLO CARD: ${character.name} is the ONLY figure on this card.
+- Character should be CENTERED and DOMINANT
+- Show FULL BODY from head to feet - character fills 70-80% of card height
+- Leave space around the figure so the action pose has room to breathe
+- DO NOT crop at the knees or waist - we need to see the full athletic form
+
+=== BACKGROUND ===
+DARK industrial hellscape. Black chrome and burnt steel environment. Gunmetal surfaces with blood-red reflections. Rust, sparks, and molten metal dripping. Deep BLACK and CRIMSON color scheme with dark metallic sheen throughout. Apocalyptic forge aesthetic. Dark smoke and ember particles.
+
+=== TEXT ELEMENTS (render exactly as specified) ===
+TOP: Write "METAL UNIVERSE" in bold BLACK CHROME 3D metallic font with blood-red reflections. Add "DARK" in smaller crimson text below. Centered at top.
+
+LOGO: Below the title, render the provided "Court & Covenant" logo image in BRIGHT SHINY GOLD with subtle glow effect.
+
+BOTTOM: Write "${character.displayName || character.name}" in dark chrome gradient text with crimson highlights. Centered at bottom.
+
+=== FINISH ===
+Dark reflective gunmetal chrome card finish. Everything has a blackened polished metal quality with red reflections.
+`.trim();
+
+    return prompt;
   }
 };
 

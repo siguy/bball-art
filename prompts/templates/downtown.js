@@ -7,7 +7,7 @@
  * urban aesthetic, night scene with bright lights.
  */
 
-import { generatePoseBlock } from '../components/poses.js';
+import { generatePoseBlock, generateSoloPoseBlock } from '../components/poses.js';
 
 export const downtownTemplate = {
   id: "downtown",
@@ -93,6 +93,82 @@ TOP: Write "DOWNTOWN" in neon-style font - glowing letters in bright pink or blu
 LOGO: Below the title, render the provided "Court & Covenant" logo image in neon gold with glow effect. Smaller than the title.
 
 BOTTOM: Write "${player.name} & ${figure.displayName}" in clean white text with subtle neon glow. Modern premium typography.
+
+=== FINISH ===
+Glossy modern card finish with subtle holographic elements. Urban premium collectible aesthetic.
+`.trim();
+
+    return prompt;
+  },
+
+  /**
+   * Generate a solo character card (single player or figure)
+   */
+  generateSolo(character, options = {}) {
+    const isPlayer = character.type === 'player';
+    const pose = character.pose;
+    const jersey = options.jersey || { base: 'red', accent: 'white' };
+
+    const poseBlock = generateSoloPoseBlock(character.name, pose, character.type);
+
+    let characterDescription;
+    if (isPlayer) {
+      characterDescription = `
+${character.name.toUpperCase()}:
+- Physical: ${character.physicalDescription}
+- Wearing: PLAIN SOLID ${jersey.base.toUpperCase()} basketball tank top and shorts with ${jersey.accent} trim. COMPLETELY BLANK uniform.
+- Style: Stylized artistic rendering with neon lighting effects
+`.trim();
+    } else {
+      const figureClothing = character.clothing || `${character.visualStyle} robes and garments`;
+      characterDescription = `
+${character.name.toUpperCase()}:
+- Physical: ${character.physicalDescription}
+- Wearing: ${figureClothing}
+- Style: Classical artistic interpretation with urban neon aesthetic, biblical period accurate
+- Anatomy: Exactly two arms${character.anatomyNote ? ` - ${character.anatomyNote}` : ''}
+`.trim();
+    }
+
+    const prompt = `
+A vertical premium basketball card in 3:4 aspect ratio, styled after Panini Donruss Optic "Downtown" insert set.
+
+=== CRITICAL REQUIREMENTS ===
+1. SINGLE CHARACTER CARD - Only ONE figure on this card
+2. ${isPlayer ? `The basketball player's jersey AND SHORTS must be COMPLETELY BLANK - solid ${jersey.base} color only with ${jersey.accent} trim` : 'Biblical figure in period-accurate attire'}
+3. DO NOT add any team names, NBA logos, or brand marks
+4. The figure must have exactly TWO ARMS
+5. This is STYLIZED ART for a collectible card, not a photograph
+
+${poseBlock}
+
+=== CHARACTER DESCRIPTION ===
+
+${characterDescription}
+
+=== COMPOSITION ===
+SOLO CARD: ${character.name} is the ONLY figure on this card.
+- Character should be CENTERED and DOMINANT
+- Show FULL BODY from head to feet - character fills 70-80% of card height
+- Leave space around the figure so the action pose has room to breathe
+- DO NOT crop at the knees or waist - we need to see the full athletic form
+- Urban legend commanding the scene against the city skyline
+
+=== BACKGROUND ===
+Nighttime city skyline with:
+- Stylized skyscrapers and buildings in silhouette
+- Neon lights in pink, blue, purple, and orange
+- City lights twinkling in windows
+- Gradient sky from deep purple to dark blue
+- Urban atmosphere with slight fog/haze
+- The city represents their domain/kingdom
+
+=== TEXT ELEMENTS (render exactly as specified) ===
+TOP: Write "DOWNTOWN" in neon-style font - glowing letters in bright pink or blue with neon tube effect. Centered at top.
+
+LOGO: Below the title, render the provided "Court & Covenant" logo image in neon gold with glow effect.
+
+BOTTOM: Write "${character.displayName || character.name}" in clean white text with subtle neon glow. Centered at bottom.
 
 === FINISH ===
 Glossy modern card finish with subtle holographic elements. Urban premium collectible aesthetic.

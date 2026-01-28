@@ -1,0 +1,40 @@
+{
+  "id": "barkley",
+  "name": "Charles Barkley",
+  "defaultPose": "power-rebound",
+  "description": "6'6\" power forward, stocky muscular build, MVP, outspoken personality",
+  "poses": {
+    "power-rebound": {
+      "id": "power-rebound",
+      "name": "Power Rebound",
+      "description": "Ripping down a rebound with elbows out, clearing space",
+      "expression": "fierce determination, competitive fire",
+      "prompt": "grabbing rebound with both hands above head - elbows out wide clearing space, stocky powerful body coiled, feet spread for balance, fierce expression, muscles tensed, about to outlet pass",
+      "energy": "dominant, physical"
+    },
+    "coast-to-coast": {
+      "id": "coast-to-coast",
+      "name": "Coast to Coast",
+      "description": "Signature one-man fast break",
+      "expression": "determined, unstoppable",
+      "prompt": "sprinting full speed dribbling with one hand - stocky body low to ground, powerful legs churning, eyes on basket, defender trailing hopelessly, about to rise for powerful dunk",
+      "energy": "explosive, unstoppable"
+    },
+    "turnaround-jumper": {
+      "id": "turnaround-jumper",
+      "name": "Turnaround Jumper",
+      "description": "Post move turnaround shot",
+      "expression": "focused, confident",
+      "prompt": "executing turnaround jumper from post - back to defender, rotating on pivot foot, releasing high-arcing shot, perfect form despite stocky build, confident smirk",
+      "energy": "skilled, crafty"
+    },
+    "celebration": {
+      "id": "celebration",
+      "name": "Celebration",
+      "description": "Classic Barkley celebration",
+      "expression": "joy, satisfaction",
+      "prompt": "pumping fist in celebration - mouth open in victory yell, stocky frame animated with joy, pointing at crowd, pure competitive satisfaction",
+      "energy": "triumphant, entertaining"
+    }
+  }
+}

@@ -38,18 +38,20 @@ const EXPORT_OUTPUT_DIR = join(ROOT, 'output/exports');
 
 /**
  * Scan output directory and build manifest
+ * Includes both pairing cards and solo cards
  */
 function buildManifest() {
   const cardsDir = join(ROOT, 'output/cards');
   const cards = [];
 
   if (!existsSync(cardsDir)) {
-    return { cards: [], pairings: [], templates: [], generated: new Date().toISOString() };
+    return { cards: [], pairings: [], templates: [], soloCharacters: [], generated: new Date().toISOString() };
   }
 
+  // Scan pairing cards
   const pairingDirs = readdirSync(cardsDir).filter(f => {
     const stat = statSync(join(cardsDir, f));
-    return stat.isDirectory();
+    return stat.isDirectory() && f !== 'solo';
   });
 
   for (const pairingId of pairingDirs) {
@@ -93,6 +95,66 @@ function buildManifest() {
         promptPath: existsSync(promptPath) ? `/cards/${pairingId}/${promptFile}` : null,
         prompt,
         size: stat.size,
+        mode: 'pairing'
+      });
+    }
+  }
+
+  // Scan solo cards (directories named solo-player-* or solo-figure-*)
+  const soloCharacters = [];
+  const soloDirs = readdirSync(cardsDir).filter(f => {
+    if (!f.startsWith('solo-')) return false;
+    const stat = statSync(join(cardsDir, f));
+    return stat.isDirectory();
+  });
+
+  for (const soloDir of soloDirs) {
+    // Parse directory name: solo-player-{id} or solo-figure-{id}
+    const soloMatch = soloDir.match(/^solo-(player|figure)-(.+)$/);
+    if (!soloMatch) continue;
+
+    const [, characterType, characterId] = soloMatch;
+    const characterDir = join(cardsDir, soloDir);
+
+    const files = readdirSync(characterDir).filter(f =>
+      f.endsWith('.png') || f.endsWith('.jpeg') || f.endsWith('.jpg')
+    );
+
+    if (files.length > 0) {
+      // Track unique solo characters
+      if (!soloCharacters.some(c => c.type === characterType && c.id === characterId)) {
+        soloCharacters.push({ type: characterType, id: characterId });
+      }
+    }
+
+    for (const file of files) {
+      const match = file.match(/^(.+)-(\d{4}-\d{2}-\d{2}T\d{2}-\d{2}-\d{2})\.(png|jpe?g)$/);
+      if (!match) continue;
+
+      const [, template, timestamp] = match;
+      const promptFile = file.replace(/\.(png|jpe?g)$/, '-prompt.txt');
+      const promptPath = join(characterDir, promptFile);
+
+      let prompt = '';
+      if (existsSync(promptPath)) {
+        prompt = readFileSync(promptPath, 'utf-8');
+      }
+
+      const stat = statSync(join(characterDir, file));
+
+      cards.push({
+        id: `solo-${characterType}-${characterId}-${template}-${timestamp}`,
+        characterId,
+        characterType,
+        template,
+        timestamp: timestamp.replace(/-/g, ':').replace('T', ' ').slice(0, 19),
+        isoTimestamp: timestamp,
+        filename: file,
+        path: `/cards/${soloDir}/${file}`,
+        promptPath: existsSync(promptPath) ? `/cards/${soloDir}/${promptFile}` : null,
+        prompt,
+        size: stat.size,
+        mode: 'solo'
       });
     }
   }
@@ -101,15 +163,16 @@ function buildManifest() {
   cards.sort((a, b) => b.isoTimestamp.localeCompare(a.isoTimestamp));
 
   // Extract unique pairings and templates
-  const pairings = [...new Set(cards.map(c => c.pairingId))].sort();
+  const pairings = [...new Set(cards.filter(c => c.pairingId).map(c => c.pairingId))].sort();
   const templates = [...new Set(cards.map(c => c.template))].sort();
-  const interactions = [...new Set(cards.map(c => c.interaction))].sort();
+  const interactions = [...new Set(cards.filter(c => c.interaction).map(c => c.interaction))].sort();
 
   const manifest = {
     cards,
     pairings,
     templates,
     interactions,
+    soloCharacters,
     totalCards: cards.length,
     generated: new Date().toISOString()
   };
@@ -807,6 +870,8 @@ app.post('/api/buffer/post', async (req, res) => {
 
 const POSES_PLAYERS_DIR = join(ROOT, 'data/poses/players');
 const POSES_FIGURES_DIR = join(ROOT, 'data/poses/figures');
+const CHARACTERS_PLAYERS_DIR = join(ROOT, 'data/characters/players');
+const CHARACTERS_FIGURES_DIR = join(ROOT, 'data/characters/figures');
 const TEMPLATES_META_PATH = join(ROOT, 'data/templates-meta.json');
 
 /**
@@ -1101,6 +1166,252 @@ app.post('/api/generate-from-prompt', async (req, res) => {
     }
   } catch (err) {
     console.error('Generate from prompt error:', err);
+    res.status(500).json({ success: false, error: err.message });
+  }
+});
+
+// ========================================
+// SOLO MODE API ENDPOINTS
+// ========================================
+
+const PAIRINGS_DIR = join(ROOT, 'data/series/court-covenant/pairings');
+
+/**
+ * Get all unique players with their metadata
+ * Extracts players from pairings, deduplicating by poseFileId
+ */
+app.get('/api/characters/players', (req, res) => {
+  try {
+    const players = new Map();
+
+    // First, load standalone character files (these take priority)
+    if (existsSync(CHARACTERS_PLAYERS_DIR)) {
+      const files = readdirSync(CHARACTERS_PLAYERS_DIR).filter(f => f.endsWith('.json'));
+      for (const file of files) {
+        const player = JSON.parse(readFileSync(join(CHARACTERS_PLAYERS_DIR, file), 'utf-8'));
+        const poseFileId = player.poseFileId || player.id;
+
+        // Check if pose file exists and count poses
+        const poseFilePath = join(POSES_PLAYERS_DIR, `${poseFileId}.json`);
+        let poseCount = 0;
+        let hasHairColors = false;
+
+        if (existsSync(poseFilePath)) {
+          const poseData = JSON.parse(readFileSync(poseFilePath, 'utf-8'));
+          poseCount = Object.keys(poseData.poses || {}).length;
+          hasHairColors = !!(poseData.hairColors && Object.keys(poseData.hairColors).length > 0);
+        }
+
+        players.set(poseFileId, {
+          id: poseFileId,
+          name: player.name,
+          displayName: player.displayName || player.name,
+          era: player.era,
+          physicalDescription: player.physicalDescription,
+          poseCount,
+          hasHairColors,
+          standalone: true
+        });
+      }
+    }
+
+    // Then, load from pairings (only if not already present from standalone)
+    if (existsSync(PAIRINGS_DIR)) {
+      const files = readdirSync(PAIRINGS_DIR).filter(f => f.endsWith('.json'));
+      for (const file of files) {
+        const pairing = JSON.parse(readFileSync(join(PAIRINGS_DIR, file), 'utf-8'));
+        const player = pairing.player;
+        const poseFileId = player.poseFileId;
+
+        if (poseFileId && !players.has(poseFileId)) {
+          // Check if pose file exists and count poses
+          const poseFilePath = join(POSES_PLAYERS_DIR, `${poseFileId}.json`);
+          let poseCount = 0;
+          let hasHairColors = false;
+
+          if (existsSync(poseFilePath)) {
+            const poseData = JSON.parse(readFileSync(poseFilePath, 'utf-8'));
+            poseCount = Object.keys(poseData.poses || {}).length;
+            hasHairColors = !!(poseData.hairColors && Object.keys(poseData.hairColors).length > 0);
+          }
+
+          players.set(poseFileId, {
+            id: poseFileId,
+            name: player.name,
+            displayName: player.displayName || player.name,
+            era: player.era,
+            physicalDescription: player.physicalDescription,
+            poseCount,
+            hasHairColors,
+            standalone: false
+          });
+        }
+      }
+    }
+
+    res.json(Array.from(players.values()).sort((a, b) => a.name.localeCompare(b.name)));
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+/**
+ * Get all unique figures with their metadata
+ * Extracts figures from pairings, deduplicating by poseFileId
+ */
+app.get('/api/characters/figures', (req, res) => {
+  try {
+    const figures = new Map();
+
+    // First, load standalone character files (these take priority)
+    if (existsSync(CHARACTERS_FIGURES_DIR)) {
+      const files = readdirSync(CHARACTERS_FIGURES_DIR).filter(f => f.endsWith('.json'));
+      for (const file of files) {
+        const figure = JSON.parse(readFileSync(join(CHARACTERS_FIGURES_DIR, file), 'utf-8'));
+        const poseFileId = figure.poseFileId || figure.id;
+
+        // Check if pose file exists and count poses
+        const poseFilePath = join(POSES_FIGURES_DIR, `${poseFileId}.json`);
+        let poseCount = 0;
+
+        if (existsSync(poseFilePath)) {
+          const poseData = JSON.parse(readFileSync(poseFilePath, 'utf-8'));
+          poseCount = Object.keys(poseData.poses || {}).length;
+        }
+
+        figures.set(poseFileId, {
+          id: poseFileId,
+          name: figure.name,
+          displayName: figure.displayName || figure.name,
+          physicalDescription: figure.physicalDescription,
+          poseCount,
+          standalone: true
+        });
+      }
+    }
+
+    // Then, load from pairings (only if not already present from standalone)
+    if (existsSync(PAIRINGS_DIR)) {
+      const files = readdirSync(PAIRINGS_DIR).filter(f => f.endsWith('.json'));
+      for (const file of files) {
+        const pairing = JSON.parse(readFileSync(join(PAIRINGS_DIR, file), 'utf-8'));
+        const figure = pairing.figure;
+        const poseFileId = figure.poseFileId;
+
+        if (poseFileId && !figures.has(poseFileId)) {
+          // Check if pose file exists and count poses
+          const poseFilePath = join(POSES_FIGURES_DIR, `${poseFileId}.json`);
+          let poseCount = 0;
+
+          if (existsSync(poseFilePath)) {
+            const poseData = JSON.parse(readFileSync(poseFilePath, 'utf-8'));
+            poseCount = Object.keys(poseData.poses || {}).length;
+          }
+
+          figures.set(poseFileId, {
+            id: poseFileId,
+            name: figure.name,
+            displayName: figure.displayName || figure.name,
+            physicalDescription: figure.physicalDescription,
+            poseCount,
+            standalone: false
+          });
+        }
+      }
+    }
+
+    res.json(Array.from(figures.values()).sort((a, b) => a.name.localeCompare(b.name)));
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+/**
+ * Generate solo character card
+ */
+app.post('/api/generate-solo', async (req, res) => {
+  const { type, characterId, template, pose, darkMode, hairColor } = req.body;
+
+  if (!type || !characterId || !template) {
+    return res.status(400).json({ success: false, error: 'Missing type, characterId, or template' });
+  }
+
+  if (!['player', 'figure'].includes(type)) {
+    return res.status(400).json({ success: false, error: 'Type must be "player" or "figure"' });
+  }
+
+  try {
+    // Build the command arguments
+    const args = [
+      join(ROOT, 'scripts/generate-solo.js'),
+      type,
+      characterId,
+      template
+    ];
+
+    // Add pose if specified
+    if (pose && pose !== 'default') {
+      args.push('--pose', pose);
+    }
+
+    // Add hair color if specified
+    if (hairColor) {
+      args.push('--hair', hairColor);
+    }
+
+    console.log(`Generating solo card: ${type} ${characterId} ${template}`);
+    console.log(`  Pose: ${pose || 'default'}`);
+    if (hairColor) console.log(`  Hair color: ${hairColor}`);
+
+    // Spawn the process
+    const child = spawn('node', args, {
+      cwd: ROOT,
+      env: process.env
+    });
+
+    let stdout = '';
+    let stderr = '';
+
+    child.stdout.on('data', (data) => {
+      stdout += data.toString();
+      console.log(data.toString());
+    });
+
+    child.stderr.on('data', (data) => {
+      stderr += data.toString();
+      console.error(data.toString());
+    });
+
+    child.on('close', (code) => {
+      if (code === 0) {
+        // Extract filename from output
+        const match = stdout.match(/File: (.+\.jpe?g)/);
+        const filename = match ? match[1].split('/').pop() : 'generated';
+
+        // Build cardId
+        const timestamp = new Date().toISOString().replace(/[:.]/g, '-').slice(0, 19);
+        const cardId = `solo-${type}-${characterId}-${template}-${timestamp}`;
+
+        res.json({
+          success: true,
+          filename,
+          cardId,
+          type,
+          characterId,
+          template,
+          pose: pose || 'default',
+          output: stdout
+        });
+      } else {
+        res.json({ success: false, error: stderr || 'Generation failed', output: stdout });
+      }
+    });
+
+    child.on('error', (err) => {
+      res.status(500).json({ success: false, error: err.message });
+    });
+
+  } catch (err) {
     res.status(500).json({ success: false, error: err.message });
   }
 });

@@ -10,7 +10,7 @@
  * - Interaction-First Architecture (prevents three-arm problem)
  */
 
-import { generatePoseBlock } from '../components/poses.js';
+import { generatePoseBlock, generateSoloPoseBlock } from '../components/poses.js';
 
 export const thunderLightningTemplate = {
   id: "thunder-lightning",
@@ -95,6 +95,83 @@ TOP: Write "THUNDER & LIGHTNING" in bold, white, 1990s-style sans-serif font wit
 LOGO: Below the title, render the provided "Court & Covenant" logo image SMALL (about 1/3 the width of the title) in BRIGHT SHINY GOLD with glow effect.
 
 BOTTOM: Write "${player.name} & ${figure.displayName}" in silver text with subtle metallic shine. Clean 90s sports card typography, not overly chrome or exaggerated.
+
+=== FINISH ===
+High-gloss refractor finish with holographic light-bending effect. Premium 1990s insert card feel.
+`.trim();
+
+    return prompt;
+  },
+
+  /**
+   * Generate a solo character card (single player or figure)
+   * @param {object} character - Character data { type, name, physicalDescription, pose, ... }
+   * @param {object} options - { darkMode, hairColor, jersey }
+   */
+  generateSolo(character, options = {}) {
+    const isPlayer = character.type === 'player';
+    const pose = character.pose;
+
+    // Generate the pose block
+    const poseBlock = generateSoloPoseBlock(character.name, pose, character.type);
+
+    // Jersey colors for players
+    const jersey = options.jersey || { base: 'red', accent: 'white' };
+
+    // Character description section
+    let characterDescription;
+    if (isPlayer) {
+      characterDescription = `
+${character.name.toUpperCase()}:
+- Physical: ${character.physicalDescription}
+- Wearing: PLAIN SOLID ${jersey.base.toUpperCase()} basketball tank top and shorts with ${jersey.accent} trim. The uniform is COMPLETELY BLANK - solid color fabric only. NO logos, NO diamonds, NO symbols of any kind.
+- Style: Stylized artistic rendering, recognizable likeness but NOT photorealistic
+`.trim();
+    } else {
+      const figureClothing = character.clothing || `${character.visualStyle} robes and garments`;
+      characterDescription = `
+${character.name.toUpperCase()}:
+- Physical: ${character.physicalDescription}
+- Wearing: ${figureClothing}
+- Style: Classical artistic interpretation, biblical period accurate
+- Anatomy: Exactly two arms${character.anatomyNote ? ` - ${character.anatomyNote}` : ''}
+`.trim();
+    }
+
+    const prompt = `
+A vertical premium basketball card in 3:4 aspect ratio, styled after 1993-94 Fleer Ultra "Thunder & Lightning" insert set.
+
+=== CRITICAL REQUIREMENTS ===
+1. SINGLE CHARACTER CARD - Only ONE figure on this card
+2. ${isPlayer ? `The basketball player's jersey AND SHORTS must be COMPLETELY BLANK - solid ${jersey.base} color only with ${jersey.accent} trim` : 'Biblical figure in period-accurate attire'}
+3. ${isPlayer ? 'The shorts are PLAIN SOLID FABRIC - NO diamond shape, NO logo, NO emblem, NO symbol, NO design whatsoever' : 'Classical artistic interpretation'}
+4. DO NOT add any team names, NBA logos, Nike swoosh, Jordan logo, or any brand marks
+5. The figure must have exactly TWO ARMS
+6. This is STYLIZED ART for a collectible card, not a photograph
+
+${poseBlock}
+
+=== CHARACTER DESCRIPTION ===
+
+${characterDescription}
+
+=== COMPOSITION ===
+SOLO CARD: ${character.name} is the ONLY figure on this card.
+- Character should be CENTERED and DOMINANT
+- Show FULL BODY from head to feet - character fills 70-80% of card height
+- Leave space around the figure so the action pose has room to breathe
+- DO NOT crop at the knees or waist - we need to see the full athletic form
+- Dynamic pose with the character as the dominant visual element
+
+=== BACKGROUND ===
+Muted electric gradient of deep purple and blue, with subtle nebulae and cosmic dust. White-hot electric lightning bolts arcing across the scene. The background should not overpower the figure.
+
+=== TEXT ELEMENTS (render exactly as specified) ===
+TOP: Write "THUNDER & LIGHTNING" in bold, white, 1990s-style sans-serif font with metallic sheen and subtle drop shadow. Centered at top.
+
+LOGO: Below the title, render the provided "Court & Covenant" logo image SMALL (about 1/3 the width of the title) in BRIGHT SHINY GOLD with glow effect.
+
+BOTTOM: Write "${character.displayName || character.name}" in silver text with subtle metallic shine. Clean 90s sports card typography, centered at bottom.
 
 === FINISH ===
 High-gloss refractor finish with holographic light-bending effect. Premium 1990s insert card feel.

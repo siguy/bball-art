@@ -1,11 +1,13 @@
 /**
  * Court & Covenant Card Generator
  * Interactive UI for generating cards with pose control
+ * Supports both pairing mode and solo character mode
  */
 
 const API_BASE = '';
 
 // State
+let mode = 'pairing'; // 'pairing' or 'solo'
 let pairings = {};
 let pairingsFull = {};
 let templatesMeta = {};
@@ -13,6 +15,13 @@ let currentPlayerPoses = null;
 let currentFigurePoses = null;
 let lastGeneratedCard = null;
 let isGenerating = false;
+
+// Solo mode state
+let players = [];
+let figures = [];
+let currentCharacterType = null;
+let currentCharacterId = null;
+let currentSoloPoses = null;
 
 // DOM Elements
 const pairingSelect = document.getElementById('pairing-select');
@@ -38,12 +47,19 @@ const templateInfo = document.getElementById('template-info');
 const playerPosePreview = document.getElementById('player-pose-preview');
 const figurePosePreview = document.getElementById('figure-pose-preview');
 
+// Solo mode DOM elements
+const characterTypeSelect = document.getElementById('character-type-select');
+const characterSelect = document.getElementById('character-select');
+const characterInfo = document.getElementById('character-info');
+
 // Initialize
 async function init() {
   await Promise.all([
     fetchPairings(),
     fetchPairingsFull(),
-    fetchTemplates()
+    fetchTemplates(),
+    fetchPlayers(),
+    fetchFigures()
   ]);
 
   populatePairings();
@@ -76,6 +92,26 @@ async function fetchTemplates() {
     templatesMeta = await res.json();
   } catch (err) {
     console.error('Failed to fetch templates:', err);
+  }
+}
+
+async function fetchPlayers() {
+  try {
+    const res = await fetch(`${API_BASE}/api/characters/players`);
+    players = await res.json();
+  } catch (err) {
+    console.error('Failed to fetch players:', err);
+    players = [];
+  }
+}
+
+async function fetchFigures() {
+  try {
+    const res = await fetch(`${API_BASE}/api/characters/figures`);
+    figures = await res.json();
+  } catch (err) {
+    console.error('Failed to fetch figures:', err);
+    figures = [];
   }
 }
 
@@ -245,6 +281,167 @@ function updatePosePreview(type) {
   }
 }
 
+// Mode Toggle Handler
+function onModeChange(e) {
+  mode = e.target.value;
+
+  // Toggle visibility of pairing vs solo controls
+  document.querySelectorAll('.pairing-only').forEach(el => {
+    el.classList.toggle('hidden', mode === 'solo');
+  });
+  document.querySelectorAll('.solo-only').forEach(el => {
+    el.classList.toggle('visible', mode === 'solo');
+    el.classList.toggle('hidden', mode === 'pairing');
+  });
+
+  // Reset selections
+  if (mode === 'solo') {
+    pairingSelect.value = '';
+    pairingInfo.textContent = '';
+    characterTypeSelect.value = '';
+    characterSelect.value = '';
+    characterSelect.disabled = true;
+    characterInfo.textContent = '';
+    currentCharacterType = null;
+    currentCharacterId = null;
+    currentSoloPoses = null;
+  } else {
+    characterTypeSelect.value = '';
+    characterSelect.value = '';
+  }
+
+  // Reset pose selects
+  playerPoseSelect.innerHTML = '<option value="default">Default</option>';
+  playerPoseSelect.disabled = true;
+  figurePoseSelect.innerHTML = '<option value="default">Default</option>';
+  figurePoseSelect.disabled = true;
+  hairColorGroup.classList.add('hidden');
+
+  updateGenerateButton();
+}
+
+// Character Type Change Handler (solo mode)
+function onCharacterTypeChange() {
+  const type = characterTypeSelect.value;
+  currentCharacterType = type;
+  currentCharacterId = null;
+  currentSoloPoses = null;
+
+  if (!type) {
+    characterSelect.innerHTML = '<option value="">Select a character...</option>';
+    characterSelect.disabled = true;
+    characterInfo.textContent = '';
+    playerPoseSelect.innerHTML = '<option value="default">Default</option>';
+    playerPoseSelect.disabled = true;
+    hairColorGroup.classList.add('hidden');
+    updateGenerateButton();
+    return;
+  }
+
+  // Populate character dropdown
+  const characterList = type === 'player' ? players : figures;
+  let html = '<option value="">Select a character...</option>';
+
+  characterList.forEach(char => {
+    const poseInfo = char.poseCount > 0 ? ` (${char.poseCount} poses)` : ' (no poses)';
+    html += `<option value="${char.id}">${char.name}${poseInfo}</option>`;
+  });
+
+  characterSelect.innerHTML = html;
+  characterSelect.disabled = false;
+  characterInfo.textContent = '';
+
+  // Hide figure pose select, show player pose select for players
+  if (type === 'player') {
+    document.querySelector('.control-group:has(#player-pose-select) label').textContent = 'Pose';
+    document.querySelector('.control-group:has(#figure-pose-select)').style.display = 'none';
+  } else {
+    document.querySelector('.control-group:has(#player-pose-select) label').textContent = 'Pose';
+    document.querySelector('.control-group:has(#figure-pose-select)').style.display = 'none';
+  }
+
+  updateGenerateButton();
+}
+
+// Character Selection Change Handler (solo mode)
+async function onCharacterChange() {
+  const characterId = characterSelect.value;
+  currentCharacterId = characterId;
+
+  if (!characterId || !currentCharacterType) {
+    characterInfo.textContent = '';
+    playerPoseSelect.innerHTML = '<option value="default">Default</option>';
+    playerPoseSelect.disabled = true;
+    hairColorGroup.classList.add('hidden');
+    updateGenerateButton();
+    return;
+  }
+
+  // Find character data
+  const characterList = currentCharacterType === 'player' ? players : figures;
+  const character = characterList.find(c => c.id === characterId);
+
+  if (character) {
+    characterInfo.innerHTML = character.physicalDescription || '';
+  }
+
+  // Load poses for this character
+  const poseFileId = characterId;
+  const endpoint = currentCharacterType === 'player'
+    ? `/api/poses/players/${poseFileId}`
+    : `/api/poses/figures/${poseFileId}`;
+
+  try {
+    const res = await fetch(`${API_BASE}${endpoint}`);
+    if (!res.ok) {
+      currentSoloPoses = null;
+      playerPoseSelect.innerHTML = '<option value="default">Default (no poses defined)</option>';
+      playerPoseSelect.disabled = true;
+      hairColorGroup.classList.add('hidden');
+      updateGenerateButton();
+      return;
+    }
+
+    currentSoloPoses = await res.json();
+
+    // Populate pose dropdown (using playerPoseSelect for solo mode)
+    const poses = currentSoloPoses.poses || {};
+    const defaultPose = currentSoloPoses.defaultPose;
+
+    let html = `<option value="default">Default (${defaultPose})</option>`;
+    Object.values(poses).forEach(pose => {
+      const isDefault = pose.id === defaultPose ? ' *' : '';
+      html += `<option value="${pose.id}">${pose.name}${isDefault}</option>`;
+    });
+
+    playerPoseSelect.innerHTML = html;
+    playerPoseSelect.disabled = false;
+
+    // Show hair colors if available (for players like Rodman)
+    if (currentCharacterType === 'player' && currentSoloPoses.hairColors) {
+      const hairColors = currentSoloPoses.hairColors;
+      if (Object.keys(hairColors).length > 0) {
+        let hairHtml = '<option value="">Default (from pose)</option>';
+        Object.entries(hairColors).forEach(([id, description]) => {
+          hairHtml += `<option value="${id}">${id} - ${description}</option>`;
+        });
+        hairColorSelect.innerHTML = hairHtml;
+        hairColorGroup.classList.remove('hidden');
+      } else {
+        hairColorGroup.classList.add('hidden');
+      }
+    } else {
+      hairColorGroup.classList.add('hidden');
+    }
+
+  } catch (err) {
+    console.error('Failed to fetch poses:', err);
+    currentSoloPoses = null;
+  }
+
+  updateGenerateButton();
+}
+
 // Event Handlers
 function onPairingChange() {
   const pairingId = pairingSelect.value;
@@ -317,12 +514,25 @@ function onDarkModeChange() {
 }
 
 function updateGenerateButton() {
-  const canGenerate = pairingSelect.value && templateSelect.value && !isGenerating;
+  let canGenerate = false;
+
+  if (mode === 'pairing') {
+    canGenerate = pairingSelect.value && templateSelect.value && !isGenerating;
+  } else {
+    // Solo mode
+    canGenerate = currentCharacterType && currentCharacterId && templateSelect.value && !isGenerating;
+  }
+
   generateBtn.disabled = !canGenerate;
 }
 
 async function onGenerate() {
   if (isGenerating) return;
+
+  if (mode === 'solo') {
+    await onGenerateSolo();
+    return;
+  }
 
   const pairingId = pairingSelect.value;
   const template = templateSelect.value;
@@ -373,6 +583,7 @@ async function onGenerate() {
 
       // Store last generated settings
       lastGeneratedCard = {
+        mode: 'pairing',
         pairingId,
         template,
         darkMode,
@@ -393,6 +604,84 @@ async function onGenerate() {
       } else {
         document.getElementById('prompt-text').value = 'Prompt not available';
       }
+      document.getElementById('prompt-content').classList.add('hidden');
+
+    } else {
+      logOutput.textContent += `\nError: ${result.error}\n`;
+      if (result.output) {
+        logOutput.textContent += result.output;
+      }
+    }
+
+  } catch (err) {
+    logOutput.textContent += `\nFetch error: ${err.message}\n`;
+  } finally {
+    isGenerating = false;
+    generateBtn.classList.remove('generating');
+    updateGenerateButton();
+  }
+}
+
+async function onGenerateSolo() {
+  const template = templateSelect.value;
+  const pose = playerPoseSelect.value;
+  const hairColor = hairColorSelect.value || null;
+
+  if (!currentCharacterType || !currentCharacterId || !template) return;
+
+  isGenerating = true;
+  generateBtn.classList.add('generating');
+  generateBtn.disabled = true;
+  regenerateBtn.classList.add('hidden');
+
+  // Show generation log
+  generationLog.classList.remove('hidden');
+  logOutput.textContent = `Starting solo generation...\nType: ${currentCharacterType}\nCharacter: ${currentCharacterId}\n`;
+
+  try {
+    const res = await fetch(`${API_BASE}/api/generate-solo`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        type: currentCharacterType,
+        characterId: currentCharacterId,
+        template,
+        pose,
+        hairColor
+      })
+    });
+
+    const result = await res.json();
+
+    if (result.success) {
+      logOutput.textContent += result.output || 'Generation complete!\n';
+
+      // Build the image path based on solo structure
+      const imagePath = `/cards/solo/${currentCharacterType}s/${currentCharacterId}/${result.filename}`;
+      resultImage.src = imagePath + '?t=' + Date.now();
+      resultViewLink.href = `/?card=${result.cardId}`;
+
+      resultPlaceholder.classList.add('hidden');
+      resultCard.classList.remove('hidden');
+      regenerateBtn.classList.remove('hidden');
+
+      // Store last generated settings
+      lastGeneratedCard = {
+        mode: 'solo',
+        characterType: currentCharacterType,
+        characterId: currentCharacterId,
+        template,
+        pose,
+        hairColor,
+        cardId: result.cardId,
+        filename: result.filename
+      };
+
+      // Reset feedback UI
+      resetFeedbackUI();
+
+      // Prompt not returned from solo generation currently
+      document.getElementById('prompt-text').value = 'Prompt not available (check output directory)';
       document.getElementById('prompt-content').classList.add('hidden');
 
     } else {
@@ -609,9 +898,19 @@ async function regenerateFromPrompt() {
 
 // Event Listeners Setup
 function setupEventListeners() {
+  // Mode toggle
+  document.querySelectorAll('input[name="mode"]').forEach(radio => {
+    radio.addEventListener('change', onModeChange);
+  });
+
+  // Pairing mode
   pairingSelect.addEventListener('change', onPairingChange);
   templateSelect.addEventListener('change', onTemplateChange);
   darkModeToggle.addEventListener('change', onDarkModeChange);
+
+  // Solo mode
+  characterTypeSelect.addEventListener('change', onCharacterTypeChange);
+  characterSelect.addEventListener('change', onCharacterChange);
 
   playerPoseSelect.addEventListener('change', () => updatePosePreview('player'));
   figurePoseSelect.addEventListener('change', () => updatePosePreview('figure'));

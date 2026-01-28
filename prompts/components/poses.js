@@ -109,6 +109,25 @@ export function getFigurePose(poseId, hasAttribute = true) {
  * @param {string} figureAttribute - Figure's attribute description
  * @param {object} customActions - Optional custom actions { playerAction, figureAction, energy }
  */
+/**
+ * Generate solo pose block for a single character
+ * Used for solo character cards (no pairing)
+ *
+ * @param {string} characterName - Character name
+ * @param {object} pose - Pose object with prompt, energy
+ * @param {string} characterType - 'player' or 'figure'
+ */
+export function generateSoloPoseBlock(characterName, pose, characterType) {
+  const typeLabel = characterType === 'player' ? 'BASKETBALL LEGEND' : 'BIBLICAL FIGURE';
+  return `
+=== ${typeLabel} POSE ===
+${characterName.toUpperCase()}:
+${pose.prompt}
+
+Energy/Mood: ${pose.energy}
+`.trim();
+}
+
 export function generatePoseBlock(poseId, playerName, figureName, figureAttribute, customActions = null) {
   // If custom actions provided, use those instead
   if (customActions && customActions.playerAction && customActions.figureAction) {
