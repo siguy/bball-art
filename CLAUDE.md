@@ -15,7 +15,7 @@ A **contemporary art project** creating collectible basketball cards that pair N
 - [x] Directory structure created
 - [x] CLAUDE.md written
 - [x] Git/GitHub initialized (https://github.com/siguy/bball-art)
-- [x] **19 pairings created** (5 original + 9 heroes + 5 villains)
+- [x] **24 pairings created** (5 original + 12 heroes + 7 villains)
 - [x] **9 card templates working** (6 hero + 3 villain variants)
 - [x] Nano Banana Pro client working (`gemini-3-pro-image-preview`)
 - [x] Logo concepts generated (gold + dark versions)
@@ -27,9 +27,9 @@ A **contemporary art project** creating collectible basketball cards that pair N
 - [x] **Card Visualizer built** (local web app for review & feedback)
 - [x] **Multi-Platform Export System** (Website, Instagram, Twitter)
 - [x] **Card Generator UI** (interactive control panel for card generation)
+- [x] **Solo Character Mode** (generate single-character cards)
 
 ### In Progress
-- [ ] Merging villain-template-refactor branch
 - [ ] Testing pose system with all pairings
 - [ ] Buffer API integration for social scheduling
 
@@ -60,10 +60,13 @@ A **contemporary art project** creating collectible basketball cards that pair N
 
 ```
 data/
-├── series/{series-name}/pairings/  # Player-figure pairings (with poseFileId and type)
+├── series/{series-name}/pairings/  # Player-figure pairings (+ NEW-PAIRINGS.md guide)
 ├── poses/
 │   ├── players/                    # Character-specific player poses
 │   └── figures/                    # Character-specific figure poses
+├── characters/                     # Standalone characters (not in pairings)
+│   ├── players/                    # Solo player definitions
+│   └── figures/                    # Solo figure definitions
 ├── quotes/
 │   └── figures/                    # Biblical quotes by character
 ├── eras/                           # 1970s-2020s definitions
@@ -72,7 +75,8 @@ data/
 └── templates-meta.json             # Template metadata for Generator UI
 
 docs/
-└── generator-ui.md                 # Generator UI documentation
+├── generator-ui.md                 # Generator UI documentation
+└── solo-characters.md              # Solo character creation guide
 
 prompts/
 ├── components/    # Modular pieces (backgrounds, poses, finishes)
@@ -80,10 +84,13 @@ prompts/
 └── generated/     # Ready-to-use prompts
 
 output/
-├── cards/         # Generated images (organized by pairing)
-├── motion/        # Video files
-├── test-runs/     # Style testing & generation log
-└── social/        # Platform-ready assets
+├── cards/                           # Generated images
+│   ├── {pairing-id}/                # Pairing cards (e.g., jordan-moses/)
+│   ├── solo-player-{id}/            # Solo player cards (e.g., solo-player-jordan/)
+│   └── solo-figure-{id}/            # Solo figure cards (e.g., solo-figure-moses/)
+├── motion/                          # Video files
+├── test-runs/                       # Style testing & generation log
+└── social/                          # Platform-ready assets
 
 visualizer/        # Card review & feedback system
 ├── server.js      # Express API server
@@ -91,7 +98,7 @@ visualizer/        # Card review & feedback system
 └── data/          # Manifest & feedback JSON
 ```
 
-## All 19 Pairings
+## All 24 Pairings
 
 ### Original 5 (Priority)
 | Player | Figure | Era | Connection |
@@ -102,7 +109,7 @@ visualizer/        # Card review & feedback system
 | Kobe Bryant | Joshua | 2000s | Succeeded Moses, conquered the land |
 | Stephen Curry | Elijah | 2010s | Brought fire from heaven, changed everything |
 
-### Heroes (9)
+### Heroes (12)
 | Player | Figure | Era | Connection |
 |--------|--------|-----|------------|
 | Magic Johnson | Joseph | 80s | Visionary, dreamer, elevated everyone |
@@ -114,8 +121,11 @@ visualizer/        # Card review & feedback system
 | Kevin Durant | Jonathan | 2010s | Elite talent, complicated loyalties |
 | Nikola Jokic | Isaac | 2020s | Patient, underestimated, blessed |
 | Shai Gilgeous-Alexander | Daniel | 2020s | Young, composed under pressure |
+| Tim Duncan | Bezalel | 2000s | Master craftsmen - fundamentals over flash |
+| Hakeem Olajuwon | Abraham | 90s | Called from other lands, fathers of dynasties |
+| Bill Russell | Nehemiah | 60s | Built/rebuilt under oppression, ultimate winners |
 
-### Villains/Antagonists (5)
+### Villains/Antagonists (7)
 | Player | Figure | Era | Connection |
 |--------|--------|-----|------------|
 | Isiah Thomas | Pharaoh | 80s | Ruled with iron fist |
@@ -123,6 +133,12 @@ visualizer/        # Card review & feedback system
 | Dennis Rodman | Esau | 90s | Wild, impulsive, lived by his own rules |
 | Draymond Green | Joab | 2010s | Did the dirty work |
 | Larry Bird | Jacob | 80s | Strategic, wrestled his way to greatness |
+| Karl Malone | Balaam | 90s | Couldn't deliver when it mattered most |
+| Patrick Ewing | Saul | 90s | Wore the crown, watched someone else take it |
+
+### Adding New Pairings
+
+See `data/series/court-covenant/pairings/NEW-PAIRINGS.md` for the full guide on researching, creating, and testing new pairings.
 
 ## Card Templates (9)
 
@@ -158,7 +174,7 @@ visualizer/        # Card review & feedback system
 
 Per-character signature poses that can be swapped into any template. Each character has their own JSON file with multiple iconic poses.
 
-### Complete Inventory (19 players, 19 figures)
+### Complete Inventory (24 players, 24 figures)
 
 **Players** (`data/poses/players/`):
 | File | Player | Poses |
@@ -182,6 +198,11 @@ Per-character signature poses that can be swapped into any template. Each charac
 | draymond.json | Draymond Green | and-one-scream, defensive-anchor, technical-argument, dirty-work-dive, emotional-leader, triple-single-impact |
 | bird.json | Larry Bird | trash-talk-three, left-hand-game, clutch-shot, cold-stare, no-look-pass, championship-celebration |
 | rodman.json | Dennis Rodman | diving-loose-ball, tipping-rebound, defensive-clamp, wild-celebration, headbutt-ref, championship-rings |
+| duncan.json | Tim Duncan | bank-shot, post-defense, stone-face, championship-stoic, fundamental-footwork, high-five-teammates |
+| hakeem.json | Hakeem Olajuwon | dream-shake, block-swat, up-and-under, championship-embrace, prayer-focus, fadeaway-touch |
+| russell.json | Bill Russell | championship-banners, block-rejection, outlet-pass, player-coach, civil-rights-stance, defensive-positioning |
+| malone.json | Karl Malone | elbow-jumper, pick-and-roll, power-dunk, missed-free-throw, muscular-pose, finals-frustration |
+| ewing.json | Patrick Ewing | fadeaway-baseline, finger-roll, intimidation-stare, blocked-layup, sweat-warrior, watching-jordan |
 
 **Figures** (`data/poses/figures/`):
 | File | Figure | Poses |
@@ -205,6 +226,11 @@ Per-character signature poses that can be swapped into any template. Each charac
 | haman.json | Haman | plotting-destruction, dice-casting, gallows-building, parade-humiliation, begging-esther, final-hanging |
 | joab.json | Joab | battlefield-commander, dirty-deed, whispering-counsel, loyal-soldier, ruthless-strike, army-general |
 | jacob.json | Jacob | wrestling-angel, stealing-blessing, ladder-dream, stone-pillow, reunion-with-esau, deceiving-father |
+| bezalel.json | Bezalel | crafting-ark, measuring-precisely, hands-on-materials, teaching-apprentice, divine-inspiration, examining-work |
+| abraham.json | Abraham | journeying-forth, covenant-stars, welcoming-visitors, here-i-am, father-patriarch, binding-isaac |
+| nehemiah.json | Nehemiah | building-wall, sword-and-trowel, rallying-workers, refusing-to-descend, wall-complete, surveying-ruins |
+| balaam.json | Balaam | failed-curse, donkey-confrontation, overlooking-israel, receiving-payment, forced-blessing, seeing-angel |
+| saul.json | Saul | tormented-throne, throwing-spear, crowned-king, consulting-witch, fallen-gilboa, watching-david |
 
 ### Pose File Format
 ```json
@@ -249,7 +275,7 @@ This prevents ambiguity with similar names (multiple Chrises, Mikes, etc.).
 
 Biblical quotes (Hebrew + English) organized by character, linked to poses via `quoteId`.
 
-### Complete Inventory (19 figures)
+### Complete Inventory (24 figures)
 
 | File | Figure | Key Quotes |
 |------|--------|------------|
@@ -272,6 +298,11 @@ Biblical quotes (Hebrew + English) organized by character, linked to poses via `
 | haman.json | Haman | ten-thousand-talents, what-shall-be-done, gallows-prepared, fallen-before-jews, reverse-decree |
 | joab.json | Joab | for-the-king, why-count-israel, blood-on-his-head, three-darts, the-horn-is-sounded |
 | jacob.json | Jacob | i-am-esau, stairway-to-heaven, wrestled-with-god, give-me-blessing, smooth-man-hairy |
+| bezalel.json | Bezalel | filled-with-spirit, wisdom-understanding, all-manner-of-work, willing-heart, skillful-hands |
+| abraham.json | Abraham | lech-lecha, father-of-nations, hineni, count-the-stars, blessing-all-nations |
+| nehemiah.json | Nehemiah | let-us-build, great-work, fifty-two-days, sword-and-trowel, why-sad-face |
+| balaam.json | Balaam | cannot-curse, mah-tovu, donkey-speaks, what-god-speaks, star-from-jacob |
+| saul.json | Saul | head-and-shoulders, thousands-tens-thousands, how-mighty-fallen, evil-spirit, spared-agag |
 
 ### Quote Format
 ```json
@@ -426,13 +457,21 @@ Interactive control panel for generating cards with full pose control.
 **Access:** `http://localhost:3333/generator.html` or click "Generator" in navigation.
 
 ### Features
-- **Pairing Selection** - Grouped by Heroes/Villains, sorted by priority
-- **Template Selection** - All 6 templates with era badges and dark mode indicators
+- **Mode Toggle** - Switch between Pairing mode and Solo Character mode
+- **Pairing Selection** - Grouped by Heroes/Villains, sorted by priority (pairing mode)
+- **Character Selection** - Choose NBA Player or Biblical Figure (solo mode)
+- **Template Selection** - All 9 templates with era badges and dark mode indicators
 - **Dark Mode Toggle** - Auto-detects villain pairings (shows "AUTO" badge), can override
 - **Pose Selection** - Player and figure poses loaded from pose database
 - **Hair Color** - Shows for Rodman only, override default hair color
 - **Regenerate** - Create new card with same settings
 - **Quick Pose Swap** - Try different poses without changing other settings
+
+### Solo Mode
+- Generate single-character cards (NBA player OR biblical figure)
+- Character centered at ~80% card height
+- All 9 templates support solo mode
+- Same pose database as pairing mode
 
 ### Keyboard Shortcuts
 | Shortcut | Action |
@@ -476,6 +515,32 @@ node scripts/generate-with-poses.js shaq-goliath beam-team-shadow \
 node scripts/generate-with-poses.js rodman-esau thunder-lightning-dark \
   --player-pose diving-loose-ball --figure-pose drawing-bow --hair green
 
+# --- SOLO MODE COMMANDS ---
+
+# Generate solo player card
+node scripts/generate-solo.js player jordan thunder-lightning --pose tongue-out-dunk
+
+# Generate solo figure card
+node scripts/generate-solo.js figure moses beam-team --pose parting-sea
+
+# Solo card with hair color (Rodman)
+node scripts/generate-solo.js player rodman metal-universe-dark --pose diving-loose-ball --hair green
+
+# List poses for a character
+node scripts/generate-solo.js player curry --list-poses
+node scripts/generate-solo.js figure elijah --list-poses
+
+# Dry run
+node scripts/generate-solo.js figure david kaboom --pose slinging-stone --dry-run
+
+# --- TESTING ---
+
+# Run solo character tests (CLI only)
+node scripts/test-solo-characters.js --cli
+
+# Run all tests (requires server running)
+node scripts/test-solo-characters.js
+
 # Validate JSON data
 node -e "require('./data/series/court-covenant/pairings/jordan-moses.json')"
 ```
@@ -492,12 +557,16 @@ BUFFER_ACCESS_TOKEN=your-buffer-api-token  # For social scheduling
 ## Common Tasks
 
 ### Adding a New Pairing
-1. Create `data/series/court-covenant/pairings/{player}-{figure}.json`
-2. Add `poseFileId` to both player and figure objects
-3. Run prompt generator
-4. Test generate one card
-5. Rate output, iterate if needed
-6. Generate variants
+
+**Full guide:** `data/series/court-covenant/pairings/NEW-PAIRINGS.md`
+
+1. Research player (stats, moves, personality) and figure (story, quotes)
+2. Create 4 files: pairing JSON, player poses, figure poses, figure quotes
+3. Validate: `node -e "require('./data/series/court-covenant/pairings/{pairing}.json')"`
+4. Test poses: `node scripts/generate-with-poses.js {pairing} --list-poses`
+5. Dry run: `node scripts/generate-with-poses.js {pairing} {template} --dry-run`
+6. Generate via Generator UI, review, iterate
+7. Update CLAUDE.md inventory tables
 
 ### Adding Character Poses
 1. Create `data/poses/players/{poseFileId}.json` or `data/poses/figures/{poseFileId}.json`
@@ -510,6 +579,24 @@ BUFFER_ACCESS_TOKEN=your-buffer-api-token  # For social scheduling
 1. Create or edit `data/quotes/figures/{figureId}.json`
 2. Add quotes with `source`, `context`, `hebrew`, `english`, `mood`
 3. Reference from poses via `quoteId`
+
+### Adding a Standalone Solo Character
+
+**Full guide:** `docs/solo-characters.md`
+
+For characters that don't exist in any pairing:
+
+1. Create standalone character file:
+   - Players: `data/characters/players/{id}.json`
+   - Figures: `data/characters/figures/{id}.json`
+2. Create pose file: `data/poses/{players|figures}/{id}.json`
+3. For figures: create quotes file: `data/quotes/figures/{id}.json`
+4. Validate: `node -e "require('./data/characters/{type}s/{id}.json')"`
+5. Test: `node scripts/generate-solo.js {type} {id} --list-poses`
+6. Dry run: `node scripts/generate-solo.js {type} {id} {template} --dry-run`
+7. Generate via Generator UI (Solo mode), review, iterate
+
+Note: Characters already in pairings can use solo mode without a standalone file.
 
 ### Adding a New Card Style
 1. Create `data/card-types/{style-name}.json`

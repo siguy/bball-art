@@ -1,0 +1,53 @@
+{
+  "id": "duncan-bezalel",
+  "series": "court-covenant",
+  "type": "hero",
+  "player": {
+    "name": "Tim Duncan",
+    "displayName": "The Big Fundamental",
+    "poseFileId": "duncan",
+    "era": "2000s",
+    "jerseyColors": {
+      "primary": { "base": "black", "accent": "silver" },
+      "secondary": { "base": "silver", "accent": "black" }
+    },
+    "signatureMoves": ["bank shot", "post defense", "drop step", "up-and-under"],
+    "physicalDescription": "6'11\" power forward, long arms, calm intelligent eyes, emotionless expression, lean muscular build",
+    "archetype": "The Big Fundamental, quiet excellence through mastery of basics"
+  },
+  "figure": {
+    "name": "Bezalel",
+    "displayName": "Bezalel",
+    "poseFileId": "bezalel",
+    "attribute": "craftsman's tools",
+    "attributeDescription": "ancient woodworking and metalworking tools - chisel, measuring rod, hammer - instruments of sacred creation",
+    "visualStyle": "master artisan, ancient Israelite craftsman",
+    "clothing": "simple artisan's tunic in earth tones, leather apron, sleeves rolled up for work",
+    "physicalDescription": "strong capable hands, focused intelligent eyes, calm demeanor, practical build of a working craftsman",
+    "anatomyNote": "two arms, hands often holding tools or materials",
+    "archetype": "The Master Craftsman, divine skill through fundamental excellence"
+  },
+  "connection": {
+    "thematic": "Both achieved greatness through mastery of fundamentals, not flash or showmanship",
+    "narrative": "The Tabernacle required precision. So did the Spurs dynasty.",
+    "relationship": "Master craftsmen who let their work speak for itself"
+  },
+  "interactions": [
+    {
+      "id": "side-by-side",
+      "description": "Standing as equals, both focused on their craft - Duncan with basketball, Bezalel with sacred vessel"
+    },
+    {
+      "id": "simultaneous-action",
+      "description": "Duncan releasing bank shot while Bezalel hammers gold - parallel mastery"
+    },
+    {
+      "id": "back-to-back",
+      "description": "Standing back-to-back, quiet confidence, no need for words"
+    }
+  ],
+  "defaultInteraction": "side-by-side",
+  "cardVariants": ["metal-universe", "prizm-silver"],
+  "priority": 6,
+  "status": "active"
+}

@@ -1,0 +1,56 @@
+{
+  "id": "bezalel",
+  "name": "Bezalel",
+  "aliases": ["Betzalel", "Bezalel ben Uri"],
+  "quotes": {
+    "called-by-name": {
+      "source": "Exodus 31:2",
+      "context": "God singles out Bezalel for the sacred work",
+      "hebrew": "רְאֵה קָרָאתִי בְשֵׁם בְּצַלְאֵל",
+      "english": "See, I have singled out by name Bezalel",
+      "mood": "divine selection, chosen for purpose"
+    },
+    "filled-with-spirit": {
+      "source": "Exodus 31:3",
+      "context": "God fills Bezalel with divine skill",
+      "hebrew": "וָאֲמַלֵּא אֹתוֹ רוּחַ אֱלֹהִים בְּחָכְמָה וּבִתְבוּנָה וּבְדַעַת",
+      "english": "I have endowed him with a divine spirit of skill, ability, and knowledge",
+      "mood": "divine inspiration, complete mastery"
+    },
+    "every-kind-of-craft": {
+      "source": "Exodus 31:5",
+      "context": "The breadth of Bezalel's abilities",
+      "hebrew": "לַעֲשׂוֹת בְּכָל־מְלָאכָה",
+      "english": "To work in every kind of craft",
+      "mood": "versatility, complete skill"
+    },
+    "gold-silver-copper": {
+      "source": "Exodus 31:4",
+      "context": "Bezalel's work with precious materials",
+      "hebrew": "לַעֲשֹׂת בַּזָּהָב וּבַכֶּסֶף וּבַנְּחֹשֶׁת",
+      "english": "To make designs for work in gold, silver, and copper",
+      "mood": "precision craftsmanship, valuable work"
+    },
+    "wisdom-of-heart": {
+      "source": "Exodus 35:35",
+      "context": "The complete endowment of skill",
+      "hebrew": "מִלֵּא אֹתָם חָכְמַת־לֵב",
+      "english": "He has filled them with wisdom of heart",
+      "mood": "heartfelt wisdom, intuitive mastery"
+    },
+    "ark-of-testimony": {
+      "source": "Exodus 31:7",
+      "context": "Bezalel's greatest work - the Ark",
+      "hebrew": "אֶת־הָאָרֹן לָעֵדֻת",
+      "english": "The Ark for the Pact",
+      "mood": "sacred responsibility, legacy work"
+    },
+    "to-give-directions": {
+      "source": "Exodus 35:34",
+      "context": "Bezalel teaches others his craft",
+      "hebrew": "וּלְהוֹרֹת נָתַן בְּלִבּוֹ",
+      "english": "And to give directions, He put it in his heart",
+      "mood": "teaching, passing on wisdom"
+    }
+  }
+}

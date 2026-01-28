@@ -1,0 +1,56 @@
+{
+  "id": "malone",
+  "name": "Karl Malone",
+  "defaultPose": "elbow-jumper",
+  "description": "6'9\" power forward, 'The Mailman'. 2nd all-time scorer (36,928 pts). 2x MVP. Legendary pick-and-roll with Stockton. Incredibly muscular, reliable scorer. But 0-3 in Finals, including missed crucial free throws. Always delivered... except when it mattered most.",
+  "poses": {
+    "elbow-jumper": {
+      "id": "elbow-jumper",
+      "name": "Elbow Jumper",
+      "description": "Signature mid-range shot from the elbow",
+      "expression": "mechanical precision, automatic",
+      "prompt": "releasing mid-range jumper from the elbow - textbook form, muscular arms extended, the automatic shot that made him second all-time scorer, reliable as clockwork",
+      "energy": "automatic delivery, reliable scorer"
+    },
+    "pick-and-roll": {
+      "id": "pick-and-roll",
+      "name": "Pick and Roll",
+      "description": "Rolling to basket after Stockton screen",
+      "expression": "powerful purpose, freight train",
+      "prompt": "rolling hard to basket after setting screen - muscular body in motion, hands ready for pass, the unstoppable pick-and-roll that terrorized the league, partnership perfected",
+      "energy": "unstoppable roll, freight train"
+    },
+    "power-dunk": {
+      "id": "power-dunk",
+      "name": "Power Dunk",
+      "description": "Ferocious two-handed slam",
+      "expression": "primal power, physical dominance",
+      "prompt": "throwing down ferocious two-handed dunk - veins popping, muscles bulging, the physical specimen destroying the rim, pure power basketball",
+      "energy": "physical dominance, power incarnate"
+    },
+    "missed-free-throw": {
+      "id": "missed-free-throw",
+      "name": "The Miss",
+      "description": "1997 Finals - missed crucial free throws with game on line",
+      "expression": "pressure cracking, the choke",
+      "prompt": "at free throw line in crucial moment - ball leaving hands with bad rotation, face showing the weight of pressure, the moment when The Mailman couldn't deliver, destiny slipping away",
+      "energy": "clutch failure, pressure breaking"
+    },
+    "muscular-pose": {
+      "id": "muscular-pose",
+      "name": "Physical Specimen",
+      "description": "The most muscular player of his era",
+      "expression": "intimidating physicality, iron body",
+      "prompt": "standing showing incredible muscular build - arms folded or flexed, the bodybuilder physique that dominated power forwards, physical intimidation personified",
+      "energy": "physical intimidation, iron man"
+    },
+    "finals-frustration": {
+      "id": "finals-frustration",
+      "name": "Finals Frustration",
+      "description": "The agony of coming up short again",
+      "expression": "anguish, so close yet so far",
+      "prompt": "showing frustration after Finals loss - head down or hands on hips, the agony of being so good but never good enough, 0-3 in the biggest moments, eternal bridesmaid",
+      "energy": "eternal runner-up, almost great"
+    }
+  }
+}

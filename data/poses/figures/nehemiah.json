@@ -1,0 +1,62 @@
+{
+  "id": "nehemiah",
+  "name": "Nehemiah",
+  "defaultPose": "building-wall",
+  "description": "Cupbearer to Persian king who returned to rebuild Jerusalem's walls. Completed the impossible in 52 days while enemies mocked. Builder, leader, and defender who refused to come down from his great work.",
+  "poses": {
+    "building-wall": {
+      "id": "building-wall",
+      "name": "Building the Wall",
+      "description": "Hands on stones, actively rebuilding Jerusalem",
+      "expression": "determined focus, hands-on leader",
+      "prompt": "actively placing stones on wall under construction - sleeves rolled up, hands on masonry, leading by example, Jerusalem's walls rising around him, the builder who worked alongside his people",
+      "energy": "hands-on builder, leading by example",
+      "quoteId": "let-us-build"
+    },
+    "sword-and-trowel": {
+      "id": "sword-and-trowel",
+      "name": "Sword and Trowel",
+      "description": "Building with weapon ready - worker and warrior",
+      "expression": "vigilant determination, ready for anything",
+      "prompt": "working on wall with sword strapped to side - trowel in one hand, weapon ready, building while prepared to defend, the dual role of builder and warrior under threat",
+      "energy": "vigilant builder, armed worker",
+      "quoteId": "sword-and-trowel"
+    },
+    "rallying-workers": {
+      "id": "rallying-workers",
+      "name": "Rallying the People",
+      "description": "Inspiring speech to the builders",
+      "expression": "inspiring leadership, calling to action",
+      "prompt": "standing before workers with arm raised rallying them - passionate speech, inspiring the discouraged, the leader who turned despair into action with words",
+      "energy": "inspiring leader, rallying cry",
+      "quoteId": "let-us-build"
+    },
+    "refusing-to-descend": {
+      "id": "refusing-to-descend",
+      "name": "Cannot Come Down",
+      "description": "Refusing to be distracted from the great work",
+      "expression": "unwavering focus, dismissing distraction",
+      "prompt": "standing firm on wall looking down at messengers below - hand raised in refusal, face showing absolute focus, refusing to be pulled away from the work, enemies' tricks rejected",
+      "energy": "unshakeable focus, rejecting distraction",
+      "quoteId": "great-work"
+    },
+    "wall-complete": {
+      "id": "wall-complete",
+      "name": "Wall Finished",
+      "description": "The moment of completion - 52 days",
+      "expression": "triumphant satisfaction, impossible achieved",
+      "prompt": "standing before completed wall with quiet triumph - hand touching finished stonework, the impossible accomplished in 52 days, enemies silenced, Jerusalem restored",
+      "energy": "triumphant completion, mission accomplished",
+      "quoteId": "fifty-two-days"
+    },
+    "surveying-ruins": {
+      "id": "surveying-ruins",
+      "name": "Surveying the Ruins",
+      "description": "Night inspection of Jerusalem's broken walls",
+      "expression": "sorrowful assessment, planning begins",
+      "prompt": "riding through ruins at night examining broken walls - torch or moonlight revealing destruction, the leader assessing what must be done, grief turning to determination",
+      "energy": "assessing damage, planning restoration",
+      "quoteId": "why-sad-face"
+    }
+  }
+}

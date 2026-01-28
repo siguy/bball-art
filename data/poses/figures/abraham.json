@@ -1,0 +1,62 @@
+{
+  "id": "abraham",
+  "name": "Abraham",
+  "defaultPose": "journeying-forth",
+  "description": "First patriarch, father of nations. Called from Ur to Canaan, made covenant with God. Known for hospitality, faith, and the binding of Isaac. Wandering tent-dweller who became ancestor of multitudes.",
+  "poses": {
+    "journeying-forth": {
+      "id": "journeying-forth",
+      "name": "Journeying Forth",
+      "description": "Setting out on the journey from Ur - the original leap of faith",
+      "expression": "determined faith, eyes on distant horizon",
+      "prompt": "walking forward with staff in hand - robes flowing with movement, looking toward distant unseen land, leaving everything behind, the posture of faith stepping into unknown, caravan silhouette behind him",
+      "energy": "faithful journey, destiny calling",
+      "quoteId": "lech-lecha"
+    },
+    "covenant-stars": {
+      "id": "covenant-stars",
+      "name": "Counting the Stars",
+      "description": "Looking up at the night sky, receiving God's promise",
+      "expression": "awe, wonder, faith dawning",
+      "prompt": "standing beneath vast starry sky - head tilted back, arms slightly raised in wonder, countless stars visible above, the moment of receiving infinite promise, desert night surrounding him",
+      "energy": "infinite promise, cosmic wonder",
+      "quoteId": "count-the-stars"
+    },
+    "welcoming-visitors": {
+      "id": "welcoming-visitors",
+      "name": "Welcoming Visitors",
+      "description": "The hospitality of Abraham - running to greet the three angels",
+      "expression": "eager hospitality, generous welcome",
+      "prompt": "bowing in welcome with arms extended - tent visible behind, generous hospitable posture, rushing to greet visitors, the model of hospitality, joy at receiving guests",
+      "energy": "radical hospitality, generous spirit",
+      "quoteId": "blessing-to-nations"
+    },
+    "here-i-am": {
+      "id": "here-i-am",
+      "name": "Here I Am",
+      "description": "The posture of complete readiness - Hineni",
+      "expression": "total presence, faithful readiness",
+      "prompt": "standing at attention with open hands - face lifted slightly, posture of complete availability, ready for whatever is asked, the embodiment of 'Hineni' - here I am",
+      "energy": "complete readiness, faithful presence",
+      "quoteId": "hineni"
+    },
+    "father-patriarch": {
+      "id": "father-patriarch",
+      "name": "Father of Nations",
+      "description": "The patriarch in his fullness - blessing the generations",
+      "expression": "wise authority, paternal blessing",
+      "prompt": "standing as noble patriarch - long white beard, hands raised in blessing, the dignity of the father of nations, tent camp spreading behind him, embodying legacy and covenant",
+      "energy": "patriarchal blessing, dynasty founder",
+      "quoteId": "father-of-nations"
+    },
+    "binding-isaac": {
+      "id": "binding-isaac",
+      "name": "The Ultimate Test",
+      "description": "On Mount Moriah - the moment of greatest faith",
+      "expression": "anguished obedience, faith overcoming",
+      "prompt": "on mountaintop with knife raised but staying hand - the most difficult moment, face showing both obedience and relief, altar visible, the ultimate test of faith about to be resolved",
+      "energy": "faith tested, obedience triumphant",
+      "quoteId": "god-will-provide"
+    }
+  }
+}

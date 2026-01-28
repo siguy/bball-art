@@ -1,0 +1,53 @@
+{
+  "id": "hakeem-abraham",
+  "series": "court-covenant",
+  "type": "hero",
+  "player": {
+    "name": "Hakeem Olajuwon",
+    "displayName": "The Dream",
+    "poseFileId": "hakeem",
+    "era": "1990s",
+    "jerseyColors": {
+      "primary": { "base": "red", "accent": "white" },
+      "secondary": { "base": "white", "accent": "red" }
+    },
+    "signatureMoves": ["Dream Shake", "up-and-under", "block timing", "fadeaway"],
+    "physicalDescription": "7'0\" center, long graceful limbs, kind intelligent eyes, lean athletic build for a big man",
+    "archetype": "The Dream, graceful giant who dominated through footwork and faith"
+  },
+  "figure": {
+    "name": "Abraham",
+    "displayName": "Abraham",
+    "poseFileId": "abraham",
+    "attribute": "shepherd's staff",
+    "attributeDescription": "weathered wooden staff of a wandering patriarch, symbol of the journey from Ur to Canaan",
+    "visualStyle": "ancient patriarch, tent-dwelling wanderer",
+    "clothing": "flowing desert robes in earth tones, head covering for sun, simple sandals, clothing of a wealthy nomad",
+    "physicalDescription": "elderly but vigorous patriarch, long white beard, weathered sun-darkened skin, kind wise eyes that have seen visions, dignified bearing",
+    "anatomyNote": "two arms, often holding staff or raised in blessing",
+    "archetype": "Father of Nations, the first to answer God's call"
+  },
+  "connection": {
+    "thematic": "Both called from distant lands to become founders of dynasties through faith",
+    "narrative": "From Nigeria to Houston. From Ur to Canaan. Journeys of faith.",
+    "relationship": "Faithful pioneers who left everything to answer a greater calling"
+  },
+  "interactions": [
+    {
+      "id": "side-by-side",
+      "description": "Standing as fellow travelers, both far from their birthplace"
+    },
+    {
+      "id": "back-to-back",
+      "description": "Two pillars of faith, protecting what they built"
+    },
+    {
+      "id": "simultaneous-action",
+      "description": "Hakeem executing Dream Shake while Abraham journeys forth"
+    }
+  ],
+  "defaultInteraction": "side-by-side",
+  "cardVariants": ["thunder-lightning", "beam-team"],
+  "priority": 7,
+  "status": "active"
+}

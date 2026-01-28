@@ -1,0 +1,56 @@
+{
+  "id": "russell",
+  "name": "Bill Russell",
+  "defaultPose": "championship-banners",
+  "description": "6'10\" center, 11 NBA championships - most in history. 5x MVP. First Black head coach in major American sports. Civil rights pioneer who played through racism in Boston. The ultimate winner who built dynasties through defense and leadership.",
+  "poses": {
+    "championship-banners": {
+      "id": "championship-banners",
+      "name": "Eleven Banners",
+      "description": "Standing beneath the championship banners he created",
+      "expression": "quiet pride, legacy built",
+      "prompt": "standing tall with eleven championship banners visible above or behind - dignified pride without arrogance, the man who built a dynasty, representing unmatched winning",
+      "energy": "ultimate winner, dynasty builder"
+    },
+    "block-rejection": {
+      "id": "block-rejection",
+      "name": "The Block",
+      "description": "Signature blocked shot - changing the game defensively",
+      "expression": "protective intensity, not in my house",
+      "prompt": "emphatically blocking shot at the rim - arm extended high, body positioned perfectly, the defensive genius who invented rim protection, timing perfected",
+      "energy": "defensive anchor, shot eraser"
+    },
+    "outlet-pass": {
+      "id": "outlet-pass",
+      "name": "Outlet Pass",
+      "description": "Grabbing rebound and firing outlet to start fast break",
+      "expression": "quick thinking, seeing the whole floor",
+      "prompt": "grabbing rebound and immediately firing outlet pass - eyes up court, ball leaving hands to start fast break, the rebounder who started the Celtics' running game",
+      "energy": "fast break catalyst, court vision"
+    },
+    "player-coach": {
+      "id": "player-coach",
+      "name": "Player-Coach",
+      "description": "First Black head coach - leading while playing",
+      "expression": "dual authority, barrier breaker",
+      "prompt": "on sideline or court in dual role - clipboard or pointing to direct players, the player-coach who broke barriers, leading while still competing at highest level",
+      "energy": "barrier breaker, dual leader"
+    },
+    "civil-rights-stance": {
+      "id": "civil-rights-stance",
+      "name": "Standing for Justice",
+      "description": "The activist who used his platform for change",
+      "expression": "dignified defiance, principled stand",
+      "prompt": "standing with dignified defiance - the athlete who stood for civil rights, who played through hatred in Boston, who refused to sign autographs as protest, principled and unbowed",
+      "energy": "principled warrior, dignified defiance"
+    },
+    "defensive-positioning": {
+      "id": "defensive-positioning",
+      "name": "Defensive Genius",
+      "description": "Perfect positioning - seeing plays before they happen",
+      "expression": "calculating anticipation, chess master",
+      "prompt": "in perfect defensive position - body angled to cut off lane, eyes reading offense, the defensive genius who saw plays develop before they happened, positioning over athleticism",
+      "energy": "defensive genius, basketball IQ"
+    }
+  }
+}
