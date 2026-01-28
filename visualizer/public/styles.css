@@ -431,6 +431,26 @@ main {
   color: var(--text-primary);
 }
 
+/* Card Actions */
+.card-actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.trim-status {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+}
+
+.trim-status.success {
+  color: var(--green);
+}
+
+.trim-status.error {
+  color: var(--red);
+}
+
 /* Feedback */
 .feedback-hint {
   font-size: 0.8rem;

@@ -131,10 +131,114 @@ export async function getImageMetadata(imagePath) {
   };
 }
 
+/**
+ * Trim white/light borders from an image
+ * Uses Sharp's trim() to detect and remove uniform borders
+ * @param {string} inputPath - Path to input image
+ * @param {string} [outputPath] - Path to save trimmed image (defaults to overwriting input)
+ * @param {object} [options] - Trim options
+ * @param {number} [options.threshold=30] - Color similarity threshold (0-255, higher = more aggressive)
+ * @returns {Promise<{success: boolean, trimmed: boolean, path?: string, error?: string, originalSize?: object, newSize?: object}>}
+ */
+export async function trimWhiteBorder(inputPath, outputPath = null, options = {}) {
+  const { threshold = 80 } = options;
+  const finalOutputPath = outputPath || inputPath;
+
+  try {
+    // Get original dimensions
+    const originalMeta = await sharp(inputPath).metadata();
+    const originalSize = { width: originalMeta.width, height: originalMeta.height };
+
+    // Two-pass trim to isolate the card art:
+    // Pass 1: Trim dark outer padding (auto-detects from top-left pixel)
+    const pass1Buffer = await sharp(inputPath)
+      .trim({ threshold })
+      .toBuffer();
+
+    // Pass 2: Trim white/gray inner border (explicitly target white)
+    const pass2Buffer = await sharp(pass1Buffer)
+      .trim({ background: '#ffffff', threshold })
+      .toBuffer();
+
+    // Get trimmed dimensions
+    const trimmedMeta = await sharp(pass2Buffer).metadata();
+
+    // Check if anything was actually trimmed
+    const wasTrimmed = (originalSize.width !== trimmedMeta.width) || (originalSize.height !== trimmedMeta.height);
+
+    if (!wasTrimmed) {
+      await sharp(pass2Buffer).toFile(finalOutputPath);
+      return {
+        success: true,
+        trimmed: false,
+        path: finalOutputPath,
+        originalSize,
+        newSize: originalSize
+      };
+    }
+
+    // Instead of cropping (which shifts text), composite the trimmed art
+    // onto a background canvas at the ORIGINAL dimensions.
+    // This replaces the white border with the card's background color.
+
+    // Sample the card's background color (25% in from edges to avoid border area)
+    const sampleX = Math.floor(trimmedMeta.width * 0.25);
+    const sampleY = Math.floor(trimmedMeta.height * 0.25);
+    const sampleSize = 10;
+
+    const { data: sampleData, info: sampleInfo } = await sharp(pass2Buffer)
+      .extract({ left: sampleX, top: sampleY, width: sampleSize, height: sampleSize })
+      .raw()
+      .toBuffer({ resolveWithObject: true });
+
+    // Average the sampled pixels for background color
+    let rSum = 0, gSum = 0, bSum = 0;
+    const totalPixels = sampleSize * sampleSize;
+    for (let i = 0; i < totalPixels; i++) {
+      rSum += sampleData[i * sampleInfo.channels];
+      gSum += sampleData[i * sampleInfo.channels + 1];
+      bSum += sampleData[i * sampleInfo.channels + 2];
+    }
+    const bgColor = {
+      r: Math.round(rSum / totalPixels),
+      g: Math.round(gSum / totalPixels),
+      b: Math.round(bSum / totalPixels)
+    };
+
+    // Create canvas at original size with sampled bg color, composite trimmed art centered
+    await sharp({
+      create: {
+        width: originalSize.width,
+        height: originalSize.height,
+        channels: 3,
+        background: bgColor
+      }
+    })
+      .composite([{ input: pass2Buffer, gravity: 'centre' }])
+      .jpeg({ quality: 95 })
+      .toFile(finalOutputPath);
+
+    return {
+      success: true,
+      trimmed: true,
+      path: finalOutputPath,
+      originalSize,
+      newSize: originalSize // Same dimensions - border replaced, not removed
+    };
+  } catch (error) {
+    return {
+      success: false,
+      trimmed: false,
+      error: error.message
+    };
+  }
+}
+
 export default {
   processForPlatform,
   processForMultiplePlatforms,
   generateExportFilename,
   getImageMetadata,
+  trimWhiteBorder,
   PLATFORM_CONFIGS
 };

@@ -1,0 +1,62 @@
+{
+  "id": "kevin-garnett-cain",
+  "series": "court-covenant",
+  "type": "villain",
+  "isAlternate": false,
+  "alternateOf": null,
+  "opposingPairing": "tim-bezalel",
+  "player": {
+    "name": "Kevin Garnett",
+    "displayName": "Kevin Garnett",
+    "poseFileId": "kevin-garnett",
+    "era": "2000s",
+    "jerseyColors": {
+      "primary": {
+        "base": "white",
+        "accent": "blue"
+      },
+      "secondary": {
+        "base": "blue",
+        "accent": "white"
+      }
+    },
+    "signatureMoves": [],
+    "physicalDescription": "6'11\" power forward/center, fiercely intense competitor. Known for his intensity, trash-talking, and versatility. Defensive stalwart with a unique blend of skill and passion.",
+    "archetype": "Kevin Garnett"
+  },
+  "figure": {
+    "name": "Cain",
+    "displayName": "Cain",
+    "poseFileId": "cain",
+    "attribute": "Agricultural Tools",
+    "attributeDescription": "A simple hoe or sickle, representative of his work as a farmer, often stained with earth.",
+    "visualStyle": "Realist painting style with earthy tones and strong chiaroscuro.",
+    "clothing": "Roughspun tunic of undyed wool or animal hide, secured with a simple leather belt. Barefoot or with roughly made sandals.",
+    "physicalDescription": "A muscular, rugged man with weathered skin and a determined, somewhat resentful gaze. Clothed in rough-hewn garments of animal hide. His hands are calloused and strong from working the land.",
+    "anatomyNote": "two arms only",
+    "archetype": "Cain"
+  },
+  "connection": {
+    "thematic": "Both exhibited intense, even violent, competitiveness fueled by a deep-seated resentment of others' success and recognition.",
+    "narrative": "Envy Made Flesh. His passion burned so hot that it consumed everything around him, leaving only ashes.",
+    "relationship": "Rival vs. Rival"
+  },
+  "interactions": [
+    {
+      "id": "back-to-back",
+      "description": "Kevin Garnett and Cain standing back-to-back, facing outward with confidence"
+    },
+    {
+      "id": "side-by-side",
+      "description": "Kevin Garnett and Cain standing together as equals"
+    }
+  ],
+  "defaultInteraction": "back-to-back",
+  "cardVariants": [
+    "thunder-lightning-dark",
+    "beam-team-shadow",
+    "metal-universe-dark"
+  ],
+  "priority": 99,
+  "status": "active"
+}

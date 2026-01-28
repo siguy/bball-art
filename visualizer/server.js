@@ -10,6 +10,7 @@ import { v4 as uuidv4 } from 'uuid';
 import imageProcessor from './lib/image-processor.js';
 import captionGenerator from './lib/caption-generator.js';
 import bufferClient from './lib/buffer-client.js';
+import pairingAssistant from './lib/pairing-assistant.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -1107,6 +1108,48 @@ app.post('/api/generate-with-poses', async (req, res) => {
 });
 
 /**
+ * Trim white borders from a card image
+ * Overwrites the original file with the trimmed version
+ */
+app.post('/api/cards/trim', async (req, res) => {
+  const { cardPath } = req.body;
+
+  if (!cardPath) {
+    return res.status(400).json({ success: false, error: 'Missing cardPath' });
+  }
+
+  // Construct full path - cardPath comes as relative like "/cards/solo-player-iverson/..."
+  const fullPath = join(ROOT, 'output', cardPath);
+
+  if (!existsSync(fullPath)) {
+    return res.status(404).json({ success: false, error: 'Card image not found' });
+  }
+
+  try {
+    const result = await imageProcessor.trimWhiteBorder(fullPath);
+
+    if (result.success) {
+      // Rebuild manifest to update any cached dimensions
+      buildManifest();
+
+      res.json({
+        success: true,
+        trimmed: result.trimmed,
+        originalSize: result.originalSize,
+        newSize: result.newSize,
+        message: result.trimmed
+          ? `Trimmed: ${result.originalSize.width}x${result.originalSize.height} → ${result.newSize.width}x${result.newSize.height}`
+          : 'No border detected'
+      });
+    } else {
+      res.status(500).json({ success: false, error: result.error });
+    }
+  } catch (err) {
+    res.status(500).json({ success: false, error: err.message });
+  }
+});
+
+/**
  * Generate card from raw prompt
  * Allows regeneration with edited prompt text
  */
@@ -1808,6 +1851,95 @@ app.delete('/api/characters/:type/:id', (req, res) => {
 
   } catch (err) {
     console.error('Delete error:', err);
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// ============================================================
+// Pairing Creation Assistant Endpoints
+// ============================================================
+
+/**
+ * GET /api/pairing-assistant/characters
+ * List all characters with their pairing status
+ */
+app.get('/api/pairing-assistant/characters', (req, res) => {
+  try {
+    const index = pairingAssistant.buildCharacterIndex();
+    res.json(index);
+  } catch (err) {
+    console.error('Character index error:', err);
+    res.status(500).json({ error: err.message });
+  }
+});
+
+/**
+ * GET /api/pairing-assistant/unused
+ * List characters with pose files but no pairings
+ */
+app.get('/api/pairing-assistant/unused', (req, res) => {
+  try {
+    const unused = pairingAssistant.getUnusedCharacters();
+    res.json(unused);
+  } catch (err) {
+    console.error('Unused characters error:', err);
+    res.status(500).json({ error: err.message });
+  }
+});
+
+/**
+ * POST /api/pairing-assistant/suggest
+ * Get AI-powered pairing suggestions based on mode
+ */
+app.post('/api/pairing-assistant/suggest', async (req, res) => {
+  const { mode, player, figure, connection } = req.body;
+
+  if (!mode) {
+    return res.status(400).json({ error: 'Missing required field: mode' });
+  }
+
+  // Validate mode-specific requirements
+  if (mode === 'full-pairing' && (!player || !figure)) {
+    return res.status(400).json({ error: 'Full pairing mode requires both player and figure' });
+  }
+  if (mode === 'find-figure' && !player) {
+    return res.status(400).json({ error: 'Find figure mode requires a player' });
+  }
+  if (mode === 'find-player' && !figure) {
+    return res.status(400).json({ error: 'Find player mode requires a figure' });
+  }
+
+  try {
+    const suggestions = await pairingAssistant.generateSuggestions(mode, player, figure, connection);
+    res.json({ suggestions });
+  } catch (err) {
+    console.error('Suggestion error:', err);
+    res.status(500).json({ error: err.message });
+  }
+});
+
+/**
+ * POST /api/pairing-assistant/create
+ * Auto-generate all required files for a new pairing
+ */
+app.post('/api/pairing-assistant/create', async (req, res) => {
+  const { player, figure, connection, type, opposingPairing } = req.body;
+
+  if (!player || !figure) {
+    return res.status(400).json({ error: 'Missing required fields: player and figure' });
+  }
+
+  try {
+    const result = await pairingAssistant.createPairingFiles({
+      player,
+      figure,
+      connection,
+      type,
+      opposingPairing
+    });
+    res.json(result);
+  } catch (err) {
+    console.error('Pairing creation error:', err);
     res.status(500).json({ error: err.message });
   }
 });

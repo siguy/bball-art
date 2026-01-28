@@ -163,6 +163,61 @@ async function handleGenerateCaption() {
   updateCharCount();
 }
 
+async function handleTrimCard() {
+  const card = filteredCards[currentCardIndex];
+  if (!card) return;
+
+  const trimBtn = document.getElementById('trim-card-btn');
+  const trimStatus = document.getElementById('trim-status');
+
+  // Extract the card path from the full URL path
+  // card.path is like "/cards/solo-player-iverson/thunder-lightning-2026-01-28T16-19-48.jpeg"
+  const cardPath = card.path;
+
+  trimBtn.disabled = true;
+  trimBtn.textContent = 'Blending...';
+  trimStatus.textContent = '';
+
+  try {
+    const res = await fetch(`${API_BASE}/api/cards/trim`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ cardPath })
+    });
+
+    const result = await res.json();
+
+    if (result.success) {
+      if (result.trimmed) {
+        trimStatus.textContent = `✓ ${result.message}`;
+        trimStatus.className = 'trim-status success';
+
+        // Refresh the image by adding cache-busting timestamp
+        const img = document.getElementById('modal-card-image');
+        img.src = card.path + '?t=' + Date.now();
+
+        // Also refresh the gallery thumbnail
+        const galleryCard = gallery.querySelector(`[data-index="${currentCardIndex}"] img`);
+        if (galleryCard) {
+          galleryCard.src = card.path + '?t=' + Date.now();
+        }
+      } else {
+        trimStatus.textContent = 'No border detected';
+        trimStatus.className = 'trim-status';
+      }
+    } else {
+      trimStatus.textContent = `Error: ${result.error}`;
+      trimStatus.className = 'trim-status error';
+    }
+  } catch (err) {
+    trimStatus.textContent = `Error: ${err.message}`;
+    trimStatus.className = 'trim-status error';
+  }
+
+  trimBtn.disabled = false;
+  trimBtn.textContent = 'Blend Border';
+}
+
 function updateCharCount() {
   const textarea = document.getElementById(`caption-${currentPlatformTab}`);
   const countEl = document.getElementById('char-count-value');
@@ -537,6 +592,12 @@ function setupEventListeners() {
   const exportNowBtn = document.getElementById('export-now-btn');
   if (exportNowBtn) {
     exportNowBtn.addEventListener('click', exportNow);
+  }
+
+  // Trim card button
+  const trimCardBtn = document.getElementById('trim-card-btn');
+  if (trimCardBtn) {
+    trimCardBtn.addEventListener('click', handleTrimCard);
   }
 
   // Card clicks

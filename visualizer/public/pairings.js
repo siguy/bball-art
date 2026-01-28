@@ -9,28 +9,9 @@ let pairingsData = {};
 let manifest = { cards: [] };
 let currentPairingId = null;
 
-// Categories for pairings
-const PAIRING_CATEGORIES = {
-  'jordan-moses': 'heroes',
-  'lebron-david': 'heroes',
-  'pippen-aaron': 'heroes',
-  'kobe-joshua': 'heroes',
-  'curry-elijah': 'heroes',
-  'magic-joseph': 'heroes',
-  'shaq-goliath': 'heroes',
-  'wilt-samson': 'heroes',
-  'kareem-solomon': 'heroes',
-  'stockton-elisha': 'heroes',
-  'dirk-judah': 'heroes',
-  'durant-jonathan': 'heroes',
-  'jokic-isaac': 'heroes',
-  'sga-daniel': 'heroes',
-  'isiah-pharaoh': 'villains',
-  'laimbeer-haman': 'villains',
-  'rodman-esau': 'villains',
-  'draymond-joab': 'villains',
-  'bird-jacob': 'villains'
-};
+// Creator state
+let creatorOpen = false;
+let currentSuggestions = [];
 
 // Standard interactions
 const STANDARD_INTERACTIONS = [
@@ -72,6 +53,16 @@ async function fetchManifest() {
   }
 }
 
+/**
+ * Get the category for a pairing from its JSON data.
+ * Maps pairing.type to display category: 'villain' -> 'villains', everything else -> 'heroes'.
+ */
+function getPairingCategory(id) {
+  const pairing = pairingsData[id];
+  if (!pairing) return 'heroes';
+  return pairing.type === 'villain' ? 'villains' : 'heroes';
+}
+
 // Generate pairing-specific interaction suggestions
 function generateSuggestedInteractions(pairing) {
   const suggestions = [];
@@ -80,7 +71,6 @@ function generateSuggestedInteractions(pairing) {
 
   // Get signature moves
   const moves = player.signatureMoves || [];
-  const attribute = figure.attribute || '';
   const figureAction = getFigureAction(figure);
 
   // Generate suggestions based on combinations
@@ -201,7 +191,7 @@ function renderPairings() {
   const pairingIds = Object.keys(pairingsData);
 
   const filtered = filter
-    ? pairingIds.filter(id => PAIRING_CATEGORIES[id] === filter)
+    ? pairingIds.filter(id => getPairingCategory(id) === filter)
     : pairingIds;
 
   if (filtered.length === 0) {
@@ -213,7 +203,7 @@ function renderPairings() {
 }
 
 function renderPairingCard(id, pairing) {
-  const category = PAIRING_CATEGORIES[id] || 'heroes';
+  const category = getPairingCategory(id);
   const cardCount = manifest.cards.filter(c => c.pairingId === id).length;
   const suggestions = generateSuggestedInteractions(pairing);
 
@@ -230,7 +220,7 @@ function renderPairingCard(id, pairing) {
         </div>
         <div class="pairing-meta">
           <span class="card-count">${cardCount} cards</span>
-          <span class="expand-icon">▼</span>
+          <span class="expand-icon">&#9660;</span>
         </div>
       </div>
 
@@ -238,7 +228,7 @@ function renderPairingCard(id, pairing) {
         <div class="pairing-content">
           <!-- Player Details -->
           <div class="figure-details">
-            <h3><span class="icon">🏀</span> ${pairing.player.name}</h3>
+            <h3>${pairing.player.name}</h3>
             <ul class="detail-list">
               <li><strong>Era:</strong> ${pairing.player.era}</li>
               <li><strong>Archetype:</strong> ${pairing.player.archetype || 'N/A'}</li>
@@ -249,7 +239,7 @@ function renderPairingCard(id, pairing) {
 
           <!-- Figure Details -->
           <div class="figure-details">
-            <h3><span class="icon">📜</span> ${pairing.figure.name}</h3>
+            <h3>${pairing.figure.name}</h3>
             <ul class="detail-list">
               <li><strong>Attribute:</strong> ${pairing.figure.attribute || 'N/A'}</li>
               <li><strong>Archetype:</strong> ${pairing.figure.archetype || 'N/A'}</li>
@@ -270,7 +260,7 @@ function renderPairingCard(id, pairing) {
             <div class="interactions-list">
               ${suggestions.map(s => `
                 <div class="interaction-item suggested">
-                  <div class="interaction-name">✨ ${s.name}</div>
+                  <div class="interaction-name">${s.name}</div>
                   <div class="interaction-desc">
                     <strong>${pairing.player.name}:</strong> ${s.playerAction}<br>
                     <strong>${pairing.figure.name}:</strong> ${s.figureAction}
@@ -293,13 +283,13 @@ function renderPairingCard(id, pairing) {
           <!-- Actions -->
           <div class="actions-bar">
             <button class="btn btn-primary" onclick="openGenerateModal('${id}')">
-              🎨 Generate Card
+              Generate Card
             </button>
             <button class="btn" onclick="openInteractionModal('${id}')">
               + Add Custom Interaction
             </button>
             <a href="/?pairing=${id}" class="btn">
-              View Cards →
+              View Cards
             </a>
           </div>
         </div>
@@ -313,7 +303,278 @@ function togglePairing(id) {
   card.classList.toggle('expanded');
 }
 
+// ============================================================
+// Creator Panel
+// ============================================================
+
+function toggleCreator() {
+  const panel = document.getElementById('creator-panel');
+  const btn = document.getElementById('creator-toggle-btn');
+  creatorOpen = !creatorOpen;
+
+  if (creatorOpen) {
+    panel.classList.add('open');
+    btn.classList.add('active');
+    btn.textContent = '- Close Creator';
+  } else {
+    panel.classList.remove('open');
+    btn.classList.remove('active');
+    btn.textContent = '+ Create New Pairing';
+  }
+}
+
+function getCreatorMode() {
+  const checked = document.querySelector('input[name="creator-mode"]:checked');
+  return checked ? checked.value : 'full-pairing';
+}
+
+function onModeChange() {
+  const mode = getCreatorMode();
+
+  const playerGroup = document.getElementById('creator-player-group');
+  const figureGroup = document.getElementById('creator-figure-group');
+  const connectionGroup = document.getElementById('creator-connection-group');
+
+  // Show/hide fields based on mode
+  switch (mode) {
+    case 'full-pairing':
+      playerGroup.classList.remove('hidden');
+      figureGroup.classList.remove('hidden');
+      connectionGroup.classList.remove('hidden');
+      break;
+    case 'find-figure':
+      playerGroup.classList.remove('hidden');
+      figureGroup.classList.add('hidden');
+      connectionGroup.classList.add('hidden');
+      break;
+    case 'find-player':
+      playerGroup.classList.add('hidden');
+      figureGroup.classList.remove('hidden');
+      connectionGroup.classList.add('hidden');
+      break;
+    case 'discover-heroes':
+    case 'discover-opposites':
+      playerGroup.classList.add('hidden');
+      figureGroup.classList.add('hidden');
+      connectionGroup.classList.add('hidden');
+      break;
+  }
+
+  // Clear previous suggestions
+  document.getElementById('suggestions-results').innerHTML = '';
+  const status = document.getElementById('creator-status');
+  status.className = 'creator-status';
+  status.textContent = '';
+}
+
+async function generateCreatorSuggestions() {
+  const mode = getCreatorMode();
+  const player = document.getElementById('creator-player').value.trim();
+  const figure = document.getElementById('creator-figure').value.trim();
+  const connection = document.getElementById('creator-connection').value.trim();
+
+  // Validate inputs
+  if ((mode === 'full-pairing' || mode === 'find-figure') && !player) {
+    showCreatorStatus('error', 'Please enter an NBA player name.');
+    return;
+  }
+  if ((mode === 'full-pairing' || mode === 'find-player') && !figure) {
+    showCreatorStatus('error', 'Please enter a biblical figure name.');
+    return;
+  }
+
+  // Show loading
+  const btn = document.getElementById('btn-generate-suggestions');
+  btn.classList.add('btn-generating');
+  btn.textContent = 'Generating...';
+  showCreatorStatus('loading', 'AI is analyzing connections... This may take a few seconds.');
+  document.getElementById('suggestions-results').innerHTML = '';
+
+  try {
+    const body = { mode };
+    if (player) body.player = player;
+    if (figure) body.figure = figure;
+    if (connection) body.connection = connection;
+
+    const res = await fetch(`${API_BASE}/api/pairing-assistant/suggest`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(body)
+    });
+
+    const data = await res.json();
+
+    if (data.error) {
+      showCreatorStatus('error', data.error);
+    } else if (data.suggestions && data.suggestions.length > 0) {
+      currentSuggestions = data.suggestions;
+      showCreatorStatus('success', `Found ${data.suggestions.length} suggestion${data.suggestions.length > 1 ? 's' : ''}.`);
+      renderSuggestions(data.suggestions);
+    } else {
+      showCreatorStatus('error', 'No suggestions returned. Try different inputs.');
+    }
+  } catch (err) {
+    showCreatorStatus('error', `Request failed: ${err.message}`);
+  }
+
+  btn.classList.remove('btn-generating');
+  btn.textContent = 'Generate Suggestions';
+}
+
+function showCreatorStatus(type, message) {
+  const status = document.getElementById('creator-status');
+  status.className = `creator-status ${type}`;
+  status.textContent = message;
+}
+
+function renderSuggestions(suggestions) {
+  const container = document.getElementById('suggestions-results');
+
+  container.innerHTML = suggestions.map((s, index) => {
+    const typeBadge = s.type === 'villain'
+      ? '<span class="suggestion-type-badge villain">VILLAIN</span>'
+      : '<span class="suggestion-type-badge hero">HERO</span>';
+
+    // Warning about already-paired characters
+    let warningHtml = '';
+    if (s.playerAlreadyPaired && s.playerCurrentPairing) {
+      warningHtml += `<div class="suggestion-warning">Player already paired in: ${s.playerCurrentPairing} (will be created as alternate)</div>`;
+    }
+    if (s.figureAlreadyPaired && s.figureCurrentPairing) {
+      warningHtml += `<div class="suggestion-warning">Figure already paired in: ${s.figureCurrentPairing} (will be created as alternate)</div>`;
+    }
+
+    // Opposing pairing callout
+    let opposingHtml = '';
+    if (s.opposingPairing) {
+      opposingHtml = `<div class="suggestion-opposing">
+        Opposes: <strong>${s.opposingPairing}</strong>
+        ${s.rivalryAngle ? `<div class="suggestion-rivalry">${s.rivalryAngle}</div>` : ''}
+      </div>`;
+    }
+
+    const thematic = s.connection?.thematic || '';
+    const narrative = s.connection?.narrative || '';
+
+    return `
+      <div class="suggestion-card" data-index="${index}">
+        <div class="suggestion-header">
+          <span class="suggestion-names">${escapeHtml(s.player)} + ${escapeHtml(s.figure)}</span>
+          ${typeBadge}
+        </div>
+
+        <div class="suggestion-connection">
+          <div class="suggestion-thematic">"${escapeHtml(thematic)}"</div>
+          <div class="suggestion-narrative">${escapeHtml(narrative)}</div>
+        </div>
+
+        ${warningHtml}
+        ${opposingHtml}
+
+        <div class="suggestion-edit-area" id="edit-area-${index}">
+          <div class="suggestion-edit-label">Edit connection:</div>
+          <textarea id="edit-thematic-${index}">${escapeHtml(thematic)}</textarea>
+          <textarea id="edit-narrative-${index}" style="margin-top: 0.5rem;">${escapeHtml(narrative)}</textarea>
+        </div>
+
+        <div class="suggestion-actions">
+          <button class="btn btn-create-pairing" onclick="createPairing(${index})">Create This Pairing</button>
+          <button class="btn btn-edit-connection" onclick="toggleEditConnection(${index})">Edit Connection</button>
+        </div>
+
+        <div id="create-result-${index}"></div>
+      </div>
+    `;
+  }).join('');
+}
+
+function escapeHtml(str) {
+  if (!str) return '';
+  const div = document.createElement('div');
+  div.textContent = str;
+  return div.innerHTML;
+}
+
+function toggleEditConnection(index) {
+  const area = document.getElementById(`edit-area-${index}`);
+  area.classList.toggle('visible');
+}
+
+async function createPairing(index) {
+  const suggestion = currentSuggestions[index];
+  if (!suggestion) return;
+
+  // Check if user edited the connection
+  const editArea = document.getElementById(`edit-area-${index}`);
+  const isEdited = editArea.classList.contains('visible');
+
+  let connection = suggestion.connection;
+  if (isEdited) {
+    const editedThematic = document.getElementById(`edit-thematic-${index}`).value.trim();
+    const editedNarrative = document.getElementById(`edit-narrative-${index}`).value.trim();
+    connection = {
+      thematic: editedThematic || connection.thematic,
+      narrative: editedNarrative || connection.narrative,
+      relationship: connection.relationship || ''
+    };
+  }
+
+  // Disable the create button
+  const card = document.querySelector(`.suggestion-card[data-index="${index}"]`);
+  const createBtn = card.querySelector('.btn-create-pairing');
+  createBtn.disabled = true;
+  createBtn.textContent = 'Creating...';
+
+  try {
+    const res = await fetch(`${API_BASE}/api/pairing-assistant/create`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        player: suggestion.player,
+        figure: suggestion.figure,
+        connection,
+        type: suggestion.type || 'hero',
+        opposingPairing: suggestion.opposingPairing || null
+      })
+    });
+
+    const result = await res.json();
+
+    const resultDiv = document.getElementById(`create-result-${index}`);
+
+    if (result.success) {
+      resultDiv.innerHTML = `
+        <div class="suggestion-success">
+          <p>Pairing created: <strong>${result.pairingId}</strong></p>
+          <ul class="files-list">
+            ${result.filesCreated.map(f => `<li>${f}</li>`).join('')}
+          </ul>
+          <a href="${result.generatorUrl}">Open in Generator</a>
+        </div>
+      `;
+
+      createBtn.textContent = 'Created';
+
+      // Refresh pairings data so the new pairing shows up
+      await fetchPairingsData();
+      renderPairings();
+    } else {
+      resultDiv.innerHTML = `<div class="creator-status error" style="display:block; margin-top: 0.75rem;">Error: ${escapeHtml(result.error)}</div>`;
+      createBtn.disabled = false;
+      createBtn.textContent = 'Create This Pairing';
+    }
+  } catch (err) {
+    const resultDiv = document.getElementById(`create-result-${index}`);
+    resultDiv.innerHTML = `<div class="creator-status error" style="display:block; margin-top: 0.75rem;">Error: ${escapeHtml(err.message)}</div>`;
+    createBtn.disabled = false;
+    createBtn.textContent = 'Create This Pairing';
+  }
+}
+
+// ============================================================
 // Generate Modal
+// ============================================================
+
 function openGenerateModal(pairingId) {
   currentPairingId = pairingId;
   const pairing = pairingsData[pairingId];
@@ -425,18 +686,18 @@ async function generateCard() {
 
     if (result.success) {
       status.className = 'generate-status success';
-      status.innerHTML = `✓ Card generated! <a href="/?card=${result.cardId}" class="view-card-link">View Card →</a>`;
+      status.innerHTML = `Card generated! <a href="/?card=${result.cardId}" class="view-card-link">View Card</a>`;
 
       // Refresh manifest
       await fetchManifest();
       renderPairings();
     } else {
       status.className = 'generate-status error';
-      status.textContent = `✗ Error: ${result.error}`;
+      status.textContent = `Error: ${result.error}`;
     }
   } catch (err) {
     status.className = 'generate-status error';
-    status.textContent = `✗ Error: ${err.message}`;
+    status.textContent = `Error: ${err.message}`;
   }
 
   document.getElementById('btn-generate').disabled = false;
@@ -481,13 +742,25 @@ async function saveInteraction() {
   }
 }
 
+// ============================================================
 // Event Listeners
+// ============================================================
+
 function setupEventListeners() {
   document.getElementById('filter-category').addEventListener('change', renderPairings);
 
   document.getElementById('refresh-btn').addEventListener('click', async () => {
     await Promise.all([fetchPairingsData(), fetchManifest()]);
     renderPairings();
+  });
+
+  // Creator panel
+  document.getElementById('creator-toggle-btn').addEventListener('click', toggleCreator);
+  document.getElementById('btn-generate-suggestions').addEventListener('click', generateCreatorSuggestions);
+
+  // Mode toggle
+  document.querySelectorAll('input[name="creator-mode"]').forEach(radio => {
+    radio.addEventListener('change', onModeChange);
   });
 
   // Generate modal
@@ -513,6 +786,13 @@ function setupEventListeners() {
     } else {
       document.getElementById('custom-player-action').value = '';
       document.getElementById('custom-figure-action').value = '';
+    }
+  });
+
+  // Escape key closes creator panel
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && creatorOpen) {
+      toggleCreator();
     }
   });
 }

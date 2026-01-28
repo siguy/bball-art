@@ -1,0 +1,66 @@
+{
+  "id": "cain",
+  "name": "Cain",
+  "defaultPose": "offering-ground",
+  "description": "A muscular, rugged man with weathered skin and a determined, somewhat resentful gaze. Clothed in rough-hewn garments of animal hide. His hands are calloused and strong from working the land.",
+  "attribute": "Agricultural Tools",
+  "attributeDescription": "A simple hoe or sickle, representative of his work as a farmer, often stained with earth.",
+  "visualStyle": "Realist painting style with earthy tones and strong chiaroscuro.",
+  "clothing": "Roughspun tunic of undyed wool or animal hide, secured with a simple leather belt. Barefoot or with roughly made sandals.",
+  "poses": {
+    "offering-ground": {
+      "id": "offering-ground",
+      "name": "Offering from the Ground",
+      "description": "Presenting his offering of produce to God.",
+      "expression": "Resentful, a hint of defiance.",
+      "prompt": "Kneeling before an altar of rough stones, offering a selection of fruits and vegetables. Face showing resentment and barely concealed anger. The altar is plain, the offering appearing less impressive than Abel's offering of livestock in the background.",
+      "energy": "Jealousy, resentment, unaccepted",
+      "quoteId": "unaccepted-offering"
+    },
+    "brooding-anger": {
+      "id": "brooding-anger",
+      "name": "Brooding Anger",
+      "description": "Consumed by anger after his offering is rejected.",
+      "expression": "Dark rage, simmering jealousy.",
+      "prompt": "Standing in a field, head bowed, fists clenched, a dark storm brewing overhead. Eyes cast downwards, radiating barely-contained fury. The field appears dry and barren.",
+      "energy": "simmering rage, intense jealousy",
+      "quoteId": "face-fallen"
+    },
+    "fratricide": {
+      "id": "fratricide",
+      "name": "The First Murder",
+      "description": "Standing over his fallen brother, Abel.",
+      "expression": "Shock, horror, dawning realization.",
+      "prompt": "Standing over Abel's lifeless body in a field, holding a rock or crude club. Face showing shock and a dawning horror at the consequences of his actions. The sky is a bruised purple, reflecting the violence.",
+      "energy": "Guilt, devastation, irreversible action",
+      "quoteId": "am-i-my-brothers-keeper"
+    },
+    "cursed-earth": {
+      "id": "cursed-earth",
+      "name": "Cursed from the Earth",
+      "description": "Receiving God's curse after killing Abel.",
+      "expression": "Despair, anguish, understanding the weight of his sin.",
+      "prompt": "Kneeling before a divine light emanating from the heavens, hands raised in supplication. Face etched with despair and the understanding of the enormity of his sin. The ground beneath him appears barren and cracked.",
+      "energy": "Divine judgment, utter despair",
+      "quoteId": "cursed-from-the-earth"
+    },
+    "wandering-nomad": {
+      "id": "wandering-nomad",
+      "name": "Wandering Nomad",
+      "description": "Wandering the earth as a fugitive.",
+      "expression": "Weariness, isolation, a haunted look.",
+      "prompt": "Walking alone across a desolate landscape, carrying a meager bundle on his back. Face weathered and etched with weariness and a haunted look. The landscape stretches endlessly behind him, conveying a sense of unending exile.",
+      "energy": "Exile, loneliness, perpetual wandering",
+      "quoteId": "restless-wanderer"
+    },
+    "building-city": {
+      "id": "building-city",
+      "name": "Builder of Enoch",
+      "description": "Overseeing the construction of the city Enoch.",
+      "expression": "Stoic, hardened, a mixture of pride and regret.",
+      "prompt": "Standing amidst the early construction of a walled city, overseeing the laborers. Face stoic and hardened, a hint of pride mixed with deep regret evident in his eyes. He looks like someone trying to start over, burdened by the past.",
+      "energy": "Endeavor, burdened, conflicted",
+      "quoteId": "city-enoch"
+    }
+  }
+}

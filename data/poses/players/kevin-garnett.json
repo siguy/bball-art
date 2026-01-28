@@ -1,0 +1,56 @@
+{
+  "id": "kevin-garnett",
+  "name": "Kevin Garnett",
+  "defaultPose": "anything-is-possible",
+  "description": "6'11\" power forward/center, fiercely intense competitor. Known for his intensity, trash-talking, and versatility. Defensive stalwart with a unique blend of skill and passion.",
+  "poses": {
+    "anything-is-possible": {
+      "id": "anything-is-possible",
+      "name": "Anything Is Possible!",
+      "description": "Post-championship celebration scream, chest pounding",
+      "expression": "unbridled joy, cathartic release, pure elation",
+      "prompt": "Kevin Garnett screaming at the top of his lungs immediately after winning the 2008 NBA Championship - pounding his chest with both fists, face contorted with unfiltered emotion, eyes wide with overwhelming joy and relief, surrounded by celebrating teammates, the culmination of a lifelong dream realized",
+      "energy": "unfiltered passion, raw triumph"
+    },
+    "defensive-stance": {
+      "id": "defensive-stance",
+      "name": "Defensive Intensity",
+      "description": "Low stance, arms wide, intense stare",
+      "expression": "focused aggression, unwavering determination",
+      "prompt": "Kevin Garnett in a low, wide defensive stance - knees bent, arms extended wide, palms facing forward, intensely focused gaze locked on the opponent, jaw clenched, showcasing his legendary defensive prowess and tenacity, ready to pounce, anticipation radiating from every muscle",
+      "energy": "defensive lockdown, ferocious grit"
+    },
+    "post-fadeaway": {
+      "id": "post-fadeaway",
+      "name": "Turnaround Fadeaway Jumper",
+      "description": "Shooting his high-release turnaround fadeaway",
+      "expression": "fierce concentration, confident execution",
+      "prompt": "Kevin Garnett executing his signature turnaround fadeaway jumper - body angled away from defender, high release point, ball leaving fingertips with perfect backspin, follow-through with arm extended, intense focus on the basket, defender reaching but unable to contest, showcasing his unique offensive repertoire",
+      "energy": "graceful power, unblockable shot"
+    },
+    "KG-Flex": {
+      "id": "KG-Flex",
+      "name": "KG Flex",
+      "description": "Flexing biceps, chest puffed out, screaming",
+      "expression": "unmatched intensity, pure competitive fire",
+      "prompt": "Kevin Garnett powerfully flexing his biceps after a big play - chest puffed out, screaming with unbridled intensity, veins popping, muscles rippling, demonstrating his sheer physical presence and competitive dominance, face conveying unwavering determination and aggressive competitiveness",
+      "energy": "ferocious power, untamed spirit"
+    },
+    "talking-trash": {
+      "id": "talking-trash",
+      "name": "Trash Talking",
+      "description": "In opponent's face, animated trash talk",
+      "expression": "intense intimidation, psychological warfare",
+      "prompt": "Kevin Garnett leaning into an opponent, engaging in intense trash talk - face inches away, animated hand gestures, eyes locked in a fierce stare, jaw clenched, displaying his legendary psychological warfare tactics and relentless competitive edge, words visibly sharp and cutting",
+      "energy": "psychological dominance, fierce competitor"
+    },
+    "pointing-skyward": {
+      "id": "pointing-skyward",
+      "name": "Pointing Skyward",
+      "description": "Looking up, pointing to the heavens",
+      "expression": "humble gratitude, spiritual connection",
+      "prompt": "Kevin Garnett looking up towards the sky and pointing upwards with his index finger - a moment of reflection, potentially after a significant play or victory, conveying gratitude, remembrance, or spiritual connection, face showing respect and humility, a quiet pause amidst the intensity of the game.",
+      "energy": "humble spirit, transcendent moment"
+    }
+  }
+}

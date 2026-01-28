@@ -1,0 +1,28 @@
+{
+  "id": "cain",
+  "name": "Cain",
+  "aliases": [],
+  "quotes": {
+    "am-i-my-brother's-keeper": {
+      "source": "Genesis 4:9",
+      "context": "Cain responds to God's inquiry about Abel's whereabouts after the murder.",
+      "hebrew": "הֲשֹׁמֵר אָנֹכִי אָחִי?",
+      "english": "Am I my brother's keeper?",
+      "mood": "denial, defiance, sarcasm"
+    },
+    "my-punishment-is-greater": {
+      "source": "Genesis 4:13",
+      "context": "Cain's reaction to God's punishment for killing Abel.",
+      "hebrew": "גָּדֹל עֲוֹנִי מִנְּשֹׂא",
+      "english": "My punishment is greater than I can bear.",
+      "mood": "despair, lament, self-pity"
+    },
+    "i-shall-be-a-fugitive": {
+      "source": "Genesis 4:14",
+      "context": "Cain expressing his fear of being killed after his banishment",
+      "hebrew": "הֵן גֵּרַשְׁתָּ אֹתִי הַיּוֹם מֵעַל פְּנֵי הָאֲדָמָה וּמִפָּנֶיךָ אֶסָּתֵר וְהָיִיתִי נָע וָנָד בָּאָרֶץ וְהָיָה כָל מֹצְאִי יַהַרְגֵּנִי",
+      "english": "Behold, You have driven me this day from the face of the earth; and from Your face I will be hidden, and I will be a vagrant and a wanderer on the earth, and whoever finds me will kill me.",
+      "mood": "fear, isolation, vulnerability"
+    }
+  }
+}
