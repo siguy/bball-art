@@ -72,6 +72,18 @@ async function lookupTopic(figureName) {
 }
 
 /**
+ * Flatten possibly nested arrays of text into a single string.
+ * Sefaria returns single verses as strings, ranges as arrays,
+ * and chapter spans as nested arrays.
+ */
+function flattenText(text) {
+  if (!text) return '';
+  if (typeof text === 'string') return text;
+  if (Array.isArray(text)) return text.map(flattenText).filter(Boolean).join(' ');
+  return String(text);
+}
+
+/**
  * Fetch a specific text passage with Hebrew and English.
  * @param {string} ref - Sefaria text reference (e.g., "Genesis 1:1", "Exodus 14:21")
  * @returns {Promise<{ref: string, hebrew: string, english: string}|null>}
@@ -79,7 +91,9 @@ async function lookupTopic(figureName) {
 async function getText(ref) {
   // URL-encode the reference
   const encoded = encodeURIComponent(ref);
-  const data = await sefariaFetch(`${SEFARIA_BASE}/v3/texts/${encoded}?version=primary`);
+  // Request primary (Hebrew) + English versions explicitly,
+  // since no English version is marked as primary in Sefaria
+  const data = await sefariaFetch(`${SEFARIA_BASE}/v3/texts/${encoded}?version=primary&version=english`);
 
   if (!data || !data.versions) return null;
 
@@ -89,10 +103,10 @@ async function getText(ref) {
 
   for (const version of data.versions) {
     if (version.language === 'he' && version.text) {
-      hebrew = Array.isArray(version.text) ? version.text.join(' ') : version.text;
+      hebrew = flattenText(version.text);
     }
     if (version.language === 'en' && version.text) {
-      english = Array.isArray(version.text) ? version.text.join(' ') : version.text;
+      english = flattenText(version.text);
     }
   }
 
