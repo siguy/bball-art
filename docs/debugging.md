@@ -77,6 +77,44 @@ this.physics.world.createDebugGraphic();
 this.load.on('complete', () => console.log('All assets loaded'));
 ```
 
+## Visualizer & Export Issues
+
+### Server Won't Start
+- [ ] **Port in use?** `lsof -i :3333` then kill the process
+- [ ] **Missing dependencies?** Run `npm install` in visualizer/
+- [ ] **Module errors?** Check imports in server.js match lib/ files
+
+### Export Problems
+- [ ] **Image processing fails?** Check sharp is installed: `npm ls sharp`
+- [ ] **Caption empty?** Verify pairing has poseFileId linking to pose files
+- [ ] **Quotes missing?** Check `data/quotes/figures/{figureId}.json` exists
+- [ ] **Queue not saving?** Check `visualizer/data/export-queue.json` is writable
+
+### Buffer Integration
+- [ ] **Not configured?** Set `BUFFER_ACCESS_TOKEN` environment variable
+- [ ] **No profiles?** Connect Instagram/Twitter in Buffer dashboard first
+- [ ] **Posts failing?** Buffer requires publicly accessible image URLs
+
+### Common Fixes
+```bash
+# Test visualizer modules
+node -e "import('./lib/image-processor.js').then(() => console.log('OK'))"
+node -e "import('./lib/caption-generator.js').then(() => console.log('OK'))"
+
+# Test caption generation
+node -e "
+import cg from './lib/caption-generator.js';
+console.log(cg.generateCaption({
+  templateId: 'standard',
+  platform: 'instagram',
+  pairingId: 'jordan-moses'
+}));
+"
+
+# Rebuild manifest
+curl http://localhost:3333/api/manifest
+```
+
 ## General Debugging Tips
 
 1. **Start small**: Test with one pairing, one style before batching
