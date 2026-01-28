@@ -46,8 +46,8 @@
       </div>
 
       <!-- Dark Mode Toggle -->
-      <div class="control-group dark-mode-group">
-        <label class="toggle-label">
+      <div class="dark-mode-group">
+        <label class="toggle-label" for="dark-mode-toggle">
           <input type="checkbox" id="dark-mode-toggle">
           <span class="toggle-switch"></span>
           <span class="toggle-text">Dark Mode (Villain)</span>
@@ -104,9 +104,37 @@
 
       <div class="result-card hidden" id="result-card">
         <img id="result-image" src="" alt="Generated Card">
+
+        <!-- Rating Buttons -->
+        <div class="result-feedback">
+          <h3>Rate This Card</h3>
+          <div class="feedback-buttons">
+            <button class="feedback-btn" data-rating="loved">
+              <span class="icon">&#10084;</span> Love It
+            </button>
+            <button class="feedback-btn" data-rating="liked">
+              <span class="icon">&#128077;</span> Like It
+            </button>
+            <button class="feedback-btn" data-rating="issues">
+              <span class="icon">&#9888;</span> Has Issues
+            </button>
+          </div>
+          <textarea id="result-feedback-notes" placeholder="Add feedback notes (what to improve, what worked well...)"></textarea>
+          <button id="save-result-feedback" class="btn btn-small">Save Feedback</button>
+        </div>
+
         <div class="result-actions">
           <a id="result-view-link" href="#" class="btn" target="_blank">View in Gallery</a>
           <button id="result-quick-swap" class="btn">Quick Pose Swap</button>
+        </div>
+
+        <!-- Prompt Display -->
+        <div class="prompt-display">
+          <button id="toggle-prompt" class="btn btn-small">View Prompt</button>
+          <div class="prompt-content hidden" id="prompt-content">
+            <pre id="prompt-text"></pre>
+            <button id="copy-prompt" class="btn btn-small">Copy Prompt</button>
+          </div>
         </div>
       </div>
 

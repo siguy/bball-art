@@ -1003,6 +1003,18 @@ app.post('/api/generate-with-poses', async (req, res) => {
           cardId = `${pairingId}-${extractedTemplate}-${timestamp}`;
         }
 
+        // Try to read the prompt file
+        let prompt = null;
+        const promptFilename = filename.replace(/\.(png|jpe?g)$/, '-prompt.txt');
+        const promptPath = join(ROOT, 'output/cards', pairingId, promptFilename);
+        try {
+          if (existsSync(promptPath)) {
+            prompt = readFileSync(promptPath, 'utf-8');
+          }
+        } catch (e) {
+          console.error('Could not read prompt file:', e.message);
+        }
+
         res.json({
           success: true,
           filename,
@@ -1011,6 +1023,7 @@ app.post('/api/generate-with-poses', async (req, res) => {
           template: actualTemplate,
           playerPose: playerPose || 'default',
           figurePose: figurePose || 'default',
+          prompt,
           output: stdout
         });
       } else {

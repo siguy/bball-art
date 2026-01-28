@@ -380,8 +380,20 @@ async function onGenerate() {
         figurePose,
         hairColor,
         cardId: result.cardId,
-        filename: result.filename
+        filename: result.filename,
+        prompt: result.prompt
       };
+
+      // Reset feedback UI
+      resetFeedbackUI();
+
+      // Store and display prompt
+      if (result.prompt) {
+        document.getElementById('prompt-text').textContent = result.prompt;
+      } else {
+        document.getElementById('prompt-text').textContent = 'Prompt not available';
+      }
+      document.getElementById('prompt-content').classList.add('hidden');
 
     } else {
       logOutput.textContent += `\nError: ${result.error}\n`;
@@ -443,6 +455,87 @@ async function onSwapGenerate() {
   await onGenerate();
 }
 
+// Feedback Functions
+function resetFeedbackUI() {
+  // Clear rating buttons
+  document.querySelectorAll('.result-feedback .feedback-btn').forEach(btn => {
+    btn.classList.remove('active');
+  });
+  // Clear notes
+  document.getElementById('result-feedback-notes').value = '';
+}
+
+function onRatingClick(e) {
+  const btn = e.currentTarget;
+  const rating = btn.dataset.rating;
+
+  // Update active state
+  document.querySelectorAll('.result-feedback .feedback-btn').forEach(b => {
+    b.classList.remove('active');
+  });
+  btn.classList.add('active');
+
+  // If "issues" or "liked", focus the notes field
+  if (rating === 'issues' || rating === 'liked') {
+    document.getElementById('result-feedback-notes').focus();
+  }
+}
+
+async function saveResultFeedback() {
+  if (!lastGeneratedCard || !lastGeneratedCard.cardId) return;
+
+  const activeBtn = document.querySelector('.result-feedback .feedback-btn.active');
+  const rating = activeBtn?.dataset.rating || null;
+  const notes = document.getElementById('result-feedback-notes').value;
+
+  if (!rating && !notes) return;
+
+  const saveBtn = document.getElementById('save-result-feedback');
+  saveBtn.textContent = 'Saving...';
+
+  try {
+    const res = await fetch(`${API_BASE}/api/feedback/${encodeURIComponent(lastGeneratedCard.cardId)}`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ rating, notes })
+    });
+
+    if (res.ok) {
+      saveBtn.textContent = 'Saved!';
+      setTimeout(() => { saveBtn.textContent = 'Save Feedback'; }, 1500);
+    } else {
+      saveBtn.textContent = 'Failed';
+      setTimeout(() => { saveBtn.textContent = 'Save Feedback'; }, 2000);
+    }
+  } catch (err) {
+    console.error('Failed to save feedback:', err);
+    saveBtn.textContent = 'Failed';
+    setTimeout(() => { saveBtn.textContent = 'Save Feedback'; }, 2000);
+  }
+}
+
+function togglePromptDisplay() {
+  const content = document.getElementById('prompt-content');
+  const btn = document.getElementById('toggle-prompt');
+
+  if (content.classList.contains('hidden')) {
+    content.classList.remove('hidden');
+    btn.textContent = 'Hide Prompt';
+  } else {
+    content.classList.add('hidden');
+    btn.textContent = 'View Prompt';
+  }
+}
+
+function copyPrompt() {
+  const promptText = document.getElementById('prompt-text').textContent;
+  navigator.clipboard.writeText(promptText).then(() => {
+    const btn = document.getElementById('copy-prompt');
+    btn.textContent = 'Copied!';
+    setTimeout(() => { btn.textContent = 'Copy Prompt'; }, 1500);
+  });
+}
+
 // Event Listeners Setup
 function setupEventListeners() {
   pairingSelect.addEventListener('change', onPairingChange);
@@ -463,6 +556,16 @@ function setupEventListeners() {
   document.getElementById('pose-swap-modal').addEventListener('click', (e) => {
     if (e.target.id === 'pose-swap-modal') closePoseSwapModal();
   });
+
+  // Feedback buttons
+  document.querySelectorAll('.result-feedback .feedback-btn').forEach(btn => {
+    btn.addEventListener('click', onRatingClick);
+  });
+  document.getElementById('save-result-feedback').addEventListener('click', saveResultFeedback);
+
+  // Prompt display
+  document.getElementById('toggle-prompt').addEventListener('click', togglePromptDisplay);
+  document.getElementById('copy-prompt').addEventListener('click', copyPrompt);
 
   // Keyboard shortcut
   document.addEventListener('keydown', (e) => {
