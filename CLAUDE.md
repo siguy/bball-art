@@ -15,7 +15,7 @@ A **contemporary art project** creating collectible basketball cards that pair N
 - [x] Directory structure created
 - [x] CLAUDE.md written
 - [x] Git/GitHub initialized (https://github.com/siguy/bball-art)
-- [x] **24 pairings created** (5 original + 12 heroes + 7 villains)
+- [x] **28 pairings created** (5 original + 16 heroes + 7 villains)
 - [x] **9 card templates working** (6 hero + 3 villain variants)
 - [x] Nano Banana Pro client working (`gemini-3-pro-image-preview`)
 - [x] Logo concepts generated (gold + dark versions)
@@ -30,6 +30,7 @@ A **contemporary art project** creating collectible basketball cards that pair N
 - [x] **Solo Character Mode** (generate single-character cards)
 
 ### In Progress
+- [ ] **Pairing Creation Assistant** (AI-powered pairing suggestions)
 - [ ] Testing pose system with all pairings
 - [ ] Buffer API integration for social scheduling
 
@@ -76,7 +77,8 @@ data/
 
 docs/
 ├── generator-ui.md                 # Generator UI documentation
-└── solo-characters.md              # Solo character creation guide
+├── solo-characters.md              # Solo character creation guide
+└── pairing-creator.md              # AI-powered pairing creation assistant
 
 prompts/
 ├── components/    # Modular pieces (backgrounds, poses, finishes)
@@ -98,7 +100,7 @@ visualizer/        # Card review & feedback system
 └── data/          # Manifest & feedback JSON
 ```
 
-## All 24 Pairings
+## All 28 Pairings
 
 ### Original 5 (Priority)
 | Player | Figure | Era | Connection |
@@ -109,7 +111,7 @@ visualizer/        # Card review & feedback system
 | Kobe Bryant | Joshua | 2000s | Succeeded Moses, conquered the land |
 | Stephen Curry | Elijah | 2010s | Brought fire from heaven, changed everything |
 
-### Heroes (12)
+### Heroes (16)
 | Player | Figure | Era | Connection |
 |--------|--------|-----|------------|
 | Magic Johnson | Joseph | 80s | Visionary, dreamer, elevated everyone |
@@ -124,6 +126,10 @@ visualizer/        # Card review & feedback system
 | Tim Duncan | Bezalel | 2000s | Master craftsmen - fundamentals over flash |
 | Hakeem Olajuwon | Abraham | 90s | Called from other lands, fathers of dynasties |
 | Bill Russell | Nehemiah | 60s | Built/rebuilt under oppression, ultimate winners |
+| Giannis Antetokounmpo | Ruth | 2020s | Immigrants who became royalty through loyalty |
+| Charles Barkley | Caleb | 90s | Undersized warriors who saw victory where others saw defeat |
+| Victor Wembanyama | Enoch | 2020s | Transcendent beings on a different plane |
+| Allen Iverson | Gideon | 2000s | Unconventional warriors who defeated overwhelming odds |
 
 ### Villains/Antagonists (7)
 | Player | Figure | Era | Connection |
@@ -174,7 +180,7 @@ See `data/series/court-covenant/pairings/NEW-PAIRINGS.md` for the full guide on 
 
 Per-character signature poses that can be swapped into any template. Each character has their own JSON file with multiple iconic poses.
 
-### Complete Inventory (24 players, 24 figures)
+### Complete Inventory (28 players, 28 figures)
 
 **Players** (`data/poses/players/`):
 | File | Player | Poses |
@@ -203,6 +209,10 @@ Per-character signature poses that can be swapped into any template. Each charac
 | russell.json | Bill Russell | championship-banners, block-rejection, outlet-pass, player-coach, civil-rights-stance, defensive-positioning |
 | malone.json | Karl Malone | elbow-jumper, pick-and-roll, power-dunk, missed-free-throw, muscular-pose, finals-frustration |
 | ewing.json | Patrick Ewing | fadeaway-baseline, finger-roll, intimidation-stare, blocked-layup, sweat-warrior, watching-jordan |
+| giannis.json | Giannis Antetokounmpo | eurostep-dunk, championship-trophy, monster-block, humble-beginning, free-throw-routine, screaming-and-one |
+| barkley.json | Charles Barkley | power-rebound, coast-to-coast, turnaround-jumper, celebration |
+| wembanyama.json | Victor Wembanyama | rim-protection, three-point-stroke, handle-moves, humble-prodigy, chase-down, finger-roll |
+| iverson.json | Allen Iverson | crossover, step-over, practice-rant, heart-over-height, arm-sleeve-swag, playing-hurt |
 
 **Figures** (`data/poses/figures/`):
 | File | Figure | Poses |
@@ -226,6 +236,10 @@ Per-character signature poses that can be swapped into any template. Each charac
 | haman.json | Haman | plotting-destruction, dice-casting, gallows-building, parade-humiliation, begging-esther, final-hanging |
 | joab.json | Joab | battlefield-commander, dirty-deed, whispering-counsel, loyal-soldier, ruthless-strike, army-general |
 | jacob.json | Jacob | wrestling-angel, stealing-blessing, ladder-dream, stone-pillow, reunion-with-esau, deceiving-father |
+| ruth.json | Ruth | gleaning-fields, declaration-to-naomi, meeting-boaz, at-threshing-floor, mother-of-dynasty, leaving-moab |
+| caleb.json | Caleb | silencing-crowd, returning-with-grapes, different-spirit, claiming-hebron, facing-giants, old-warrior |
+| enoch.json | Enoch | walking-with-god, ascending, between-worlds, three-hundred-years, teaching-methuselah, heavenly-vision |
+| gideon.json | Gideon | three-hundred, torch-and-horn, threshing-wheat, refusing-crown, testing-fleece, surprise-attack |
 | bezalel.json | Bezalel | crafting-ark, measuring-precisely, hands-on-materials, teaching-apprentice, divine-inspiration, examining-work |
 | abraham.json | Abraham | journeying-forth, covenant-stars, welcoming-visitors, here-i-am, father-patriarch, binding-isaac |
 | nehemiah.json | Nehemiah | building-wall, sword-and-trowel, rallying-workers, refusing-to-descend, wall-complete, surveying-ruins |
@@ -275,7 +289,7 @@ This prevents ambiguity with similar names (multiple Chrises, Mikes, etc.).
 
 Biblical quotes (Hebrew + English) organized by character, linked to poses via `quoteId`.
 
-### Complete Inventory (24 figures)
+### Complete Inventory (28 figures)
 
 | File | Figure | Key Quotes |
 |------|--------|------------|
@@ -303,6 +317,10 @@ Biblical quotes (Hebrew + English) organized by character, linked to poses via `
 | nehemiah.json | Nehemiah | let-us-build, great-work, fifty-two-days, sword-and-trowel, why-sad-face |
 | balaam.json | Balaam | cannot-curse, mah-tovu, donkey-speaks, what-god-speaks, star-from-jacob |
 | saul.json | Saul | head-and-shoulders, thousands-tens-thousands, how-mighty-fallen, evil-spirit, spared-agag |
+| ruth.json | Ruth | where-you-go, death-alone-parts, left-everything, under-his-wings, gleaning-fields |
+| caleb.json | Caleb | we-can-take-them, different-spirit, still-strong, give-me-this-mountain, followed-fully |
+| enoch.json | Enoch | walked-with-god, was-no-more, three-hundred-years, pleasing-to-god |
+| gideon.json | Gideon | mighty-warrior, sword-of-the-lord, too-many-troops, three-hundred-men, the-lord-shall-rule |
 
 ### Quote Format
 ```json
@@ -481,12 +499,46 @@ Interactive control panel for generating cards with full pose control.
 
 ### Pairing Type Field
 All pairing JSON files now include a `type` field:
-- `"type": "hero"` - 14 hero pairings
-- `"type": "villain"` - 5 villain pairings
+- `"type": "hero"` - 21 hero pairings (5 original + 16 heroes)
+- `"type": "villain"` - 7 villain pairings
 
 This enables grouped dropdowns and automatic dark mode detection.
 
 **Full documentation:** `docs/generator-ui.md`
+
+## Pairing Creation Assistant
+
+AI-powered tool for creating new pairings, located on the Pairings page.
+
+### Five Modes
+
+| Mode | Input | AI Output |
+|------|-------|-----------|
+| **Full Pairing** | Player + Figure | Connection narrative (if not provided) |
+| **Find a Figure** | Just player | Matching biblical figures with reasons |
+| **Find a Player** | Just figure | Matching NBA players with reasons |
+| **Discover Heroes** | Nothing | New hero pairings based on gaps |
+| **Discover Opposites** | Nothing | Hero-villain opposing pairings |
+
+### Key Features
+- **AI-generated connections** - If user provides player + figure without a connection, AI suggests the narrative
+- **Opposing pairings** - Discover mode finds villain pairings that naturally oppose existing heroes (e.g., Harden/Delilah vs Wilt/Samson)
+- **Alternate pairings** - Characters can appear in multiple pairings (marked with `isAlternate: true`)
+- **Auto-generation** - Creates all required JSON files (poses, quotes, pairing) on selection
+
+### Data Model Additions
+
+```json
+{
+  "id": "harden-delilah",
+  "type": "villain",
+  "isAlternate": false,
+  "alternateOf": null,
+  "opposingPairing": "wilt-samson"
+}
+```
+
+**Full documentation:** `docs/pairing-creator.md`
 
 ## Quick Commands
 
