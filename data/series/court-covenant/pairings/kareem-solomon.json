@@ -1,6 +1,7 @@
 {
   "id": "kareem-solomon",
   "series": "court-covenant",
+  "type": "hero",
   "player": {
     "name": "Kareem Abdul-Jabbar",
     "displayName": "Kareem",

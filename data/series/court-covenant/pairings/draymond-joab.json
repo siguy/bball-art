@@ -1,6 +1,7 @@
 {
   "id": "draymond-joab",
   "series": "court-covenant",
+  "type": "villain",
   "player": {
     "name": "Draymond Green",
     "poseFileId": "draymond",

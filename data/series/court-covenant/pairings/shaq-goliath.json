@@ -1,6 +1,7 @@
 {
   "id": "shaq-goliath",
   "series": "court-covenant",
+  "type": "hero",
   "player": {
     "name": "Shaquille O'Neal",
     "poseFileId": "shaq",

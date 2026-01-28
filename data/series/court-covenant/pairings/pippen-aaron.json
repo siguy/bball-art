@@ -1,6 +1,7 @@
 {
   "id": "pippen-aaron",
   "series": "court-covenant",
+  "type": "hero",
   "player": {
     "name": "Scottie Pippen",
     "displayName": "Pip",

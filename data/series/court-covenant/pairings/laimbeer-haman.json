@@ -1,6 +1,7 @@
 {
   "id": "laimbeer-haman",
   "series": "court-covenant",
+  "type": "villain",
   "player": {
     "name": "Bill Laimbeer",
     "poseFileId": "laimbeer",

@@ -1,6 +1,7 @@
 {
   "id": "jordan-moses",
   "series": "court-covenant",
+  "type": "hero",
   "player": {
     "name": "Michael Jordan",
     "displayName": "MJ",

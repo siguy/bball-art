@@ -1,6 +1,7 @@
 {
   "id": "lebron-david",
   "series": "court-covenant",
+  "type": "hero",
   "player": {
     "name": "LeBron James",
     "displayName": "King James",

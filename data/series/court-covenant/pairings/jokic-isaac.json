@@ -1,6 +1,7 @@
 {
   "id": "jokic-isaac",
   "series": "court-covenant",
+  "type": "hero",
   "player": {
     "name": "Nikola Jokic",
     "displayName": "Joker",
@@ -21,7 +22,7 @@
       "sombor shuffle",
       "post playmaking"
     ],
-    "physicalDescription": "large 6'11\" doughy body type, not traditionally athletic looking, pale white skin, brown hair, scraggly beard, sleepy unbothered expression, Serbian",
+    "physicalDescription": "tall 6'11\" with a sturdy athletic build, not traditionally cut but strong and capable, pale white skin, brown hair, scraggly beard, sleepy unbothered expression, Serbian",
     "archetype": "The Joker, MVP who looks like he wandered in from a pickup game, genius disguised as casual"
   },
   "figure": {

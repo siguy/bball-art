@@ -1,6 +1,7 @@
 {
   "id": "isiah-pharaoh",
   "series": "court-covenant",
+  "type": "villain",
   "player": {
     "name": "Isiah Thomas",
     "poseFileId": "isiah-thomas",

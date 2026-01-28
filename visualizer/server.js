@@ -801,6 +801,310 @@ app.post('/api/buffer/post', async (req, res) => {
   }
 });
 
+// ========================================
+// GENERATOR API ENDPOINTS
+// ========================================
+
+const POSES_PLAYERS_DIR = join(ROOT, 'data/poses/players');
+const POSES_FIGURES_DIR = join(ROOT, 'data/poses/figures');
+const TEMPLATES_META_PATH = join(ROOT, 'data/templates-meta.json');
+
+/**
+ * Load templates metadata
+ */
+function loadTemplatesMeta() {
+  if (existsSync(TEMPLATES_META_PATH)) {
+    return JSON.parse(readFileSync(TEMPLATES_META_PATH, 'utf-8'));
+  }
+  return { templates: {}, darkVariants: {} };
+}
+
+/**
+ * List all players with pose files
+ */
+app.get('/api/poses/players', (req, res) => {
+  try {
+    const players = [];
+    if (existsSync(POSES_PLAYERS_DIR)) {
+      const files = readdirSync(POSES_PLAYERS_DIR).filter(f => f.endsWith('.json'));
+      for (const file of files) {
+        const data = JSON.parse(readFileSync(join(POSES_PLAYERS_DIR, file), 'utf-8'));
+        players.push({
+          id: data.id,
+          name: data.name,
+          defaultPose: data.defaultPose,
+          poseCount: Object.keys(data.poses || {}).length,
+          hasHairColors: !!(data.hairColors && Object.keys(data.hairColors).length > 0)
+        });
+      }
+    }
+    res.json(players);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+/**
+ * List all figures with pose files
+ */
+app.get('/api/poses/figures', (req, res) => {
+  try {
+    const figures = [];
+    if (existsSync(POSES_FIGURES_DIR)) {
+      const files = readdirSync(POSES_FIGURES_DIR).filter(f => f.endsWith('.json'));
+      for (const file of files) {
+        const data = JSON.parse(readFileSync(join(POSES_FIGURES_DIR, file), 'utf-8'));
+        figures.push({
+          id: data.id,
+          name: data.name,
+          defaultPose: data.defaultPose,
+          poseCount: Object.keys(data.poses || {}).length
+        });
+      }
+    }
+    res.json(figures);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+/**
+ * Get player poses by poseFileId
+ */
+app.get('/api/poses/players/:id', (req, res) => {
+  try {
+    const { id } = req.params;
+    const filePath = join(POSES_PLAYERS_DIR, `${id}.json`);
+
+    if (!existsSync(filePath)) {
+      return res.status(404).json({ error: 'Player pose file not found' });
+    }
+
+    const data = JSON.parse(readFileSync(filePath, 'utf-8'));
+    res.json(data);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+/**
+ * Get figure poses by poseFileId
+ */
+app.get('/api/poses/figures/:id', (req, res) => {
+  try {
+    const { id } = req.params;
+    const filePath = join(POSES_FIGURES_DIR, `${id}.json`);
+
+    if (!existsSync(filePath)) {
+      return res.status(404).json({ error: 'Figure pose file not found' });
+    }
+
+    const data = JSON.parse(readFileSync(filePath, 'utf-8'));
+    res.json(data);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+/**
+ * List available templates with metadata
+ */
+app.get('/api/templates', (req, res) => {
+  try {
+    const meta = loadTemplatesMeta();
+    res.json(meta);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+/**
+ * Generate card with poses
+ * Full pose-controlled generation using generate-with-poses.js script
+ */
+app.post('/api/generate-with-poses', async (req, res) => {
+  const {
+    pairingId,
+    template,
+    playerPose,
+    figurePose,
+    hairColor,
+    darkMode
+  } = req.body;
+
+  if (!pairingId || !template) {
+    return res.status(400).json({ success: false, error: 'Missing pairingId or template' });
+  }
+
+  try {
+    // Determine which template to use based on darkMode
+    let actualTemplate = template;
+    if (darkMode) {
+      const meta = loadTemplatesMeta();
+      const templateInfo = meta.templates[template];
+      if (templateInfo && templateInfo.darkVariantId) {
+        actualTemplate = templateInfo.darkVariantId;
+      }
+    }
+
+    // Build the command arguments
+    const args = [
+      join(ROOT, 'scripts/generate-with-poses.js'),
+      pairingId,
+      actualTemplate
+    ];
+
+    // Add pose arguments if specified
+    if (playerPose && playerPose !== 'default') {
+      args.push('--player-pose', playerPose);
+    }
+    if (figurePose && figurePose !== 'default') {
+      args.push('--figure-pose', figurePose);
+    }
+    if (hairColor) {
+      args.push('--hair', hairColor);
+    }
+
+    console.log(`Generating card with poses: ${pairingId} ${actualTemplate}`);
+    console.log(`  Player pose: ${playerPose || 'default'}`);
+    console.log(`  Figure pose: ${figurePose || 'default'}`);
+    if (hairColor) console.log(`  Hair color: ${hairColor}`);
+
+    // Spawn the process
+    const child = spawn('node', args, {
+      cwd: ROOT,
+      env: process.env
+    });
+
+    let stdout = '';
+    let stderr = '';
+
+    child.stdout.on('data', (data) => {
+      stdout += data.toString();
+      console.log(data.toString());
+    });
+
+    child.stderr.on('data', (data) => {
+      stderr += data.toString();
+      console.error(data.toString());
+    });
+
+    child.on('close', (code) => {
+      if (code === 0) {
+        // Extract filename from output
+        const match = stdout.match(/File: (.+\.jpe?g)/);
+        const filename = match ? match[1].split('/').pop() : 'generated';
+
+        // Build cardId from filename
+        let cardId = null;
+        const filenameMatch = filename.match(/^(.+)-(\d{4}-\d{2}-\d{2}T\d{2}-\d{2}-\d{2})\.(png|jpe?g)$/);
+        if (filenameMatch) {
+          const [, extractedTemplate, timestamp] = filenameMatch;
+          cardId = `${pairingId}-${extractedTemplate}-${timestamp}`;
+        }
+
+        // Try to read the prompt file
+        let prompt = null;
+        const promptFilename = filename.replace(/\.(png|jpe?g)$/, '-prompt.txt');
+        const promptPath = join(ROOT, 'output/cards', pairingId, promptFilename);
+        try {
+          if (existsSync(promptPath)) {
+            prompt = readFileSync(promptPath, 'utf-8');
+          }
+        } catch (e) {
+          console.error('Could not read prompt file:', e.message);
+        }
+
+        res.json({
+          success: true,
+          filename,
+          cardId,
+          pairingId,
+          template: actualTemplate,
+          playerPose: playerPose || 'default',
+          figurePose: figurePose || 'default',
+          prompt,
+          output: stdout
+        });
+      } else {
+        res.json({ success: false, error: stderr || 'Generation failed', output: stdout });
+      }
+    });
+
+    child.on('error', (err) => {
+      res.status(500).json({ success: false, error: err.message });
+    });
+
+  } catch (err) {
+    res.status(500).json({ success: false, error: err.message });
+  }
+});
+
+/**
+ * Generate card from raw prompt
+ * Allows regeneration with edited prompt text
+ */
+app.post('/api/generate-from-prompt', async (req, res) => {
+  const { prompt, pairingId, originalFilename } = req.body;
+
+  if (!prompt) {
+    return res.status(400).json({ success: false, error: 'Missing prompt' });
+  }
+
+  // Use pairingId for output path, or default to 'custom'
+  const outputPairing = pairingId || 'custom';
+  const timestamp = new Date().toISOString().replace(/[:.]/g, '-').slice(0, 19);
+  const outputDir = join(ROOT, 'output/cards', outputPairing);
+  const outputFilename = `edited-${timestamp}`;
+  const outputPath = join(outputDir, outputFilename);
+  const promptPath = join(outputDir, `${outputFilename}-prompt.txt`);
+
+  console.log(`Generating from edited prompt for: ${outputPairing}`);
+  console.log(`  Output: ${outputPath}`);
+
+  try {
+    // Dynamically import the nano-banana client
+    const { generateImage } = await import(join(ROOT, 'scripts/nano-banana-client.js'));
+
+    // Ensure output directory exists
+    if (!existsSync(outputDir)) {
+      const { mkdirSync } = await import('fs');
+      mkdirSync(outputDir, { recursive: true });
+    }
+
+    // Save the prompt
+    writeFileSync(promptPath, prompt);
+
+    // Generate the image
+    const result = await generateImage(prompt, {
+      outputPath: outputPath,
+      aspectRatio: '3:4'
+    });
+
+    if (result.success) {
+      const filename = result.path.split('/').pop();
+      const cardId = `${outputPairing}-edited-${timestamp}`;
+
+      res.json({
+        success: true,
+        filename,
+        cardId,
+        pairingId: outputPairing,
+        prompt
+      });
+    } else {
+      res.json({
+        success: false,
+        error: result.error || 'Generation failed',
+        message: result.message
+      });
+    }
+  } catch (err) {
+    console.error('Generate from prompt error:', err);
+    res.status(500).json({ success: false, error: err.message });
+  }
+});
+
 // Start server
 const PORT = process.env.PORT || 3333;
 app.listen(PORT, () => {
