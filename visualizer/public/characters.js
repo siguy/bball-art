@@ -197,6 +197,8 @@ function showCreateForm() {
   document.getElementById('research-error').classList.add('hidden');
   document.querySelector('input[name="char-type"][value="player"]').checked = true;
   currentCharacterType = 'player';
+
+  window.scrollTo(0, 0);
 }
 
 function showEditStep() {
@@ -232,6 +234,7 @@ async function openEditForm(type, id) {
     document.getElementById('edit-title').textContent = editingCharacter.name;
     showEditStep();
 
+    window.scrollTo(0, 0);
   } catch (err) {
     console.error('Failed to load character:', err);
     alert('Failed to load character: ' + err.message);

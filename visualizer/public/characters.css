@@ -11,6 +11,10 @@
   width: 100%;
 }
 
+.characters-grid-view.hidden {
+  display: none;
+}
+
 .grid-header {
   display: flex;
   justify-content: space-between;
