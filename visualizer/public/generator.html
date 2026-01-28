@@ -128,12 +128,16 @@
           <button id="result-quick-swap" class="btn">Quick Pose Swap</button>
         </div>
 
-        <!-- Prompt Display -->
+        <!-- Prompt Display & Edit -->
         <div class="prompt-display">
-          <button id="toggle-prompt" class="btn btn-small">View Prompt</button>
+          <button id="toggle-prompt" class="btn btn-small">View/Edit Prompt</button>
           <div class="prompt-content hidden" id="prompt-content">
-            <pre id="prompt-text"></pre>
-            <button id="copy-prompt" class="btn btn-small">Copy Prompt</button>
+            <textarea id="prompt-text" rows="15" placeholder="Prompt will appear here after generation..."></textarea>
+            <div class="prompt-actions">
+              <button id="copy-prompt" class="btn btn-small">Copy Prompt</button>
+              <button id="regenerate-from-prompt" class="btn btn-small btn-primary">Regenerate with Edited Prompt</button>
+            </div>
+            <p class="prompt-hint">Edit the prompt above, then click "Regenerate with Edited Prompt" to try your changes.</p>
           </div>
         </div>
       </div>

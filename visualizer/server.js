@@ -1040,6 +1040,71 @@ app.post('/api/generate-with-poses', async (req, res) => {
   }
 });
 
+/**
+ * Generate card from raw prompt
+ * Allows regeneration with edited prompt text
+ */
+app.post('/api/generate-from-prompt', async (req, res) => {
+  const { prompt, pairingId, originalFilename } = req.body;
+
+  if (!prompt) {
+    return res.status(400).json({ success: false, error: 'Missing prompt' });
+  }
+
+  // Use pairingId for output path, or default to 'custom'
+  const outputPairing = pairingId || 'custom';
+  const timestamp = new Date().toISOString().replace(/[:.]/g, '-').slice(0, 19);
+  const outputDir = join(ROOT, 'output/cards', outputPairing);
+  const outputFilename = `edited-${timestamp}`;
+  const outputPath = join(outputDir, outputFilename);
+  const promptPath = join(outputDir, `${outputFilename}-prompt.txt`);
+
+  console.log(`Generating from edited prompt for: ${outputPairing}`);
+  console.log(`  Output: ${outputPath}`);
+
+  try {
+    // Dynamically import the nano-banana client
+    const { generateImage } = await import(join(ROOT, 'scripts/nano-banana-client.js'));
+
+    // Ensure output directory exists
+    if (!existsSync(outputDir)) {
+      const { mkdirSync } = await import('fs');
+      mkdirSync(outputDir, { recursive: true });
+    }
+
+    // Save the prompt
+    writeFileSync(promptPath, prompt);
+
+    // Generate the image
+    const result = await generateImage(prompt, {
+      outputPath: outputPath,
+      aspectRatio: '3:4'
+    });
+
+    if (result.success) {
+      const filename = result.path.split('/').pop();
+      const cardId = `${outputPairing}-edited-${timestamp}`;
+
+      res.json({
+        success: true,
+        filename,
+        cardId,
+        pairingId: outputPairing,
+        prompt
+      });
+    } else {
+      res.json({
+        success: false,
+        error: result.error || 'Generation failed',
+        message: result.message
+      });
+    }
+  } catch (err) {
+    console.error('Generate from prompt error:', err);
+    res.status(500).json({ success: false, error: err.message });
+  }
+});
+
 // Start server
 const PORT = process.env.PORT || 3333;
 app.listen(PORT, () => {

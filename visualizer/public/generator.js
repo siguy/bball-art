@@ -389,9 +389,9 @@ async function onGenerate() {
 
       // Store and display prompt
       if (result.prompt) {
-        document.getElementById('prompt-text').textContent = result.prompt;
+        document.getElementById('prompt-text').value = result.prompt;
       } else {
-        document.getElementById('prompt-text').textContent = 'Prompt not available';
+        document.getElementById('prompt-text').value = 'Prompt not available';
       }
       document.getElementById('prompt-content').classList.add('hidden');
 
@@ -528,12 +528,83 @@ function togglePromptDisplay() {
 }
 
 function copyPrompt() {
-  const promptText = document.getElementById('prompt-text').textContent;
+  const promptText = document.getElementById('prompt-text').value;
   navigator.clipboard.writeText(promptText).then(() => {
     const btn = document.getElementById('copy-prompt');
     btn.textContent = 'Copied!';
     setTimeout(() => { btn.textContent = 'Copy Prompt'; }, 1500);
   });
+}
+
+async function regenerateFromPrompt() {
+  if (!lastGeneratedCard) return;
+
+  const editedPrompt = document.getElementById('prompt-text').value;
+  if (!editedPrompt.trim()) {
+    alert('Prompt is empty');
+    return;
+  }
+
+  const btn = document.getElementById('regenerate-from-prompt');
+  btn.textContent = 'Generating...';
+  btn.disabled = true;
+
+  // Show generation log
+  generationLog.classList.remove('hidden');
+  logOutput.textContent = 'Regenerating with edited prompt...\n';
+
+  try {
+    const res = await fetch(`${API_BASE}/api/generate-from-prompt`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        prompt: editedPrompt,
+        pairingId: lastGeneratedCard.pairingId
+      })
+    });
+
+    const result = await res.json();
+
+    if (result.success) {
+      logOutput.textContent += 'Generation complete!\n';
+
+      // Show result
+      const imagePath = `/cards/${result.pairingId}/${result.filename}`;
+      resultImage.src = imagePath + '?t=' + Date.now();
+      resultViewLink.href = `/?pairing=${result.pairingId}&card=${result.cardId}`;
+
+      // Update last generated card
+      lastGeneratedCard = {
+        ...lastGeneratedCard,
+        cardId: result.cardId,
+        filename: result.filename,
+        prompt: editedPrompt
+      };
+
+      // Reset feedback UI for new card
+      resetFeedbackUI();
+
+      btn.textContent = 'Regenerate with Edited Prompt';
+      btn.disabled = false;
+    } else {
+      logOutput.textContent += `\nError: ${result.error}\n`;
+      if (result.message) {
+        logOutput.textContent += `Message: ${result.message}\n`;
+      }
+      btn.textContent = 'Failed - Try Again';
+      setTimeout(() => {
+        btn.textContent = 'Regenerate with Edited Prompt';
+        btn.disabled = false;
+      }, 2000);
+    }
+  } catch (err) {
+    logOutput.textContent += `\nFetch error: ${err.message}\n`;
+    btn.textContent = 'Failed - Try Again';
+    setTimeout(() => {
+      btn.textContent = 'Regenerate with Edited Prompt';
+      btn.disabled = false;
+    }, 2000);
+  }
 }
 
 // Event Listeners Setup
@@ -563,9 +634,10 @@ function setupEventListeners() {
   });
   document.getElementById('save-result-feedback').addEventListener('click', saveResultFeedback);
 
-  // Prompt display
+  // Prompt display and edit
   document.getElementById('toggle-prompt').addEventListener('click', togglePromptDisplay);
   document.getElementById('copy-prompt').addEventListener('click', copyPrompt);
+  document.getElementById('regenerate-from-prompt').addEventListener('click', regenerateFromPrompt);
 
   // Keyboard shortcut
   document.addEventListener('keydown', (e) => {
