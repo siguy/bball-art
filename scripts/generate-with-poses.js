@@ -27,6 +27,7 @@ import { fileURLToPath } from 'url';
 import {
   getPlayerPose,
   getFigurePose,
+  getCharacterPose,
   listPlayerPoses,
   listFigurePoses,
   listPlayerHairColors
@@ -172,9 +173,14 @@ const playerPoseId = flags['player-pose'] || 'default';
 const figurePoseId = flags['figure-pose'] || 'default';
 const hairColor = flags['hair'] || null;
 
-// Get the poses using the correct pose file IDs
-const playerPose = getPlayerPose(playerId, playerPoseId, hairColor);
-const figurePose = getFigurePose(figureId, figurePoseId);
+// Use characterType from pairing JSON to route to correct pose directory
+// Defaults to 'player'/'figure' for standard pairings (backward compatible)
+const playerCharType = pairing.player.characterType || 'player';
+const figureCharType = pairing.figure.characterType || 'figure';
+
+// Get the poses using the correct pose file IDs and character types
+const playerPose = getCharacterPose(playerId, playerPoseId, playerCharType, hairColor);
+const figurePose = getCharacterPose(figureId, figurePoseId, figureCharType);
 
 if (!playerPose) {
   console.error(`Player pose not found: ${playerId}/${playerPoseId}`);

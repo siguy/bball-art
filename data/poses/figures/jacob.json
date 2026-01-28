@@ -57,6 +57,30 @@
       "prompt": "man at dawn limping but standing tall - touched hip causing limp, face showing exhausted triumph, no longer Jacob the supplanter but Israel who strove with God, transformation through struggle, new name earned",
       "energy": "painful transformation, identity earned",
       "quoteId": "named-israel"
+    },
+    "rivalry-birthright-bargain": {
+      "id": "rivalry-birthright-bargain",
+      "name": "Rivalry: Birthright Bargain",
+      "description": "Jacob in rivalry scene: A rugged, outdoor landscape. The sun is setting, casting long shadows. A small, makeshift camp with a fire burning low.",
+      "prompt": "Jacob is seated near a cooking pot, stirring a stew with a sly grin. He extends a bowl towards the viewer, one hand gesturing in a bargaining manner. He wears simple, practical clothing.",
+      "energy": "Desperate, Opportunistic, Ravenous",
+      "isRivalryPose": true
+    },
+    "rivalry-stolen-blessing": {
+      "id": "rivalry-stolen-blessing",
+      "name": "Rivalry: Stolen Blessing",
+      "description": "Jacob in rivalry scene: The interior of Isaac's tent, dimly lit by oil lamps. The atmosphere is thick with tension and deception.",
+      "prompt": "Jacob kneels before his blind father, Isaac. He is dressed in Esau's clothes and covered in animal skin on his hands and neck. His expression is nervous, but determined as he bows his head.",
+      "energy": "Deceptive, Enraged, Despairing",
+      "isRivalryPose": true
+    },
+    "rivalry-the-reunion": {
+      "id": "rivalry-the-reunion",
+      "name": "Rivalry: The Reunion",
+      "description": "Jacob in rivalry scene: A vast, open plain, with the setting sun casting long shadows. A sense of anticipation and unease fills the air.",
+      "prompt": "Jacob bows low to the ground, surrounded by his wives and children. He extends his hands in a gesture of supplication, his face etched with anxiety.",
+      "energy": "Apprehensive, Confrontational, Uncertain",
+      "isRivalryPose": true
     }
   }
 }

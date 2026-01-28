@@ -1,0 +1,147 @@
+{
+  "id": "jacob-esau",
+  "series": "court-covenant",
+  "type": "rivalry",
+  "isAlternate": true,
+  "alternateOf": "rodman-esau",
+  "opposingPairing": null,
+  "cardMode": "rivalry-figure-figure",
+  "rivalryConfig": {
+    "heroCharacterType": "figure",
+    "villainCharacterType": "figure"
+  },
+  "rivalryResearch": {
+    "relationship": "Jacob and Esau were twin brothers whose relationship was fraught with jealousy and deception from the womb. Jacob's manipulative nature led him to swindle Esau out of his birthright and blessing, fueling a lifelong rivalry that threatened to tear their family apart and shape their destinies.",
+    "keyMoments": [
+      {
+        "title": "The Struggle in the Womb",
+        "description": "Even before birth, Jacob and Esau struggled within Rebekah's womb, foreshadowing their contentious relationship."
+      },
+      {
+        "title": "The Birthright Bargain",
+        "description": "Jacob cunningly persuaded a famished Esau to sell his birthright for a bowl of lentil stew, a decision Esau would later regret."
+      },
+      {
+        "title": "The Stolen Blessing",
+        "description": "With Rebekah's help, Jacob deceived his blind father Isaac and secured the blessing intended for Esau, intensifying their animosity."
+      },
+      {
+        "title": "Esau's Vow of Revenge",
+        "description": "Upon discovering Jacob's deception, Esau vowed to kill his brother after their father's death, forcing Jacob to flee for his life."
+      },
+      {
+        "title": "Reconciliation Attempt",
+        "description": "Years later, Jacob returns to his homeland, attempting to reconcile with Esau, leading to a tense but ultimately peaceful meeting."
+      }
+    ],
+    "rivalryScenes": [
+      {
+        "id": "birthright-bargain",
+        "heroAction": "Jacob is seated near a cooking pot, stirring a stew with a sly grin. He extends a bowl towards the viewer, one hand gesturing in a bargaining manner. He wears simple, practical clothing.",
+        "villainAction": "Esau stands, disheveled and exhausted, with sweat on his brow. His clothes are torn and dirty from hunting. He reaches desperately for the bowl of stew, eyes wide with hunger.",
+        "scene": "A rugged, outdoor landscape. The sun is setting, casting long shadows. A small, makeshift camp with a fire burning low.",
+        "energy": "Desperate, Opportunistic, Ravenous"
+      },
+      {
+        "id": "stolen-blessing",
+        "heroAction": "Jacob kneels before his blind father, Isaac. He is dressed in Esau's clothes and covered in animal skin on his hands and neck. His expression is nervous, but determined as he bows his head.",
+        "villainAction": "Esau enters the tent, carrying a freshly killed deer. His face is filled with shock and betrayal as he witnesses Jacob receiving the blessing. His bow hangs loosely in his hand.",
+        "scene": "The interior of Isaac's tent, dimly lit by oil lamps. The atmosphere is thick with tension and deception.",
+        "energy": "Deceptive, Enraged, Despairing"
+      },
+      {
+        "id": "the-reunion",
+        "heroAction": "Jacob bows low to the ground, surrounded by his wives and children. He extends his hands in a gesture of supplication, his face etched with anxiety.",
+        "villainAction": "Esau approaches with 400 armed men. His expression is difficult to read – a mixture of curiosity, lingering anger, and perhaps a hint of brotherly affection. He is dressed as a warrior.",
+        "scene": "A vast, open plain, with the setting sun casting long shadows. A sense of anticipation and unease fills the air.",
+        "energy": "Apprehensive, Confrontational, Uncertain"
+      }
+    ],
+    "scriptureReferences": [
+      {
+        "source": "Genesis 25:23",
+        "context": "God's revelation to Rebekah about the twins in her womb",
+        "hebrew": "וַיֹּאמֶר֩ יְהוָ֨ה לָ֜הּ שְׁנֵי־גֹויִם֙ בְּבִטְנֵ֔ךְ וּשְׁנֵ֣י לְאֻמִּים֘ מִמֵּעַיִךְ֙ יִפָּרֵ֔דוּ וּלְאֹם֙ מִלְאֹם֙ יֶאֱמָ֔ץ וְרַ֥ב יַעֲבֹ֖ד צָעִֽיר׃",
+        "english": "And the Lord said unto her, Two nations are in thy womb, and two manner of people shall be separated from thy bowels; and the one people shall be stronger than the other people; and the elder shall serve the younger.",
+        "mood": "Prophetic, Foreboding"
+      },
+      {
+        "source": "Genesis 25:33",
+        "context": "Esau sells his birthright to Jacob.",
+        "hebrew": "וַיֹּ֤אמֶר יַעֲקֹב֙ הִשָּׁ֣בְעָה לִּ֔י כַּיֹּ֖ום וַיִּשָּׁ֣בַע לֹ֑ו וַיִּמְכֹּ֛ר אֶת־בְּכֹרָתֹ֖ו לְיַעֲקֹֽב׃",
+        "english": "And Jacob said, Swear to me this day; and he sware unto him: and he sold his birthright unto Jacob.",
+        "mood": "Manipulative, Regretful"
+      },
+      {
+        "source": "Genesis 27:36",
+        "context": "Esau laments the loss of his birthright and blessing.",
+        "hebrew": "וַיֹּאמֶר֩ הֲכִי֩ קָרָ֨א שְׁמֹ֤ו יַעֲקֹב֙ וַיַּעְקְבֵ֙נִי֙ זֶ֣ה פַעֲמַ֔יִם אֶת־בְּכֹרָתִי֙ לָקָ֔ח וְהִנֵּ֥ה עַתָּ֖ה לָקַ֣ח אֶת־בִּרְכָתִ֑י וַיֹּאמַ֕ר הֲלֹא־אָצַ֥לְתָּ לִּ֖י בְּרָכָֽה׃",
+        "english": "And he said, Is not he rightly named Jacob? for he hath supplanted me these two times: he took away my birthright; and, behold, now he hath taken away my blessing. And he said, Hast thou not reserved a blessing for me?",
+        "mood": "Bitter, Resentful"
+      },
+      {
+        "source": "Genesis 27:41",
+        "context": "Esau plots to kill Jacob after Isaac dies.",
+        "hebrew": "וַיִּשְׂטֹ֨ם עֵשָׂ֜ו אֶת־יַעֲקֹ֗ב עַל־הַבְּרָכָה֙ אֲשֶׁ֣ר בֵּרֲכֹו אָבִ֔יו וַיֹּ֤אמֶר עֵשָׂו֙ בְּלִבֹּ֔ו יִקְרְב֣וּ יְמֵי־אֵבֵל֮ אָבִי֒ וְאַֽהַרְגָה֙ אֶת־יַעֲקֹ֣ב אָחִֽי׃",
+        "english": "And Esau hated Jacob because of the blessing wherewith his father blessed him: and Esau said in his heart, The days of mourning for my father are at hand; then will I slay my brother Jacob.",
+        "mood": "Vengeful, Murderous"
+      },
+      {
+        "source": "Genesis 33:4",
+        "context": "Esau and Jacob's reconciliation.",
+        "hebrew": "וַיָּ֤רָץ עֵשָׂו֙ לִקְרָאתוֹ֙ וַֽיְחַבְּקֵ֔הוּ וַיִּפֹּ֥ל עַל־צַוָּארָ֖ו וַׄיִּשָּׁקֵ֑הוּ וַיִּבְכּֽוּ׃",
+        "english": "And Esau ran to meet him, and embraced him, and fell on his neck, and kissed him: and they wept.",
+        "mood": "Forgiving, Emotional"
+      }
+    ]
+  },
+  "player": {
+    "name": "Jacob",
+    "displayName": "Jacob",
+    "poseFileId": "jacob",
+    "characterType": "figure",
+    "attribute": "shepherd's staff and spotted flocks",
+    "attributeDescription": "shepherd's staff, surrounded by spotted and speckled sheep and goats representing his clever dealings with Laban",
+    "visualStyle": "cunning patriarch, the supplanter who became Israel",
+    "clothing": "wealthy patriarch's robes, layered fine fabrics, the dress of a successful man who earned it through wit",
+    "physicalDescription": "smooth-skinned man (contrast to hairy Esau), intelligent scheming eyes, neat beard, calculating expression, olive skin, always thinking three moves ahead",
+    "anatomyNote": "two arms only",
+    "archetype": "The Supplanter, wrestled God, outsmarted everyone on his path to greatness"
+  },
+  "figure": {
+    "name": "Esau",
+    "displayName": "Esau",
+    "poseFileId": "esau",
+    "characterType": "figure",
+    "attribute": "hunter's bow and wild game",
+    "attributeDescription": "powerful hunting bow, freshly caught wild game slung over shoulder, tools of the wild hunter",
+    "visualStyle": "wild hunter of the fields, firstborn who sold his birthright",
+    "clothing": "rough animal skins and furs, minimal clothing of a man who lives outdoors, leather straps and hunting gear",
+    "physicalDescription": "EXTREMELY HAIRY man covered in red hair all over body and arms (as described in Genesis), wild rugged appearance, powerful hunter's build, ruddy red complexion, fierce untamed eyes, lives by instinct",
+    "anatomyNote": "two arms only, may carry bow",
+    "archetype": "The Wild Man, lived for the moment, traded his future for today"
+  },
+  "connection": "The original sibling rivalry — stolen birthright, wrestling with destiny, reconciliation",
+  "interactions": [
+    {
+      "id": "face-off",
+      "description": "Jacob and Esau in an intense stare-down"
+    },
+    {
+      "id": "clash",
+      "description": "Jacob and Esau in mid-action collision"
+    },
+    {
+      "id": "judgment",
+      "description": "Jacob victorious, Esau acknowledging defeat"
+    }
+  ],
+  "defaultInteraction": "face-off",
+  "cardVariants": [
+    "thunder-lightning-rivalry",
+    "beam-team-rivalry",
+    "metal-universe-rivalry"
+  ],
+  "priority": 99,
+  "status": "active"
+}

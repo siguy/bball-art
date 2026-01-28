@@ -12,6 +12,7 @@ let currentCharacterType = 'player';
 let currentCharacterId = null;
 let editingCharacter = null;
 let editingPoses = [];
+let editingQuotes = null;
 
 // DOM Elements
 const gridView = document.getElementById('grid-view');
@@ -68,11 +69,14 @@ async function researchCharacter(type, name) {
   return await res.json();
 }
 
-async function saveCharacter(type, character, poses) {
+async function saveCharacter(type, character, poses, quotes = null) {
+  const body = { type, character, poses };
+  if (quotes) body.quotes = quotes;
+
   const res = await fetch(`${API_BASE}/api/characters/save`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ type, character, poses })
+    body: JSON.stringify(body)
   });
 
   if (!res.ok) {
@@ -186,6 +190,7 @@ function showCreateForm() {
   currentCharacterId = null;
   editingCharacter = null;
   editingPoses = [];
+  editingQuotes = null;
 
   gridView.classList.add('hidden');
   formView.classList.remove('hidden');
@@ -417,6 +422,7 @@ async function onResearchClick() {
 
     editingCharacter = data.character;
     editingPoses = Object.values(data.poses || {});
+    editingQuotes = data.quotes || null;
 
     populateEditForm(editingCharacter, editingPoses);
     document.getElementById('edit-title').textContent = `Review: ${editingCharacter.name}`;
@@ -447,7 +453,7 @@ async function onSaveClick() {
   saveBtnBottom.disabled = true;
 
   try {
-    await saveCharacter(currentCharacterType, character, { poses, defaultPose });
+    await saveCharacter(currentCharacterType, character, { poses, defaultPose }, editingQuotes);
 
     // Refresh character list
     await loadCharacters();

@@ -10,7 +10,8 @@ import { v4 as uuidv4 } from 'uuid';
 import imageProcessor from './lib/image-processor.js';
 import captionGenerator from './lib/caption-generator.js';
 import bufferClient from './lib/buffer-client.js';
-import pairingAssistant from './lib/pairing-assistant.js';
+import pairingAssistant, { callGemini, generatePlayerPoseFile, generateFigurePoseFile, generateFigureQuotesFile } from './lib/pairing-assistant.js';
+import { researchBiblicalFigure } from './lib/sefaria-client.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -1150,6 +1151,50 @@ app.post('/api/cards/trim', async (req, res) => {
 });
 
 /**
+ * Undo blend (restore pre-blend backup)
+ */
+app.post('/api/cards/trim/undo', (req, res) => {
+  const { cardPath } = req.body;
+
+  if (!cardPath) {
+    return res.status(400).json({ success: false, error: 'Missing cardPath' });
+  }
+
+  const fullPath = join(ROOT, 'output', cardPath);
+
+  if (!existsSync(fullPath)) {
+    return res.status(404).json({ success: false, error: 'Card image not found' });
+  }
+
+  const result = imageProcessor.undoTrimWhiteBorder(fullPath);
+
+  if (result.success) {
+    buildManifest();
+  }
+
+  res.json(result);
+});
+
+/**
+ * Check if a pre-blend backup exists for a card
+ */
+app.get('/api/cards/trim/status', (req, res) => {
+  const { cardPath } = req.query;
+
+  if (!cardPath) {
+    return res.status(400).json({ error: 'Missing cardPath query parameter' });
+  }
+
+  const fullPath = join(ROOT, 'output', cardPath);
+
+  if (!existsSync(fullPath)) {
+    return res.json({ hasBackup: false });
+  }
+
+  res.json({ hasBackup: imageProcessor.hasPreBlendBackup(fullPath) });
+});
+
+/**
  * Generate card from raw prompt
  * Allows regeneration with edited prompt text
  */
@@ -1480,23 +1525,24 @@ app.post('/api/characters/research', async (req, res) => {
   }
 
   try {
-    // Generate character ID from name
     const id = name.toLowerCase()
       .replace(/[^a-z0-9]+/g, '-')
       .replace(/^-+|-+$/g, '');
 
-    // Build character data based on type
-    let character, poses;
+    console.log(`[Research] Starting ${type} research for: ${name} (${id})`);
+
+    let character, poses, quotes;
 
     if (type === 'player') {
-      character = await researchPlayer(name, id);
-      poses = await generatePlayerPoses(name, character);
+      ({ character, poses } = await researchPlayerAI(name, id));
     } else {
-      character = await researchFigure(name, id);
-      poses = await generateFigurePoses(name, character);
+      ({ character, poses, quotes } = await researchFigureAI(name, id));
     }
 
-    res.json({ character, poses });
+    // Flatten poses for frontend: data.poses should be { poseId: poseObj, ... }
+    // Frontend does Object.values(data.poses) to get array of pose objects
+    const flatPoses = poses.poses || poses;
+    res.json({ character, poses: flatPoses, quotes });
 
   } catch (err) {
     console.error('Research error:', err);
@@ -1505,146 +1551,284 @@ app.post('/api/characters/research', async (req, res) => {
 });
 
 /**
- * Research an NBA player using web search
+ * AI-powered player research using Gemini via pairing-assistant.
+ * Generates character profile + poses in a single call.
  */
-async function researchPlayer(name, id) {
-  // For now, generate sensible defaults that user can edit
-  // In a full implementation, this would use web search APIs
+async function researchPlayerAI(name, id) {
+  console.log(`[Research] AI researching player: ${name}`);
 
+  // Generate pose file data (includes physical description)
+  const poseData = await generatePlayerPoseFile(name, id);
+
+  // Make a supplementary call for character metadata that the pose file doesn't include
+  let metadata = {};
+  try {
+    metadata = await callGemini(`Return a JSON object with metadata for NBA player "${name}".
+
+{
+  "displayName": "nickname or empty string if not commonly known by one",
+  "era": "decade they were most dominant, one of: 1960s, 1970s, 1980s, 1990s, 2000s, 2010s, 2020s",
+  "jerseyColors": {
+    "primary": { "base": "their most iconic team's primary jersey color", "accent": "accent color" },
+    "secondary": { "base": "secondary jersey base color", "accent": "accent color" }
+  },
+  "archetype": "2-3 sentence description of their playing style, persona, and cultural impact",
+  "height": "height as listed (e.g., 6'6\")",
+  "position": "their primary position"
+}
+
+Be accurate. Use their most iconic team's colors.`);
+  } catch (e) {
+    console.warn('[Research] Metadata call failed, using defaults:', e.message);
+  }
+
+  // Build character object for the frontend
   const character = {
     id,
     name,
-    displayName: '',
+    displayName: metadata.displayName || '',
     poseFileId: id,
-    era: '2000s',
-    jerseyColors: {
+    era: metadata.era || '2000s',
+    jerseyColors: metadata.jerseyColors || {
       primary: { base: 'blue', accent: 'white' },
       secondary: { base: 'white', accent: 'blue' }
     },
-    physicalDescription: `Professional basketball player, athletic build`,
-    archetype: `${name} - NBA player`
+    physicalDescription: poseData.description || `${name}, professional basketball player, athletic build`,
+    archetype: metadata.archetype || `${name} - NBA player`
   };
 
-  // Try to determine era from common knowledge
-  const eraHints = {
-    'wilt': '1970s', 'kareem': '1970s', 'dr j': '1970s', 'julius erving': '1970s',
-    'magic': '1980s', 'bird': '1980s', 'isiah': '1980s',
-    'jordan': '1990s', 'pippen': '1990s', 'barkley': '1990s', 'stockton': '1990s', 'malone': '1990s', 'shaq': '1990s', 'rodman': '1990s',
-    'kobe': '2000s', 'iverson': '2000s', 'duncan': '2000s', 'garnett': '2000s',
-    'lebron': '2010s', 'curry': '2010s', 'durant': '2010s', 'westbrook': '2010s',
-    'jokic': '2020s', 'giannis': '2020s', 'luka': '2020s', 'sga': '2020s', 'tatum': '2020s'
+  // Build poses object for the frontend
+  const poses = {
+    poses: poseData.poses || {},
+    defaultPose: poseData.defaultPose || Object.keys(poseData.poses || {})[0] || 'signature-move'
   };
 
-  const nameLower = name.toLowerCase();
-  for (const [hint, era] of Object.entries(eraHints)) {
-    if (nameLower.includes(hint)) {
-      character.era = era;
-      break;
-    }
-  }
-
-  return character;
+  console.log(`[Research] Player research complete: ${Object.keys(poses.poses).length} poses generated`);
+  return { character, poses };
 }
 
 /**
- * Research a biblical figure using Sefaria/web search
+ * AI-powered figure research using Sefaria + Gemini.
+ * 1. Fetches real biblical text from Sefaria (Hebrew + English)
+ * 2. Passes Sefaria data to Gemini for pose generation with real context
+ * 3. Builds quotes from Sefaria's verified Hebrew text
  */
-async function researchFigure(name, id) {
+async function researchFigureAI(name, id) {
+  console.log(`[Research] AI researching biblical figure: ${name}`);
+
+  // Step 1: Research via Sefaria for real biblical text
+  let sefariaData = { found: false, description: '', quotes: [], refs: [] };
+  try {
+    sefariaData = await researchBiblicalFigure(name);
+    console.log(`[Research] Sefaria: found=${sefariaData.found}, quotes=${sefariaData.quotes.length}`);
+  } catch (e) {
+    console.warn('[Research] Sefaria research failed, continuing with AI-only:', e.message);
+  }
+
+  // Step 2: Generate pose file with Sefaria context
+  let poseData;
+  if (sefariaData.found && sefariaData.quotes.length > 0) {
+    // Enhanced generation with real biblical context
+    poseData = await generateFigurePosesWithContext(name, id, sefariaData);
+  } else {
+    // Fallback to standard AI generation
+    poseData = await generateFigurePoseFile(name, id);
+  }
+
+  // Post-process: strip props/objects that leaked into description
+  if (poseData.description) {
+    // Remove clauses mentioning objects (e.g., "often depicted with a lyre or sword")
+    poseData.description = poseData.description
+      .replace(/,?\s*(often |typically |usually |frequently )?(depicted |shown |seen |portrayed )?(with|holding|carrying|wielding|bearing)\s+[^,.]+/gi, '')
+      .replace(/\.\s*A (man|woman|person|figure) (after|of|who)[^.]+\./gi, '.')
+      .replace(/\s{2,}/g, ' ')
+      .replace(/,\s*\./g, '.')
+      .replace(/\.\s*\./g, '.')
+      .trim();
+  }
+
+  // Step 3: Build quotes from Sefaria data (real Hebrew) + Gemini enrichment
+  let quotesData;
+  if (sefariaData.quotes.length > 0) {
+    quotesData = await buildQuotesFromSefaria(name, id, sefariaData);
+  } else {
+    // Fallback to pure AI quotes
+    quotesData = await generateFigureQuotesFile(name, id);
+  }
+
+  // Step 4: Build character object
   const character = {
     id,
     name,
     displayName: name,
     poseFileId: id,
     era: 'biblical',
-    clothing: 'robes and sandals, period-accurate biblical attire',
-    physicalDescription: `Biblical figure, dignified bearing`,
-    archetype: `${name} - biblical figure`
+    clothing: poseData.clothing || 'robes and sandals, period-accurate biblical attire',
+    physicalDescription: poseData.description || `${name}, biblical figure, dignified bearing`,
+    archetype: poseData.visualStyle || `${name} - biblical figure`
   };
 
-  return character;
+  const poses = {
+    poses: poseData.poses || {},
+    defaultPose: poseData.defaultPose || Object.keys(poseData.poses || {})[0] || 'iconic-moment'
+  };
+
+  console.log(`[Research] Figure research complete: ${Object.keys(poses.poses).length} poses, ${Object.keys(quotesData?.quotes || {}).length} quotes`);
+  return { character, poses, quotes: quotesData };
 }
 
 /**
- * Generate default poses for a player
+ * Generate figure poses with real Sefaria biblical context.
+ * Enhances the AI prompt with actual verses so poses reference real moments.
  */
-async function generatePlayerPoses(name, character) {
-  // Generate common basketball poses that user can customize
-  const poses = {
-    'signature-move': {
-      id: 'signature-move',
-      name: 'Signature Move',
-      description: `${name}'s signature basketball move`,
-      expression: 'focused intensity',
-      prompt: `executing signature basketball move - athletic form, focused expression, powerful body control`,
-      energy: 'dominant, skilled'
-    },
-    'celebration': {
-      id: 'celebration',
-      name: 'Victory Celebration',
-      description: 'Celebrating a big moment',
-      expression: 'joy, triumph',
-      prompt: `celebrating victory - fist pump or arms raised, expression of pure joy, the moment of triumph`,
-      energy: 'triumphant, electric'
-    },
-    'defensive-stance': {
-      id: 'defensive-stance',
-      name: 'Defensive Stance',
-      description: 'Low defensive position',
-      expression: 'intense focus',
-      prompt: `in low defensive stance - knees bent, arms wide, eyes locked on opponent, ready to react`,
-      energy: 'intense, lockdown'
-    },
-    'dunk': {
-      id: 'dunk',
-      name: 'Powerful Dunk',
-      description: 'Rising for a powerful dunk',
-      expression: 'fierce determination',
-      prompt: `rising for powerful one-handed dunk - body elevated, arm cocked back, eyes on rim, athletic explosion`,
-      energy: 'explosive, powerful'
-    }
-  };
+async function generateFigurePosesWithContext(name, id, sefariaData) {
+  // Build context string from Sefaria quotes
+  const contextLines = sefariaData.quotes.slice(0, 6).map((q, i) =>
+    `${i + 1}. ${q.source}: "${q.english}"`
+  ).join('\n');
 
-  return {
-    poses,
-    defaultPose: 'signature-move'
-  };
+  const descriptionContext = sefariaData.description
+    ? `\nBackground: ${sefariaData.description}\n`
+    : '';
+
+  // Build physical description context from Sefaria passages
+  let physicalDescContext = '';
+  if (sefariaData.physicalDescriptions && sefariaData.physicalDescriptions.length > 0) {
+    const descLines = sefariaData.physicalDescriptions.map((d, i) =>
+      `${i + 1}. ${d.source}: "${d.english}"`
+    ).join('\n');
+    physicalDescContext = `
+BIBLICAL PASSAGES DESCRIBING ${name.toUpperCase()}'S PHYSICAL APPEARANCE:
+${descLines}
+
+Use these passages to inform the "description" field. Only include traits that describe the PERSON's body — face, hair, skin, build, age, bearing. Do NOT include objects, props, or items they carry.
+`;
+  }
+
+  // Read example for structure
+  const examplePath = join(ROOT, 'data/poses/figures/moses.json');
+  let example = null;
+  if (existsSync(examplePath)) {
+    example = JSON.parse(readFileSync(examplePath, 'utf-8'));
+  }
+
+  const prompt = `Generate a pose data file for the biblical figure: ${name}
+
+This is for a collectible card art series pairing NBA players with biblical figures. I need 4-6 signature poses based on their actual biblical story.
+${descriptionContext}
+Here are REAL biblical passages about ${name} from Sefaria:
+${contextLines}
+${physicalDescContext}
+IMPORTANT — PHYSICAL DESCRIPTION vs ATTRIBUTE vs POSE PROPS:
+The "description" field must ONLY contain physical traits of the person's BODY:
+  - YES: skin tone, hair color/texture, eye color, build, age, height, bearing, facial features
+  - NO: objects (staff, pitcher, sword, lyre, harp), clothing, jewelry, headwear, character traits, spiritual descriptions
+  - Reference biblical text and traditional Jewish/Christian art depictions for accuracy
+  - Example GOOD: "Fair-skinned young woman with striking beauty, dark eyes, graceful bearing"
+  - Example GOOD: "Ruddy-complexioned young man, strong athletic build, dark hair, bright beautiful eyes"
+  - Example BAD: "Beautiful woman carrying a water pitcher on her shoulder"
+  - Example BAD: "Young shepherd with a lyre, a man after God's own heart"
+  - The description should read like a casting director's physical description — ONLY what the person looks like physically
+
+The "attribute" field is for their SIGNATURE OBJECT (staff, sword, harp, pitcher, etc.)
+The "clothing" field is for their garments and adornments.
+Individual pose "prompt" fields CAN include props, items, and scene-specific objects — that's where a water pitcher, staff, weapon, etc. belongs.
+
+${example ? `Here's an example of the format (Moses's file):
+${JSON.stringify(example, null, 2)}` : ''}
+
+Return a JSON object with this exact structure:
+{
+  "id": "${id}",
+  "name": "${name}",
+  "defaultPose": "most-iconic-pose-id",
+  "description": "PHYSICAL BODY TRAITS ONLY - face, hair, skin, build, eyes, bearing. NO objects or clothing.",
+  "attribute": "their signature item (staff, sword, pitcher, harp, etc.)",
+  "attributeDescription": "detailed description of the attribute",
+  "visualStyle": "brief visual style and archetype description",
+  "clothing": "period-accurate clothing description",
+  "poses": {
+    "pose-id": {
+      "id": "pose-id",
+      "name": "Pose Display Name",
+      "description": "What the pose depicts",
+      "expression": "facial expression",
+      "prompt": "detailed visual description for image generation - body position, clothing, items held, setting cues. Props and scene-specific objects go HERE.",
+      "energy": "2-4 words describing the vibe",
+      "quoteId": "matching-quote-id"
+    }
+  }
+}
+
+Make poses specific to ${name}'s actual biblical moments from the passages above. The quoteId should be a kebab-case identifier for the most relevant quote to that pose.`;
+
+  try {
+    return await callGemini(prompt);
+  } catch (e) {
+    console.warn(`[Research] Enhanced figure pose generation failed, trying standard:`, e.message);
+    return await generateFigurePoseFile(name, id);
+  }
 }
 
 /**
- * Generate default poses for a biblical figure
+ * Build quotes data from Sefaria's real Hebrew text, enriched by Gemini for mood/context.
  */
-async function generateFigurePoses(name, character) {
-  const poses = {
-    'iconic-moment': {
-      id: 'iconic-moment',
-      name: 'Iconic Moment',
-      description: `${name}'s most famous biblical moment`,
-      expression: 'divine authority',
-      prompt: `in moment of greatest significance - dignified pose, period-accurate clothing, powerful presence`,
-      energy: 'powerful, iconic'
-    },
-    'commanding-presence': {
-      id: 'commanding-presence',
-      name: 'Commanding Presence',
-      description: 'Standing with authority',
-      expression: 'confident authority',
-      prompt: `standing with commanding presence - robes flowing, dignified bearing, the weight of destiny`,
-      energy: 'authoritative, majestic'
-    },
-    'contemplation': {
-      id: 'contemplation',
-      name: 'Contemplation',
-      description: 'Deep in thought or prayer',
-      expression: 'thoughtful, reverent',
-      prompt: `in moment of contemplation - head slightly bowed or gazing upward, hands folded or raised, spiritual connection`,
-      energy: 'reverent, peaceful'
-    }
-  };
+async function buildQuotesFromSefaria(name, id, sefariaData) {
+  // Ask Gemini to enrich the real Sefaria quotes with mood and context descriptions
+  const quotesForEnrichment = sefariaData.quotes.slice(0, 6).map(q => ({
+    source: q.source,
+    hebrew: q.hebrew,
+    english: q.english
+  }));
 
-  return {
-    poses,
-    defaultPose: 'iconic-moment'
-  };
+  try {
+    const enriched = await callGemini(`I have real biblical quotes for ${name} from Sefaria. Add context and mood to each.
+
+Quotes:
+${JSON.stringify(quotesForEnrichment, null, 2)}
+
+Return a JSON object:
+{
+  "id": "${id}",
+  "name": "${name}",
+  "aliases": ["other names for ${name} in Jewish tradition"],
+  "quotes": {
+    "kebab-case-quote-id": {
+      "source": "keep the exact source reference",
+      "context": "1 sentence: what was happening when this was said/occurred",
+      "hebrew": "keep the exact Hebrew text from input",
+      "english": "keep the exact English text from input",
+      "mood": "2-4 words describing emotional tone"
+    }
+  }
+}
+
+IMPORTANT: Keep the hebrew and english text EXACTLY as provided - do not modify or re-translate them. Only add the context, mood, and quote IDs. Generate descriptive kebab-case quote IDs based on the content.`);
+
+    return enriched;
+  } catch (e) {
+    console.warn('[Research] Quote enrichment failed, building basic quotes:', e.message);
+
+    // Build basic quotes directly from Sefaria data
+    const quotes = {};
+    sefariaData.quotes.slice(0, 6).forEach((q, i) => {
+      const qId = `quote-${i + 1}`;
+      quotes[qId] = {
+        source: q.source,
+        context: '',
+        hebrew: q.hebrew,
+        english: q.english,
+        mood: ''
+      };
+    });
+
+    return {
+      id,
+      name,
+      aliases: [],
+      quotes
+    };
+  }
 }
 
 /**
@@ -1652,7 +1836,7 @@ async function generateFigurePoses(name, character) {
  * POST /api/characters/save
  */
 app.post('/api/characters/save', (req, res) => {
-  const { type, character, poses } = req.body;
+  const { type, character, poses, quotes } = req.body;
 
   if (!type || !character || !poses) {
     return res.status(400).json({ error: 'Type, character, and poses are required' });
@@ -1700,10 +1884,23 @@ app.post('/api/characters/save', (req, res) => {
     console.log(`  Character file: ${characterPath}`);
     console.log(`  Pose file: ${posePath}`);
 
+    // Write quotes file for biblical figures
+    let quotesPath = null;
+    if (type === 'figure' && quotes && quotes.quotes && Object.keys(quotes.quotes).length > 0) {
+      const quotesDir = join(ROOT, 'data/quotes/figures');
+      if (!existsSync(quotesDir)) {
+        mkdirSync(quotesDir, { recursive: true });
+      }
+      quotesPath = join(quotesDir, `${character.id}.json`);
+      writeFileSync(quotesPath, JSON.stringify(quotes, null, 2));
+      console.log(`  Quotes file: ${quotesPath}`);
+    }
+
     res.json({
       success: true,
       characterPath,
-      posePath
+      posePath,
+      quotesPath
     });
 
   } catch (err) {
@@ -1892,7 +2089,7 @@ app.get('/api/pairing-assistant/unused', (req, res) => {
  * Get AI-powered pairing suggestions based on mode
  */
 app.post('/api/pairing-assistant/suggest', async (req, res) => {
-  const { mode, player, figure, connection } = req.body;
+  const { mode, player, figure, connection, hero, villain, rivalryType } = req.body;
 
   if (!mode) {
     return res.status(400).json({ error: 'Missing required field: mode' });
@@ -1910,7 +2107,12 @@ app.post('/api/pairing-assistant/suggest', async (req, res) => {
   }
 
   try {
-    const suggestions = await pairingAssistant.generateSuggestions(mode, player, figure, connection);
+    // For rivalry mode, pass hero/villain as player/figure and include options
+    const effectivePlayer = mode === 'rivalry' ? (hero || player) : player;
+    const effectiveFigure = mode === 'rivalry' ? (villain || figure) : figure;
+    const options = mode === 'rivalry' ? { rivalryType: rivalryType || 'player-figure' } : {};
+
+    const suggestions = await pairingAssistant.generateSuggestions(mode, effectivePlayer, effectiveFigure, connection, options);
     res.json({ suggestions });
   } catch (err) {
     console.error('Suggestion error:', err);
@@ -1923,7 +2125,7 @@ app.post('/api/pairing-assistant/suggest', async (req, res) => {
  * Auto-generate all required files for a new pairing
  */
 app.post('/api/pairing-assistant/create', async (req, res) => {
-  const { player, figure, connection, type, opposingPairing } = req.body;
+  const { player, figure, connection, type, opposingPairing, cardMode, rivalryConfig } = req.body;
 
   if (!player || !figure) {
     return res.status(400).json({ error: 'Missing required fields: player and figure' });
@@ -1935,7 +2137,9 @@ app.post('/api/pairing-assistant/create', async (req, res) => {
       figure,
       connection,
       type,
-      opposingPairing
+      opposingPairing,
+      cardMode,
+      rivalryConfig
     });
     res.json(result);
   } catch (err) {

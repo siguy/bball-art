@@ -1,7 +1,9 @@
 {
   "id": "esau",
   "name": "Esau",
-  "aliases": ["Edom"],
+  "aliases": [
+    "Edom"
+  ],
   "quotes": {
     "birthright-sold": {
       "source": "Genesis 25:32",
@@ -58,6 +60,51 @@
       "hebrew": "הֵן עֵשָׂו אָחִי אִישׁ שָׂעִר",
       "english": "My brother Esau is a hairy man",
       "mood": "descriptive, wild appearance"
+    },
+    "rivalry-genesis-25-23": {
+      "source": "Genesis 25:23",
+      "context": "God's revelation to Rebekah about the twins in her womb",
+      "hebrew": "וַיֹּאמֶר֩ יְהוָ֨ה לָ֜הּ שְׁנֵי־גֹויִם֙ בְּבִטְנֵ֔ךְ וּשְׁנֵ֣י לְאֻמִּים֘ מִמֵּעַיִךְ֙ יִפָּרֵ֔דוּ וּלְאֹם֙ מִלְאֹם֙ יֶאֱמָ֔ץ וְרַ֥ב יַעֲבֹ֖ד צָעִֽיר׃",
+      "english": "And the Lord said unto her, Two nations are in thy womb, and two manner of people shall be separated from thy bowels; and the one people shall be stronger than the other people; and the elder shall serve the younger.",
+      "mood": "Prophetic, Foreboding",
+      "isRivalryQuote": true,
+      "rivalryWith": "Jacob"
+    },
+    "rivalry-genesis-25-33": {
+      "source": "Genesis 25:33",
+      "context": "Esau sells his birthright to Jacob.",
+      "hebrew": "וַיֹּ֤אמֶר יַעֲקֹב֙ הִשָּׁ֣בְעָה לִּ֔י כַּיֹּ֖ום וַיִּשָּׁ֣בַע לֹ֑ו וַיִּמְכֹּ֛ר אֶת־בְּכֹרָתֹ֖ו לְיַעֲקֹֽב׃",
+      "english": "And Jacob said, Swear to me this day; and he sware unto him: and he sold his birthright unto Jacob.",
+      "mood": "Manipulative, Regretful",
+      "isRivalryQuote": true,
+      "rivalryWith": "Jacob"
+    },
+    "rivalry-genesis-27-36": {
+      "source": "Genesis 27:36",
+      "context": "Esau laments the loss of his birthright and blessing.",
+      "hebrew": "וַיֹּאמֶר֩ הֲכִי֩ קָרָ֨א שְׁמֹ֤ו יַעֲקֹב֙ וַיַּעְקְבֵ֙נִי֙ זֶ֣ה פַעֲמַ֔יִם אֶת־בְּכֹרָתִי֙ לָקָ֔ח וְהִנֵּ֥ה עַתָּ֖ה לָקַ֣ח אֶת־בִּרְכָתִ֑י וַיֹּאמַ֕ר הֲלֹא־אָצַ֥לְתָּ לִּ֖י בְּרָכָֽה׃",
+      "english": "And he said, Is not he rightly named Jacob? for he hath supplanted me these two times: he took away my birthright; and, behold, now he hath taken away my blessing. And he said, Hast thou not reserved a blessing for me?",
+      "mood": "Bitter, Resentful",
+      "isRivalryQuote": true,
+      "rivalryWith": "Jacob"
+    },
+    "rivalry-genesis-27-41": {
+      "source": "Genesis 27:41",
+      "context": "Esau plots to kill Jacob after Isaac dies.",
+      "hebrew": "וַיִּשְׂטֹ֨ם עֵשָׂ֜ו אֶת־יַעֲקֹ֗ב עַל־הַבְּרָכָה֙ אֲשֶׁ֣ר בֵּרֲכֹו אָבִ֔יו וַיֹּ֤אמֶר עֵשָׂו֙ בְּלִבֹּ֔ו יִקְרְב֣וּ יְמֵי־אֵבֵל֮ אָבִי֒ וְאַֽהַרְגָה֙ אֶת־יַעֲקֹ֣ב אָחִֽי׃",
+      "english": "And Esau hated Jacob because of the blessing wherewith his father blessed him: and Esau said in his heart, The days of mourning for my father are at hand; then will I slay my brother Jacob.",
+      "mood": "Vengeful, Murderous",
+      "isRivalryQuote": true,
+      "rivalryWith": "Jacob"
+    },
+    "rivalry-genesis-33-4": {
+      "source": "Genesis 33:4",
+      "context": "Esau and Jacob's reconciliation.",
+      "hebrew": "וַיָּ֤רָץ עֵשָׂו֙ לִקְרָאתוֹ֙ וַֽיְחַבְּקֵ֔הוּ וַיִּפֹּ֥ל עַל־צַוָּארָ֖ו וַׄיִּשָּׁקֵ֑הוּ וַיִּבְכּֽוּ׃",
+      "english": "And Esau ran to meet him, and embraced him, and fell on his neck, and kissed him: and they wept.",
+      "mood": "Forgiving, Emotional",
+      "isRivalryQuote": true,
+      "rivalryWith": "Jacob"
     }
   }
 }

@@ -118,6 +118,41 @@
       "bestFor": ["clean aesthetics", "modern legends", "all pairings"]
     }
   },
+  "rivalryVariants": {
+    "thunder-lightning-rivalry": {
+      "id": "thunder-lightning-rivalry",
+      "name": "Thunder & Lightning: Rivalry",
+      "baseTemplate": "thunder-lightning",
+      "description": "Rivalry split card with purple/blue hero vs black/crimson villain, lightning VS divider.",
+      "isRivalry": true,
+      "colors": {
+        "hero": { "primary": "deep purple", "secondary": "electric blue" },
+        "villain": { "primary": "black", "secondary": "blood red" }
+      }
+    },
+    "beam-team-rivalry": {
+      "id": "beam-team-rivalry",
+      "name": "Beam Team: Rivalry",
+      "baseTemplate": "beam-team",
+      "description": "Rivalry split card with pure prism hero vs corrupted spectrum villain, prismatic fracture divider.",
+      "isRivalry": true,
+      "colors": {
+        "hero": { "primary": "holographic rainbow", "secondary": "deep black arena" },
+        "villain": { "primary": "corrupted purple/red", "secondary": "shadow spectrum" }
+      }
+    },
+    "metal-universe-rivalry": {
+      "id": "metal-universe-rivalry",
+      "name": "Metal Universe: Rivalry",
+      "baseTemplate": "metal-universe",
+      "description": "Rivalry split card with polished chrome hero vs rusted industrial villain, molten metal divider.",
+      "isRivalry": true,
+      "colors": {
+        "hero": { "primary": "polished chrome", "secondary": "deep blue" },
+        "villain": { "primary": "rusted black chrome", "secondary": "rust red" }
+      }
+    }
+  },
   "darkVariants": {
     "thunder-lightning-dark": {
       "id": "thunder-lightning-dark",
@@ -140,6 +175,7 @@
   },
   "defaultByType": {
     "hero": "thunder-lightning",
-    "villain": "thunder-lightning-dark"
+    "villain": "thunder-lightning-dark",
+    "rivalry": "thunder-lightning-rivalry"
   }
 }

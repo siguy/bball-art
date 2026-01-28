@@ -628,6 +628,18 @@ main {
   font-size: 0.8rem;
 }
 
+.btn-outline {
+  background: transparent;
+  border: 1px solid var(--text-secondary);
+  color: var(--text-secondary);
+}
+
+.btn-outline:hover {
+  border-color: var(--gold);
+  color: var(--gold);
+  background: rgba(212, 175, 55, 0.1);
+}
+
 .caption-tabs {
   display: flex;
   gap: 0;

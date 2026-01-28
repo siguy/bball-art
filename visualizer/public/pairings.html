@@ -30,6 +30,7 @@
           <option value="">All Pairings</option>
           <option value="heroes">Heroes</option>
           <option value="villains">Villains</option>
+          <option value="rivalries">Rivalries</option>
         </select>
       </div>
       <div class="controls-right">
@@ -65,6 +66,26 @@
             <input type="radio" name="creator-mode" value="discover-opposites">
             <span class="mode-label">Discover Opposites</span>
           </label>
+          <label class="creator-mode-option rivalry-mode-option">
+            <input type="radio" name="creator-mode" value="rivalry">
+            <span class="mode-label">Hero vs Villain</span>
+          </label>
+        </div>
+
+        <!-- Rivalry Type Toggle (only visible in rivalry mode) -->
+        <div class="rivalry-type-toggle hidden" id="rivalry-type-toggle">
+          <label class="rivalry-type-option">
+            <input type="radio" name="rivalry-type" value="player-figure" checked>
+            <span class="rivalry-type-label">Player vs Figure</span>
+          </label>
+          <label class="rivalry-type-option">
+            <input type="radio" name="rivalry-type" value="player-player">
+            <span class="rivalry-type-label">Player vs Player</span>
+          </label>
+          <label class="rivalry-type-option">
+            <input type="radio" name="rivalry-type" value="figure-figure">
+            <span class="rivalry-type-label">Figure vs Figure</span>
+          </label>
         </div>
 
         <!-- Form Inputs -->
@@ -78,6 +99,19 @@
             <input type="text" id="creator-figure" placeholder="e.g., Delilah">
           </div>
         </div>
+
+        <!-- Rivalry Inputs (only visible in rivalry mode) -->
+        <div class="creator-inputs hidden" id="rivalry-inputs">
+          <div class="form-group creator-field" id="creator-hero-group">
+            <label for="creator-hero" id="creator-hero-label">Hero (Player):</label>
+            <input type="text" id="creator-hero" placeholder="e.g., Michael Jordan">
+          </div>
+          <div class="form-group creator-field" id="creator-villain-group">
+            <label for="creator-villain" id="creator-villain-label">Villain (Figure):</label>
+            <input type="text" id="creator-villain" placeholder="e.g., Pharaoh">
+          </div>
+        </div>
+
         <div class="form-group creator-field" id="creator-connection-group">
           <label for="creator-connection">Connection (optional - AI will suggest):</label>
           <textarea id="creator-connection" placeholder="Describe the thematic connection between them..."></textarea>

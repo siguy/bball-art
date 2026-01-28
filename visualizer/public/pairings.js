@@ -60,6 +60,7 @@ async function fetchManifest() {
 function getPairingCategory(id) {
   const pairing = pairingsData[id];
   if (!pairing) return 'heroes';
+  if (pairing.type === 'rivalry') return 'rivalries';
   return pairing.type === 'villain' ? 'villains' : 'heroes';
 }
 
@@ -205,17 +206,21 @@ function renderPairings() {
 function renderPairingCard(id, pairing) {
   const category = getPairingCategory(id);
   const cardCount = manifest.cards.filter(c => c.pairingId === id).length;
-  const suggestions = generateSuggestedInteractions(pairing);
+  const isRivalry = pairing.type === 'rivalry';
+  const suggestions = isRivalry ? [] : generateSuggestedInteractions(pairing);
 
   // Get existing custom interactions from pairing
   const customInteractions = pairing.customInteractions || [];
+
+  const nameSeparator = isRivalry ? ' VS ' : ' / ';
+  const eraLabel = pairing.player.era || (pairing.player.characterType === 'figure' ? 'Biblical' : '');
 
   return `
     <div class="pairing-card" data-id="${id}">
       <div class="pairing-header" onclick="togglePairing('${id}')">
         <div class="pairing-title">
-          <h2>${pairing.player.name} / ${pairing.figure.name}</h2>
-          <span class="pairing-era">${pairing.player.era}</span>
+          <h2>${pairing.player.name}${nameSeparator}${pairing.figure.name}</h2>
+          ${eraLabel ? `<span class="pairing-era">${eraLabel}</span>` : ''}
           <span class="pairing-category ${category}">${category}</span>
         </div>
         <div class="pairing-meta">
@@ -334,29 +339,51 @@ function onModeChange() {
   const playerGroup = document.getElementById('creator-player-group');
   const figureGroup = document.getElementById('creator-figure-group');
   const connectionGroup = document.getElementById('creator-connection-group');
+  const rivalryToggle = document.getElementById('rivalry-type-toggle');
+  const rivalryInputs = document.getElementById('rivalry-inputs');
+  const standardInputs = playerGroup.parentElement; // .creator-inputs parent
 
   // Show/hide fields based on mode
   switch (mode) {
     case 'full-pairing':
+      standardInputs.classList.remove('hidden');
       playerGroup.classList.remove('hidden');
       figureGroup.classList.remove('hidden');
       connectionGroup.classList.remove('hidden');
+      rivalryToggle.classList.add('hidden');
+      rivalryInputs.classList.add('hidden');
       break;
     case 'find-figure':
+      standardInputs.classList.remove('hidden');
       playerGroup.classList.remove('hidden');
       figureGroup.classList.add('hidden');
       connectionGroup.classList.add('hidden');
+      rivalryToggle.classList.add('hidden');
+      rivalryInputs.classList.add('hidden');
       break;
     case 'find-player':
+      standardInputs.classList.remove('hidden');
       playerGroup.classList.add('hidden');
       figureGroup.classList.remove('hidden');
       connectionGroup.classList.add('hidden');
+      rivalryToggle.classList.add('hidden');
+      rivalryInputs.classList.add('hidden');
       break;
     case 'discover-heroes':
     case 'discover-opposites':
+      standardInputs.classList.remove('hidden');
       playerGroup.classList.add('hidden');
       figureGroup.classList.add('hidden');
       connectionGroup.classList.add('hidden');
+      rivalryToggle.classList.add('hidden');
+      rivalryInputs.classList.add('hidden');
+      break;
+    case 'rivalry':
+      standardInputs.classList.add('hidden');
+      rivalryToggle.classList.remove('hidden');
+      rivalryInputs.classList.remove('hidden');
+      connectionGroup.classList.remove('hidden');
+      updateRivalryLabels();
       break;
   }
 
@@ -367,20 +394,71 @@ function onModeChange() {
   status.textContent = '';
 }
 
+function getRivalryType() {
+  const checked = document.querySelector('input[name="rivalry-type"]:checked');
+  return checked ? checked.value : 'player-figure';
+}
+
+function updateRivalryLabels() {
+  const rivalryType = getRivalryType();
+  const heroLabel = document.getElementById('creator-hero-label');
+  const villainLabel = document.getElementById('creator-villain-label');
+  const heroInput = document.getElementById('creator-hero');
+  const villainInput = document.getElementById('creator-villain');
+
+  switch (rivalryType) {
+    case 'player-figure':
+      heroLabel.textContent = 'Hero (Player):';
+      villainLabel.textContent = 'Villain (Figure):';
+      heroInput.placeholder = 'e.g., Michael Jordan';
+      villainInput.placeholder = 'e.g., Pharaoh';
+      break;
+    case 'player-player':
+      heroLabel.textContent = 'Hero (Player):';
+      villainLabel.textContent = 'Villain (Player):';
+      heroInput.placeholder = 'e.g., Michael Jordan';
+      villainInput.placeholder = 'e.g., Isiah Thomas';
+      break;
+    case 'figure-figure':
+      heroLabel.textContent = 'Hero (Figure):';
+      villainLabel.textContent = 'Villain (Figure):';
+      heroInput.placeholder = 'e.g., Jacob';
+      villainInput.placeholder = 'e.g., Esau';
+      break;
+  }
+}
+
 async function generateCreatorSuggestions() {
   const mode = getCreatorMode();
-  const player = document.getElementById('creator-player').value.trim();
-  const figure = document.getElementById('creator-figure').value.trim();
   const connection = document.getElementById('creator-connection').value.trim();
 
-  // Validate inputs
-  if ((mode === 'full-pairing' || mode === 'find-figure') && !player) {
-    showCreatorStatus('error', 'Please enter an NBA player name.');
-    return;
-  }
-  if ((mode === 'full-pairing' || mode === 'find-player') && !figure) {
-    showCreatorStatus('error', 'Please enter a biblical figure name.');
-    return;
+  let body;
+
+  if (mode === 'rivalry') {
+    const hero = document.getElementById('creator-hero').value.trim();
+    const villain = document.getElementById('creator-villain').value.trim();
+    const rivalryType = getRivalryType();
+
+    body = { mode, hero, villain, rivalryType };
+    if (connection) body.connection = connection;
+  } else {
+    const player = document.getElementById('creator-player').value.trim();
+    const figure = document.getElementById('creator-figure').value.trim();
+
+    // Validate inputs
+    if ((mode === 'full-pairing' || mode === 'find-figure') && !player) {
+      showCreatorStatus('error', 'Please enter an NBA player name.');
+      return;
+    }
+    if ((mode === 'full-pairing' || mode === 'find-player') && !figure) {
+      showCreatorStatus('error', 'Please enter a biblical figure name.');
+      return;
+    }
+
+    body = { mode };
+    if (player) body.player = player;
+    if (figure) body.figure = figure;
+    if (connection) body.connection = connection;
   }
 
   // Show loading
@@ -391,11 +469,6 @@ async function generateCreatorSuggestions() {
   document.getElementById('suggestions-results').innerHTML = '';
 
   try {
-    const body = { mode };
-    if (player) body.player = player;
-    if (figure) body.figure = figure;
-    if (connection) body.connection = connection;
-
     const res = await fetch(`${API_BASE}/api/pairing-assistant/suggest`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -431,9 +504,21 @@ function renderSuggestions(suggestions) {
   const container = document.getElementById('suggestions-results');
 
   container.innerHTML = suggestions.map((s, index) => {
-    const typeBadge = s.type === 'villain'
-      ? '<span class="suggestion-type-badge villain">VILLAIN</span>'
-      : '<span class="suggestion-type-badge hero">HERO</span>';
+    const isRivalry = s.type === 'rivalry';
+    let typeBadge;
+    if (isRivalry) {
+      const rivalryTypeLabel = s.cardMode ? s.cardMode.replace('rivalry-', '').replace('-', ' + ') : 'rivalry';
+      typeBadge = `<span class="suggestion-rivalry-badge">
+        <span class="vs-badge">VS</span>
+        <span class="rivalry-type-label">${escapeHtml(rivalryTypeLabel)}</span>
+      </span>`;
+    } else if (s.type === 'villain') {
+      typeBadge = '<span class="suggestion-type-badge villain">VILLAIN</span>';
+    } else {
+      typeBadge = '<span class="suggestion-type-badge hero">HERO</span>';
+    }
+
+    const namesSeparator = isRivalry ? ' VS ' : ' + ';
 
     // Warning about already-paired characters
     let warningHtml = '';
@@ -453,13 +538,22 @@ function renderSuggestions(suggestions) {
       </div>`;
     }
 
+    // Rivalry preview for same-type rivalries
+    let rivalryPreviewHtml = '';
+    if (isRivalry && s.rivalryPreview) {
+      rivalryPreviewHtml = `<div class="suggestion-rivalry-preview">
+        <div class="rivalry-preview-label">Rivalry Preview:</div>
+        <div class="rivalry-preview-text">${escapeHtml(s.rivalryPreview)}</div>
+      </div>`;
+    }
+
     const thematic = s.connection?.thematic || '';
     const narrative = s.connection?.narrative || '';
 
     return `
-      <div class="suggestion-card" data-index="${index}">
+      <div class="suggestion-card ${isRivalry ? 'suggestion-card-rivalry' : ''}" data-index="${index}">
         <div class="suggestion-header">
-          <span class="suggestion-names">${escapeHtml(s.player)} + ${escapeHtml(s.figure)}</span>
+          <span class="suggestion-names">${escapeHtml(s.player)}${namesSeparator}${escapeHtml(s.figure)}</span>
           ${typeBadge}
         </div>
 
@@ -470,6 +564,7 @@ function renderSuggestions(suggestions) {
 
         ${warningHtml}
         ${opposingHtml}
+        ${rivalryPreviewHtml}
 
         <div class="suggestion-edit-area" id="edit-area-${index}">
           <div class="suggestion-edit-label">Edit connection:</div>
@@ -523,19 +618,31 @@ async function createPairing(index) {
   const card = document.querySelector(`.suggestion-card[data-index="${index}"]`);
   const createBtn = card.querySelector('.btn-create-pairing');
   createBtn.disabled = true;
-  createBtn.textContent = 'Creating...';
+
+  const isRivalry = suggestion.type === 'rivalry';
+  const isSameTypeRivalry = isRivalry && suggestion.cardMode && suggestion.cardMode !== 'rivalry-player-figure';
+
+  createBtn.textContent = isSameTypeRivalry ? 'Researching rivalry...' : 'Creating...';
 
   try {
+    const createBody = {
+      player: suggestion.player,
+      figure: suggestion.figure,
+      connection,
+      type: suggestion.type || 'hero',
+      opposingPairing: suggestion.opposingPairing || null
+    };
+
+    // Pass rivalry-specific fields
+    if (isRivalry) {
+      createBody.cardMode = suggestion.cardMode;
+      createBody.rivalryConfig = suggestion.rivalryConfig;
+    }
+
     const res = await fetch(`${API_BASE}/api/pairing-assistant/create`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        player: suggestion.player,
-        figure: suggestion.figure,
-        connection,
-        type: suggestion.type || 'hero',
-        opposingPairing: suggestion.opposingPairing || null
-      })
+      body: JSON.stringify(createBody)
     });
 
     const result = await res.json();
@@ -761,6 +868,11 @@ function setupEventListeners() {
   // Mode toggle
   document.querySelectorAll('input[name="creator-mode"]').forEach(radio => {
     radio.addEventListener('change', onModeChange);
+  });
+
+  // Rivalry type toggle
+  document.querySelectorAll('input[name="rivalry-type"]').forEach(radio => {
+    radio.addEventListener('change', updateRivalryLabels);
   });
 
   // Generate modal

@@ -1,0 +1,57 @@
+{
+  "id": "delilah",
+  "name": "Delilah",
+  "defaultPose": "cutting-hair",
+  "description": "A Philistine woman, known for her beauty and cunning. Delilah is depicted as alluring and confident, but with a hint of deceit in her eyes. She is dressed in fine Philistine garments, befitting her station as a woman of influence.",
+  "attribute": "Scissors",
+  "attributeDescription": "A pair of ornate, but wickedly sharp scissors, used to cut Samson's hair, symbolizing betrayal.",
+  "visualStyle": "Dramatic, high contrast, chiaroscuro lighting",
+  "clothing": "Flowing, richly colored Philistine garments, with intricate jewelry and adornments.",
+  "poses": {
+    "enticing-samson": {
+      "id": "enticing-samson",
+      "name": "Enticing Samson",
+      "description": "Delilah using her charm and beauty to seduce Samson.",
+      "expression": "Alluring, seductive, but with a glint of calculation.",
+      "prompt": "Delilah leaning close to Samson, gazing into his eyes, a hand gently caressing his cheek. She wears a seductive smile, while her body language suggests a false intimacy. Warm, inviting candlelight sets the scene.",
+      "energy": "Seductive, treacherous",
+      "quoteId": "enticement"
+    },
+    "demanding-secret": {
+      "id": "demanding-secret",
+      "name": "Demanding the Secret",
+      "description": "Delilah relentlessly questioning Samson about the source of his strength.",
+      "expression": "Persistent, demanding, feigning concern.",
+      "prompt": "Delilah confronting Samson in a bedroom, hands on her hips. Her face is set in a determined expression, with a hint of impatience. She demands to know the truth, her body language conveying a sense of urgency and manufactured frustration. The room is dimly lit, with subtle shadows that enhance the dramatic tension.",
+      "energy": "Inquisitive, relentless",
+      "quoteId": "source-of-strength"
+    },
+    "cutting-hair": {
+      "id": "cutting-hair",
+      "name": "Cutting Samson's Hair",
+      "description": "Delilah cutting Samson's hair while he sleeps, betraying him to the Philistines.",
+      "expression": "Focused, determined, betraying no emotion.",
+      "prompt": "Delilah carefully and quietly cutting Samson's hair as he sleeps. The scissors glint in the soft light. Her face is set with grim determination, masking any possible remorse. A sense of quiet dread fills the scene. A Philistine soldier stands guard in the background.",
+      "energy": "Deceptive, treacherous",
+      "quoteId": "betrayal"
+    },
+    "receiving-payment": {
+      "id": "receiving-payment",
+      "name": "Receiving Payment",
+      "description": "Delilah receiving silver from the Philistine lords as payment for her betrayal.",
+      "expression": "Triumphant, greedy, a flicker of unease",
+      "prompt": "Delilah standing before the Philistine lords, holding out her hands to receive bags of silver. Her face shows a mix of triumph and greed, but there's a subtle flicker of unease in her eyes. The Philistine lords look on with satisfaction. The scene is set in a grand hall, with opulent decorations that emphasize the wealth and power of the Philistines.",
+      "energy": "Greedy, triumphant",
+      "quoteId": "payment"
+    },
+    "celebrating-victory": {
+      "id": "celebrating-victory",
+      "name": "Celebrating Victory",
+      "description": "Delilah reveling in her success after handing Samson over to the Philistines.",
+      "expression": "Triumphant, self-satisfied, callous.",
+      "prompt": "Delilah raises a goblet of wine in a dimly lit room, celebrating her victory. A subtle, almost cruel smile plays on her lips. There is a self-satisfied and callous look in her eyes. Around her are symbols of her wealth and new status. Samson is nowhere in sight.",
+      "energy": "Triumphant, callous",
+      "quoteId": "victory-celebration"
+    }
+  }
+}

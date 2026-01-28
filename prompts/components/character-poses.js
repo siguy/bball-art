@@ -118,6 +118,20 @@ export function getFigurePose(figureId, poseId = 'default') {
 }
 
 /**
+ * Get a pose for any character by routing to the correct directory based on characterType.
+ * @param {string} characterId - Character ID (e.g., 'jordan', 'moses')
+ * @param {string} poseId - Pose ID (e.g., 'tongue-out-dunk') or 'default'
+ * @param {string} characterType - 'player' or 'figure'
+ * @param {string} hairColorOverride - Optional hair color override (players only)
+ * @returns {object|null} Pose object with prompt, energy, etc.
+ */
+export function getCharacterPose(characterId, poseId = 'default', characterType = 'player', hairColorOverride = null) {
+  return characterType === 'player'
+    ? getPlayerPose(characterId, poseId, hairColorOverride)
+    : getFigurePose(characterId, poseId);
+}
+
+/**
  * Build custom actions object for use with generate-card.js
  * @param {string} playerId - Player ID
  * @param {string} playerPoseId - Player pose ID or 'default'
@@ -205,6 +219,7 @@ export default {
   loadFigurePoses,
   getPlayerPose,
   getFigurePose,
+  getCharacterPose,
   buildCustomActions,
   listPlayerPoses,
   listFigurePoses,

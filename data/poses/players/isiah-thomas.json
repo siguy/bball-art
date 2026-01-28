@@ -43,6 +43,38 @@
       "expression": "cold, calculating, psychologically dominant",
       "prompt": "point guard with ice cold intimidating stare - eyes locked on opponent, slight smirk of superiority, arms crossed or hands on hips, radiating psychological dominance despite smaller stature, the look that broke opponents mentally",
       "energy": "psychological warfare, mental dominance"
+    },
+    "rivalry-freeze-out-scene": {
+      "id": "rivalry-freeze-out-scene",
+      "name": "Rivalry: Freeze Out Scene",
+      "description": "Isiah Thomas in rivalry scene: Mid-1980s All-Star game in a brightly lit arena; a flurry of movement and color surrounds them.",
+      "prompt": "Isiah Thomas, dribbling with a smug grin, glances dismissively at Jordan while passing to a teammate. He exudes an aura of control and calculated disrespect.",
+      "energy": "Cold, calculated, dismissive",
+      "isRivalryPose": true
+    },
+    "rivalry-jordan-rules-scene": {
+      "id": "rivalry-jordan-rules-scene",
+      "name": "Rivalry: Jordan Rules Scene",
+      "description": "Isiah Thomas in rivalry scene: A tense, packed arena during the Eastern Conference Finals; the atmosphere is charged with anticipation and aggression.",
+      "prompt": "Isiah Thomas is shown delivering a hard foul, arms extended, a look of fierce competitiveness, bordering on aggression, etched on his face. He embodies the physical intensity of the 'Jordan Rules'.",
+      "energy": "Physical, intense, relentless",
+      "isRivalryPose": true
+    },
+    "rivalry-walk-off-scene": {
+      "id": "rivalry-walk-off-scene",
+      "name": "Rivalry: Walk Off Scene",
+      "description": "Isiah Thomas in rivalry scene: The final moments of the 1991 Eastern Conference Finals; confetti rains down as the Bulls celebrate, while the Pistons exit in disgrace.",
+      "prompt": "Isiah Thomas, head down, leads the Detroit Pistons off the court before the final buzzer, a gesture of defiance and poor sportsmanship. His shoulders are slumped in defeat.",
+      "energy": "Bittersweet, defiant, disrespectful",
+      "isRivalryPose": true
+    },
+    "rivalry-dream-team-snub-scene": {
+      "id": "rivalry-dream-team-snub-scene",
+      "name": "Rivalry: Dream Team Snub Scene",
+      "description": "Isiah Thomas in rivalry scene: Split scene; one side depicts the euphoria of the Olympic games, the other depicts the isolation of being left behind.",
+      "prompt": "Isiah Thomas watches the Olympic games on television with a dejected expression. He sits alone in a darkened room, a mix of regret and resentment on his face, as he contemplates his exclusion.",
+      "energy": "Triumphant, bitter, reflective",
+      "isRivalryPose": true
     }
   }
 }

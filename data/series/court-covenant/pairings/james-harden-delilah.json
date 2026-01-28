@@ -1,0 +1,69 @@
+{
+  "id": "james-harden-delilah",
+  "series": "court-covenant",
+  "type": "rivalry",
+  "isAlternate": false,
+  "alternateOf": null,
+  "opposingPairing": null,
+  "cardMode": "rivalry-player-figure",
+  "rivalryConfig": {
+    "heroCharacterType": "player",
+    "villainCharacterType": "figure"
+  },
+  "player": {
+    "name": "James Harden",
+    "displayName": "James Harden",
+    "poseFileId": "james-harden",
+    "characterType": "player",
+    "era": "2000s",
+    "jerseyColors": {
+      "primary": {
+        "base": "white",
+        "accent": "blue"
+      },
+      "secondary": {
+        "base": "blue",
+        "accent": "white"
+      }
+    },
+    "signatureMoves": [],
+    "physicalDescription": "6'5\" left-handed shooting guard, known for his step-back jumper, beard, and playmaking ability.",
+    "archetype": "James Harden"
+  },
+  "figure": {
+    "name": "Delilah",
+    "displayName": "Delilah",
+    "poseFileId": "delilah",
+    "characterType": "figure",
+    "attribute": "Scissors",
+    "attributeDescription": "A pair of ornate, but wickedly sharp scissors, used to cut Samson's hair, symbolizing betrayal.",
+    "visualStyle": "Dramatic, high contrast, chiaroscuro lighting",
+    "clothing": "Flowing, richly colored Philistine garments, with intricate jewelry and adornments.",
+    "physicalDescription": "A Philistine woman, known for her beauty and cunning. Delilah is depicted as alluring and confident, but with a hint of deceit in her eyes. She is dressed in fine Philistine garments, befitting her station as a woman of influence.",
+    "anatomyNote": "two arms only",
+    "archetype": "Delilah"
+  },
+  "connection": "Masters of deception — Harden's stepback creates illusions while Delilah weaponized seduction to steal strength",
+  "interactions": [
+    {
+      "id": "face-off",
+      "description": "James Harden and Delilah in an intense stare-down"
+    },
+    {
+      "id": "clash",
+      "description": "James Harden and Delilah in mid-action collision"
+    },
+    {
+      "id": "judgment",
+      "description": "James Harden victorious, Delilah acknowledging defeat"
+    }
+  ],
+  "defaultInteraction": "face-off",
+  "cardVariants": [
+    "thunder-lightning-rivalry",
+    "beam-team-rivalry",
+    "metal-universe-rivalry"
+  ],
+  "priority": 99,
+  "status": "active"
+}

@@ -9,6 +9,7 @@
 import { readFileSync, writeFileSync, existsSync, readdirSync, mkdirSync } from 'fs';
 import { join, dirname } from 'path';
 import { fileURLToPath } from 'url';
+import { researchPlayerRivalry, researchFigureRivalry, scenesToPoses } from './rivalry-researcher.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -311,7 +312,7 @@ function formatPairingsForPrompt(pairings) {
 /**
  * Generate suggestions based on mode.
  */
-export async function generateSuggestions(mode, player, figure, connection) {
+export async function generateSuggestions(mode, player, figure, connection, options = {}) {
   const context = buildPairingsContext();
   const index = buildCharacterIndex();
 
@@ -326,6 +327,8 @@ export async function generateSuggestions(mode, player, figure, connection) {
       return discoverHeroes(context, index);
     case 'discover-opposites':
       return discoverOpposites(context, index);
+    case 'rivalry':
+      return suggestRivalries(player, figure, connection, context, index, options);
     default:
       throw new Error(`Unknown mode: ${mode}`);
   }
@@ -581,6 +584,133 @@ Return as a JSON array.`;
   });
 }
 
+/**
+ * Mode 6: Suggest rivalries -- hero vs villain on one card.
+ * Sub-modes: both provided, hero only, villain only, discover.
+ */
+async function suggestRivalries(hero, villain, connection, context, index, options = {}) {
+  const rivalryType = options.rivalryType || 'player-figure';
+
+  // Build character type labels for the prompt
+  const heroTypeLabel = rivalryType === 'figure-figure' ? 'biblical figure' : 'NBA player';
+  const villainTypeLabel = rivalryType === 'player-player' ? 'NBA player' : 'biblical figure';
+
+  let prompt;
+
+  if (hero && villain) {
+    // Both provided -- generate rivalry connections
+    prompt = `You are creating RIVALRY pairings for a collectible card series called "Court & Covenant." Each rivalry card puts a HERO and VILLAIN on a split card with a VS divider.
+
+Hero (${heroTypeLabel}): ${hero}
+Villain (${villainTypeLabel}): ${villain}
+${connection ? `User's suggested connection: ${connection}` : ''}
+
+Existing pairings for context:
+${formatPairingsForPrompt(context.all)}
+
+Generate 2-3 rivalry connections. For each:
+1. "thematic": core rivalry parallel (1 sentence)
+2. "narrative": punchy rivalry tagline (1-2 sentences, edgy)
+3. "relationship": the confrontation dynamic
+${rivalryType !== 'player-figure' ? '4. "rivalryPreview": 1-2 sentence preview of the historic relationship between these same-type characters' : ''}
+
+Return as a JSON array.`;
+  } else if (hero && !villain) {
+    // Hero only -- find villain opponents
+    prompt = `You are finding VILLAIN opponents for a rivalry card series called "Court & Covenant."
+
+Hero (${heroTypeLabel}): ${hero}
+
+Existing pairings:
+${formatPairingsForPrompt(context.all)}
+
+Suggest 3-5 ${villainTypeLabel} opponents that would make a compelling rivalry card. Focus on dramatic opposition, historic conflict, or thematic tension.
+
+For each:
+1. "villain": the opponent's name
+2. "thematic": core rivalry parallel
+3. "narrative": punchy tagline
+4. "relationship": the confrontation dynamic
+${rivalryType !== 'player-figure' ? '5. "rivalryPreview": 1-2 sentence preview of the historic relationship' : ''}
+
+Return as a JSON array, best matches first.`;
+  } else if (!hero && villain) {
+    // Villain only -- find hero opponents
+    prompt = `You are finding HERO opponents for a rivalry card series called "Court & Covenant."
+
+Villain (${villainTypeLabel}): ${villain}
+
+Existing pairings:
+${formatPairingsForPrompt(context.all)}
+
+Suggest 3-5 ${heroTypeLabel} heroes that would make a compelling rivalry card against this villain. Focus on dramatic opposition.
+
+For each:
+1. "hero": the hero's name
+2. "thematic": core rivalry parallel
+3. "narrative": punchy tagline
+4. "relationship": the confrontation dynamic
+${rivalryType !== 'player-figure' ? '5. "rivalryPreview": 1-2 sentence preview of the historic relationship' : ''}
+
+Return as a JSON array, best matches first.`;
+  } else {
+    // Discover -- find new rivalry pairings
+    prompt = `You are discovering new RIVALRY pairings for a collectible card series called "Court & Covenant." Each rivalry card puts a HERO vs VILLAIN on a split card.
+
+Rivalry type: ${heroTypeLabel} vs ${villainTypeLabel}
+
+Existing pairings:
+${formatPairingsForPrompt(context.all)}
+
+Suggest 3-5 compelling rivalry pairings. Focus on:
+- Historic or thematic opposition
+- Characters not yet heavily used in existing pairings
+- Dramatic visual potential for a split card
+
+For each:
+1. "hero": the hero's name (${heroTypeLabel})
+2. "villain": the villain's name (${villainTypeLabel})
+3. "thematic": core rivalry parallel
+4. "narrative": punchy tagline
+5. "relationship": the confrontation dynamic
+${rivalryType !== 'player-figure' ? '6. "rivalryPreview": 1-2 sentence preview of the historic relationship' : ''}
+
+Return as a JSON array.`;
+  }
+
+  const suggestions = await callGemini(prompt);
+  const results = Array.isArray(suggestions) ? suggestions : [suggestions];
+
+  const cardMode = `rivalry-${rivalryType}`;
+  const heroCharacterType = rivalryType === 'figure-figure' ? 'figure' : 'player';
+  const villainCharacterType = rivalryType === 'player-player' ? 'player' : 'figure';
+
+  return results.map(s => {
+    const heroName = s.hero || hero;
+    const villainName = s.villain || villain;
+
+    return {
+      player: heroName,
+      figure: villainName,
+      connection: {
+        thematic: s.thematic || '',
+        narrative: s.narrative || '',
+        relationship: s.relationship || ''
+      },
+      type: 'rivalry',
+      cardMode,
+      rivalryConfig: {
+        heroCharacterType,
+        villainCharacterType
+      },
+      rivalryPreview: s.rivalryPreview || null,
+      playerAlreadyPaired: false,
+      figureAlreadyPaired: false,
+      opposingPairing: null
+    };
+  });
+}
+
 // ============================================================
 // Auto-Generation
 // ============================================================
@@ -595,10 +725,41 @@ function makeId(name) {
 }
 
 /**
+ * Search existing pairings for curated character data.
+ * Returns the rich data (physicalDescription, clothing, jerseyColors, etc.)
+ * from an existing pairing slot, or null if not found.
+ */
+function findExistingCharacterData(characterId, characterType) {
+  if (!existsSync(PAIRINGS_DIR)) return null;
+  const files = readdirSync(PAIRINGS_DIR).filter(f => f.endsWith('.json'));
+
+  for (const file of files) {
+    try {
+      const pairing = JSON.parse(readFileSync(join(PAIRINGS_DIR, file), 'utf-8'));
+      // Check the player slot — match by poseFileId OR by name
+      const playerPoseId = pairing.player.poseFileId || makeId(pairing.player.name);
+      const playerNameId = makeId(pairing.player.name);
+      const playerSlotType = pairing.player.characterType || 'player';
+      if ((playerPoseId === characterId || playerNameId === characterId) && playerSlotType === characterType) {
+        return pairing.player;
+      }
+      // Check the figure slot — match by poseFileId OR by name
+      const figurePoseId = pairing.figure.poseFileId || makeId(pairing.figure.name);
+      const figureNameId = makeId(pairing.figure.name);
+      const figureSlotType = pairing.figure.characterType || 'figure';
+      if ((figurePoseId === characterId || figureNameId === characterId) && figureSlotType === characterType) {
+        return pairing.figure;
+      }
+    } catch (_) { /* skip malformed files */ }
+  }
+  return null;
+}
+
+/**
  * Create all required files for a new pairing.
  * Checks which files already exist and only generates missing ones.
  */
-export async function createPairingFiles({ player, figure, connection, type, opposingPairing }) {
+export async function createPairingFiles({ player, figure, connection, type, opposingPairing, cardMode, rivalryConfig }) {
   const playerId = makeId(player);
   const figureId = makeId(figure);
   const pairingId = `${playerId}-${figureId}`;
@@ -608,47 +769,165 @@ export async function createPairingFiles({ player, figure, connection, type, opp
   const playerAlreadyPaired = !!index.players[playerId];
   const figureAlreadyPaired = !!index.figures[figureId];
 
-  // 1. Generate player pose file if missing
-  const playerPosePath = join(POSES_PLAYERS_DIR, `${playerId}.json`);
-  if (!existsSync(playerPosePath)) {
-    const poseData = await generatePlayerPoseFile(player, playerId);
-    if (!existsSync(POSES_PLAYERS_DIR)) {
-      mkdirSync(POSES_PLAYERS_DIR, { recursive: true });
+  // Determine character types for each slot
+  const isRivalry = cardMode && cardMode.startsWith('rivalry-');
+  const heroCharType = rivalryConfig?.heroCharacterType || 'player';
+  const villainCharType = rivalryConfig?.villainCharacterType || 'figure';
+
+  // Determine which directories to use for each slot
+  const heroPoseDir = heroCharType === 'player' ? POSES_PLAYERS_DIR : POSES_FIGURES_DIR;
+  const villainPoseDir = villainCharType === 'player' ? POSES_PLAYERS_DIR : POSES_FIGURES_DIR;
+
+  // 1. Generate hero (player slot) pose file if missing
+  const heroPosePath = join(heroPoseDir, `${playerId}.json`);
+  if (!existsSync(heroPosePath)) {
+    const poseData = heroCharType === 'player'
+      ? await generatePlayerPoseFile(player, playerId)
+      : await generateFigurePoseFile(player, playerId);
+    if (!existsSync(heroPoseDir)) {
+      mkdirSync(heroPoseDir, { recursive: true });
     }
-    writeFileSync(playerPosePath, JSON.stringify(poseData, null, 2));
-    filesCreated.push(`data/poses/players/${playerId}.json`);
-    console.log(`Created player pose file: ${playerId}.json`);
+    writeFileSync(heroPosePath, JSON.stringify(poseData, null, 2));
+    filesCreated.push(`data/poses/${heroCharType === 'player' ? 'players' : 'figures'}/${playerId}.json`);
+    console.log(`Created hero pose file: ${playerId}.json`);
   }
 
-  // 2. Generate figure pose file if missing
-  const figurePosePath = join(POSES_FIGURES_DIR, `${figureId}.json`);
-  if (!existsSync(figurePosePath)) {
-    const poseData = await generateFigurePoseFile(figure, figureId);
-    if (!existsSync(POSES_FIGURES_DIR)) {
-      mkdirSync(POSES_FIGURES_DIR, { recursive: true });
+  // 2. Generate villain (figure slot) pose file if missing
+  const villainPosePath = join(villainPoseDir, `${figureId}.json`);
+  if (!existsSync(villainPosePath)) {
+    const poseData = villainCharType === 'player'
+      ? await generatePlayerPoseFile(figure, figureId)
+      : await generateFigurePoseFile(figure, figureId);
+    if (!existsSync(villainPoseDir)) {
+      mkdirSync(villainPoseDir, { recursive: true });
     }
-    writeFileSync(figurePosePath, JSON.stringify(poseData, null, 2));
-    filesCreated.push(`data/poses/figures/${figureId}.json`);
-    console.log(`Created figure pose file: ${figureId}.json`);
+    writeFileSync(villainPosePath, JSON.stringify(poseData, null, 2));
+    filesCreated.push(`data/poses/${villainCharType === 'player' ? 'players' : 'figures'}/${figureId}.json`);
+    console.log(`Created villain pose file: ${figureId}.json`);
   }
 
-  // 3. Generate figure quotes file if missing
-  const quotesPath = join(QUOTES_DIR, `${figureId}.json`);
-  if (!existsSync(quotesPath)) {
-    const quotesData = await generateFigureQuotesFile(figure, figureId);
-    if (!existsSync(QUOTES_DIR)) {
-      mkdirSync(QUOTES_DIR, { recursive: true });
+  // 3. Generate quotes files for figure-type characters only
+  if (heroCharType === 'figure') {
+    const heroQuotesPath = join(QUOTES_DIR, `${playerId}.json`);
+    if (!existsSync(heroQuotesPath)) {
+      const quotesData = await generateFigureQuotesFile(player, playerId);
+      if (!existsSync(QUOTES_DIR)) mkdirSync(QUOTES_DIR, { recursive: true });
+      writeFileSync(heroQuotesPath, JSON.stringify(quotesData, null, 2));
+      filesCreated.push(`data/quotes/figures/${playerId}.json`);
+      console.log(`Created hero quotes file: ${playerId}.json`);
     }
-    writeFileSync(quotesPath, JSON.stringify(quotesData, null, 2));
-    filesCreated.push(`data/quotes/figures/${figureId}.json`);
-    console.log(`Created figure quotes file: ${figureId}.json`);
+  }
+  if (villainCharType === 'figure') {
+    const villainQuotesPath = join(QUOTES_DIR, `${figureId}.json`);
+    if (!existsSync(villainQuotesPath)) {
+      const quotesData = await generateFigureQuotesFile(figure, figureId);
+      if (!existsSync(QUOTES_DIR)) mkdirSync(QUOTES_DIR, { recursive: true });
+      writeFileSync(villainQuotesPath, JSON.stringify(quotesData, null, 2));
+      filesCreated.push(`data/quotes/figures/${figureId}.json`);
+      console.log(`Created villain quotes file: ${figureId}.json`);
+    }
   }
 
-  // 4. Load pose data to build pairing JSON
-  const playerPoseData = JSON.parse(readFileSync(playerPosePath, 'utf-8'));
-  const figurePoseData = JSON.parse(readFileSync(figurePosePath, 'utf-8'));
+  // 4. Rivalry research for same-type rivalries
+  let rivalryResearch = null;
+  if (isRivalry && cardMode !== 'rivalry-player-figure') {
+    console.log(`Researching rivalry: ${player} vs ${figure}...`);
+    if (cardMode === 'rivalry-player-player') {
+      rivalryResearch = await researchPlayerRivalry(player, figure);
+    } else if (cardMode === 'rivalry-figure-figure') {
+      rivalryResearch = await researchFigureRivalry(player, figure);
+    }
 
-  // 5. Create pairing JSON
+    // Merge rivalry scenes into pose files as rivalry-specific poses
+    if (rivalryResearch?.rivalryScenes?.length) {
+      // Hero poses
+      const heroPoseData = JSON.parse(readFileSync(heroPosePath, 'utf-8'));
+      const heroRivalryPoses = scenesToPoses(rivalryResearch.rivalryScenes, 'hero', player);
+      heroPoseData.poses = { ...heroPoseData.poses, ...heroRivalryPoses };
+      writeFileSync(heroPosePath, JSON.stringify(heroPoseData, null, 2));
+      console.log(`Added ${Object.keys(heroRivalryPoses).length} rivalry poses to hero`);
+
+      // Villain poses
+      const villainPoseData = JSON.parse(readFileSync(villainPosePath, 'utf-8'));
+      const villainRivalryPoses = scenesToPoses(rivalryResearch.rivalryScenes, 'villain', figure);
+      villainPoseData.poses = { ...villainPoseData.poses, ...villainRivalryPoses };
+      writeFileSync(villainPosePath, JSON.stringify(villainPoseData, null, 2));
+      console.log(`Added ${Object.keys(villainRivalryPoses).length} rivalry poses to villain`);
+    }
+
+    // Merge scripture references into figure quotes for figure-figure rivalries
+    if (cardMode === 'rivalry-figure-figure' && rivalryResearch?.scriptureReferences?.length) {
+      for (const [charId, charName] of [[playerId, player], [figureId, figure]]) {
+        const quotesPath = join(QUOTES_DIR, `${charId}.json`);
+        if (existsSync(quotesPath)) {
+          const quotesData = JSON.parse(readFileSync(quotesPath, 'utf-8'));
+          const otherName = charName === player ? figure : player;
+          for (const ref of rivalryResearch.scriptureReferences) {
+            const quoteId = `rivalry-${makeId(ref.source || 'quote')}`;
+            if (!quotesData.quotes) quotesData.quotes = {};
+            quotesData.quotes[quoteId] = {
+              source: ref.source,
+              context: ref.context,
+              hebrew: ref.hebrew,
+              english: ref.english,
+              mood: ref.mood,
+              isRivalryQuote: true,
+              rivalryWith: otherName
+            };
+          }
+          writeFileSync(quotesPath, JSON.stringify(quotesData, null, 2));
+          console.log(`Merged rivalry quotes into ${charId}.json`);
+        }
+      }
+    }
+  }
+
+  // 5. Load pose data to build pairing JSON
+  const heroPoseData = JSON.parse(readFileSync(heroPosePath, 'utf-8'));
+  const villainPoseData = JSON.parse(readFileSync(villainPosePath, 'utf-8'));
+
+  // 5b. Look up existing curated character data from other pairings
+  const existingHeroData = findExistingCharacterData(playerId, heroCharType);
+  const existingVillainData = findExistingCharacterData(figureId, villainCharType);
+  if (existingHeroData) console.log(`Found existing data for hero ${player} from pairing`);
+  if (existingVillainData) console.log(`Found existing data for villain ${figure} from pairing`);
+
+  // 6. Build character slot data based on character type
+  // Existing pairing data takes priority over pose file data for curated fields
+  function buildSlot(name, id, poseData, charType, existing) {
+    if (charType === 'player') {
+      return {
+        name,
+        displayName: existing?.displayName || poseData.name || name,
+        poseFileId: id,
+        characterType: 'player',
+        era: existing?.era || poseData.era || '2000s',
+        jerseyColors: existing?.jerseyColors || poseData.jerseyColors || {
+          primary: { base: 'white', accent: 'blue' },
+          secondary: { base: 'blue', accent: 'white' }
+        },
+        signatureMoves: existing?.signatureMoves || poseData.signatureMoves || [],
+        physicalDescription: existing?.physicalDescription || poseData.description || 'Professional basketball player, athletic build',
+        archetype: existing?.archetype || poseData.archetype || name
+      };
+    }
+    // Figure type
+    return {
+      name,
+      displayName: existing?.displayName || poseData.name || name,
+      poseFileId: id,
+      characterType: 'figure',
+      attribute: existing?.attribute || poseData.attribute || '',
+      attributeDescription: existing?.attributeDescription || poseData.attributeDescription || '',
+      visualStyle: existing?.visualStyle || poseData.visualStyle || 'biblical figure',
+      clothing: existing?.clothing || poseData.clothing || 'robes and sandals, period-accurate biblical attire',
+      physicalDescription: existing?.physicalDescription || poseData.figureDescription || poseData.description || 'Biblical figure, dignified bearing',
+      anatomyNote: existing?.anatomyNote || 'two arms only',
+      archetype: existing?.archetype || poseData.archetype || name
+    };
+  }
+
+  // 7. Create pairing JSON
   const pairingPath = join(PAIRINGS_DIR, `${pairingId}.json`);
   const isAlternate = playerAlreadyPaired || figureAlreadyPaired;
   const alternateOf = playerAlreadyPaired
@@ -657,57 +936,46 @@ export async function createPairingFiles({ player, figure, connection, type, opp
       ? index.figures[figureId]?.primaryPairing
       : null;
 
+  const pairingType = isRivalry ? 'rivalry' : (type || 'hero');
+
   const pairingData = {
     id: pairingId,
     series: 'court-covenant',
-    type: type || 'hero',
+    type: pairingType,
     isAlternate,
     alternateOf: isAlternate ? alternateOf : null,
     opposingPairing: opposingPairing || null,
-    player: {
-      name: player,
-      displayName: playerPoseData.name || player,
-      poseFileId: playerId,
-      era: playerPoseData.era || '2000s',
-      jerseyColors: playerPoseData.jerseyColors || {
-        primary: { base: 'white', accent: 'blue' },
-        secondary: { base: 'blue', accent: 'white' }
-      },
-      signatureMoves: playerPoseData.signatureMoves || [],
-      physicalDescription: playerPoseData.description || `Professional basketball player, athletic build`,
-      archetype: playerPoseData.archetype || player
-    },
-    figure: {
-      name: figure,
-      displayName: figurePoseData.name || figure,
-      poseFileId: figureId,
-      attribute: figurePoseData.attribute || '',
-      attributeDescription: figurePoseData.attributeDescription || '',
-      visualStyle: figurePoseData.visualStyle || `biblical figure`,
-      clothing: figurePoseData.clothing || 'robes and sandals, period-accurate biblical attire',
-      physicalDescription: figurePoseData.figureDescription || figurePoseData.description || `Biblical figure, dignified bearing`,
-      anatomyNote: 'two arms only',
-      archetype: figurePoseData.archetype || figure
-    },
+    ...(isRivalry && {
+      cardMode,
+      rivalryConfig: {
+        heroCharacterType: heroCharType,
+        villainCharacterType: villainCharType
+      }
+    }),
+    ...(rivalryResearch && { rivalryResearch }),
+    player: buildSlot(player, playerId, heroPoseData, heroCharType, existingHeroData),
+    figure: buildSlot(figure, figureId, villainPoseData, villainCharType, existingVillainData),
     connection: connection || {
       thematic: '',
       narrative: '',
       relationship: ''
     },
-    interactions: [
-      {
-        id: 'back-to-back',
-        description: `${player} and ${figure} standing back-to-back, facing outward with confidence`
-      },
-      {
-        id: 'side-by-side',
-        description: `${player} and ${figure} standing together as equals`
-      }
-    ],
-    defaultInteraction: 'back-to-back',
-    cardVariants: type === 'villain'
-      ? ['thunder-lightning-dark', 'beam-team-shadow', 'metal-universe-dark']
-      : ['thunder-lightning', 'beam-team', 'downtown'],
+    interactions: isRivalry
+      ? [
+          { id: 'face-off', description: `${player} and ${figure} in an intense stare-down` },
+          { id: 'clash', description: `${player} and ${figure} in mid-action collision` },
+          { id: 'judgment', description: `${player} victorious, ${figure} acknowledging defeat` }
+        ]
+      : [
+          { id: 'back-to-back', description: `${player} and ${figure} standing back-to-back, facing outward with confidence` },
+          { id: 'side-by-side', description: `${player} and ${figure} standing together as equals` }
+        ],
+    defaultInteraction: isRivalry ? 'face-off' : 'back-to-back',
+    cardVariants: isRivalry
+      ? ['thunder-lightning-rivalry', 'beam-team-rivalry', 'metal-universe-rivalry']
+      : type === 'villain'
+        ? ['thunder-lightning-dark', 'beam-team-shadow', 'metal-universe-dark']
+        : ['thunder-lightning', 'beam-team', 'downtown'],
     priority: 99,
     status: 'active'
   };
@@ -944,9 +1212,21 @@ Use actual biblical verses. The Hebrew should be the real Hebrew text. The quote
   }
 }
 
+// Named exports for individual generation functions
+export {
+  generatePlayerPoseFile,
+  generateFigurePoseFile,
+  generateFigureQuotesFile,
+  callGemini
+};
+
 export default {
   buildCharacterIndex,
   getUnusedCharacters,
   generateSuggestions,
-  createPairingFiles
+  createPairingFiles,
+  generatePlayerPoseFile,
+  generateFigurePoseFile,
+  generateFigureQuotesFile,
+  callGemini
 };

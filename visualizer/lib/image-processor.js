@@ -4,7 +4,7 @@
  */
 
 import sharp from 'sharp';
-import { existsSync, mkdirSync } from 'fs';
+import { existsSync, mkdirSync, copyFileSync, unlinkSync } from 'fs';
 import { join, dirname, basename, extname } from 'path';
 
 // Platform configurations
@@ -145,6 +145,16 @@ export async function trimWhiteBorder(inputPath, outputPath = null, options = {}
   const finalOutputPath = outputPath || inputPath;
 
   try {
+    // Create backup before overwriting (only if no backup already exists)
+    if (!outputPath || outputPath === inputPath) {
+      const ext = extname(inputPath);
+      const base = inputPath.slice(0, -ext.length);
+      const backupPath = `${base}.pre-blend${ext}`;
+      if (!existsSync(backupPath)) {
+        copyFileSync(inputPath, backupPath);
+      }
+    }
+
     // Get original dimensions
     const originalMeta = await sharp(inputPath).metadata();
     const originalSize = { width: originalMeta.width, height: originalMeta.height };
@@ -234,11 +244,54 @@ export async function trimWhiteBorder(inputPath, outputPath = null, options = {}
   }
 }
 
+/**
+ * Get the pre-blend backup path for a given image
+ * @param {string} imagePath - Path to the blended image
+ * @returns {string} Path to the backup file
+ */
+function getBackupPath(imagePath) {
+  const ext = extname(imagePath);
+  const base = imagePath.slice(0, -ext.length);
+  return `${base}.pre-blend${ext}`;
+}
+
+/**
+ * Check if a pre-blend backup exists for a given image
+ * @param {string} imagePath - Path to the image
+ * @returns {boolean}
+ */
+export function hasPreBlendBackup(imagePath) {
+  return existsSync(getBackupPath(imagePath));
+}
+
+/**
+ * Undo a blend by restoring the pre-blend backup
+ * @param {string} imagePath - Path to the blended image
+ * @returns {{success: boolean, message?: string, error?: string}}
+ */
+export function undoTrimWhiteBorder(imagePath) {
+  const backupPath = getBackupPath(imagePath);
+
+  if (!existsSync(backupPath)) {
+    return { success: false, error: 'No pre-blend backup found' };
+  }
+
+  try {
+    copyFileSync(backupPath, imagePath);
+    unlinkSync(backupPath);
+    return { success: true, message: 'Original image restored' };
+  } catch (error) {
+    return { success: false, error: error.message };
+  }
+}
+
 export default {
   processForPlatform,
   processForMultiplePlatforms,
   generateExportFilename,
   getImageMetadata,
   trimWhiteBorder,
+  hasPreBlendBackup,
+  undoTrimWhiteBorder,
   PLATFORM_CONFIGS
 };

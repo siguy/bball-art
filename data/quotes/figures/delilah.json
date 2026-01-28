@@ -1,0 +1,45 @@
+{
+  "id": "delilah",
+  "name": "Delilah",
+  "aliases": [
+    "Dalila",
+    "The Woman of Sorek"
+  ],
+  "quotes": {
+    "tell-me-strength": {
+      "source": "Judges 16:6",
+      "context": "Delilah asks Samson to reveal the secret of his strength for the first time.",
+      "hebrew": "הַגִּידָה־נָּא לִי בַּמֶּה כֹּחֲךָ גָּדוֹל וּבַמֶּה יֵאָסֵר לְעַנֹּותֶךָ",
+      "english": "Tell me, please, where your great strength lies, and with what you may be bound to afflict you.",
+      "mood": "seductive inquiry, deceptive intent"
+    },
+    "bound-with-cords": {
+      "source": "Judges 16:11",
+      "context": "Delilah, after being lied to, questions Samson again.",
+      "hebrew": "אִם־יֵאָסְרוּנִי בַּעֲבֹתִים חֲדָשִׁים אֲשֶׁר לֹא־נַעֲשָׂה בָהֶם מְלָאכָה וְחָלִיתִי וְהָיִיתִי כְּאַחַד הָאָדָם",
+      "english": "If they bind me securely with new ropes that have never been used, then I shall become weak and be like any other man.",
+      "mood": "persistent questioning, manipulative testing"
+    },
+    "seven-locks": {
+      "source": "Judges 16:13",
+      "context": "Delilah continues to press Samson for the truth.",
+      "hebrew": "הֶאָחִי תְּעַתֶּה בִּי וּתְדַבֵּר אֵלַי כְזָבִים הַגִּידָה־נָּא לִי בַּמֶּה תֵּאָסֵר",
+      "english": "Until now you have mocked me and told me lies. Tell me now how you might be bound.",
+      "mood": "frustrated insistence, building tension"
+    },
+    "hair-shaved": {
+      "source": "Judges 16:17",
+      "context": "Samson finally reveals the truth about his hair.",
+      "hebrew": "מוֹרָה לֹא־עָלָה עַל־רֹאשִׁי כִּי־נְזִיר אֱלֹהִים אֲנִי מִבֶּטֶן אִמִּי אִם־אֶגָּלַח וְסָר מִמֶּנִּי כֹּחִי וְחָלִיתִי וְהָיִיתִי כְּכָל־הָאָדָם",
+      "english": "No razor has ever come upon my head, for I have been a Nazirite to God from my mother’s womb. If I am shaved, then my strength will leave me, and I shall become weak and be like any other man.",
+      "mood": "deceptive vulnerability, fatal revelation"
+    },
+    "philistines-are-upon-you": {
+      "source": "Judges 16:20",
+      "context": "Delilah calls out to Samson after cutting his hair.",
+      "hebrew": "פְּלִשְׁתִּים עָלֶיךָ שִׁמְשׁוֹן",
+      "english": "The Philistines are upon you, Samson!",
+      "mood": "treacherous betrayal, climactic downfall"
+    }
+  }
+}

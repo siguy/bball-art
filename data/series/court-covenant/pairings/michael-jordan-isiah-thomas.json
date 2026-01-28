@@ -1,0 +1,144 @@
+{
+  "id": "michael-jordan-isiah-thomas",
+  "series": "court-covenant",
+  "type": "rivalry",
+  "isAlternate": false,
+  "alternateOf": null,
+  "opposingPairing": null,
+  "cardMode": "rivalry-player-player",
+  "rivalryConfig": {
+    "heroCharacterType": "player",
+    "villainCharacterType": "player"
+  },
+  "rivalryResearch": {
+    "relationship": "The rivalry between Michael Jordan and Isiah Thomas transcended basketball. Initially, it was a clash of titans for Eastern Conference dominance, but it evolved into a personal feud fueled by perceived disrespect, the \"freeze out\" at the 1985 All-Star Game, and the Pistons' physical \"Jordan Rules\" defense. This tension contributed to a frosty relationship that impacted both their legacies.",
+    "keyMoments": [
+      {
+        "title": "1985 All-Star Game 'Freeze Out'",
+        "description": "Rumors swirled that Isiah Thomas orchestrated a \"freeze out\" of Michael Jordan during his first All-Star game, allegedly limiting Jordan's touches as a display of veteran dominance.",
+        "year": "1985"
+      },
+      {
+        "title": "The 'Jordan Rules'",
+        "description": "The Detroit Pistons, led by Isiah Thomas, developed a set of defensive strategies known as the 'Jordan Rules,' designed to physically and psychologically wear down Michael Jordan and limit his effectiveness.",
+        "year": "1988-1991"
+      },
+      {
+        "title": "Pistons Sweep Bulls (1989)",
+        "description": "The Detroit Pistons swept the Chicago Bulls in the 1989 Eastern Conference Finals, highlighting their dominance over Jordan's Bulls and further solidifying their rivalry.",
+        "year": "1989"
+      },
+      {
+        "title": "Bulls Conquer Pistons (1991)",
+        "description": "In a symbolic shift, the Chicago Bulls finally defeated the Detroit Pistons in the 1991 Eastern Conference Finals, with the Pistons infamously walking off the court before the game ended, avoiding handshakes.",
+        "year": "1991"
+      },
+      {
+        "title": "Olympic Snub",
+        "description": "Rumors suggest Michael Jordan influenced Isiah Thomas' exclusion from the 1992 \"Dream Team,\" allegedly stating he wouldn't participate if Thomas was included, further deepening their animosity.",
+        "year": "1992"
+      }
+    ],
+    "rivalryScenes": [
+      {
+        "id": "freeze-out-scene",
+        "heroAction": "Michael Jordan, in his All-Star uniform, looks frustrated and isolated on the perimeter, his hand extended, calling for the ball but ignored. His expression is a mix of confusion and determination.",
+        "villainAction": "Isiah Thomas, dribbling with a smug grin, glances dismissively at Jordan while passing to a teammate. He exudes an aura of control and calculated disrespect.",
+        "scene": "Mid-1980s All-Star game in a brightly lit arena; a flurry of movement and color surrounds them.",
+        "energy": "Cold, calculated, dismissive"
+      },
+      {
+        "id": "jordan-rules-scene",
+        "heroAction": "Michael Jordan drives aggressively to the basket, contorting his body to avoid a hard foul. His face is strained with effort and determination, eyes focused on the rim.",
+        "villainAction": "Isiah Thomas is shown delivering a hard foul, arms extended, a look of fierce competitiveness, bordering on aggression, etched on his face. He embodies the physical intensity of the 'Jordan Rules'.",
+        "scene": "A tense, packed arena during the Eastern Conference Finals; the atmosphere is charged with anticipation and aggression.",
+        "energy": "Physical, intense, relentless"
+      },
+      {
+        "id": "walk-off-scene",
+        "heroAction": "Michael Jordan, victorious, stands on the court, fist clenched, a triumphant expression on his face. He watches the retreating Pistons with a mixture of satisfaction and disdain.",
+        "villainAction": "Isiah Thomas, head down, leads the Detroit Pistons off the court before the final buzzer, a gesture of defiance and poor sportsmanship. His shoulders are slumped in defeat.",
+        "scene": "The final moments of the 1991 Eastern Conference Finals; confetti rains down as the Bulls celebrate, while the Pistons exit in disgrace.",
+        "energy": "Bittersweet, defiant, disrespectful"
+      },
+      {
+        "id": "dream-team-snub-scene",
+        "heroAction": "Michael Jordan, wearing a USA jersey, stands tall and confident during the 1992 Olympic games, a gold medal gleaming around his neck. He looks composed and focused, ready to lead.",
+        "villainAction": "Isiah Thomas watches the Olympic games on television with a dejected expression. He sits alone in a darkened room, a mix of regret and resentment on his face, as he contemplates his exclusion.",
+        "scene": "Split scene; one side depicts the euphoria of the Olympic games, the other depicts the isolation of being left behind.",
+        "energy": "Triumphant, bitter, reflective"
+      }
+    ]
+  },
+  "player": {
+    "name": "Michael Jordan",
+    "displayName": "MJ",
+    "poseFileId": "michael-jordan",
+    "characterType": "player",
+    "era": "1990s",
+    "jerseyColors": {
+      "primary": {
+        "base": "red",
+        "accent": "white"
+      },
+      "secondary": {
+        "base": "white",
+        "accent": "red"
+      }
+    },
+    "signatureMoves": [
+      "fadeaway jumper",
+      "flying dunk",
+      "tongue out drive"
+    ],
+    "physicalDescription": "athletic build, shaved head, intense focused expression",
+    "archetype": "The GOAT, ultimate competitor, clutch performer"
+  },
+  "figure": {
+    "name": "Isiah Thomas",
+    "displayName": "Zeke",
+    "poseFileId": "isiah-thomas",
+    "characterType": "player",
+    "era": "1980s",
+    "jerseyColors": {
+      "primary": {
+        "base": "blue",
+        "accent": "red"
+      },
+      "secondary": {
+        "base": "white",
+        "accent": "blue"
+      }
+    },
+    "signatureMoves": [
+      "killer crossover",
+      "floater",
+      "ruthless competitiveness"
+    ],
+    "physicalDescription": "smaller 6'1\" guard, compact powerful build, bright smile that masked killer instinct, dark skin, baby-faced but fierce",
+    "archetype": "The Baby-Faced Assassin, led the Bad Boys, ruled through intimidation"
+  },
+  "connection": "The defining NBA feud — Jordan's Bulls vs Isiah's Bad Boys, the Jordan Rules, the walk-off",
+  "interactions": [
+    {
+      "id": "face-off",
+      "description": "Michael Jordan and Isiah Thomas in an intense stare-down"
+    },
+    {
+      "id": "clash",
+      "description": "Michael Jordan and Isiah Thomas in mid-action collision"
+    },
+    {
+      "id": "judgment",
+      "description": "Michael Jordan victorious, Isiah Thomas acknowledging defeat"
+    }
+  ],
+  "defaultInteraction": "face-off",
+  "cardVariants": [
+    "thunder-lightning-rivalry",
+    "beam-team-rivalry",
+    "metal-universe-rivalry"
+  ],
+  "priority": 99,
+  "status": "active"
+}

@@ -216,6 +216,72 @@ async function handleTrimCard() {
 
   trimBtn.disabled = false;
   trimBtn.textContent = 'Blend Border';
+
+  // Show undo button if blend was successful
+  if (trimStatus.classList.contains('success')) {
+    const undoBtn = document.getElementById('undo-trim-btn');
+    if (undoBtn) undoBtn.style.display = '';
+  }
+}
+
+async function checkTrimUndoAvailable(cardPath) {
+  const undoBtn = document.getElementById('undo-trim-btn');
+  if (!undoBtn) return;
+
+  try {
+    const res = await fetch(`${API_BASE}/api/cards/trim/status?cardPath=${encodeURIComponent(cardPath)}`);
+    const result = await res.json();
+    undoBtn.style.display = result.hasBackup ? '' : 'none';
+  } catch {
+    undoBtn.style.display = 'none';
+  }
+}
+
+async function handleUndoTrim() {
+  const card = filteredCards[currentCardIndex];
+  if (!card) return;
+
+  const undoBtn = document.getElementById('undo-trim-btn');
+  const trimStatus = document.getElementById('trim-status');
+
+  undoBtn.disabled = true;
+  undoBtn.textContent = 'Restoring...';
+  trimStatus.textContent = '';
+
+  try {
+    const res = await fetch(`${API_BASE}/api/cards/trim/undo`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ cardPath: card.path })
+    });
+
+    const result = await res.json();
+
+    if (result.success) {
+      trimStatus.textContent = 'Original restored';
+      trimStatus.className = 'trim-status success';
+
+      // Refresh images with cache-bust
+      const img = document.getElementById('modal-card-image');
+      img.src = card.path + '?t=' + Date.now();
+
+      const galleryCard = gallery.querySelector(`[data-index="${currentCardIndex}"] img`);
+      if (galleryCard) {
+        galleryCard.src = card.path + '?t=' + Date.now();
+      }
+
+      undoBtn.style.display = 'none';
+    } else {
+      trimStatus.textContent = `Error: ${result.error}`;
+      trimStatus.className = 'trim-status error';
+    }
+  } catch (err) {
+    trimStatus.textContent = `Error: ${err.message}`;
+    trimStatus.className = 'trim-status error';
+  }
+
+  undoBtn.disabled = false;
+  undoBtn.textContent = 'Undo Blend';
 }
 
 function updateCharCount() {
@@ -511,6 +577,14 @@ function openModal(index) {
     }
   });
 
+  // Reset trim status and check for undo availability
+  const trimStatus = document.getElementById('trim-status');
+  if (trimStatus) {
+    trimStatus.textContent = '';
+    trimStatus.className = 'trim-status';
+  }
+  checkTrimUndoAvailable(card.path);
+
   // Reset export UI
   ['export-website', 'export-instagram', 'export-twitter'].forEach(id => {
     const checkbox = document.getElementById(id);
@@ -598,6 +672,12 @@ function setupEventListeners() {
   const trimCardBtn = document.getElementById('trim-card-btn');
   if (trimCardBtn) {
     trimCardBtn.addEventListener('click', handleTrimCard);
+  }
+
+  // Undo trim button
+  const undoTrimBtn = document.getElementById('undo-trim-btn');
+  if (undoTrimBtn) {
+    undoTrimBtn.addEventListener('click', handleUndoTrim);
   }
 
   // Card clicks

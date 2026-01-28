@@ -748,6 +748,150 @@
 }
 
 /* ========================================
+   Rivalry Mode
+   ======================================== */
+
+/* Rivalry mode option styling */
+.rivalry-mode-option {
+  border-color: transparent;
+}
+
+.rivalry-mode-option:has(input:checked) {
+  background: linear-gradient(135deg, rgba(107, 76, 154, 0.3), rgba(196, 60, 60, 0.3));
+  border-color: #a78bfa;
+}
+
+.rivalry-mode-option input:checked + .mode-label {
+  color: #a78bfa;
+}
+
+/* Rivalry type toggle */
+.rivalry-type-toggle {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1.25rem;
+  padding: 0.4rem;
+  background: var(--bg-dark);
+  border-radius: 6px;
+  border: 1px solid rgba(107, 76, 154, 0.3);
+}
+
+.rivalry-type-toggle.hidden {
+  display: none;
+}
+
+.rivalry-type-option {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem 0.6rem;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s;
+  border: 1px solid transparent;
+}
+
+.rivalry-type-option input[type="radio"] {
+  display: none;
+}
+
+.rivalry-type-label {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.rivalry-type-option:hover .rivalry-type-label {
+  color: var(--text-primary);
+}
+
+.rivalry-type-option:has(input:checked) {
+  background: var(--bg-hover);
+  border-color: #a78bfa;
+}
+
+.rivalry-type-option input:checked + .rivalry-type-label {
+  color: #a78bfa;
+}
+
+/* VS Badge */
+.vs-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.15rem 0.5rem;
+  border-radius: 4px;
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  color: #fff;
+  background: linear-gradient(135deg, #7c3aed, #dc2626);
+}
+
+/* Suggestion rivalry badge container */
+.suggestion-rivalry-badge {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-shrink: 0;
+  margin-left: 1rem;
+}
+
+.rivalry-type-label {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: #a78bfa;
+  font-weight: 500;
+}
+
+/* Rivalry suggestion card */
+.suggestion-card-rivalry {
+  border-color: #a78bfa;
+  border-style: solid;
+}
+
+.suggestion-card-rivalry:hover {
+  border-color: #c4b5fd;
+}
+
+/* Rivalry preview */
+.suggestion-rivalry-preview {
+  background: rgba(107, 76, 154, 0.12);
+  border: 1px solid rgba(107, 76, 154, 0.25);
+  border-radius: 4px;
+  padding: 0.6rem 0.75rem;
+  margin-bottom: 0.75rem;
+}
+
+.rivalry-preview-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #a78bfa;
+  margin-bottom: 0.25rem;
+}
+
+.rivalry-preview-text {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+  font-style: italic;
+}
+
+/* Pairing category badge for rivalries */
+.pairing-category.rivalries {
+  background: linear-gradient(135deg, rgba(107, 76, 154, 0.3), rgba(196, 60, 60, 0.3));
+  color: #a78bfa;
+}
+
+/* Hidden helper class for rivalry inputs */
+.creator-inputs.hidden {
+  display: none;
+}
+
+/* ========================================
    Responsive
    ======================================== */
 
@@ -765,12 +909,22 @@
     flex: 1 1 calc(50% - 0.35rem);
   }
 
+  .rivalry-type-toggle {
+    flex-wrap: wrap;
+    gap: 0.35rem;
+  }
+
+  .rivalry-type-option {
+    flex: 1 1 calc(50% - 0.35rem);
+  }
+
   .suggestion-header {
     flex-direction: column;
     gap: 0.5rem;
   }
 
-  .suggestion-type-badge {
+  .suggestion-type-badge,
+  .suggestion-rivalry-badge {
     margin-left: 0;
   }
 

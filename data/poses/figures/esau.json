@@ -56,6 +56,30 @@
       "prompt": "standing in shadow with clenched fists - extremely hairy body covered in red hair, jaw set in cold determination, eyes burning with patient hatred, calculating the day of reckoning, hunter planning his greatest hunt",
       "energy": "patient vengeance, the long game",
       "quoteId": "vow-of-vengeance"
+    },
+    "rivalry-birthright-bargain": {
+      "id": "rivalry-birthright-bargain",
+      "name": "Rivalry: Birthright Bargain",
+      "description": "Esau in rivalry scene: A rugged, outdoor landscape. The sun is setting, casting long shadows. A small, makeshift camp with a fire burning low.",
+      "prompt": "Esau stands, disheveled and exhausted, with sweat on his brow. His clothes are torn and dirty from hunting. He reaches desperately for the bowl of stew, eyes wide with hunger.",
+      "energy": "Desperate, Opportunistic, Ravenous",
+      "isRivalryPose": true
+    },
+    "rivalry-stolen-blessing": {
+      "id": "rivalry-stolen-blessing",
+      "name": "Rivalry: Stolen Blessing",
+      "description": "Esau in rivalry scene: The interior of Isaac's tent, dimly lit by oil lamps. The atmosphere is thick with tension and deception.",
+      "prompt": "Esau enters the tent, carrying a freshly killed deer. His face is filled with shock and betrayal as he witnesses Jacob receiving the blessing. His bow hangs loosely in his hand.",
+      "energy": "Deceptive, Enraged, Despairing",
+      "isRivalryPose": true
+    },
+    "rivalry-the-reunion": {
+      "id": "rivalry-the-reunion",
+      "name": "Rivalry: The Reunion",
+      "description": "Esau in rivalry scene: A vast, open plain, with the setting sun casting long shadows. A sense of anticipation and unease fills the air.",
+      "prompt": "Esau approaches with 400 armed men. His expression is difficult to read – a mixture of curiosity, lingering anger, and perhaps a hint of brotherly affection. He is dressed as a warrior.",
+      "energy": "Apprehensive, Confrontational, Uncertain",
+      "isRivalryPose": true
     }
   }
 }

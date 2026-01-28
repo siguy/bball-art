@@ -1,0 +1,48 @@
+{
+  "id": "james-harden",
+  "name": "James Harden",
+  "defaultPose": "step-back",
+  "description": "6'5\" left-handed shooting guard, known for his step-back jumper, beard, and playmaking ability.",
+  "poses": {
+    "step-back": {
+      "id": "step-back",
+      "name": "The Step-Back",
+      "description": "Creating space with his signature move for a three-pointer.",
+      "expression": "focused intensity, eyes locked on the basket",
+      "prompt": "James Harden executing his signature step-back jumper - ball held high, body leaning back creating separation, left hand guiding the ball, right leg extended for balance, defender trailing behind, focused gaze at the rim, determined expression",
+      "energy": "calculated separation, lethal"
+    },
+    "beard-stroke": {
+      "id": "beard-stroke",
+      "name": "Beard Stroke",
+      "description": "Thinking, planning the next play, stroking the beard.",
+      "expression": "contemplative, strategic",
+      "prompt": "James Harden thoughtfully stroking his beard - standing near the free throw line, looking towards the coach or the court, right hand gently stroking his iconic beard, a slight smirk playing on his lips, sweat glistening on his forehead, deep in thought, strategic mastermind",
+      "energy": "strategic pause, calculating"
+    },
+    "cooking-stir": {
+      "id": "cooking-stir",
+      "name": "The Cooking Stir",
+      "description": "Stirring the pot celebration after a big play.",
+      "expression": "confident swagger, playful taunt",
+      "prompt": "James Harden performing the 'stir the pot' celebration - both hands miming stirring a pot, a wide grin on his face, body swaying slightly, teammates cheering in the background, confident swagger, a playful taunt directed at the opposing team, charismatic showmanship",
+      "energy": "confident celebration, playful"
+    },
+    "lefty-layup": {
+      "id": "lefty-layup",
+      "name": "Lefty Layup",
+      "description": "Driving to the basket for a smooth left-handed finish.",
+      "expression": "agile, focused on the basket",
+      "prompt": "James Harden driving to the basket for a left-handed layup - ball secured in his left hand, body leaning slightly, right leg extended for balance, defender trailing, eyes focused on the rim, agile movement, a smooth finish at the basket, effortless agility",
+      "energy": "deceptive speed, finesse"
+    },
+    "free-throw-ritual": {
+      "id": "free-throw-ritual",
+      "name": "Free Throw Ritual",
+      "description": "Preparing to shoot a free throw with his signature routine.",
+      "expression": "focused concentration, pre-shot routine",
+      "prompt": "James Harden at the free-throw line performing his pre-shot ritual - ball spinning in his hands, taking a deep breath, bouncing the ball a few times, eyes locked on the basket, unwavering focus, beads of sweat on his brow, intense concentration before the shot",
+      "energy": "focused calm, precision"
+    }
+  }
+}

@@ -1,0 +1,80 @@
+{
+  "id": "michael-jordan",
+  "name": "Michael Jordan",
+  "defaultPose": "tongue-out-dunk",
+  "description": "6'6\", 216 lbs. Bald head, piercing eyes, intense competitor. The greatest basketball player of all time.",
+  "poses": {
+    "tongue-out-dunk": {
+      "id": "tongue-out-dunk",
+      "name": "Tongue Out Dunk",
+      "description": "MJ soaring for a dunk, tongue wagging, legs spread wide.",
+      "expression": "Focused, aggressive, determined.",
+      "prompt": "Michael Jordan driving to the basket, airborne, tongue sticking out, slamming the ball with one hand, legs spread for balance, eyes locked on the rim, aggressive and powerful.",
+      "energy": "Airborne Dominance"
+    },
+    "the-shrug": {
+      "id": "the-shrug",
+      "name": "The Shrug",
+      "description": "Jordan shrugging after hitting multiple 3s in the 1992 NBA Finals.",
+      "expression": "Surprised, amused, nonchalant.",
+      "prompt": "Michael Jordan standing on the court, shoulders raised, palms up, looking at the bench with a slight grin, as if to say 'I don't know how I did that.' The shrug pose after hitting a difficult shot.",
+      "energy": "Effortless Greatness"
+    },
+    "the-last-shot": {
+      "id": "the-last-shot",
+      "name": "The Last Shot",
+      "description": "Jordan's game-winning shot over Bryon Russell in the 1998 NBA Finals.",
+      "expression": "Focused, determined, clutch.",
+      "prompt": "Michael Jordan rising up for a jump shot over Bryon Russell, holding his follow-through, eyes locked on the basket, body leaning slightly back, intense focus on his face, iconic last shot moment, Chicago Bulls uniform.",
+      "energy": "Clutch Performance"
+    },
+    "championship-fist-pump": {
+      "id": "championship-fist-pump",
+      "name": "Championship Fist Pump",
+      "description": "MJ celebrating a championship victory with a powerful fist pump.",
+      "expression": "Exuberant, triumphant, emotional.",
+      "prompt": "Michael Jordan clenching his fist, pumping his arm in the air, screaming with joy, celebrating a championship victory, sweat dripping from his brow, pure exhilaration and accomplishment on his face, Bulls uniform, confetti falling.",
+      "energy": "Triumphant Victory"
+    },
+    "fadeaway-jumper": {
+      "id": "fadeaway-jumper",
+      "name": "Fadeaway Jumper",
+      "description": "Jordan executing his signature fadeaway jumper.",
+      "expression": "Confident, composed, unstoppable.",
+      "prompt": "Michael Jordan fading away while shooting a jump shot, body leaning back, legs spread for balance, ball leaving his fingertips with perfect arc, defender unable to contest, composed expression, signature fadeaway move.",
+      "energy": "Unyielding Confidence"
+    },
+    "rivalry-freeze-out-scene": {
+      "id": "rivalry-freeze-out-scene",
+      "name": "Rivalry: Freeze Out Scene",
+      "description": "Michael Jordan in rivalry scene: Mid-1980s All-Star game in a brightly lit arena; a flurry of movement and color surrounds them.",
+      "prompt": "Michael Jordan, in his All-Star uniform, looks frustrated and isolated on the perimeter, his hand extended, calling for the ball but ignored. His expression is a mix of confusion and determination.",
+      "energy": "Cold, calculated, dismissive",
+      "isRivalryPose": true
+    },
+    "rivalry-jordan-rules-scene": {
+      "id": "rivalry-jordan-rules-scene",
+      "name": "Rivalry: Jordan Rules Scene",
+      "description": "Michael Jordan in rivalry scene: A tense, packed arena during the Eastern Conference Finals; the atmosphere is charged with anticipation and aggression.",
+      "prompt": "Michael Jordan drives aggressively to the basket, contorting his body to avoid a hard foul. His face is strained with effort and determination, eyes focused on the rim.",
+      "energy": "Physical, intense, relentless",
+      "isRivalryPose": true
+    },
+    "rivalry-walk-off-scene": {
+      "id": "rivalry-walk-off-scene",
+      "name": "Rivalry: Walk Off Scene",
+      "description": "Michael Jordan in rivalry scene: The final moments of the 1991 Eastern Conference Finals; confetti rains down as the Bulls celebrate, while the Pistons exit in disgrace.",
+      "prompt": "Michael Jordan, victorious, stands on the court, fist clenched, a triumphant expression on his face. He watches the retreating Pistons with a mixture of satisfaction and disdain.",
+      "energy": "Bittersweet, defiant, disrespectful",
+      "isRivalryPose": true
+    },
+    "rivalry-dream-team-snub-scene": {
+      "id": "rivalry-dream-team-snub-scene",
+      "name": "Rivalry: Dream Team Snub Scene",
+      "description": "Michael Jordan in rivalry scene: Split scene; one side depicts the euphoria of the Olympic games, the other depicts the isolation of being left behind.",
+      "prompt": "Michael Jordan, wearing a USA jersey, stands tall and confident during the 1992 Olympic games, a gold medal gleaming around his neck. He looks composed and focused, ready to lead.",
+      "energy": "Triumphant, bitter, reflective",
+      "isRivalryPose": true
+    }
+  }
+}
