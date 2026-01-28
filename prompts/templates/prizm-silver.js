@@ -7,7 +7,7 @@
  * modern minimalist design, prismatic light effects.
  */
 
-import { generatePoseBlock } from '../components/poses.js';
+import { generatePoseBlock, generateSoloPoseBlock } from '../components/poses.js';
 
 export const prizmSilverTemplate = {
   id: "prizm-silver",
@@ -93,6 +93,82 @@ TOP: Write "PRIZM" in clean modern sans-serif font - silver/chrome with prismati
 LOGO: Below the title, render the provided "Court & Covenant" logo image in silver with subtle prismatic shimmer. Smaller than the title.
 
 BOTTOM: Write "${player.name} & ${figure.displayName}" in clean silver text with subtle prismatic effect. Modern minimalist typography.
+
+=== FINISH ===
+Silver prizm finish with rainbow light refraction. Clean, modern, premium parallel card aesthetic. The card should shimmer like a real Prizm Silver parallel.
+`.trim();
+
+    return prompt;
+  },
+
+  /**
+   * Generate a solo character card (single player or figure)
+   */
+  generateSolo(character, options = {}) {
+    const isPlayer = character.type === 'player';
+    const pose = character.pose;
+    const jersey = options.jersey || { base: 'red', accent: 'white' };
+
+    const poseBlock = generateSoloPoseBlock(character.name, pose, character.type);
+
+    let characterDescription;
+    if (isPlayer) {
+      characterDescription = `
+${character.name.toUpperCase()}:
+- Physical: ${character.physicalDescription}
+- Wearing: PLAIN SOLID ${jersey.base.toUpperCase()} basketball tank top and shorts with ${jersey.accent} trim. COMPLETELY BLANK uniform.
+- Style: Clean modern rendering with silver/prismatic highlights
+`.trim();
+    } else {
+      const figureClothing = character.clothing || `${character.visualStyle} robes and garments`;
+      characterDescription = `
+${character.name.toUpperCase()}:
+- Physical: ${character.physicalDescription}
+- Wearing: ${figureClothing}
+- Style: Classical artistic interpretation with modern silver accents, biblical period accurate
+- Anatomy: Exactly two arms${character.anatomyNote ? ` - ${character.anatomyNote}` : ''}
+`.trim();
+    }
+
+    const prompt = `
+A vertical premium basketball card in 3:4 aspect ratio, styled after Panini Prizm "Silver" parallel cards.
+
+=== CRITICAL REQUIREMENTS ===
+1. SINGLE CHARACTER CARD - Only ONE figure on this card
+2. ${isPlayer ? `The basketball player's jersey AND SHORTS must be COMPLETELY BLANK - solid ${jersey.base} color only with ${jersey.accent} trim` : 'Biblical figure in period-accurate attire'}
+3. DO NOT add any team names, NBA logos, or brand marks
+4. The figure must have exactly TWO ARMS
+5. This is STYLIZED ART for a collectible card, not a photograph
+
+${poseBlock}
+
+=== CHARACTER DESCRIPTION ===
+
+${characterDescription}
+
+=== COMPOSITION ===
+SOLO CARD: ${character.name} is the ONLY figure on this card.
+- Character should be CENTERED and DOMINANT
+- Show FULL BODY from head to feet - character fills 70-80% of card height
+- Leave space around the figure so the action pose has room to breathe
+- DO NOT crop at the knees or waist - we need to see the full athletic form
+- Clean, modern pose - a legend with timeless presence
+
+=== BACKGROUND ===
+Clean geometric Prizm pattern with:
+- Silver and white gradient base
+- Subtle geometric diamond/prizm patterns
+- Prismatic light refraction effects (rainbow shimmer)
+- Clean lines and modern minimalist aesthetic
+- Soft silver glow around figure
+- The signature Prizm "shattered glass" light effect
+
+=== TEXT ELEMENTS (render exactly as specified) ===
+TOP: Write "PRIZM" in clean modern sans-serif font - silver/chrome with prismatic rainbow edge effect. Centered at top.
+
+LOGO: Below the title, render the provided "Court & Covenant" logo image in silver with subtle prismatic shimmer.
+
+BOTTOM: Write "${character.displayName || character.name}" in clean silver text with subtle prismatic effect. Centered at bottom.
 
 === FINISH ===
 Silver prizm finish with rainbow light refraction. Clean, modern, premium parallel card aesthetic. The card should shimmer like a real Prizm Silver parallel.

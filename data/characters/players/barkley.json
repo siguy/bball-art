@@ -1,0 +1,14 @@
+{
+  "id": "barkley",
+  "name": "Charles Barkley",
+  "displayName": "Sir Charles",
+  "poseFileId": "barkley",
+  "era": "1990s",
+  "jerseyColors": {
+    "primary": { "base": "purple", "accent": "orange" },
+    "secondary": { "base": "black", "accent": "orange" }
+  },
+  "signatureMoves": ["power-dunk", "elbows-out-rebound", "coast-to-coast", "turnaround-jumper"],
+  "physicalDescription": "6'6\" power forward, stocky muscular build, round face, bald head, powerful lower body, undersized but dominant",
+  "archetype": "The Round Mound of Rebound - undersized but unstoppable, outspoken and entertaining"
+}

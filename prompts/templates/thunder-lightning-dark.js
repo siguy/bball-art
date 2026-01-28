@@ -160,6 +160,92 @@ High-gloss refractor finish with holographic light-bending effect in red/black s
 `.trim();
 
     return prompt;
+  },
+
+  /**
+   * Generate a solo character card (single player or figure) - VILLAIN EDITION
+   * @param {object} character - Character data { type, name, physicalDescription, pose, ... }
+   * @param {object} options - { hairColor, jersey }
+   */
+  generateSolo(character, options = {}) {
+    const isPlayer = character.type === 'player';
+    const pose = character.pose;
+
+    // Villain color scheme
+    const villainColors = { base: "black", accent: "crimson red" };
+
+    // Generate the pose block
+    const poseBlock = `
+=== ${isPlayer ? 'BASKETBALL LEGEND' : 'BIBLICAL FIGURE'} POSE (VILLAIN) ===
+${character.name.toUpperCase()}:
+${pose.prompt}
+
+Energy/Mood: ${pose.energy}
+`.trim();
+
+    // Character description section
+    let characterDescription;
+    if (isPlayer) {
+      characterDescription = `
+${character.name.toUpperCase()}:
+- Physical: ${character.physicalDescription}
+- Expression: SINISTER - intimidating stare, menacing smirk, or cold ruthless gaze
+- Wearing: PLAIN SOLID ${villainColors.base.toUpperCase()} basketball tank top and shorts with ${villainColors.accent.toUpperCase()} trim. The uniform is COMPLETELY BLANK - solid color fabric only. NO logos, NO diamonds, NO symbols of any kind.
+- Style: Stylized artistic rendering, recognizable likeness but NOT photorealistic
+`.trim();
+    } else {
+      const figureClothing = character.clothing || `${character.visualStyle} robes and garments`;
+      characterDescription = `
+${character.name.toUpperCase()}:
+- Physical: ${character.physicalDescription}
+- Expression: MENACING - fierce battle rage, cruel confidence, or terrifying intensity
+- Wearing: ${figureClothing}
+- Style: Classical artistic interpretation, biblical period accurate
+- Anatomy: Exactly two arms${character.anatomyNote ? ` - ${character.anatomyNote}` : ''}
+`.trim();
+    }
+
+    const prompt = `
+A vertical premium basketball card in 3:4 aspect ratio, styled after 1993-94 Fleer Ultra "Thunder & Lightning" insert set - VILLAIN EDITION.
+
+=== CRITICAL REQUIREMENTS ===
+1. SINGLE CHARACTER CARD - Only ONE figure on this card
+2. ${isPlayer ? `The basketball player's jersey AND SHORTS must be COMPLETELY BLANK - solid ${villainColors.base} color only with ${villainColors.accent} trim` : 'Biblical figure in period-accurate attire'}
+3. ${isPlayer ? 'The shorts are PLAIN SOLID FABRIC - NO diamond shape, NO logo, NO emblem, NO symbol, NO design whatsoever' : 'Classical artistic interpretation'}
+4. DO NOT add any team names, NBA logos, Nike swoosh, Jordan logo, or any brand marks
+5. The figure must have exactly TWO ARMS
+6. This is STYLIZED ART for a collectible card, not a photograph
+7. VILLAIN CARD - expression should be SINISTER, MENACING, or INTIMIDATING
+
+${poseBlock}
+
+=== CHARACTER DESCRIPTION ===
+
+${characterDescription}
+
+=== COMPOSITION ===
+SOLO CARD: ${character.name} is the ONLY figure on this card.
+- Character should be CENTERED and DOMINANT
+- Show FULL BODY from head to feet - character fills 70-80% of card height
+- Leave space around the figure so the action pose has room to breathe
+- DO NOT crop at the knees or waist - we need to see the full athletic form
+- Dynamic pose showcasing their villainous presence
+
+=== BACKGROUND ===
+DARK ominous gradient of deep BLACK and BLOOD RED, with sinister crimson nebulae and dark cosmic dust. BLOOD-RED lightning bolts crackling ominously across the scene. Hints of dark purple in the shadows. The background should feel THREATENING but not overpower the figure.
+
+=== TEXT ELEMENTS (render exactly as specified) ===
+TOP: Write "THUNDER & LIGHTNING" in bold, CRIMSON RED, 1990s-style sans-serif font with dark metallic sheen and black drop shadow. Add subtle text: "DARK SIDE" in smaller silver text below. Centered at top.
+
+LOGO: Below the title, render the provided "Court & Covenant" logo image SMALL (about 1/3 the width of the title) in BRIGHT SHINY GOLD with subtle glow effect.
+
+BOTTOM: Write "${character.displayName || character.name}" in silver text with subtle metallic shine. Clean 90s sports card typography, centered at bottom.
+
+=== FINISH ===
+High-gloss refractor finish with holographic light-bending effect in red/black spectrum. Premium 1990s insert card feel with sinister edge.
+`.trim();
+
+    return prompt;
   }
 };
 

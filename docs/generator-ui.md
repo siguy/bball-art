@@ -20,10 +20,33 @@ Or click "Generator" in the navigation bar from any visualizer page.
 
 ## Features
 
-### Pairing Selection
+### Mode Toggle
+The generator supports two modes:
+- **Pairing Mode**: Generate cards with two characters (NBA player + biblical figure)
+- **Solo Mode**: Generate cards with a single character
+
+Switch between modes using the toggle at the top of the control panel.
+
+### Pairing Selection (Pairing Mode)
 - Pairings are grouped by type (Heroes / Villains)
 - Sorted by priority
 - Shows connection info and narrative when selected
+
+### Solo Character Selection (Solo Mode)
+1. **Character Type**: Choose between NBA Player or Biblical Figure
+2. **Character**: Select from the list of available characters
+3. **Pose**: Select from character-specific poses
+
+**Character sources:**
+- Characters from existing pairings (automatically available)
+- Standalone character files in `data/characters/{players|figures}/`
+- See `docs/solo-characters.md` for creating standalone characters
+
+Solo cards feature:
+- Single character centered on the card (~80% vertical space)
+- All templates support solo mode with appropriate adjustments
+- Same pose database as pairing mode
+- Hair colors available for applicable characters (e.g., Rodman)
 
 ### Template Selection
 - All 6 templates available with era badges
@@ -131,7 +154,7 @@ Get template metadata.
 ```
 
 ### POST /api/generate-with-poses
-Generate a card with full pose control.
+Generate a pairing card with full pose control.
 
 **Request:**
 ```json
@@ -155,6 +178,65 @@ Generate a card with full pose control.
   "template": "thunder-lightning",
   "playerPose": "tongue-out-dunk",
   "figurePose": "parting-sea"
+}
+```
+
+### GET /api/characters/players
+Lists all unique players with metadata.
+
+**Response:**
+```json
+[
+  {
+    "id": "jordan",
+    "name": "Michael Jordan",
+    "displayName": "MJ",
+    "era": "1990s",
+    "poseCount": 6,
+    "hasHairColors": false
+  }
+]
+```
+
+### GET /api/characters/figures
+Lists all unique figures with metadata.
+
+**Response:**
+```json
+[
+  {
+    "id": "moses",
+    "name": "Moses",
+    "displayName": "Moses",
+    "poseCount": 6
+  }
+]
+```
+
+### POST /api/generate-solo
+Generate a solo character card.
+
+**Request:**
+```json
+{
+  "type": "player",
+  "characterId": "jordan",
+  "template": "thunder-lightning",
+  "pose": "tongue-out-dunk",
+  "hairColor": null
+}
+```
+
+**Response:**
+```json
+{
+  "success": true,
+  "filename": "thunder-lightning-2026-01-27T10-30-00.jpeg",
+  "cardId": "solo-player-jordan-thunder-lightning-2026-01-27T10-30-00",
+  "type": "player",
+  "characterId": "jordan",
+  "template": "thunder-lightning",
+  "pose": "tongue-out-dunk"
 }
 ```
 
@@ -196,12 +278,44 @@ Contains metadata for all templates including:
 - `visualizer/public/export-queue.html` - Added Generator nav link
 - All 19 pairing JSON files - Added `type` field
 
-## Future Enhancements
+## Solo Cards Output Structure
 
-### Solo Character Mode (Planned)
-- Toggle between "Pairing Mode" and "Solo Character"
-- Generate single-character cards
-- Same template and pose selection
+Solo cards are saved alongside pairing cards in the same directory:
+
+```
+output/cards/
+├── jordan-moses/                                  # Pairing cards
+│   └── thunder-lightning-2026-01-27T10-30-00.jpeg
+├── solo-player-jordan/                            # Solo player cards
+│   └── thunder-lightning-2026-01-27T10-30-00.jpeg
+├── solo-player-rodman/
+│   └── metal-universe-dark-2026-01-27T10-35-00.jpeg
+├── solo-figure-moses/                             # Solo figure cards
+│   └── beam-team-2026-01-27T10-40-00.jpeg
+└── solo-figure-elijah/
+    └── kaboom-2026-01-27T10-45-00.jpeg
+```
+
+## CLI Script for Solo Cards
+
+```bash
+# Generate player solo card
+node scripts/generate-solo.js player jordan thunder-lightning --pose tongue-out-dunk
+
+# Generate figure solo card
+node scripts/generate-solo.js figure moses beam-team --pose parting-sea
+
+# With hair color (Rodman)
+node scripts/generate-solo.js player rodman metal-universe-dark --pose diving-loose-ball --hair green
+
+# List available poses
+node scripts/generate-solo.js player curry --list-poses
+
+# Dry run (show prompt only)
+node scripts/generate-solo.js figure elijah kaboom --pose calling-fire --dry-run
+```
+
+## Future Enhancements
 
 ### Villain Filter System (Planned)
 - Consolidate dark templates into filter approach

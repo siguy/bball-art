@@ -27,13 +27,44 @@
     <section class="control-panel">
       <h2>Generate New Card</h2>
 
-      <!-- Pairing Selection -->
-      <div class="control-group">
+      <!-- Mode Toggle -->
+      <div class="mode-toggle-group">
+        <label class="mode-option">
+          <input type="radio" name="mode" value="pairing" checked>
+          <span class="mode-label">Pairing</span>
+        </label>
+        <label class="mode-option">
+          <input type="radio" name="mode" value="solo">
+          <span class="mode-label">Solo Character</span>
+        </label>
+      </div>
+
+      <!-- Pairing Selection (pairing mode only) -->
+      <div class="control-group pairing-only">
         <label for="pairing-select">Pairing</label>
         <select id="pairing-select">
           <option value="">Select a pairing...</option>
         </select>
         <div class="pairing-info" id="pairing-info"></div>
+      </div>
+
+      <!-- Character Type (solo mode only) -->
+      <div class="control-group solo-only hidden">
+        <label for="character-type-select">Character Type</label>
+        <select id="character-type-select">
+          <option value="">Select type...</option>
+          <option value="player">NBA Player</option>
+          <option value="figure">Biblical Figure</option>
+        </select>
+      </div>
+
+      <!-- Character Selection (solo mode only) -->
+      <div class="control-group solo-only hidden">
+        <label for="character-select">Character</label>
+        <select id="character-select" disabled>
+          <option value="">Select a character...</option>
+        </select>
+        <div class="character-info" id="character-info"></div>
       </div>
 
       <!-- Template Selection -->

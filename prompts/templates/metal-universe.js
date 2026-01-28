@@ -140,9 +140,10 @@ ${characterDescription}
 
 === COMPOSITION ===
 SOLO CARD: ${character.name} is the ONLY figure on this card.
-- Character should be CENTERED and LARGE, filling approximately 80% of the card's vertical space
-- Show from approximately knee-level up
-- Dynamic pose that showcases their signature style
+- Character should be CENTERED and DOMINANT
+- Show FULL BODY from head to feet - character fills 70-80% of card height
+- Leave space around the figure so the action pose has room to breathe
+- DO NOT crop at the knees or waist - we need to see the full athletic form
 
 === BACKGROUND ===
 Industrial chrome and steel environment. Polished metal surfaces with reflections. Geometric patterns of rivets and panels. Deep blue and silver color scheme with metallic sheen throughout. Sci-fi futuristic aesthetic. Chrome pipes and machinery silhouettes. The entire scene has a liquid metal quality.

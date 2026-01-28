@@ -35,6 +35,79 @@
   border-bottom: 1px solid var(--border);
 }
 
+/* Mode Toggle */
+.mode-toggle-group {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+  padding: 0.5rem;
+  background: var(--bg-dark);
+  border-radius: 8px;
+}
+
+.mode-option {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.75rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.mode-option input[type="radio"] {
+  display: none;
+}
+
+.mode-option .mode-label {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+  transition: color 0.2s;
+}
+
+.mode-option:hover .mode-label {
+  color: var(--text-primary);
+}
+
+.mode-option input:checked + .mode-label {
+  color: var(--gold);
+}
+
+.mode-option:has(input:checked) {
+  background: var(--bg-hover);
+  border: 1px solid var(--gold);
+}
+
+/* Solo/Pairing Mode Visibility */
+.solo-only {
+  display: none;
+}
+
+.solo-only.visible {
+  display: block;
+}
+
+.pairing-only.hidden {
+  display: none;
+}
+
+/* Character Info */
+.character-info {
+  margin-top: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  background: var(--bg-dark);
+  border-radius: 4px;
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  min-height: 20px;
+}
+
+.character-info:empty {
+  display: none;
+}
+
 .control-group {
   margin-bottom: 1.25rem;
 }
