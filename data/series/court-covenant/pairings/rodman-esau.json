@@ -1,6 +1,7 @@
 {
   "id": "rodman-esau",
   "series": "court-covenant",
+  "type": "villain",
   "player": {
     "name": "Dennis Rodman",
     "poseFileId": "rodman",

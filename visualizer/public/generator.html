@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Court & Covenant - Card Generator</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="generator.css">
+</head>
+<body>
+  <header>
+    <div class="header-content">
+      <img src="/brand/logos/court and covenant logo - 1.png" alt="Court & Covenant" class="logo">
+      <h1>Card Generator</h1>
+    </div>
+    <nav class="header-nav">
+      <a href="/" class="nav-link">Cards</a>
+      <a href="/generator.html" class="nav-link active">Generator</a>
+      <a href="/pairings.html" class="nav-link">Pairings</a>
+      <a href="/export-queue.html" class="nav-link">Export Queue</a>
+    </nav>
+    <div class="stats" id="stats"></div>
+  </header>
+
+  <main class="generator-main">
+    <!-- Control Panel -->
+    <section class="control-panel">
+      <h2>Generate New Card</h2>
+
+      <!-- Pairing Selection -->
+      <div class="control-group">
+        <label for="pairing-select">Pairing</label>
+        <select id="pairing-select">
+          <option value="">Select a pairing...</option>
+        </select>
+        <div class="pairing-info" id="pairing-info"></div>
+      </div>
+
+      <!-- Template Selection -->
+      <div class="control-group">
+        <label for="template-select">Template</label>
+        <select id="template-select">
+          <option value="">Select a template...</option>
+        </select>
+        <div class="template-info" id="template-info"></div>
+      </div>
+
+      <!-- Dark Mode Toggle -->
+      <div class="control-group dark-mode-group">
+        <label class="toggle-label">
+          <input type="checkbox" id="dark-mode-toggle">
+          <span class="toggle-switch"></span>
+          <span class="toggle-text">Dark Mode (Villain)</span>
+        </label>
+        <span class="auto-badge hidden" id="auto-badge">AUTO</span>
+      </div>
+
+      <!-- Player Pose Selection -->
+      <div class="control-group">
+        <label for="player-pose-select">Player Pose</label>
+        <select id="player-pose-select" disabled>
+          <option value="default">Default</option>
+        </select>
+        <div class="pose-preview" id="player-pose-preview"></div>
+      </div>
+
+      <!-- Figure Pose Selection -->
+      <div class="control-group">
+        <label for="figure-pose-select">Figure Pose</label>
+        <select id="figure-pose-select" disabled>
+          <option value="default">Default</option>
+        </select>
+        <div class="pose-preview" id="figure-pose-preview"></div>
+      </div>
+
+      <!-- Hair Color (Rodman only) -->
+      <div class="control-group hair-color-group hidden" id="hair-color-group">
+        <label for="hair-color-select">Hair Color</label>
+        <select id="hair-color-select">
+          <option value="">Default (from pose)</option>
+        </select>
+      </div>
+
+      <!-- Generate Button -->
+      <div class="generate-actions">
+        <button id="generate-btn" class="btn btn-primary btn-large" disabled>
+          <span class="btn-text">Generate Card</span>
+          <span class="btn-loading hidden">Generating...</span>
+        </button>
+        <button id="regenerate-btn" class="btn btn-large hidden">
+          Regenerate (Same Settings)
+        </button>
+      </div>
+    </section>
+
+    <!-- Result Panel -->
+    <section class="result-panel">
+      <div class="result-placeholder" id="result-placeholder">
+        <div class="placeholder-content">
+          <div class="placeholder-icon">&#127936;</div>
+          <p>Select a pairing and template to generate a card</p>
+        </div>
+      </div>
+
+      <div class="result-card hidden" id="result-card">
+        <img id="result-image" src="" alt="Generated Card">
+        <div class="result-actions">
+          <a id="result-view-link" href="#" class="btn" target="_blank">View in Gallery</a>
+          <button id="result-quick-swap" class="btn">Quick Pose Swap</button>
+        </div>
+      </div>
+
+      <!-- Generation Log -->
+      <div class="generation-log hidden" id="generation-log">
+        <h3>Generation Log</h3>
+        <pre id="log-output"></pre>
+      </div>
+    </section>
+  </main>
+
+  <!-- Quick Pose Swap Modal -->
+  <div class="modal" id="pose-swap-modal">
+    <div class="modal-content modal-small">
+      <button class="modal-close" id="swap-modal-close">&times;</button>
+      <h2>Quick Pose Swap</h2>
+      <p>Try a different pose combination without changing other settings.</p>
+
+      <div class="swap-controls">
+        <div class="swap-group">
+          <label for="swap-player-pose">Player Pose</label>
+          <select id="swap-player-pose"></select>
+        </div>
+        <div class="swap-group">
+          <label for="swap-figure-pose">Figure Pose</label>
+          <select id="swap-figure-pose"></select>
+        </div>
+      </div>
+
+      <div class="swap-actions">
+        <button id="swap-generate-btn" class="btn btn-primary">Generate with New Poses</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="generator.js"></script>
+</body>
+</html>

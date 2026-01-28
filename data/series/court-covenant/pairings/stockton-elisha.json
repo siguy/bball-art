@@ -1,6 +1,7 @@
 {
   "id": "stockton-elisha",
   "series": "court-covenant",
+  "type": "hero",
   "player": {
     "name": "John Stockton",
     "displayName": "Stockton",

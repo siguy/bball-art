@@ -1,6 +1,7 @@
 {
   "id": "wilt-samson",
   "series": "court-covenant",
+  "type": "hero",
   "player": {
     "name": "Wilt Chamberlain",
     "displayName": "Wilt",

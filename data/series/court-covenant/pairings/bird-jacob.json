@@ -1,6 +1,7 @@
 {
   "id": "bird-jacob",
   "series": "court-covenant",
+  "type": "villain",
   "player": {
     "name": "Larry Bird",
     "poseFileId": "bird",

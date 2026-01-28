@@ -1,6 +1,7 @@
 {
   "id": "magic-joseph",
   "series": "court-covenant",
+  "type": "hero",
   "player": {
     "name": "Magic Johnson",
     "displayName": "Magic",

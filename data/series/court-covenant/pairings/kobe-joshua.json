@@ -1,6 +1,7 @@
 {
   "id": "kobe-joshua",
   "series": "court-covenant",
+  "type": "hero",
   "player": {
     "name": "Kobe Bryant",
     "displayName": "Mamba",

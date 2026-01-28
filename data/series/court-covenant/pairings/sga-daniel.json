@@ -1,6 +1,7 @@
 {
   "id": "sga-daniel",
   "series": "court-covenant",
+  "type": "hero",
   "player": {
     "name": "Shai Gilgeous-Alexander",
     "displayName": "SGA",

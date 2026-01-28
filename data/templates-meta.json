@@ -1,0 +1,145 @@
+{
+  "templates": {
+    "thunder-lightning": {
+      "id": "thunder-lightning",
+      "name": "Thunder & Lightning",
+      "description": "1993-94 Fleer Ultra insert set style. Electric gradient with cosmic nebulae and lightning bolts.",
+      "era": "1990s",
+      "style": "Electric cosmic",
+      "hasDarkMode": true,
+      "darkVariantId": "thunder-lightning-dark",
+      "colors": {
+        "hero": {
+          "primary": "deep purple",
+          "secondary": "electric blue",
+          "accent": "white-hot lightning"
+        },
+        "villain": {
+          "primary": "black",
+          "secondary": "blood red",
+          "accent": "crimson lightning"
+        }
+      },
+      "bestFor": ["heroes", "villains", "legendary pairings"]
+    },
+    "beam-team": {
+      "id": "beam-team",
+      "name": "Beam Team",
+      "description": "1992-93 Stadium Club insert set style. Holographic prism borders with rainbow refraction.",
+      "era": "1990s",
+      "style": "Holographic prism",
+      "hasDarkMode": true,
+      "darkVariantId": "beam-team-shadow",
+      "colors": {
+        "hero": {
+          "primary": "holographic rainbow",
+          "secondary": "deep black arena",
+          "accent": "prismatic shimmer"
+        },
+        "villain": {
+          "primary": "purple/red prism",
+          "secondary": "corrupted dark",
+          "accent": "shadow spectrum"
+        }
+      },
+      "bestFor": ["showmen", "flashy players", "visionaries"]
+    },
+    "metal-universe": {
+      "id": "metal-universe",
+      "name": "Metal Universe",
+      "description": "1997-98 Fleer Metal Universe insert set style. Chrome/metallic finish with industrial aesthetic.",
+      "era": "1990s",
+      "style": "Chrome industrial",
+      "hasDarkMode": true,
+      "darkVariantId": "metal-universe-dark",
+      "colors": {
+        "hero": {
+          "primary": "polished chrome",
+          "secondary": "deep blue",
+          "accent": "silver reflections"
+        },
+        "villain": {
+          "primary": "black chrome",
+          "secondary": "rust red",
+          "accent": "industrial hellscape"
+        }
+      },
+      "bestFor": ["dominant players", "strongmen", "warriors"]
+    },
+    "downtown": {
+      "id": "downtown",
+      "name": "Downtown",
+      "description": "Panini Donruss Optic insert style. Urban nightscape with neon city skyline.",
+      "era": "2010s",
+      "style": "Urban neon",
+      "hasDarkMode": false,
+      "darkVariantId": null,
+      "colors": {
+        "hero": {
+          "primary": "neon pink/blue",
+          "secondary": "dark city skyline",
+          "accent": "glowing lights"
+        }
+      },
+      "bestFor": ["modern players", "city legends", "scorers"]
+    },
+    "kaboom": {
+      "id": "kaboom",
+      "name": "Kaboom!",
+      "description": "Panini Kaboom insert style. Comic book/pop art with bold outlines and explosive energy.",
+      "era": "2010s",
+      "style": "Comic book pop art",
+      "hasDarkMode": false,
+      "darkVariantId": null,
+      "colors": {
+        "hero": {
+          "primary": "bright yellow/orange",
+          "secondary": "action red",
+          "accent": "ben-day dots"
+        }
+      },
+      "bestFor": ["explosive players", "dunkers", "action-oriented"]
+    },
+    "prizm-silver": {
+      "id": "prizm-silver",
+      "name": "Prizm Silver",
+      "description": "Panini Prizm Silver parallel style. Clean geometric patterns with silver shimmer.",
+      "era": "2010s",
+      "style": "Modern minimalist",
+      "hasDarkMode": false,
+      "darkVariantId": null,
+      "colors": {
+        "hero": {
+          "primary": "silver/chrome",
+          "secondary": "geometric white",
+          "accent": "prismatic rainbow"
+        }
+      },
+      "bestFor": ["clean aesthetics", "modern legends", "all pairings"]
+    }
+  },
+  "darkVariants": {
+    "thunder-lightning-dark": {
+      "id": "thunder-lightning-dark",
+      "name": "Thunder & Lightning: Dark Side",
+      "baseTemplate": "thunder-lightning",
+      "description": "Villain variant with crimson, black, and blood-red palette."
+    },
+    "beam-team-shadow": {
+      "id": "beam-team-shadow",
+      "name": "Beam Team: Shadow Spectrum",
+      "baseTemplate": "beam-team",
+      "description": "Villain variant with corrupted purple/red prism and shadow effects."
+    },
+    "metal-universe-dark": {
+      "id": "metal-universe-dark",
+      "name": "Metal Universe: Dark Forge",
+      "baseTemplate": "metal-universe",
+      "description": "Villain variant with black chrome, rust, and industrial hellscape."
+    }
+  },
+  "defaultByType": {
+    "hero": "thunder-lightning",
+    "villain": "thunder-lightning-dark"
+  }
+}

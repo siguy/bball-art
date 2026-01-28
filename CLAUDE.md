@@ -26,6 +26,7 @@ A **contemporary art project** creating collectible basketball cards that pair N
 - [x] **80+ cards generated!**
 - [x] **Card Visualizer built** (local web app for review & feedback)
 - [x] **Multi-Platform Export System** (Website, Instagram, Twitter)
+- [x] **Card Generator UI** (interactive control panel for card generation)
 
 ### In Progress
 - [ ] Merging villain-template-refactor branch
@@ -59,7 +60,7 @@ A **contemporary art project** creating collectible basketball cards that pair N
 
 ```
 data/
-├── series/{series-name}/pairings/  # Player-figure pairings (with poseFileId)
+├── series/{series-name}/pairings/  # Player-figure pairings (with poseFileId and type)
 ├── poses/
 │   ├── players/                    # Character-specific player poses
 │   └── figures/                    # Character-specific figure poses
@@ -67,7 +68,11 @@ data/
 │   └── figures/                    # Biblical quotes by character
 ├── eras/                           # 1970s-2020s definitions
 ├── card-brands/                    # Fleer, Topps, Panini, etc.
-└── card-types/                     # Thunder & Lightning, Prizm, etc.
+├── card-types/                     # Thunder & Lightning, Prizm, etc.
+└── templates-meta.json             # Template metadata for Generator UI
+
+docs/
+└── generator-ui.md                 # Generator UI documentation
 
 prompts/
 ├── components/    # Modular pieces (backgrounds, poses, finishes)
@@ -328,6 +333,7 @@ cd visualizer && npm start
 
 **Pages:**
 - `/` - Card gallery with feedback & export
+- `/generator.html` - **Card Generator UI** (interactive control panel)
 - `/pairings.html` - Pairing management
 - `/export-queue.html` - Export queue management
 
@@ -359,6 +365,14 @@ cd visualizer && npm start
 - `GET /api/buffer/status` - Check Buffer configuration
 - `GET /api/buffer/profiles` - Get connected profiles
 - `POST /api/buffer/post` - Schedule post to Buffer
+
+*Generator (Pose-Controlled Generation):*
+- `GET /api/poses/players` - List all players with pose files
+- `GET /api/poses/figures` - List all figures with pose files
+- `GET /api/poses/players/:id` - Get player poses by poseFileId
+- `GET /api/poses/figures/:id` - Get figure poses by poseFileId
+- `GET /api/templates` - List available templates with metadata
+- `POST /api/generate-with-poses` - Full pose-controlled generation
 
 ## Multi-Platform Export System
 
@@ -404,6 +418,36 @@ visualizer/
     ├── export-config.json    # Platform configs
     └── caption-templates.json # Caption templates + hashtags
 ```
+
+## Card Generator UI
+
+Interactive control panel for generating cards with full pose control.
+
+**Access:** `http://localhost:3333/generator.html` or click "Generator" in navigation.
+
+### Features
+- **Pairing Selection** - Grouped by Heroes/Villains, sorted by priority
+- **Template Selection** - All 6 templates with era badges and dark mode indicators
+- **Dark Mode Toggle** - Auto-detects villain pairings (shows "AUTO" badge), can override
+- **Pose Selection** - Player and figure poses loaded from pose database
+- **Hair Color** - Shows for Rodman only, override default hair color
+- **Regenerate** - Create new card with same settings
+- **Quick Pose Swap** - Try different poses without changing other settings
+
+### Keyboard Shortcuts
+| Shortcut | Action |
+|----------|--------|
+| `Ctrl/Cmd + Enter` | Generate card |
+| `Escape` | Close modals |
+
+### Pairing Type Field
+All pairing JSON files now include a `type` field:
+- `"type": "hero"` - 14 hero pairings
+- `"type": "villain"` - 5 villain pairings
+
+This enables grouped dropdowns and automatic dark mode detection.
+
+**Full documentation:** `docs/generator-ui.md`
 
 ## Quick Commands
 
