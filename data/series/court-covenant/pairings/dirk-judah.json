@@ -2,16 +2,27 @@
   "id": "dirk-judah",
   "series": "court-covenant",
   "type": "hero",
+  "cardMode": "player-figure",
   "player": {
     "name": "Dirk Nowitzki",
     "displayName": "Dirk",
     "poseFileId": "dirk",
     "era": "2010s",
     "jerseyColors": {
-      "primary": { "base": "blue", "accent": "white" },
-      "secondary": { "base": "white", "accent": "blue" }
+      "primary": {
+        "base": "blue",
+        "accent": "white"
+      },
+      "secondary": {
+        "base": "white",
+        "accent": "blue"
+      }
     },
-    "signatureMoves": ["one-legged fadeaway", "mid-range shooting", "clutch performances"],
+    "signatureMoves": [
+      "one-legged fadeaway",
+      "mid-range shooting",
+      "clutch performances"
+    ],
     "physicalDescription": "very tall 7'0\" lanky frame, shaggy blonde hair, pale white skin, goofy lovable smile, German features, unconventional basketball body",
     "archetype": "The Outsider, revolutionized big man shooting, defeated superteams"
   },
@@ -43,7 +54,10 @@
     }
   ],
   "defaultInteraction": "simultaneous-action",
-  "cardVariants": ["thunder-lightning", "downtown"],
+  "cardVariants": [
+    "thunder-lightning",
+    "downtown"
+  ],
   "priority": 11,
   "status": "active"
 }

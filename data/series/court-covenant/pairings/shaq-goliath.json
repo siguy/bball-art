@@ -2,16 +2,27 @@
   "id": "shaq-goliath",
   "series": "court-covenant",
   "type": "hero",
+  "cardMode": "player-figure",
   "player": {
     "name": "Shaquille O'Neal",
     "poseFileId": "shaq",
     "displayName": "Shaq",
     "era": "1990s",
     "jerseyColors": {
-      "primary": { "base": "purple", "accent": "gold" },
-      "secondary": { "base": "gold", "accent": "purple" }
+      "primary": {
+        "base": "purple",
+        "accent": "gold"
+      },
+      "secondary": {
+        "base": "gold",
+        "accent": "purple"
+      }
     },
-    "signatureMoves": ["powerful dunk", "drop step", "backboard-shattering slam"],
+    "signatureMoves": [
+      "powerful dunk",
+      "drop step",
+      "backboard-shattering slam"
+    ],
     "physicalDescription": "MASSIVE 7'1\" 325-pound frame, incredibly muscular, shaved head, playful yet intimidating expression, dark skin, largest player on any court",
     "archetype": "The Dominant Force, unstoppable physical presence, broke backboards and spirits"
   },
@@ -43,7 +54,10 @@
     }
   ],
   "defaultInteraction": "back-to-back",
-  "cardVariants": ["thunder-lightning", "downtown"],
+  "cardVariants": [
+    "thunder-lightning",
+    "downtown"
+  ],
   "priority": 7,
   "status": "active"
 }

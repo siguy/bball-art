@@ -1,0 +1,79 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "pose",
+  "title": "Pose File",
+  "description": "Character pose definitions for card generation",
+  "type": "object",
+  "required": ["id", "name", "poses"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z0-9-]+$",
+      "description": "Pose file ID (matches filename without .json)"
+    },
+    "name": {
+      "type": "string",
+      "description": "Full character name"
+    },
+    "defaultPose": {
+      "type": "string",
+      "description": "ID of the default pose"
+    },
+    "description": {
+      "type": "string",
+      "description": "Character description for context"
+    },
+    "poses": {
+      "type": "object",
+      "additionalProperties": { "$ref": "#/$defs/pose" },
+      "minProperties": 1,
+      "description": "Map of pose ID to pose definition"
+    },
+    "hairColors": {
+      "type": "object",
+      "additionalProperties": { "type": "string" },
+      "description": "Available hair color options (for players like Rodman)"
+    }
+  },
+  "$defs": {
+    "pose": {
+      "type": "object",
+      "required": ["id", "name", "prompt"],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z0-9-]+$",
+          "description": "Pose ID"
+        },
+        "name": {
+          "type": "string",
+          "description": "Display name of the pose"
+        },
+        "description": {
+          "type": "string",
+          "description": "Brief description of the pose"
+        },
+        "expression": {
+          "type": "string",
+          "description": "Facial expression for this pose"
+        },
+        "prompt": {
+          "type": "string",
+          "description": "Full prompt text for image generation"
+        },
+        "energy": {
+          "type": "string",
+          "description": "Energy/mood of the pose"
+        },
+        "quoteId": {
+          "type": ["string", "null"],
+          "description": "Reference to a quote in the quotes file"
+        },
+        "hairColor": {
+          "type": "string",
+          "description": "Hair color for this specific pose"
+        }
+      }
+    }
+  }
+}

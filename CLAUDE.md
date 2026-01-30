@@ -33,6 +33,8 @@ A **contemporary art project** creating collectible basketball cards that pair N
 - [x] **Feedback Export & Analysis** (download feedback, view stats, generation hints)
 - [x] **Sefaria Enrichment System** (midrash-powered rivalryScenes, scriptureReferences)
 - [x] **Multi-Series Support** (Court & Covenant + Torah Titans with series selector)
+- [x] **Shared Libraries** (config, data-loader, template-loader for DRY code)
+- [x] **Data Validation** (JSON schemas + validate-data.js script)
 
 ### In Progress
 - [ ] **Pairing Creation Assistant** (AI-powered pairing suggestions)
@@ -175,6 +177,11 @@ data/
 │   └── figures/                    # Solo figure definitions
 ├── quotes/
 │   └── figures/                    # Biblical quotes by character
+├── schemas/                        # JSON Schema validation
+│   ├── pairing.schema.json
+│   ├── pose.schema.json
+│   ├── quote.schema.json
+│   └── series-config.schema.json
 ├── eras/                           # 1970s-2020s definitions
 ├── card-brands/                    # Fleer, Topps, Panini, etc.
 ├── card-types/                     # Thunder & Lightning, Prizm, etc.
@@ -206,10 +213,14 @@ output/
 
 scripts/
 ├── lib/
-│   └── filename-builder.js          # New file naming convention
-├── generate-card.js                 # Supports --series flag
-├── generate-with-poses.js           # Supports --series flag
-├── generate-solo.js                 # Supports --series flag
+│   ├── config.js                    # Centralized configuration
+│   ├── data-loader.js               # Pairing/character/pose loading
+│   ├── template-loader.js           # Series-aware template loading
+│   └── filename-builder.js          # File naming convention
+├── generate-card.js                 # Main card generation
+├── generate-with-poses.js           # Pose-controlled generation
+├── generate-solo.js                 # Solo character cards
+├── validate-data.js                 # JSON schema validation
 └── migrate-to-series.js             # Migration utility
 
 visualizer/        # Card review & feedback system
@@ -719,16 +730,22 @@ node scripts/generate-solo.js figure elijah --list-poses
 # Dry run
 node scripts/generate-solo.js figure david kaboom --pose slinging-stone --dry-run
 
-# --- TESTING ---
+# --- TESTING & VALIDATION ---
+
+# Validate all JSON data against schemas
+node scripts/validate-data.js
+
+# Validate with verbose output
+node scripts/validate-data.js --verbose
+
+# Validate only specific type
+node scripts/validate-data.js --type pairings
 
 # Run solo character tests (CLI only)
 node scripts/test-solo-characters.js --cli
 
 # Run all tests (requires server running)
 node scripts/test-solo-characters.js
-
-# Validate JSON data
-node -e "require('./data/series/court-covenant/pairings/jordan-moses.json')"
 ```
 
 ## Environment Variables Needed
@@ -740,6 +757,55 @@ INSTAGRAM_ACCESS_TOKEN=your-long-lived-token
 BUFFER_ACCESS_TOKEN=your-buffer-api-token  # For social scheduling
 ```
 
+## Shared Libraries
+
+Generation scripts use shared modules in `scripts/lib/`:
+
+| Module | Purpose |
+|--------|---------|
+| `config.js` | Centralized paths, defaults, series auto-discovery |
+| `data-loader.js` | Load pairings, characters, poses, quotes across series |
+| `template-loader.js` | Load templates with series-specific fallback |
+| `filename-builder.js` | Generate standardized output filenames |
+
+**Key functions:**
+```javascript
+// config.js
+CONFIG.series        // Auto-discovered from data/series/
+CONFIG.paths.data    // Centralized path references
+getOutputPath(series, pairingId)
+
+// data-loader.js
+loadPairing(id, seriesHint)       // Load pairing with series info
+findCharacterData(type, id)       // Find character from pairings or standalone
+extractPairingCharacters(pairing) // Get char IDs and types from pairing
+
+// template-loader.js
+loadTemplate(templateId, series)  // Load with series fallback
+listTemplates(seriesId)           // List available templates
+```
+
+## Data Validation
+
+JSON files are validated against schemas in `data/schemas/`:
+
+```bash
+# Validate all data
+node scripts/validate-data.js
+
+# Verbose output (shows all files checked)
+node scripts/validate-data.js --verbose
+
+# Validate specific type only
+node scripts/validate-data.js --type pairings   # pairings, poses, quotes, series
+```
+
+Schemas enforce:
+- Required fields (`id`, `series`, `type` for pairings)
+- Valid enums (`cardMode`, `characterType`)
+- Pattern matching (kebab-case IDs)
+- Reference integrity (warns about missing pose files)
+
 ## Common Tasks
 
 ### Adding a New Pairing
@@ -748,7 +814,7 @@ BUFFER_ACCESS_TOKEN=your-buffer-api-token  # For social scheduling
 
 1. Research player (stats, moves, personality) and figure (story, quotes)
 2. Create 4 files: pairing JSON, player poses, figure poses, figure quotes
-3. Validate: `node -e "require('./data/series/court-covenant/pairings/{pairing}.json')"`
+3. Validate: `node scripts/validate-data.js --type pairings`
 4. Test poses: `node scripts/generate-with-poses.js {pairing} --list-poses`
 5. Dry run: `node scripts/generate-with-poses.js {pairing} {template} --dry-run`
 6. Generate via Generator UI, review, iterate

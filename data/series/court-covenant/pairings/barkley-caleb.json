@@ -2,16 +2,27 @@
   "id": "barkley-caleb",
   "series": "court-covenant",
   "type": "hero",
+  "cardMode": "player-figure",
   "player": {
     "name": "Charles Barkley",
     "displayName": "Sir Charles",
     "poseFileId": "barkley",
     "era": "1990s",
     "jerseyColors": {
-      "primary": { "base": "purple", "accent": "orange" },
-      "secondary": { "base": "orange", "accent": "purple" }
+      "primary": {
+        "base": "purple",
+        "accent": "orange"
+      },
+      "secondary": {
+        "base": "orange",
+        "accent": "purple"
+      }
     },
-    "signatureMoves": ["power rebound", "coast to coast", "turnaround jumper"],
+    "signatureMoves": [
+      "power rebound",
+      "coast to coast",
+      "turnaround jumper"
+    ],
     "physicalDescription": "6'6\" power forward, stocky muscular build, undersized but dominant, expressive face",
     "archetype": "Undersized warrior who dominated through will and confidence"
   },
@@ -47,7 +58,11 @@
     }
   ],
   "defaultInteraction": "side-by-side",
-  "cardVariants": ["thunder-lightning", "metal-universe", "kaboom"],
+  "cardVariants": [
+    "thunder-lightning",
+    "metal-universe",
+    "kaboom"
+  ],
   "priority": 8,
   "status": "active"
 }

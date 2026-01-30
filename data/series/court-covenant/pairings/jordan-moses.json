@@ -2,16 +2,27 @@
   "id": "jordan-moses",
   "series": "court-covenant",
   "type": "hero",
+  "cardMode": "player-figure",
   "player": {
     "name": "Michael Jordan",
     "displayName": "MJ",
     "poseFileId": "jordan",
     "era": "1990s",
     "jerseyColors": {
-      "primary": { "base": "red", "accent": "white" },
-      "secondary": { "base": "white", "accent": "red" }
+      "primary": {
+        "base": "red",
+        "accent": "white"
+      },
+      "secondary": {
+        "base": "white",
+        "accent": "red"
+      }
     },
-    "signatureMoves": ["fadeaway jumper", "flying dunk", "tongue out drive"],
+    "signatureMoves": [
+      "fadeaway jumper",
+      "flying dunk",
+      "tongue out drive"
+    ],
     "physicalDescription": "athletic build, shaved head, intense focused expression",
     "archetype": "The GOAT, ultimate competitor, clutch performer"
   },
@@ -47,7 +58,11 @@
     }
   ],
   "defaultInteraction": "back-to-back",
-  "cardVariants": ["thunder-lightning", "beam-team", "metal-universe"],
+  "cardVariants": [
+    "thunder-lightning",
+    "beam-team",
+    "metal-universe"
+  ],
   "priority": 1,
   "status": "active"
 }

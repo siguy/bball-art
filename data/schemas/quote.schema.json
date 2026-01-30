@@ -1,0 +1,58 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "quote",
+  "title": "Quote File",
+  "description": "Biblical quotes for a figure",
+  "type": "object",
+  "required": ["id", "name", "quotes"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z0-9-]+$",
+      "description": "Quote file ID (matches figure ID)"
+    },
+    "name": {
+      "type": "string",
+      "description": "Figure name"
+    },
+    "aliases": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Alternative names for the figure"
+    },
+    "quotes": {
+      "type": "object",
+      "additionalProperties": { "$ref": "#/$defs/quote" },
+      "minProperties": 1,
+      "description": "Map of quote ID to quote definition"
+    }
+  },
+  "$defs": {
+    "quote": {
+      "type": "object",
+      "required": ["source", "english"],
+      "properties": {
+        "source": {
+          "type": "string",
+          "description": "Biblical source reference (e.g., 'Exodus 5:1')"
+        },
+        "context": {
+          "type": "string",
+          "description": "Context for when this quote was spoken"
+        },
+        "hebrew": {
+          "type": "string",
+          "description": "Original Hebrew text"
+        },
+        "english": {
+          "type": "string",
+          "description": "English translation"
+        },
+        "mood": {
+          "type": "string",
+          "description": "Mood/tone of the quote"
+        }
+      }
+    }
+  }
+}

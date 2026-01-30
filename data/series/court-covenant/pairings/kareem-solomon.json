@@ -2,16 +2,27 @@
   "id": "kareem-solomon",
   "series": "court-covenant",
   "type": "hero",
+  "cardMode": "player-figure",
   "player": {
     "name": "Kareem Abdul-Jabbar",
     "displayName": "Kareem",
     "poseFileId": "kareem",
     "era": "1970s",
     "jerseyColors": {
-      "primary": { "base": "purple", "accent": "gold" },
-      "secondary": { "base": "gold", "accent": "purple" }
+      "primary": {
+        "base": "purple",
+        "accent": "gold"
+      },
+      "secondary": {
+        "base": "gold",
+        "accent": "purple"
+      }
     },
-    "signatureMoves": ["skyhook", "post moves", "intelligent positioning"],
+    "signatureMoves": [
+      "skyhook",
+      "post moves",
+      "intelligent positioning"
+    ],
     "physicalDescription": "extremely tall 7'2\" lean frame, distinctive goggles, bald head, serious intellectual expression, goatee, dark skin, elegant movement",
     "archetype": "The Philosopher King, all-time leading scorer, longevity and wisdom personified"
   },
@@ -43,7 +54,10 @@
     }
   ],
   "defaultInteraction": "side-by-side",
-  "cardVariants": ["thunder-lightning", "downtown"],
+  "cardVariants": [
+    "thunder-lightning",
+    "downtown"
+  ],
   "priority": 9,
   "status": "active"
 }

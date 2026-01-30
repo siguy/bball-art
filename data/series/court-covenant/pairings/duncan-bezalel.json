@@ -2,16 +2,28 @@
   "id": "duncan-bezalel",
   "series": "court-covenant",
   "type": "hero",
+  "cardMode": "player-figure",
   "player": {
     "name": "Tim Duncan",
     "displayName": "The Big Fundamental",
     "poseFileId": "duncan",
     "era": "2000s",
     "jerseyColors": {
-      "primary": { "base": "black", "accent": "silver" },
-      "secondary": { "base": "silver", "accent": "black" }
+      "primary": {
+        "base": "black",
+        "accent": "silver"
+      },
+      "secondary": {
+        "base": "silver",
+        "accent": "black"
+      }
     },
-    "signatureMoves": ["bank shot", "post defense", "drop step", "up-and-under"],
+    "signatureMoves": [
+      "bank shot",
+      "post defense",
+      "drop step",
+      "up-and-under"
+    ],
     "physicalDescription": "6'11\" power forward, long arms, calm intelligent eyes, emotionless expression, lean muscular build",
     "archetype": "The Big Fundamental, quiet excellence through mastery of basics"
   },
@@ -47,7 +59,10 @@
     }
   ],
   "defaultInteraction": "side-by-side",
-  "cardVariants": ["metal-universe", "prizm-silver"],
+  "cardVariants": [
+    "metal-universe",
+    "prizm-silver"
+  ],
   "priority": 6,
   "status": "active"
 }

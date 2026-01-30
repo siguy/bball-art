@@ -1,0 +1,126 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "series-config",
+  "title": "Series Configuration",
+  "description": "Configuration for a card series",
+  "type": "object",
+  "required": ["id", "name", "cardModes"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z0-9-]+$",
+      "description": "Series ID"
+    },
+    "name": {
+      "type": "string",
+      "description": "Display name of the series"
+    },
+    "tagline": {
+      "type": "string",
+      "description": "Short tagline"
+    },
+    "description": {
+      "type": "string",
+      "description": "Full description"
+    },
+    "theme": {
+      "type": "string",
+      "description": "Theme category"
+    },
+    "cardModes": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": ["player-figure", "figure-figure", "solo-player", "solo-figure", "multi-figure"]
+      },
+      "minItems": 1,
+      "description": "Supported card generation modes"
+    },
+    "logoStyle": {
+      "type": "string",
+      "description": "Logo style identifier"
+    },
+    "defaultLogoPosition": {
+      "type": "string",
+      "enum": ["top-center", "top-left", "top-right", "bottom-center"],
+      "description": "Default logo position on cards"
+    },
+    "cardRatio": {
+      "type": "string",
+      "pattern": "^[0-9.]+x[0-9.]+$",
+      "description": "Card aspect ratio (e.g., '2.5x3.5')"
+    },
+    "minCardsPerPairing": {
+      "type": "integer",
+      "minimum": 1,
+      "description": "Minimum cards to generate per pairing"
+    },
+    "availableTemplates": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "List of available template IDs for this series"
+    },
+    "priorityPairings": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "List of high-priority pairing IDs"
+    },
+    "villainPairings": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "List of villain pairing IDs"
+    },
+    "socialPlatforms": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Social platforms for this series"
+    },
+    "tone": {
+      "type": "object",
+      "properties": {
+        "style": { "type": "string" },
+        "doNot": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      }
+    },
+    "subSeries": {
+      "oneOf": [
+        {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["id", "name"],
+            "properties": {
+              "id": { "type": "string" },
+              "name": { "type": "string" },
+              "description": { "type": "string" }
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": {
+            "type": "object",
+            "properties": {
+              "name": { "type": "string" },
+              "description": { "type": "string" },
+              "cardType": { "type": "string" }
+            }
+          }
+        }
+      ],
+      "description": "Sub-series definitions (array or object map)"
+    },
+    "cardTypes": {
+      "type": "object",
+      "description": "Card type definitions for this series"
+    },
+    "seriesSpecificTemplates": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Templates specific to this series"
+    }
+  }
+}

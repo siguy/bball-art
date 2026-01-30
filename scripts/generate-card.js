@@ -20,38 +20,26 @@
  *   --dry-run                   Generate prompt only, don't call API
  */
 
-import { readFileSync, writeFileSync, existsSync, readdirSync, mkdirSync, statSync } from 'fs';
-import { join, dirname } from 'path';
-import { fileURLToPath } from 'url';
+import minimist from 'minimist';
+import { writeFileSync, existsSync, mkdirSync } from 'fs';
+import { join } from 'path';
 import { generateImage } from './nano-banana-client.js';
 import { buildPairingFilename, getOutputDir } from './lib/filename-builder.js';
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
-const ROOT = join(__dirname, '..');
-
-// Court & Covenant logo for reference image
-const LOGO_PATH = join(ROOT, 'brand/logos/court and covenant logo - 1.png');
+import { CONFIG } from './lib/config.js';
+import { loadPairing, listAvailablePairings } from './lib/data-loader.js';
+import { loadTemplate, getAvailableTemplatesHelp } from './lib/template-loader.js';
 
 // Parse command line arguments
-const args = process.argv.slice(2);
-const flags = {};
-const positional = [];
+const args = minimist(process.argv.slice(2), {
+  string: ['series', 'interaction', 'custom-player-action', 'custom-figure-action', 'player-pose', 'figure-pose', 'model'],
+  boolean: ['dry-run', 'help'],
+  alias: { h: 'help' },
+});
 
-for (let i = 0; i < args.length; i++) {
-  if (args[i].startsWith('--')) {
-    const flag = args[i].slice(2);
-    flags[flag] = args[i + 1] || true;
-    if (args[i + 1] && !args[i + 1].startsWith('--')) i++;
-  } else {
-    positional.push(args[i]);
-  }
-}
+const [pairingId, cardType] = args._;
 
-const [pairingId, cardType] = positional;
-
-// Validate arguments
-if (!pairingId || !cardType) {
+// Show help
+if (args.help || (!pairingId || !cardType)) {
   console.error('Usage: node scripts/generate-card.js <pairing-id> <card-type>');
   console.error('Example: node scripts/generate-card.js jordan-moses thunder-lightning');
   console.error('');
@@ -67,99 +55,51 @@ if (!pairingId || !cardType) {
   process.exit(1);
 }
 
-/**
- * Find pairing file across all series
- * Returns { path, series, subSeries } or null
- */
-function findPairingFile(pairingId, preferredSeries = null) {
-  const seriesList = preferredSeries
-    ? [preferredSeries, 'court-covenant', 'torah-titans']
-    : ['court-covenant', 'torah-titans'];
-
-  for (const series of seriesList) {
-    // Check main pairings directory
-    const mainPath = join(ROOT, `data/series/${series}/pairings`, `${pairingId}.json`);
-    if (existsSync(mainPath)) {
-      return { path: mainPath, series, subSeries: null };
-    }
-
-    // Check sub-series directories
-    const subSeriesDir = join(ROOT, `data/series/${series}/sub-series`);
-    if (existsSync(subSeriesDir)) {
-      const subDirs = readdirSync(subSeriesDir).filter(f => {
-        const stat = statSync(join(subSeriesDir, f));
-        return stat.isDirectory();
-      });
-
-      for (const subDir of subDirs) {
-        const subPath = join(subSeriesDir, subDir, `${pairingId}.json`);
-        if (existsSync(subPath)) {
-          return { path: subPath, series, subSeries: subDir };
-        }
-      }
-    }
-  }
-
-  return null;
-}
-
 async function generateCard() {
-  // Find pairing file
-  const pairingFile = findPairingFile(pairingId, flags.series);
+  // Load pairing data
+  const pairing = loadPairing(pairingId, args.series);
 
-  if (!pairingFile) {
+  if (!pairing) {
     console.error(`Pairing not found: ${pairingId}`);
 
-    // List available pairings from court-covenant
-    const pairingsDir = join(ROOT, 'data/series/court-covenant/pairings');
-    if (existsSync(pairingsDir)) {
-      const files = readdirSync(pairingsDir).filter(f => f.endsWith('.json'));
+    // List available pairings
+    const available = listAvailablePairings('court-covenant', 10);
+    if (available.length > 0) {
       console.error('\nAvailable pairings (court-covenant):');
-      files.slice(0, 10).forEach(f => console.error(`  - ${f.replace('.json', '')}`));
-      if (files.length > 10) console.error(`  ... and ${files.length - 10} more`);
+      available.forEach(p => console.error(`  - ${p}`));
     }
     process.exit(1);
   }
 
-  const { path: pairingPath, series, subSeries } = pairingFile;
-  const pairing = JSON.parse(readFileSync(pairingPath, 'utf-8'));
+  const { series, subSeries } = pairing;
 
-  // Determine template path - check series-specific templates first
-  let templateModule;
+  // Load template
+  let template;
   try {
-    // Try series-specific template first
-    const seriesTemplatePath = `../prompts/templates/${series}/${cardType}.js`;
-    templateModule = await import(seriesTemplatePath);
-  } catch {
-    // Fall back to shared templates
-    try {
-      const templatePath = `../prompts/templates/${cardType}.js`;
-      templateModule = await import(templatePath);
-    } catch (err) {
-      console.error(`Template not found: ${cardType}`);
-      console.error('Available templates: thunder-lightning, beam-team, metal-universe, downtown, kaboom, prizm-silver');
-      console.error('Dark variants: thunder-lightning-dark, beam-team-shadow, metal-universe-dark');
-      process.exit(1);
-    }
+    const { module } = await loadTemplate(cardType, series);
+    template = module;
+  } catch (err) {
+    console.error(err.message);
+    console.error('');
+    console.error(getAvailableTemplatesHelp());
+    process.exit(1);
   }
 
-  const template = templateModule.default || Object.values(templateModule)[0];
-
-  if (!template || !template.generate) {
-    console.error(`Template not found or invalid: ${cardType}`);
+  if (!template.generate) {
+    console.error(`Template "${cardType}" does not have a generate() method.`);
     process.exit(1);
   }
 
   // Generate the prompt
   const options = {};
-  if (flags.interaction) {
-    options.interaction = flags.interaction;
+  if (args.interaction) {
+    options.interaction = args.interaction;
   }
-  if (flags['custom-player-action']) {
-    options.customPlayerAction = flags['custom-player-action'];
+  if (args['custom-player-action']) {
+    options.customPlayerAction = args['custom-player-action'];
   }
-  if (flags['custom-figure-action']) {
-    options.customFigureAction = flags['custom-figure-action'];
+  if (args['custom-figure-action']) {
+    options.customFigureAction = args['custom-figure-action'];
   }
 
   const prompt = template.generate(pairing, options);
@@ -174,10 +114,10 @@ async function generateCard() {
   console.log(`Series: ${series}${subSeries ? ` (${subSeries})` : ''}`);
   console.log(`Pairing: ${char1Name} & ${char2Name}`);
   console.log(`Style: ${cardType}`);
-  console.log(`Interaction: ${flags.interaction || pairing.defaultInteraction || 'default'}`);
+  console.log(`Interaction: ${args.interaction || pairing.defaultInteraction || 'default'}`);
   console.log('='.repeat(60));
 
-  if (flags['dry-run']) {
+  if (args['dry-run']) {
     console.log('\nPROMPT (dry-run mode):');
     console.log('-'.repeat(60));
     console.log(prompt);
@@ -186,18 +126,18 @@ async function generateCard() {
   }
 
   // Build output path with new filename format
-  const playerPose = flags['player-pose'] || 'default';
-  const figurePose = flags['figure-pose'] || 'default';
+  const playerPose = args['player-pose'] || 'default';
+  const figurePose = args['figure-pose'] || 'default';
 
   const filename = buildPairingFilename({
     series,
     pairingId,
     template: cardType,
     playerPose,
-    figurePose
+    figurePose,
   });
 
-  const outputDir = getOutputDir(ROOT, series, pairingId, subSeries);
+  const outputDir = getOutputDir(CONFIG.root, series, pairingId, subSeries);
 
   // Ensure output directory exists
   if (!existsSync(outputDir)) {
@@ -211,23 +151,23 @@ async function generateCard() {
 
   // Include logo as reference image for consistent branding
   const referenceImages = [];
-  if (existsSync(LOGO_PATH)) {
+  if (existsSync(CONFIG.logoPath)) {
     referenceImages.push({
-      path: LOGO_PATH,
-      mimeType: 'image/png'
+      path: CONFIG.logoPath,
+      mimeType: 'image/png',
     });
   } else {
-    console.warn('Warning: Logo not found at', LOGO_PATH);
+    console.warn('Warning: Logo not found at', CONFIG.logoPath);
   }
 
   const result = await generateImage(prompt, {
     outputPath,
-    model: flags.model,
-    referenceImages
+    model: args.model,
+    referenceImages,
   });
 
   if (result.success) {
-    console.log('\n✓ Card generated successfully!');
+    console.log('\nCard generated successfully!');
     console.log(`  File: ${result.path}`);
     console.log(`  Size: ${(result.size / 1024).toFixed(1)} KB`);
 
@@ -245,20 +185,19 @@ async function generateCard() {
       cardType,
       playerPose,
       figurePose,
-      interaction: flags.interaction || pairing.defaultInteraction,
-      model: flags.model || process.env.GEMINI_IMAGE_MODEL || 'gemini-2.5-flash-image',
+      interaction: args.interaction || pairing.defaultInteraction,
+      model: args.model || CONFIG.models.image,
       outputPath: result.path,
       promptLength: prompt.length,
       fileSize: result.size,
-      success: true
+      success: true,
     };
 
-    const logPath = join(ROOT, 'output/test-runs/generation-log.jsonl');
+    const logPath = join(CONFIG.root, 'output/test-runs/generation-log.jsonl');
     const logLine = JSON.stringify(logEntry) + '\n';
     writeFileSync(logPath, logLine, { flag: 'a' });
-
   } else {
-    console.log('\n✗ Generation failed');
+    console.log('\nGeneration failed');
     console.log(`  Error: ${result.error}`);
     if (result.message) {
       console.log(`  Message: ${result.message}`);
@@ -267,4 +206,7 @@ async function generateCard() {
   }
 }
 
-generateCard();
+generateCard().catch(err => {
+  console.error('Error:', err.message);
+  process.exit(1);
+});

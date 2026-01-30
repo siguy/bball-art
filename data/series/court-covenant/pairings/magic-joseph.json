@@ -2,16 +2,27 @@
   "id": "magic-joseph",
   "series": "court-covenant",
   "type": "hero",
+  "cardMode": "player-figure",
   "player": {
     "name": "Magic Johnson",
     "displayName": "Magic",
     "poseFileId": "magic",
     "era": "1980s",
     "jerseyColors": {
-      "primary": { "base": "purple", "accent": "gold" },
-      "secondary": { "base": "gold", "accent": "purple" }
+      "primary": {
+        "base": "purple",
+        "accent": "gold"
+      },
+      "secondary": {
+        "base": "gold",
+        "accent": "purple"
+      }
     },
-    "signatureMoves": ["no-look pass", "baby hook", "fast break orchestration"],
+    "signatureMoves": [
+      "no-look pass",
+      "baby hook",
+      "fast break orchestration"
+    ],
     "physicalDescription": "tall 6'9\" point guard build, radiant megawatt smile, high-top fade haircut, expressive animated face, dark skin",
     "archetype": "The Showman, made everyone around him better, pure joy on the court"
   },
@@ -43,7 +54,10 @@
     }
   ],
   "defaultInteraction": "side-by-side",
-  "cardVariants": ["thunder-lightning", "downtown"],
+  "cardVariants": [
+    "thunder-lightning",
+    "downtown"
+  ],
   "priority": 6,
   "status": "active"
 }

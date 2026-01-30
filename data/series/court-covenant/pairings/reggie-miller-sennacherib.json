@@ -1,0 +1,73 @@
+{
+  "id": "reggie-miller-sennacherib",
+  "series": "court-covenant",
+  "type": "rivalry",
+  "isAlternate": false,
+  "alternateOf": null,
+  "opposingPairing": null,
+  "cardMode": "rivalry-player-figure",
+  "rivalryConfig": {
+    "heroCharacterType": "player",
+    "villainCharacterType": "figure"
+  },
+  "player": {
+    "name": "Reggie Miller",
+    "displayName": "Reggie Miller",
+    "poseFileId": "reggie-miller",
+    "characterType": "player",
+    "era": "2000s",
+    "jerseyColors": {
+      "primary": {
+        "base": "white",
+        "accent": "blue"
+      },
+      "secondary": {
+        "base": "blue",
+        "accent": "white"
+      }
+    },
+    "signatureMoves": [],
+    "physicalDescription": "6'7\" shooting guard, known for his clutch shooting, trash talk, and rivalry with the New York Knicks. Extremely fit and lean build.",
+    "archetype": "Reggie Miller"
+  },
+  "figure": {
+    "name": "Sennacherib",
+    "displayName": "Sennacherib",
+    "poseFileId": "sennacherib",
+    "characterType": "figure",
+    "attribute": "Royal Scepter",
+    "attributeDescription": "A long, intricately carved scepter of gold and lapis lazuli, signifying his royal authority and divine mandate to rule.",
+    "visualStyle": "Epic, imposing, detailed",
+    "clothing": "Ornate Assyrian armor with bronze scales, layered with royal robes embroidered with symbols of power and conquest. A tall, elaborate headdress adorns his head.",
+    "physicalDescription": "Assyrian king known for his military campaigns, particularly his siege of Jerusalem. Depicted with a stern, imperious bearing, clad in ornate armor and royal robes, a symbol of Assyrian might.",
+    "anatomyNote": "two arms only",
+    "archetype": "Sennacherib"
+  },
+  "connection": {
+    "thematic": "Invading Armies repelled",
+    "narrative": "One besieged Jerusalem, the other forever tormented New York.",
+    "relationship": "A showdown between a relentless shooter and an unstoppable invader, each trying to conquer a city and cement their legacy through intimidation."
+  },
+  "interactions": [
+    {
+      "id": "face-off",
+      "description": "Reggie Miller and Sennacherib in an intense stare-down"
+    },
+    {
+      "id": "clash",
+      "description": "Reggie Miller and Sennacherib in mid-action collision"
+    },
+    {
+      "id": "judgment",
+      "description": "Reggie Miller victorious, Sennacherib acknowledging defeat"
+    }
+  ],
+  "defaultInteraction": "face-off",
+  "cardVariants": [
+    "thunder-lightning-rivalry",
+    "beam-team-rivalry",
+    "metal-universe-rivalry"
+  ],
+  "priority": 99,
+  "status": "active"
+}

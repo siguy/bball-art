@@ -2,16 +2,27 @@
   "id": "isiah-pharaoh",
   "series": "court-covenant",
   "type": "villain",
+  "cardMode": "player-figure",
   "player": {
     "name": "Isiah Thomas",
     "poseFileId": "isiah-thomas",
     "displayName": "Zeke",
     "era": "1980s",
     "jerseyColors": {
-      "primary": { "base": "blue", "accent": "red" },
-      "secondary": { "base": "white", "accent": "blue" }
+      "primary": {
+        "base": "blue",
+        "accent": "red"
+      },
+      "secondary": {
+        "base": "white",
+        "accent": "blue"
+      }
     },
-    "signatureMoves": ["killer crossover", "floater", "ruthless competitiveness"],
+    "signatureMoves": [
+      "killer crossover",
+      "floater",
+      "ruthless competitiveness"
+    ],
     "physicalDescription": "smaller 6'1\" guard, compact powerful build, bright smile that masked killer instinct, dark skin, baby-faced but fierce",
     "archetype": "The Baby-Faced Assassin, led the Bad Boys, ruled through intimidation"
   },
@@ -43,7 +54,10 @@
     }
   ],
   "defaultInteraction": "back-to-back",
-  "cardVariants": ["thunder-lightning", "downtown"],
+  "cardVariants": [
+    "thunder-lightning",
+    "downtown"
+  ],
   "priority": 15,
   "status": "active"
 }

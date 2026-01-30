@@ -2,16 +2,28 @@
   "id": "malone-balaam",
   "series": "court-covenant",
   "type": "villain",
+  "cardMode": "player-figure",
   "player": {
     "name": "Karl Malone",
     "displayName": "The Mailman",
     "poseFileId": "malone",
     "era": "1990s",
     "jerseyColors": {
-      "primary": { "base": "purple", "accent": "gold" },
-      "secondary": { "base": "white", "accent": "purple" }
+      "primary": {
+        "base": "purple",
+        "accent": "gold"
+      },
+      "secondary": {
+        "base": "white",
+        "accent": "purple"
+      }
     },
-    "signatureMoves": ["elbow jumper", "pick-and-roll", "power dunk", "post up"],
+    "signatureMoves": [
+      "elbow jumper",
+      "pick-and-roll",
+      "power dunk",
+      "post up"
+    ],
     "physicalDescription": "6'9\" power forward, incredibly muscular build, bald head, intense eyes, most physically imposing player of his era",
     "archetype": "The Mailman who always delivered... except in the Finals"
   },
@@ -47,7 +59,10 @@
     }
   ],
   "defaultInteraction": "simultaneous-action",
-  "cardVariants": ["thunder-lightning-dark", "metal-universe-dark"],
+  "cardVariants": [
+    "thunder-lightning-dark",
+    "metal-universe-dark"
+  ],
   "priority": 8,
   "status": "active"
 }

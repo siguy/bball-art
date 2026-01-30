@@ -2,16 +2,28 @@
   "id": "russell-nehemiah",
   "series": "court-covenant",
   "type": "hero",
+  "cardMode": "player-figure",
   "player": {
     "name": "Bill Russell",
     "displayName": "The Champion",
     "poseFileId": "russell",
     "era": "1960s",
     "jerseyColors": {
-      "primary": { "base": "green", "accent": "white" },
-      "secondary": { "base": "white", "accent": "green" }
+      "primary": {
+        "base": "green",
+        "accent": "white"
+      },
+      "secondary": {
+        "base": "white",
+        "accent": "green"
+      }
     },
-    "signatureMoves": ["blocked shot", "outlet pass", "rebounding", "defensive positioning"],
+    "signatureMoves": [
+      "blocked shot",
+      "outlet pass",
+      "rebounding",
+      "defensive positioning"
+    ],
     "physicalDescription": "6'10\" center, long athletic frame, goatee, intelligent piercing eyes, dignified bearing",
     "archetype": "Ultimate winner who built dynasties through defense and leadership under adversity"
   },
@@ -47,7 +59,11 @@
     }
   ],
   "defaultInteraction": "side-by-side",
-  "cardVariants": ["metal-universe", "prizm-silver", "thunder-lightning"],
+  "cardVariants": [
+    "metal-universe",
+    "prizm-silver",
+    "thunder-lightning"
+  ],
   "priority": 10,
   "status": "active"
 }

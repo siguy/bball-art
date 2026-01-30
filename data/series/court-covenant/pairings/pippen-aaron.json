@@ -2,16 +2,27 @@
   "id": "pippen-aaron",
   "series": "court-covenant",
   "type": "hero",
+  "cardMode": "player-figure",
   "player": {
     "name": "Scottie Pippen",
     "displayName": "Pip",
     "poseFileId": "pippen",
     "era": "1990s",
     "jerseyColors": {
-      "primary": { "base": "red", "accent": "white" },
-      "secondary": { "base": "white", "accent": "red" }
+      "primary": {
+        "base": "red",
+        "accent": "white"
+      },
+      "secondary": {
+        "base": "white",
+        "accent": "red"
+      }
     },
-    "signatureMoves": ["coast-to-coast fast break", "perimeter defense", "outlet pass"],
+    "signatureMoves": [
+      "coast-to-coast fast break",
+      "perimeter defense",
+      "outlet pass"
+    ],
     "physicalDescription": "SCOTTIE PIPPEN LIKENESS: tall (6'8\") and lean athletic build, distinctive long face with prominent nose and chin, 1990s style high-top fade haircut, calm cool expression, dark skin",
     "archetype": "The Ultimate Sidekick, criminally underrated, two-way excellence"
   },
@@ -47,7 +58,11 @@
     }
   ],
   "defaultInteraction": "back-to-back",
-  "cardVariants": ["thunder-lightning", "beam-team", "metal-universe"],
+  "cardVariants": [
+    "thunder-lightning",
+    "beam-team",
+    "metal-universe"
+  ],
   "priority": 3,
   "status": "active"
 }

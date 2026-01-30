@@ -2,16 +2,28 @@
   "id": "iverson-gideon",
   "series": "court-covenant",
   "type": "hero",
+  "cardMode": "player-figure",
   "player": {
     "name": "Allen Iverson",
     "displayName": "The Answer",
     "poseFileId": "iverson",
     "era": "2000s",
     "jerseyColors": {
-      "primary": { "base": "red", "accent": "blue" },
-      "secondary": { "base": "blue", "accent": "red" }
+      "primary": {
+        "base": "red",
+        "accent": "blue"
+      },
+      "secondary": {
+        "base": "blue",
+        "accent": "red"
+      }
     },
-    "signatureMoves": ["crossover", "step-over", "driving layup", "fearless attack"],
+    "signatureMoves": [
+      "crossover",
+      "step-over",
+      "driving layup",
+      "fearless attack"
+    ],
     "physicalDescription": "6'0\" guard, small but explosive, cornrows, tattoos, arm sleeve, cultural icon",
     "archetype": "Smallest MVP who defeated giants through heart and unconventional warfare"
   },
@@ -47,7 +59,11 @@
     }
   ],
   "defaultInteraction": "side-by-side",
-  "cardVariants": ["thunder-lightning", "kaboom", "beam-team"],
+  "cardVariants": [
+    "thunder-lightning",
+    "kaboom",
+    "beam-team"
+  ],
   "priority": 9,
   "status": "active"
 }

@@ -2,16 +2,28 @@
   "id": "wembanyama-enoch",
   "series": "court-covenant",
   "type": "hero",
+  "cardMode": "player-figure",
   "player": {
     "name": "Victor Wembanyama",
     "displayName": "The Alien",
     "poseFileId": "wembanyama",
     "era": "2020s",
     "jerseyColors": {
-      "primary": { "base": "silver", "accent": "black" },
-      "secondary": { "base": "black", "accent": "silver" }
+      "primary": {
+        "base": "silver",
+        "accent": "black"
+      },
+      "secondary": {
+        "base": "black",
+        "accent": "silver"
+      }
     },
-    "signatureMoves": ["rim protection", "three-pointer", "ball handling", "chase-down block"],
+    "signatureMoves": [
+      "rim protection",
+      "three-pointer",
+      "ball handling",
+      "chase-down block"
+    ],
     "physicalDescription": "7'4\" center with 8'0\" wingspan, impossibly long limbs, fluid movement, humble demeanor",
     "archetype": "Otherworldly talent that defies conventional basketball understanding"
   },
@@ -47,7 +59,11 @@
     }
   ],
   "defaultInteraction": "side-by-side",
-  "cardVariants": ["prizm-silver", "metal-universe", "downtown"],
+  "cardVariants": [
+    "prizm-silver",
+    "metal-universe",
+    "downtown"
+  ],
   "priority": 9,
   "status": "active"
 }
