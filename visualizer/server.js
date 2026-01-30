@@ -1807,12 +1807,23 @@ app.get('/api/characters/figures', (req, res) => {
       }
     }
 
-    // Then, load from pairings (only if not already present from standalone)
-    if (existsSync(PAIRINGS_DIR)) {
-      const files = readdirSync(PAIRINGS_DIR).filter(f => f.endsWith('.json'));
-      for (const file of files) {
-        const pairing = JSON.parse(readFileSync(join(PAIRINGS_DIR, file), 'utf-8'));
-        const figure = pairing.figure;
+    // Then, load from pairings across all series (only if not already present from standalone)
+    const allPairings = loadAllPairings();
+    for (const [pairingId, pairing] of Object.entries(allPairings)) {
+      // Check both player and figure fields for figure characters
+      const charactersToCheck = [];
+
+      // Always check the figure field
+      if (pairing.figure) {
+        charactersToCheck.push(pairing.figure);
+      }
+
+      // For figure-figure pairings (Torah Titans), also check the player field
+      if (pairing.player?.characterType === 'figure') {
+        charactersToCheck.push(pairing.player);
+      }
+
+      for (const figure of charactersToCheck) {
         const poseFileId = figure.poseFileId;
 
         if (poseFileId && !figures.has(poseFileId)) {
