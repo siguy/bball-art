@@ -10,6 +10,7 @@ let manifest = { cards: [], pairings: [], templates: [], interactions: [] };
 let feedback = {};
 let pairingData = {};
 let pairingsFull = {};
+let selects = { cards: [] };
 let filteredCards = [];
 let currentCardIndex = 0;
 let currentPlatformTab = 'instagram';
@@ -30,7 +31,8 @@ async function init() {
     fetchManifest(),
     fetchFeedback(),
     fetchPairings(),
-    fetchPairingsFull()
+    fetchPairingsFull(),
+    fetchSelects()
   ]);
 
   populateFilters();
@@ -91,6 +93,15 @@ async function fetchPairingsFull() {
     pairingsFull = await res.json();
   } catch (err) {
     console.error('Failed to fetch full pairings:', err);
+  }
+}
+
+async function fetchSelects() {
+  try {
+    const res = await fetch(`${API_BASE}/api/selects`);
+    selects = await res.json();
+  } catch (err) {
+    console.error('Failed to fetch selects:', err);
   }
 }
 
@@ -501,8 +512,8 @@ function renderGallery() {
   gallery.innerHTML = filteredCards.map((card, index) => {
     const cardFeedback = feedback[card.id];
     const isLoved = cardFeedback?.rating === 'loved';
-    const badgeClass = cardFeedback?.rating ? `card-badge ${cardFeedback.rating}` : '';
-    const badgeText = cardFeedback?.rating ? (isLoved ? 'EXPORT' : cardFeedback.rating) : '';
+    const hasIssues = cardFeedback?.rating === 'issues';
+    const isLiked = cardFeedback?.rating === 'liked';
 
     // Handle both pairing cards and solo cards
     let title;
@@ -516,9 +527,29 @@ function renderGallery() {
       title = pairing ? `${pairing.playerName} & ${pairing.figureName}` : card.pairingId;
     }
 
+    // Heart button for quick-love
+    const heartClass = isLoved ? 'heart-btn loved' : 'heart-btn';
+    const heartIcon = isLoved ? '♥' : '♡';
+
+    // Check if card is selected for website
+    const isWebSelected = selects.cards.some(c => c.cardId === card.id);
+
+    // Small badge for liked/issues (non-loved ratings)
+    let smallBadge = '';
+    if (isLiked) {
+      smallBadge = '<span class="card-badge liked">LIKED</span>';
+    } else if (hasIssues) {
+      smallBadge = '<span class="card-badge issues">ISSUES</span>';
+    }
+
+    // Web selected badge (bottom right)
+    const webBadge = isWebSelected ? '<span class="card-badge web-selected">WEB</span>' : '';
+
     return `
-      <div class="card ${isLoved ? 'card-loved' : ''}" data-index="${index}">
-        ${badgeText ? `<span class="${badgeClass}">${badgeText}</span>` : ''}
+      <div class="card ${isLoved ? 'card-loved' : ''}" data-index="${index}" data-card-id="${card.id}">
+        <button class="${heartClass}" data-card-id="${card.id}" title="${isLoved ? 'Remove from loved' : 'Love this card'}">${heartIcon}</button>
+        ${smallBadge}
+        ${webBadge}
         <img class="card-image" src="${card.path}" alt="${title}" loading="lazy">
         <div class="card-info">
           <div class="card-title">${title}</div>
@@ -599,8 +630,77 @@ async function openModal(index) {
   // Fetch and render rich context
   await fetchAndRenderCardContext(card);
 
+  // Update website selection button
+  updateWebsiteSelectionUI(card.id);
+
   modal.classList.add('active');
   document.body.style.overflow = 'hidden';
+}
+
+/**
+ * Update the website selection button state
+ */
+function updateWebsiteSelectionUI(cardId) {
+  const btn = document.getElementById('add-to-website-btn');
+  const hint = document.getElementById('web-selection-hint');
+  if (!btn) return;
+
+  const isSelected = selects.cards.some(c => c.cardId === cardId);
+  const selectItem = selects.cards.find(c => c.cardId === cardId);
+
+  if (isSelected) {
+    btn.classList.add('selected');
+    btn.innerHTML = '<span class="icon">&#10003;</span><span class="text">On Website</span>';
+    hint.textContent = `Position: #${selectItem.position}`;
+  } else {
+    btn.classList.remove('selected');
+    btn.innerHTML = '<span class="icon">&#128279;</span><span class="text">Add to Website</span>';
+    hint.textContent = selects.cards.length >= 25 ? 'Maximum 25 cards reached' : '';
+  }
+
+  btn.disabled = !isSelected && selects.cards.length >= 25;
+}
+
+/**
+ * Toggle website selection for current card
+ */
+async function toggleWebsiteSelection() {
+  const card = filteredCards[currentCardIndex];
+  if (!card) return;
+
+  const isSelected = selects.cards.some(c => c.cardId === card.id);
+
+  try {
+    if (isSelected) {
+      // Remove from selects
+      const res = await fetch(`${API_BASE}/api/selects/${encodeURIComponent(card.id)}`, {
+        method: 'DELETE'
+      });
+      const result = await res.json();
+      if (result.success) {
+        selects = result.selects;
+      }
+    } else {
+      // Add to selects
+      const res = await fetch(`${API_BASE}/api/selects`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ cardId: card.id })
+      });
+      const result = await res.json();
+      if (result.success) {
+        selects = result.selects;
+      } else if (result.error) {
+        alert(result.error);
+        return;
+      }
+    }
+
+    updateWebsiteSelectionUI(card.id);
+    renderGallery(); // Update gallery to show selection indicator
+  } catch (err) {
+    console.error('Toggle website selection error:', err);
+  }
 }
 
 /**
@@ -862,8 +962,34 @@ function setupEventListeners() {
     undoTrimBtn.addEventListener('click', handleUndoTrim);
   }
 
-  // Card clicks
-  gallery.addEventListener('click', (e) => {
+  // Website selection button
+  const addToWebsiteBtn = document.getElementById('add-to-website-btn');
+  if (addToWebsiteBtn) {
+    addToWebsiteBtn.addEventListener('click', toggleWebsiteSelection);
+  }
+
+  // Heart button clicks (quick-love)
+  gallery.addEventListener('click', async (e) => {
+    const heartBtn = e.target.closest('.heart-btn');
+    if (heartBtn) {
+      e.stopPropagation(); // Don't open modal
+      const cardId = heartBtn.dataset.cardId;
+      const isLoved = heartBtn.classList.contains('loved');
+
+      // Toggle love status
+      if (isLoved) {
+        // Remove love - set rating to null
+        await saveFeedback(cardId, { rating: null, notes: feedback[cardId]?.notes || '' });
+      } else {
+        // Add love
+        await saveFeedback(cardId, { rating: 'loved', notes: feedback[cardId]?.notes || '' });
+      }
+
+      renderGallery();
+      return;
+    }
+
+    // Card clicks (open modal)
     const card = e.target.closest('.card');
     if (card) {
       openModal(parseInt(card.dataset.index, 10));

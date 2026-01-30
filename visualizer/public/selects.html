@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Court & Covenant - Website Selects</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="selects.css">
+</head>
+<body>
+  <header>
+    <div class="header-content">
+      <img src="/brand/logos/court and covenant logo - 1.png" alt="Court & Covenant" class="logo">
+      <h1>Website Selects</h1>
+    </div>
+    <nav class="header-nav">
+      <a href="/" class="nav-link">Cards</a>
+      <a href="/generator.html" class="nav-link">Generator</a>
+      <a href="/characters.html" class="nav-link">Characters</a>
+      <a href="/pairings.html" class="nav-link">Pairings</a>
+      <a href="/selects.html" class="nav-link active">Selects</a>
+      <a href="/export-queue.html" class="nav-link">Export Queue</a>
+    </nav>
+    <div class="stats" id="stats"></div>
+  </header>
+
+  <main class="selects-main">
+    <!-- Selected Cards Section -->
+    <section class="selected-section">
+      <div class="section-header">
+        <h2>Website Selects <span class="counter" id="select-counter">(0/25)</span></h2>
+        <button id="export-web-btn" class="btn btn-primary" disabled>Export to Website</button>
+      </div>
+      <p class="section-description">Drag to reorder. These cards will appear on courtandcovenant.com in this order.</p>
+
+      <div class="cards-grid selected-cards" id="selected-cards">
+        <div class="empty-state" id="selected-empty">
+          <p>No cards selected yet</p>
+          <p class="hint">Add cards from the "Loved" section below</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Available (Loved) Cards Section -->
+    <section class="available-section">
+      <div class="section-header">
+        <h2>Available Cards <span class="available-label">(Loved but not selected)</span></h2>
+      </div>
+
+      <div class="cards-grid available-cards" id="available-cards">
+        <div class="empty-state" id="available-empty">
+          <p>No loved cards available</p>
+          <p class="hint">Love cards from the <a href="/">gallery</a> to add them here</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Card Preview Modal -->
+  <div class="modal" id="preview-modal">
+    <div class="modal-content modal-preview">
+      <button class="modal-close" id="modal-close">&times;</button>
+      <div class="preview-grid">
+        <div class="preview-image">
+          <img id="preview-img" src="" alt="Card preview">
+        </div>
+        <div class="preview-info">
+          <h2 id="preview-title"></h2>
+          <dl class="preview-details">
+            <dt>Template:</dt>
+            <dd id="preview-template"></dd>
+            <dt>Generated:</dt>
+            <dd id="preview-timestamp"></dd>
+          </dl>
+          <div class="preview-actions">
+            <button id="remove-from-selects-btn" class="btn btn-outline">Remove from Website</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Export Success Modal -->
+  <div class="modal" id="export-modal">
+    <div class="modal-content modal-small">
+      <button class="modal-close" id="export-modal-close">&times;</button>
+      <div class="export-success">
+        <div class="success-icon">&#10003;</div>
+        <h2>Export Complete!</h2>
+        <p id="export-message"></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Include SortableJS for drag-drop -->
+  <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
+  <script src="selects.js"></script>
+</body>
+</html>

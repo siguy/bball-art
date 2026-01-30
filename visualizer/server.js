@@ -2624,6 +2624,308 @@ app.post('/api/pairing-assistant/create', async (req, res) => {
   }
 });
 
+// ========================================
+// WEBSITE SELECTS ENDPOINTS
+// ========================================
+
+const WEBSITE_SELECTS_PATH = join(__dirname, 'data/website-selects.json');
+const EXPORT_HISTORY_PATH = join(__dirname, 'data/export-history.json');
+
+/**
+ * Load website selects
+ */
+function loadWebsiteSelects() {
+  if (existsSync(WEBSITE_SELECTS_PATH)) {
+    return JSON.parse(readFileSync(WEBSITE_SELECTS_PATH, 'utf-8'));
+  }
+  return { lastUpdated: null, cards: [] };
+}
+
+/**
+ * Save website selects
+ */
+function saveWebsiteSelects(data) {
+  data.lastUpdated = new Date().toISOString();
+  writeFileSync(WEBSITE_SELECTS_PATH, JSON.stringify(data, null, 2));
+}
+
+/**
+ * Load export history
+ */
+function loadExportHistory() {
+  if (existsSync(EXPORT_HISTORY_PATH)) {
+    return JSON.parse(readFileSync(EXPORT_HISTORY_PATH, 'utf-8'));
+  }
+  return { exports: [] };
+}
+
+/**
+ * Save export history
+ */
+function saveExportHistory(data) {
+  writeFileSync(EXPORT_HISTORY_PATH, JSON.stringify(data, null, 2));
+}
+
+/**
+ * GET /api/selects
+ * Get all website selects (ordered)
+ */
+app.get('/api/selects', (req, res) => {
+  try {
+    const selects = loadWebsiteSelects();
+    res.json(selects);
+  } catch (err) {
+    console.error('Load selects error:', err);
+    res.status(500).json({ error: err.message });
+  }
+});
+
+/**
+ * POST /api/selects
+ * Add a card to website selects
+ */
+app.post('/api/selects', (req, res) => {
+  const { cardId, notes } = req.body;
+
+  if (!cardId) {
+    return res.status(400).json({ error: 'Missing required field: cardId' });
+  }
+
+  try {
+    const selects = loadWebsiteSelects();
+
+    // Check if already selected
+    if (selects.cards.some(c => c.cardId === cardId)) {
+      return res.status(400).json({ error: 'Card already selected for website' });
+    }
+
+    // Check max limit (soft limit of 25)
+    if (selects.cards.length >= 25) {
+      return res.status(400).json({ error: 'Maximum 25 cards can be selected' });
+    }
+
+    // Add to end of list
+    selects.cards.push({
+      cardId,
+      position: selects.cards.length + 1,
+      addedAt: new Date().toISOString(),
+      notes: notes || ''
+    });
+
+    saveWebsiteSelects(selects);
+    res.json({ success: true, selects });
+  } catch (err) {
+    console.error('Add select error:', err);
+    res.status(500).json({ error: err.message });
+  }
+});
+
+/**
+ * DELETE /api/selects/:cardId
+ * Remove a card from website selects
+ */
+app.delete('/api/selects/:cardId', (req, res) => {
+  const { cardId } = req.params;
+
+  try {
+    const selects = loadWebsiteSelects();
+    const index = selects.cards.findIndex(c => c.cardId === cardId);
+
+    if (index === -1) {
+      return res.status(404).json({ error: 'Card not in selects' });
+    }
+
+    selects.cards.splice(index, 1);
+
+    // Recalculate positions
+    selects.cards.forEach((card, i) => {
+      card.position = i + 1;
+    });
+
+    saveWebsiteSelects(selects);
+    res.json({ success: true, selects });
+  } catch (err) {
+    console.error('Remove select error:', err);
+    res.status(500).json({ error: err.message });
+  }
+});
+
+/**
+ * PUT /api/selects/reorder
+ * Reorder website selects (after drag-drop)
+ */
+app.put('/api/selects/reorder', (req, res) => {
+  const { cardIds } = req.body;
+
+  if (!Array.isArray(cardIds)) {
+    return res.status(400).json({ error: 'cardIds must be an array' });
+  }
+
+  try {
+    const selects = loadWebsiteSelects();
+
+    // Create a map of existing cards
+    const cardMap = new Map(selects.cards.map(c => [c.cardId, c]));
+
+    // Rebuild cards array in new order
+    const newCards = [];
+    cardIds.forEach((cardId, index) => {
+      const card = cardMap.get(cardId);
+      if (card) {
+        card.position = index + 1;
+        newCards.push(card);
+      }
+    });
+
+    selects.cards = newCards;
+    saveWebsiteSelects(selects);
+    res.json({ success: true, selects });
+  } catch (err) {
+    console.error('Reorder selects error:', err);
+    res.status(500).json({ error: err.message });
+  }
+});
+
+/**
+ * POST /api/selects/export
+ * Export selected cards to web/js/data.js
+ */
+app.post('/api/selects/export', (req, res) => {
+  try {
+    const selects = loadWebsiteSelects();
+    const manifest = buildManifest();
+    const feedback = loadFeedback();
+
+    if (selects.cards.length === 0) {
+      return res.status(400).json({ error: 'No cards selected for export' });
+    }
+
+    // Build card data for website
+    const pairingData = loadPairingDataForExport();
+    const exportCards = [];
+    for (const select of selects.cards) {
+      const card = manifest.cards.find(c => c.id === select.cardId);
+      if (!card) continue;
+
+      // Get pairing data
+      let playerName, figureName, connection, type;
+      if (card.mode === 'solo') {
+        playerName = card.characterType === 'player' ? formatCharacterNameForExport(card.characterId) : null;
+        figureName = card.characterType === 'figure' ? formatCharacterNameForExport(card.characterId) : null;
+        connection = 'Solo card';
+        type = 'solo';
+      } else {
+        const pairing = pairingData[card.pairingId];
+        if (pairing) {
+          playerName = pairing.playerName;
+          figureName = pairing.figureName;
+          connection = pairing.connection || '';
+          type = pairing.type || 'hero';
+        }
+      }
+
+      exportCards.push({
+        id: card.id,
+        position: select.position,
+        imagePath: card.path,
+        template: card.template,
+        playerName,
+        figureName,
+        connection,
+        type,
+        notes: select.notes
+      });
+    }
+
+    // Sort by position
+    exportCards.sort((a, b) => a.position - b.position);
+
+    // Generate data.js content
+    const dataJs = `// Court & Covenant - Card Data
+// Auto-generated ${new Date().toISOString()}
+// Do not edit manually
+
+const CARDS = ${JSON.stringify(exportCards, null, 2)};
+
+export { CARDS };
+`;
+
+    // Ensure web/js directory exists
+    const webJsDir = join(ROOT, 'web/js');
+    if (!existsSync(webJsDir)) {
+      mkdirSync(webJsDir, { recursive: true });
+    }
+
+    // Write data.js
+    writeFileSync(WEB_DATA_PATH, dataJs);
+
+    // Log to export history
+    const history = loadExportHistory();
+    history.exports.push({
+      id: `export-${Date.now()}`,
+      type: 'website',
+      cardCount: exportCards.length,
+      exportedAt: new Date().toISOString(),
+      success: true
+    });
+    saveExportHistory(history);
+
+    res.json({
+      success: true,
+      cardCount: exportCards.length,
+      outputPath: WEB_DATA_PATH
+    });
+  } catch (err) {
+    console.error('Export selects error:', err);
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// Helper for export
+function formatCharacterNameForExport(characterId) {
+  if (!characterId) return 'Unknown';
+  return characterId.split('-').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
+}
+
+// Load pairing data for selects export
+function loadPairingDataForExport() {
+  const pairingsDir = join(ROOT, 'data/series/court-covenant/pairings');
+  const pairings = {};
+
+  if (existsSync(pairingsDir)) {
+    const files = readdirSync(pairingsDir).filter(f => f.endsWith('.json'));
+    for (const file of files) {
+      try {
+        const data = JSON.parse(readFileSync(join(pairingsDir, file), 'utf-8'));
+        pairings[data.id] = {
+          playerName: data.player?.name || data.player,
+          figureName: data.figure?.name || data.figure,
+          connection: data.connection?.narrative || data.connection,
+          type: data.type || 'hero'
+        };
+      } catch (e) {
+        // Skip invalid files
+      }
+    }
+  }
+
+  return pairings;
+}
+
+/**
+ * GET /api/export-history
+ * Get export history
+ */
+app.get('/api/export-history', (req, res) => {
+  try {
+    const history = loadExportHistory();
+    res.json(history);
+  } catch (err) {
+    console.error('Load export history error:', err);
+    res.status(500).json({ error: err.message });
+  }
+});
+
 // Start server
 const PORT = process.env.PORT || 3333;
 app.listen(PORT, () => {
