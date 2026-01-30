@@ -72,7 +72,7 @@ LEFT BACKGROUND: Deep black arena with brilliant rainbow prismatic reflections. 
 RIGHT BACKGROUND: Dark arena with corrupted purple/red prism effects. Cracked, smoky, ominous.
 
 === TEXT ELEMENTS (render exactly as specified) ===
-TOP: Write "BEAM TEAM" in HOLOGRAPHIC CHROME font - left half rainbow shimmer, right half darkened crimson. Add "RIVALRY" in smaller silver text below. Centered at top.
+TOP: Text reading "BEAM TEAM" in silver chrome lettering - left half rainbow shimmer, right half darkened crimson. Add "RIVALRY" in smaller silver text below. Centered at top.
 
 LOGO: Below the title, render the provided "Court & Covenant" logo image in iridescent gold with prismatic shimmer.
 

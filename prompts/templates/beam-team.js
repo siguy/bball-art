@@ -90,7 +90,7 @@ CENTER: The two figures occupy the center against a DEEP BLACK arena background 
 LIGHT REFRACTION: Subtle prismatic light rays extend slightly from the borders into the center, catching on the figures.
 
 === TEXT ELEMENTS (render exactly as specified) ===
-TOP: Write "BEAM TEAM" in HOLOGRAPHIC CHROME font - silver base with rainbow prismatic reflection. Centered at top.
+TOP: Text reading "BEAM TEAM" in silver chrome lettering with holographic rainbow shimmer effect. Centered at top.
 
 LOGO: Below the title, render the provided "Court & Covenant" logo image in iridescent gold with prismatic shimmer. Smaller than the title.
 
@@ -166,7 +166,7 @@ LEFT AND RIGHT BORDERS: Wide HOLOGRAPHIC PRISM borders on BOTH sides of the card
 CENTER: The figure occupies the center against a DEEP BLACK arena background with subtle reflective floor.
 
 === TEXT ELEMENTS (render exactly as specified) ===
-TOP: Write "BEAM TEAM" in HOLOGRAPHIC CHROME font - silver base with rainbow prismatic reflection. Centered at top.
+TOP: Text reading "BEAM TEAM" in silver chrome lettering with holographic rainbow shimmer effect. Centered at top.
 
 LOGO: Below the title, render the provided "Court & Covenant" logo image in iridescent gold with prismatic shimmer.
 

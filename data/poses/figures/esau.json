@@ -57,6 +57,14 @@
       "energy": "patient vengeance, the long game",
       "quoteId": "vow-of-vengeance"
     },
+    "rivalry-womb-battle": {
+      "id": "rivalry-womb-battle",
+      "name": "Rivalry: Womb Battle",
+      "description": "Esau as unborn baby in the cosmic womb, facing Jacob",
+      "prompt": "Esau as an UNBORN BABY/FETUS - tiny infant form already covered in fine red hair even in the womb. FACING his brother with tiny clenched fists. Dark red-crimson energy radiates from him. Umbilical cord visible. Wild and aggressive even before birth, demon silhouettes flickering behind him.",
+      "energy": "Primordial, Cosmic, Predestined, Prenatal Battle",
+      "isRivalryPose": true
+    },
     "rivalry-birthright-bargain": {
       "id": "rivalry-birthright-bargain",
       "name": "Rivalry: Birthright Bargain",

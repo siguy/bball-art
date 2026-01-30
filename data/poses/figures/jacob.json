@@ -58,6 +58,14 @@
       "energy": "painful transformation, identity earned",
       "quoteId": "named-israel"
     },
+    "rivalry-womb-battle": {
+      "id": "rivalry-womb-battle",
+      "name": "Rivalry: Womb Battle",
+      "description": "Jacob as unborn baby in the cosmic womb, facing Esau",
+      "prompt": "Jacob as an UNBORN BABY/FETUS - tiny infant form with smooth translucent skin, curled but FACING his brother. One tiny hand reaches toward a glowing Torah scroll. Ethereal blue-white light radiates from him. Umbilical cord visible. Peaceful yet calculating even as a fetus — God's portion from conception.",
+      "energy": "Primordial, Cosmic, Predestined, Prenatal Battle",
+      "isRivalryPose": true
+    },
     "rivalry-birthright-bargain": {
       "id": "rivalry-birthright-bargain",
       "name": "Rivalry: Birthright Bargain",

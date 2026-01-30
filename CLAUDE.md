@@ -29,6 +29,7 @@ A **contemporary art project** creating collectible basketball cards that pair N
 - [x] **Card Generator UI** (interactive control panel for card generation)
 - [x] **Solo Character Mode** (generate single-character cards)
 - [x] **Feedback Export & Analysis** (download feedback, view stats, generation hints)
+- [x] **Sefaria Enrichment System** (midrash-powered rivalryScenes, scriptureReferences)
 
 ### In Progress
 - [ ] **Pairing Creation Assistant** (AI-powered pairing suggestions)
@@ -79,7 +80,8 @@ data/
 docs/
 ├── generator-ui.md                 # Generator UI documentation
 ├── solo-characters.md              # Solo character creation guide
-└── pairing-creator.md              # AI-powered pairing creation assistant
+├── pairing-creator.md              # AI-powered pairing creation assistant
+└── sefaria-enrichment.md           # Midrash-enriched cards workflow
 
 prompts/
 ├── components/    # Modular pieces (backgrounds, poses, finishes)

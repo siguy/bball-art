@@ -87,12 +87,12 @@ IMPORTANT: ${player.name} (basketball player) must be on the LEFT side of the ca
 The two figures should be LARGE and PROMINENT, filling most of the card's vertical space. Show them from approximately knee-level up, making them the dominant visual element.
 
 === BACKGROUND ===
-Muted electric gradient of deep purple and blue, with subtle nebulae and cosmic dust. White-hot electric lightning bolts arcing across the scene. The background should not overpower the figures.
+Muted electric gradient of deep purple and blue. MINIMAL nebula effects - keep cosmic elements in the FAR BACKGROUND only, NOT overlapping the figures. White-hot electric lightning bolts arcing across the scene. The background must stay BEHIND the figures - no rainbow or nebula effects in front of or on top of the characters.
 
 === TEXT ELEMENTS (render exactly as specified) ===
 TOP: Write "THUNDER & LIGHTNING" in bold, white, 1990s-style sans-serif font with metallic sheen and subtle drop shadow. Centered at top.
 
-LOGO: Below the title, render the provided "Court & Covenant" logo image SMALL (about 1/3 the width of the title) in BRIGHT SHINY GOLD with glow effect.
+LOGO: Below the title, render the provided "Court & Covenant" logo image VERY SMALL (about 1/4 the width of the title) in BRIGHT SHINY GOLD with glow effect. Keep the logo CRISP and SHARP - no blur.
 
 BOTTOM: Write "${player.name} & ${figure.displayName}" in silver text with subtle metallic shine. Clean 90s sports card typography, not overly chrome or exaggerated.
 
@@ -164,12 +164,12 @@ SOLO CARD: ${character.name} is the ONLY figure on this card.
 - Dynamic pose with the character as the dominant visual element
 
 === BACKGROUND ===
-Muted electric gradient of deep purple and blue, with subtle nebulae and cosmic dust. White-hot electric lightning bolts arcing across the scene. The background should not overpower the figure.
+Muted electric gradient of deep purple and blue. MINIMAL nebula effects - keep cosmic elements in the FAR BACKGROUND only, NOT overlapping the figure. White-hot electric lightning bolts arcing across the scene. The background must stay BEHIND the figure - no rainbow or nebula effects in front of or on top of the character.
 
 === TEXT ELEMENTS (render exactly as specified) ===
 TOP: Write "THUNDER & LIGHTNING" in bold, white, 1990s-style sans-serif font with metallic sheen and subtle drop shadow. Centered at top.
 
-LOGO: Below the title, render the provided "Court & Covenant" logo image SMALL (about 1/3 the width of the title) in BRIGHT SHINY GOLD with glow effect.
+LOGO: Below the title, render the provided "Court & Covenant" logo image VERY SMALL (about 1/4 the width of the title) in BRIGHT SHINY GOLD with glow effect. Keep the logo CRISP and SHARP - no blur.
 
 BOTTOM: Write "${character.displayName || character.name}" in silver text with subtle metallic shine. Clean 90s sports card typography, centered at bottom.
 
