@@ -20,17 +20,35 @@ Or click "Generator" in the navigation bar from any visualizer page.
 
 ## Features
 
+### Series Selector
+The generator respects the global series selector in the header:
+- **Court & Covenant**: NBA players + Biblical figures (player-figure mode)
+- **Torah Titans**: Biblical figure vs figure (figure-figure mode)
+
+Switching series:
+- Reloads pairings for the selected series
+- Adjusts available options (e.g., hides NBA Players in solo mode for Torah Titans)
+- Persists selection across pages via localStorage
+
 ### Mode Toggle
 The generator supports two modes:
-- **Pairing Mode**: Generate cards with two characters (NBA player + biblical figure)
+- **Pairing Mode**: Generate cards with two characters
 - **Solo Mode**: Generate cards with a single character
 
 Switch between modes using the toggle at the top of the control panel.
 
 ### Pairing Selection (Pairing Mode)
-- Pairings are grouped by type (Heroes / Villains)
+- Pairings grouped by type:
+  - **Court & Covenant**: Heroes / Villains
+  - **Torah Titans**: Spouses / Rivalries / Trials / Plagues / Multi-Character
 - Sorted by priority
 - Shows connection info and narrative when selected
+
+### Figure-Figure Mode (Torah Titans)
+When a Torah Titans pairing is selected:
+- **Dynamic pose labels**: Shows character names (e.g., "Abraham Pose", "Sarah Pose") instead of "Player Pose" / "Figure Pose"
+- **Both poses from figures**: Loads both character poses from `data/poses/figures/`
+- **Dark mode auto-detection**: Enables for `rivalry`, `trial`, and `plague` types
 
 ### Solo Character Selection (Solo Mode)
 1. **Character Type**: Choose between NBA Player or Biblical Figure
@@ -164,9 +182,22 @@ Generate a pairing card with full pose control.
   "darkMode": false,
   "playerPose": "tongue-out-dunk",
   "figurePose": "parting-sea",
-  "hairColor": null
+  "hairColor": null,
+  "cardMode": "player-figure",
+  "series": "court-covenant"
 }
 ```
+
+| Field | Required | Description |
+|-------|----------|-------------|
+| pairingId | Yes | Pairing ID |
+| template | Yes | Template ID |
+| darkMode | No | Use dark variant if available |
+| playerPose | No | Player/Figure1 pose ID (default: "default") |
+| figurePose | No | Figure/Figure2 pose ID (default: "default") |
+| hairColor | No | Hair color override (e.g., Rodman) |
+| cardMode | No | Card mode from pairing (e.g., "player-figure", "figure-figure") |
+| series | No | Series ID (default: "court-covenant") |
 
 **Response:**
 ```json
@@ -175,6 +206,7 @@ Generate a pairing card with full pose control.
   "filename": "thunder-lightning-2026-01-27T10-30-00.jpeg",
   "cardId": "jordan-moses-thunder-lightning-2026-01-27T10-30-00",
   "pairingId": "jordan-moses",
+  "series": "court-covenant",
   "template": "thunder-lightning",
   "playerPose": "tongue-out-dunk",
   "figurePose": "parting-sea"
@@ -223,9 +255,19 @@ Generate a solo character card.
   "characterId": "jordan",
   "template": "thunder-lightning",
   "pose": "tongue-out-dunk",
-  "hairColor": null
+  "hairColor": null,
+  "series": "court-covenant"
 }
 ```
+
+| Field | Required | Description |
+|-------|----------|-------------|
+| type | Yes | "player" or "figure" |
+| characterId | Yes | Character ID |
+| template | Yes | Template ID |
+| pose | No | Pose ID (default: "default") |
+| hairColor | No | Hair color override |
+| series | No | Series ID (default: "court-covenant") |
 
 **Response:**
 ```json
@@ -233,6 +275,7 @@ Generate a solo character card.
   "success": true,
   "filename": "thunder-lightning-2026-01-27T10-30-00.jpeg",
   "cardId": "solo-player-jordan-thunder-lightning-2026-01-27T10-30-00",
+  "series": "court-covenant",
   "type": "player",
   "characterId": "jordan",
   "template": "thunder-lightning",
