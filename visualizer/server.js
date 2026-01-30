@@ -40,140 +40,290 @@ const EXPORT_CONFIG_PATH = join(__dirname, 'data/export-config.json');
 const CAPTION_TEMPLATES_PATH = join(__dirname, 'data/caption-templates.json');
 const EXPORT_OUTPUT_DIR = join(ROOT, 'output/exports');
 
+// Template abbreviation reverse mapping for parsing new filenames
+const TEMPLATE_ABBREV_REVERSE = {
+  'tl': 'thunder-lightning',
+  'tld': 'thunder-lightning-dark',
+  'tlr': 'thunder-lightning-rivalry',
+  'bt': 'beam-team',
+  'bts': 'beam-team-shadow',
+  'btr': 'beam-team-rivalry',
+  'bta': 'beam-team-a',
+  'btb': 'beam-team-b',
+  'btc': 'beam-team-c',
+  'btcd': 'beam-team-c-dunk',
+  'mu': 'metal-universe',
+  'mud': 'metal-universe-dark',
+  'muda': 'metal-universe-dark-alt',
+  'mudar': 'metal-universe-dark-alt-realistic',
+  'mur': 'metal-universe-rivalry',
+  'dt': 'downtown',
+  'kb': 'kaboom',
+  'ps': 'prizm-silver',
+  'sb': 'spouse-blessing',
+  'tc': 'trial-card',
+  'pc': 'plague-card',
+  'tw': 'three-way'
+};
+
+// Series abbreviation reverse mapping
+const SERIES_ABBREV_REVERSE = {
+  'cc': 'court-covenant',
+  'tt': 'torah-titans',
+  'st': 'scripture-titans',
+  'ff': 'founding-fathers'
+};
+
+/**
+ * Parse a card filename (supports both old and new formats)
+ * @param {string} file - Filename to parse
+ * @returns {Object|null} Parsed data or null if not recognized
+ */
+function parseCardFilename(file) {
+  // Try new format first: {series}_{pairing}_{template}_{pose1}_{pose2}_{timestamp}.ext
+  const newMatch = file.match(/^([a-z]{2})_([a-z0-9-]+)_([a-z]+)_([a-z0-9-]+)_([a-z0-9-]+)_(\d{8}T\d{6})\.(png|jpe?g)$/);
+  if (newMatch) {
+    const [, seriesAbbr, pairingId, templateAbbr, pose1, pose2, timestamp, ext] = newMatch;
+    const template = TEMPLATE_ABBREV_REVERSE[templateAbbr] || templateAbbr;
+    const series = SERIES_ABBREV_REVERSE[seriesAbbr] || seriesAbbr;
+    // Convert compact timestamp to readable format
+    const isoTimestamp = `${timestamp.slice(0, 4)}-${timestamp.slice(4, 6)}-${timestamp.slice(6, 8)}T${timestamp.slice(9, 11)}-${timestamp.slice(11, 13)}-${timestamp.slice(13, 15)}`;
+    return {
+      format: 'new',
+      series,
+      pairingId,
+      template,
+      pose1,
+      pose2,
+      timestamp: isoTimestamp,
+      isSolo: pairingId.startsWith('solo-')
+    };
+  }
+
+  // Try old format: {template}-{timestamp}.ext
+  const oldMatch = file.match(/^(.+)-(\d{4}-\d{2}-\d{2}T\d{2}-\d{2}-\d{2})\.(png|jpe?g)$/);
+  if (oldMatch) {
+    const [, template, timestamp] = oldMatch;
+    return {
+      format: 'old',
+      template,
+      timestamp,
+      isSolo: false
+    };
+  }
+
+  return null;
+}
+
+/**
+ * Scan a single directory for card files
+ * @param {string} dirPath - Directory path to scan
+ * @param {string} series - Series ID
+ * @param {string} pairingId - Pairing or solo ID (directory name)
+ * @param {string} urlBase - Base URL path for cards
+ * @returns {Array} Array of card objects
+ */
+function scanCardDirectory(dirPath, series, pairingId, urlBase) {
+  const cards = [];
+  if (!existsSync(dirPath)) return cards;
+
+  const files = readdirSync(dirPath).filter(f =>
+    f.endsWith('.png') || f.endsWith('.jpeg') || f.endsWith('.jpg')
+  );
+
+  for (const file of files) {
+    const parsed = parseCardFilename(file);
+    if (!parsed) continue;
+
+    const promptFile = file.replace(/\.(png|jpe?g)$/, '-prompt.txt');
+    const promptPath = join(dirPath, promptFile);
+
+    let prompt = '';
+    if (existsSync(promptPath)) {
+      prompt = readFileSync(promptPath, 'utf-8');
+    }
+
+    // Extract interaction from prompt if present
+    let interaction = 'unknown';
+    const interactionMatch = prompt.match(/=== INTERACTION: (.+?) ===/);
+    if (interactionMatch) {
+      interaction = interactionMatch[1].toLowerCase().replace(/ /g, '-');
+    }
+
+    const fileStat = statSync(join(dirPath, file));
+    const template = parsed.template;
+    const timestamp = parsed.timestamp;
+
+    // Determine if solo
+    const isSolo = pairingId.startsWith('solo-');
+    let characterType = null;
+    let characterId = null;
+
+    if (isSolo) {
+      const soloMatch = pairingId.match(/^solo-(player|figure)-(.+)$/);
+      if (soloMatch) {
+        characterType = soloMatch[1];
+        characterId = soloMatch[2];
+      }
+    }
+
+    // Build card ID based on format
+    let cardId;
+    if (parsed.format === 'new') {
+      // New format ID: pairingId-templateAbbr-timestamp (compact)
+      const templateAbbr = Object.entries(TEMPLATE_ABBREV_REVERSE).find(([k, v]) => v === template)?.[0] || template;
+      const compactTs = timestamp.replace(/-/g, '').replace('T', 'T');
+      cardId = `${pairingId}-${templateAbbr}-${compactTs}`;
+    } else {
+      // Old format ID: pairingId-template-timestamp
+      cardId = isSolo
+        ? `solo-${characterType}-${characterId}-${template}-${timestamp}`
+        : `${pairingId}-${template}-${timestamp}`;
+    }
+
+    const card = {
+      id: cardId,
+      series,
+      template,
+      timestamp: timestamp.replace(/-/g, ':').replace('T', ' ').slice(0, 19),
+      isoTimestamp: timestamp,
+      interaction,
+      filename: file,
+      path: `${urlBase}/${file}`,
+      promptPath: existsSync(promptPath) ? `${urlBase}/${promptFile}` : null,
+      prompt,
+      size: fileStat.size
+    };
+
+    if (isSolo) {
+      card.mode = 'solo';
+      card.characterType = characterType;
+      card.characterId = characterId;
+    } else {
+      card.mode = 'pairing';
+      card.pairingId = pairingId;
+    }
+
+    // Add pose info if available (new format)
+    if (parsed.format === 'new' && parsed.pose1 && parsed.pose2) {
+      card.poses = { pose1: parsed.pose1, pose2: parsed.pose2 };
+    }
+
+    cards.push(card);
+  }
+
+  return cards;
+}
+
 /**
  * Scan output directory and build manifest
- * Includes both pairing cards and solo cards
+ * Supports both series directories and legacy flat structure
  */
 function buildManifest() {
   const cardsDir = join(ROOT, 'output/cards');
-  const cards = [];
+  let cards = [];
+  const soloCharacters = [];
 
   if (!existsSync(cardsDir)) {
-    return { cards: [], pairings: [], templates: [], soloCharacters: [], generated: new Date().toISOString() };
+    return { cards: [], series: [], pairings: [], templates: [], soloCharacters: [], generated: new Date().toISOString() };
   }
 
-  // Scan pairing cards (exclude solo directories)
-  const pairingDirs = readdirSync(cardsDir).filter(f => {
-    const stat = statSync(join(cardsDir, f));
-    // Exclude 'solo' directory and any 'solo-*' directories
-    return stat.isDirectory() && f !== 'solo' && !f.startsWith('solo-');
-  });
+  // Get all series directories
+  const seriesIds = ['court-covenant', 'torah-titans'];
+  const foundSeries = [];
 
-  for (const pairingId of pairingDirs) {
-    const pairingDir = join(cardsDir, pairingId);
-    const files = readdirSync(pairingDir).filter(f =>
-      f.endsWith('.png') || f.endsWith('.jpeg') || f.endsWith('.jpg')
-    );
+  for (const seriesId of seriesIds) {
+    const seriesDir = join(cardsDir, seriesId);
+    if (!existsSync(seriesDir)) continue;
 
-    for (const file of files) {
-      // Parse filename: template-timestamp.ext
-      const match = file.match(/^(.+)-(\d{4}-\d{2}-\d{2}T\d{2}-\d{2}-\d{2})\.(png|jpe?g)$/);
-      if (!match) continue;
+    foundSeries.push(seriesId);
 
-      const [, template, timestamp, ext] = match;
-      const promptFile = file.replace(/\.(png|jpe?g)$/, '-prompt.txt');
-      const promptPath = join(pairingDir, promptFile);
+    // Scan all subdirectories in this series
+    const subDirs = readdirSync(seriesDir).filter(f => {
+      const stat = statSync(join(seriesDir, f));
+      return stat.isDirectory();
+    });
 
-      let prompt = '';
-      if (existsSync(promptPath)) {
-        prompt = readFileSync(promptPath, 'utf-8');
+    for (const subDir of subDirs) {
+      const subDirPath = join(seriesDir, subDir);
+
+      // Check if this is a sub-series directory (like spouses, plagues)
+      const isSubSeries = ['spouses', 'abrahams-trials', 'plagues', 'triangles'].includes(subDir);
+
+      if (isSubSeries) {
+        // Scan pairings within the sub-series
+        const pairingDirs = readdirSync(subDirPath).filter(f => {
+          const stat = statSync(join(subDirPath, f));
+          return stat.isDirectory();
+        });
+
+        for (const pairingId of pairingDirs) {
+          const pairingDir = join(subDirPath, pairingId);
+          const urlBase = `/cards/${seriesId}/${subDir}/${pairingId}`;
+          const dirCards = scanCardDirectory(pairingDir, seriesId, pairingId, urlBase);
+          dirCards.forEach(c => { c.subSeries = subDir; });
+          cards = cards.concat(dirCards);
+        }
+      } else {
+        // Direct pairing or solo directory
+        const urlBase = `/cards/${seriesId}/${subDir}`;
+        const dirCards = scanCardDirectory(subDirPath, seriesId, subDir, urlBase);
+        cards = cards.concat(dirCards);
+
+        // Track solo characters
+        if (subDir.startsWith('solo-')) {
+          const soloMatch = subDir.match(/^solo-(player|figure)-(.+)$/);
+          if (soloMatch) {
+            const [, characterType, characterId] = soloMatch;
+            if (!soloCharacters.some(c => c.type === characterType && c.id === characterId && c.series === seriesId)) {
+              soloCharacters.push({ type: characterType, id: characterId, series: seriesId });
+            }
+          }
+        }
       }
-
-      // Extract interaction from prompt if present
-      let interaction = 'unknown';
-      const interactionMatch = prompt.match(/=== INTERACTION: (.+?) ===/);
-      if (interactionMatch) {
-        interaction = interactionMatch[1].toLowerCase().replace(/ /g, '-');
-      }
-
-      const stat = statSync(join(pairingDir, file));
-
-      cards.push({
-        id: `${pairingId}-${template}-${timestamp}`,
-        pairingId,
-        template,
-        timestamp: timestamp.replace(/-/g, ':').replace('T', ' ').slice(0, 19),
-        isoTimestamp: timestamp,
-        interaction,
-        filename: file,
-        path: `/cards/${pairingId}/${file}`,
-        promptPath: existsSync(promptPath) ? `/cards/${pairingId}/${promptFile}` : null,
-        prompt,
-        size: stat.size,
-        mode: 'pairing'
-      });
     }
   }
 
-  // Scan solo cards (directories named solo-player-* or solo-figure-*)
-  const soloCharacters = [];
-  const soloDirs = readdirSync(cardsDir).filter(f => {
-    if (!f.startsWith('solo-')) return false;
+  // Also scan legacy flat structure (for any non-migrated cards)
+  const legacyDirs = readdirSync(cardsDir).filter(f => {
     const stat = statSync(join(cardsDir, f));
-    return stat.isDirectory();
+    // Skip series directories and backups
+    return stat.isDirectory() &&
+           !seriesIds.includes(f) &&
+           !f.startsWith('cards-backup') &&
+           !f.startsWith('.');
   });
 
-  for (const soloDir of soloDirs) {
-    // Parse directory name: solo-player-{id} or solo-figure-{id}
-    const soloMatch = soloDir.match(/^solo-(player|figure)-(.+)$/);
-    if (!soloMatch) continue;
+  for (const dirName of legacyDirs) {
+    const dirPath = join(cardsDir, dirName);
+    const urlBase = `/cards/${dirName}`;
+    const dirCards = scanCardDirectory(dirPath, 'court-covenant', dirName, urlBase);
+    dirCards.forEach(c => { c.legacy = true; });
+    cards = cards.concat(dirCards);
 
-    const [, characterType, characterId] = soloMatch;
-    const characterDir = join(cardsDir, soloDir);
-
-    const files = readdirSync(characterDir).filter(f =>
-      f.endsWith('.png') || f.endsWith('.jpeg') || f.endsWith('.jpg')
-    );
-
-    if (files.length > 0) {
-      // Track unique solo characters
-      if (!soloCharacters.some(c => c.type === characterType && c.id === characterId)) {
-        soloCharacters.push({ type: characterType, id: characterId });
+    // Track solo characters
+    if (dirName.startsWith('solo-')) {
+      const soloMatch = dirName.match(/^solo-(player|figure)-(.+)$/);
+      if (soloMatch) {
+        const [, characterType, characterId] = soloMatch;
+        if (!soloCharacters.some(c => c.type === characterType && c.id === characterId)) {
+          soloCharacters.push({ type: characterType, id: characterId, series: 'court-covenant' });
+        }
       }
-    }
-
-    for (const file of files) {
-      const match = file.match(/^(.+)-(\d{4}-\d{2}-\d{2}T\d{2}-\d{2}-\d{2})\.(png|jpe?g)$/);
-      if (!match) continue;
-
-      const [, template, timestamp] = match;
-      const promptFile = file.replace(/\.(png|jpe?g)$/, '-prompt.txt');
-      const promptPath = join(characterDir, promptFile);
-
-      let prompt = '';
-      if (existsSync(promptPath)) {
-        prompt = readFileSync(promptPath, 'utf-8');
-      }
-
-      const stat = statSync(join(characterDir, file));
-
-      cards.push({
-        id: `solo-${characterType}-${characterId}-${template}-${timestamp}`,
-        characterId,
-        characterType,
-        template,
-        timestamp: timestamp.replace(/-/g, ':').replace('T', ' ').slice(0, 19),
-        isoTimestamp: timestamp,
-        filename: file,
-        path: `/cards/${soloDir}/${file}`,
-        promptPath: existsSync(promptPath) ? `/cards/${soloDir}/${promptFile}` : null,
-        prompt,
-        size: stat.size,
-        mode: 'solo'
-      });
     }
   }
 
   // Sort by timestamp descending (newest first)
   cards.sort((a, b) => b.isoTimestamp.localeCompare(a.isoTimestamp));
 
-  // Extract unique pairings and templates
+  // Extract unique values
   const pairings = [...new Set(cards.filter(c => c.pairingId).map(c => c.pairingId))].sort();
   const templates = [...new Set(cards.map(c => c.template))].sort();
   const interactions = [...new Set(cards.filter(c => c.interaction).map(c => c.interaction))].sort();
 
   const manifest = {
     cards,
+    series: foundSeries,
     pairings,
     templates,
     interactions,
@@ -240,20 +390,79 @@ app.delete('/api/feedback/:cardId', (req, res) => {
 // ========================================
 
 /**
- * Load all pairing data for enrichment
+ * Load all series configurations
  */
-function loadAllPairings() {
-  const pairingsDir = join(ROOT, 'data/series/court-covenant/pairings');
+function loadSeriesConfigs() {
+  const seriesDir = join(ROOT, 'data/series');
+  const configs = {};
+
+  if (!existsSync(seriesDir)) return configs;
+
+  const dirs = readdirSync(seriesDir).filter(f => {
+    const stat = statSync(join(seriesDir, f));
+    return stat.isDirectory();
+  });
+
+  for (const dir of dirs) {
+    const configPath = join(seriesDir, dir, 'series-config.json');
+    if (existsSync(configPath)) {
+      configs[dir] = JSON.parse(readFileSync(configPath, 'utf-8'));
+    }
+  }
+
+  return configs;
+}
+
+/**
+ * Load pairings for a specific series
+ */
+function loadSeriesPairings(seriesId) {
+  const pairingsDir = join(ROOT, `data/series/${seriesId}/pairings`);
   const pairings = {};
 
-  if (!existsSync(pairingsDir)) {
-    return pairings;
-  }
+  if (!existsSync(pairingsDir)) return pairings;
 
   const files = readdirSync(pairingsDir).filter(f => f.endsWith('.json'));
   for (const file of files) {
     const data = JSON.parse(readFileSync(join(pairingsDir, file), 'utf-8'));
     pairings[data.id] = data;
+  }
+
+  // Also check sub-series directories
+  const subSeriesDir = join(ROOT, `data/series/${seriesId}/sub-series`);
+  if (existsSync(subSeriesDir)) {
+    const subDirs = readdirSync(subSeriesDir).filter(f => {
+      const stat = statSync(join(subSeriesDir, f));
+      return stat.isDirectory();
+    });
+
+    for (const subDir of subDirs) {
+      const subPairingsDir = join(subSeriesDir, subDir);
+      const subFiles = readdirSync(subPairingsDir).filter(f => f.endsWith('.json'));
+      for (const file of subFiles) {
+        const data = JSON.parse(readFileSync(join(subPairingsDir, file), 'utf-8'));
+        data.subSeries = subDir;
+        pairings[data.id] = data;
+      }
+    }
+  }
+
+  return pairings;
+}
+
+/**
+ * Load all pairing data for enrichment (all series)
+ */
+function loadAllPairings() {
+  const pairings = {};
+  const seriesIds = ['court-covenant', 'torah-titans'];
+
+  for (const seriesId of seriesIds) {
+    const seriesPairings = loadSeriesPairings(seriesId);
+    for (const [id, pairing] of Object.entries(seriesPairings)) {
+      pairing.series = seriesId;
+      pairings[id] = pairing;
+    }
   }
 
   return pairings;
@@ -393,22 +602,59 @@ app.post('/api/generation-hints/regenerate', (req, res) => {
   }
 });
 
-// Get pairing data (summary)
+// Get available series
+app.get('/api/series', (req, res) => {
+  const configs = loadSeriesConfigs();
+  const series = Object.entries(configs).map(([id, config]) => ({
+    id,
+    name: config.name,
+    tagline: config.tagline,
+    description: config.description,
+    cardModes: config.cardModes || [],
+    availableTemplates: config.availableTemplates || [],
+    seriesSpecificTemplates: config.seriesSpecificTemplates || []
+  }));
+  res.json(series);
+});
+
+// Get single series config
+app.get('/api/series/:seriesId', (req, res) => {
+  const { seriesId } = req.params;
+  const configPath = join(ROOT, `data/series/${seriesId}/series-config.json`);
+
+  if (!existsSync(configPath)) {
+    return res.status(404).json({ error: 'Series not found' });
+  }
+
+  const config = JSON.parse(readFileSync(configPath, 'utf-8'));
+  res.json(config);
+});
+
+// Get pairing data (summary) - supports ?series=court-covenant filter
 app.get('/api/pairings', (req, res) => {
-  const pairingsDir = join(ROOT, 'data/series/court-covenant/pairings');
+  const { series: seriesFilter } = req.query;
+  const seriesIds = seriesFilter ? [seriesFilter] : ['court-covenant', 'torah-titans'];
   const pairings = {};
 
-  if (existsSync(pairingsDir)) {
-    const files = readdirSync(pairingsDir).filter(f => f.endsWith('.json'));
-    for (const file of files) {
-      const data = JSON.parse(readFileSync(join(pairingsDir, file), 'utf-8'));
-      pairings[data.id] = {
+  for (const seriesId of seriesIds) {
+    const seriesPairings = loadSeriesPairings(seriesId);
+    for (const [id, data] of Object.entries(seriesPairings)) {
+      // Handle different pairing structures (player-figure vs figure-figure)
+      const playerName = data.player?.name || data.characters?.[0]?.name;
+      const figureName = data.figure?.name || data.characters?.[1]?.name;
+      const figureDisplayName = data.figure?.displayName || data.characters?.[1]?.displayName || figureName;
+      const era = data.player?.era || data.era;
+
+      pairings[id] = {
         id: data.id,
-        playerName: data.player.name,
-        figureName: data.figure.name,
-        figureDisplayName: data.figure.displayName,
-        era: data.player.era,
-        connection: data.connection.narrative
+        series: seriesId,
+        type: data.type,
+        subSeries: data.subSeries,
+        playerName,
+        figureName,
+        figureDisplayName,
+        era,
+        connection: data.connection?.narrative || data.connection?.thematic
       };
     }
   }
@@ -416,16 +662,17 @@ app.get('/api/pairings', (req, res) => {
   res.json(pairings);
 });
 
-// Get full pairing data (all details)
+// Get full pairing data (all details) - supports ?series= filter
 app.get('/api/pairings-full', (req, res) => {
-  const pairingsDir = join(ROOT, 'data/series/court-covenant/pairings');
+  const { series: seriesFilter } = req.query;
+  const seriesIds = seriesFilter ? [seriesFilter] : ['court-covenant', 'torah-titans'];
   const pairings = {};
 
-  if (existsSync(pairingsDir)) {
-    const files = readdirSync(pairingsDir).filter(f => f.endsWith('.json'));
-    for (const file of files) {
-      const data = JSON.parse(readFileSync(join(pairingsDir, file), 'utf-8'));
-      pairings[data.id] = data;
+  for (const seriesId of seriesIds) {
+    const seriesPairings = loadSeriesPairings(seriesId);
+    for (const [id, data] of Object.entries(seriesPairings)) {
+      data.series = seriesId;
+      pairings[id] = data;
     }
   }
 
@@ -435,7 +682,20 @@ app.get('/api/pairings-full', (req, res) => {
 // Add custom interaction to a pairing
 app.post('/api/pairings/:pairingId/interactions', (req, res) => {
   const { pairingId } = req.params;
-  const pairingPath = join(ROOT, 'data/series/court-covenant/pairings', `${pairingId}.json`);
+  const { series = 'court-covenant' } = req.body;
+
+  // Try to find the pairing in the specified series or search all
+  let pairingPath = join(ROOT, `data/series/${series}/pairings`, `${pairingId}.json`);
+
+  // If not found, search other series
+  if (!existsSync(pairingPath)) {
+    const allPairings = loadAllPairings();
+    const pairing = allPairings[pairingId];
+    if (pairing) {
+      const pairingSeries = pairing.series || 'court-covenant';
+      pairingPath = join(ROOT, `data/series/${pairingSeries}/pairings`, `${pairingId}.json`);
+    }
+  }
 
   if (!existsSync(pairingPath)) {
     return res.status(404).json({ success: false, error: 'Pairing not found' });

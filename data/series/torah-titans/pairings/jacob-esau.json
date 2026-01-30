@@ -1,0 +1,207 @@
+{
+  "id": "jacob-esau",
+  "series": "torah-titans",
+  "type": "rivalry",
+  "isAlternate": true,
+  "alternateOf": "rodman-esau",
+  "opposingPairing": null,
+  "cardMode": "rivalry-figure-figure",
+  "rivalryConfig": {
+    "heroCharacterType": "figure",
+    "villainCharacterType": "figure"
+  },
+  "rivalryResearch": {
+    "relationship": "The archetypal sibling rivalry. The Midrash (Genesis Rabbah 63:6) says they fought even in the womb \u2014 'this one ran to kill that one.' When Rebekah passed synagogues, Jacob convulsed to emerge; near idol worship, Esau struggled out. Jacob is 'chalak' (smooth) = God's portion; Esau is 'sa'ir' (hairy) = connected to demons (Gen. Rabbah 65:15). Their conflict became a cosmic principle: 'The voice is the voice of Jacob, the hands are the hands of Esau' \u2014 when Jacob's voice fills the study halls, Esau's hands have no power (Gen. Rabbah 65:20). The prophet Obadiah sealed their fate: 'The House of Jacob shall be fire, the House of Esau shall be straw.'",
+    "keyMoments": [
+      {
+        "title": "The War in the Womb",
+        "description": "The Midrash says they fought before birth \u2014 'this one ran to kill that one.' When Rebekah passed synagogues, Jacob convulsed to emerge; near houses of idol worship, Esau struggled out. The rivalry was prenatal and cosmic."
+      },
+      {
+        "title": "The Birthright Bargain",
+        "description": "Jacob cunningly persuaded a famished Esau to sell his birthright for a bowl of lentil stew. The Midrash notes Esau emerged first only so 'his corruption would depart' \u2014 like a bathhouse attendant cleaning before the king's son bathes."
+      },
+      {
+        "title": "The Stolen Blessing",
+        "description": "With Rebekah's help, Jacob deceived his blind father Isaac. The Midrash (Gen. Rabbah 65:15) says Jacob went 'compelled, coerced, and weeping.' Isaac told him to approach so he could feel him \u2014 and spoke the words that became a cosmic principle: 'The voice is the voice of Jacob, but the hands are the hands of Esau.'"
+      },
+      {
+        "title": "Esau's Cosmic Cry",
+        "description": "When Esau discovered the deception, he cried 'a very great and bitter cry.' The Midrash (Gen. Rabbah 67:4) connects this cry across history to Mordechai's bitter cry in Shushan \u2014 Jacob's deception of Esau echoed through generations to the Purim story."
+      },
+      {
+        "title": "Fire vs Straw",
+        "description": "The prophet Obadiah declared: 'The House of Jacob shall be fire, the House of Joseph flame, and the House of Esau shall be straw.' The Midrash (Gen. Rabbah 84:5) says when Jacob feared Esau's chieftains, God told him: 'One spark from you and one from your son will burn all of them.'"
+      },
+      {
+        "title": "The Reunion",
+        "description": "Years later, Jacob returned with his family and bowed seven times. Esau ran to meet him, embraced him, and they wept. But the Midrash debates whether the kiss was sincere \u2014 dots above the Hebrew word 'kissed him' hint at ambiguity."
+      }
+    ],
+    "rivalryScenes": [
+      {
+        "id": "womb-battle",
+        "heroAction": "Jacob as an UNBORN BABY/FETUS - tiny infant form with smooth translucent skin, curled but FACING his brother. One tiny hand reaches toward a glowing Torah scroll. Ethereal blue-white light radiates from him. Umbilical cord visible. Peaceful yet calculating even as a fetus \u2014 God's portion from conception.",
+        "villainAction": "Esau as an UNBORN BABY/FETUS - tiny infant form already covered in fine red hair even in the womb. FACING his brother with tiny clenched fists. Dark red-crimson energy radiates from him. Umbilical cord visible. Wild and aggressive even before birth, demon silhouettes flickering behind him.",
+        "scene": "Inside a SHARED COSMIC WOMB \u2014 both babies suspended together in the same amniotic space, an ethereal oval membrane surrounding them both. They FACE EACH OTHER across the womb. Swirling energies of blue (Jacob's side) and red (Esau's side) divide the space. Torah/synagogue silhouettes on Jacob's side, idol/demon shadows on Esau's side. Mythic and cosmic, not realistic.",
+        "energy": "Primordial, Cosmic, Predestined, Prenatal Battle"
+      },
+      {
+        "id": "birthright-bargain",
+        "heroAction": "Jacob seated calmly near a cooking pot, stirring red lentil stew with a sly knowing grin. He extends a bowl with one hand, the other gesturing in a bargaining manner. Smooth skin, neat beard, calculating eyes that see three moves ahead. Wealthy patriarch's robes.",
+        "villainAction": "Esau staggers in from the hunt, COVERED in red hair over his entire body and arms, wild and disheveled. Ruddy red complexion, sweat-soaked, torn animal skin clothing. He reaches desperately for the bowl of stew, fierce untamed eyes wide with ravenous hunger, ready to trade eternity for a meal.",
+        "scene": "An outdoor camp at sunset, long shadows, a fire burning low. The stew glows red in the pot.",
+        "energy": "Desperate, Opportunistic, Ravenous"
+      },
+      {
+        "id": "voice-vs-hands",
+        "heroAction": "Jacob stands with mouth open, voice pouring forth as visible energy \u2014 scrolls of Torah text and Hebrew letters spiraling from his lips upward into light. His smooth face radiates wisdom and divine connection. One hand raised in teaching or prayer. His voice IS his weapon.",
+        "villainAction": "Esau stands with massive hairy fists clenched, gripping a sword and a bow \u2014 his HANDS are his power. Muscles tense, ruddy red complexion, covered in red hair. His mouth is shut, silent \u2014 he has no voice, only brute force. The hands of violence.",
+        "scene": "A mythic confrontation between two cosmic principles \u2014 the voice of Torah study vs the hands of worldly power. Not a literal scene but an archetypal clash.",
+        "energy": "Cosmic, Archetypal, Torah vs Sword"
+      },
+      {
+        "id": "stolen-blessing",
+        "heroAction": "Jacob kneels before his blind father Isaac, wearing Esau's rough clothes with animal skins on his smooth hands and neck. His expression is nervous but determined \u2014 the Midrash says he went 'compelled, coerced, and weeping.' He bows his head to receive the blessing.",
+        "villainAction": "Esau bursts through the tent entrance carrying a freshly killed deer. His face contorts in shock and fury as he sees his brother receiving HIS blessing. Red hair wild, bow clenched in his hairy fist. The moment before his great and bitter cry.",
+        "scene": "Isaac's tent, dimly lit by oil lamps. Heavy fabrics, animal skins, the smell of game cooking. A moment of deception that changed history.",
+        "energy": "Deceptive, Tragic, World-Altering"
+      },
+      {
+        "id": "fire-vs-straw",
+        "heroAction": "Jacob stands engulfed in brilliant holy fire \u2014 golden and white flames that do not consume him. His figure radiates divine power and destiny. Behind him, the House of Joseph burns as a second flame. The fire of Israel.",
+        "villainAction": "Esau stands wrapped in dry straw and chaff \u2014 his kingdom of Edom is brittle, temporary, combustible. His red-haired body is surrounded by straw that is already catching flame from Jacob's fire. The House of Esau crumbles.",
+        "scene": "The prophecy of Obadiah made visual \u2014 fire consuming straw. A split between eternal flame and temporary kindling. Cosmic judgment.",
+        "energy": "Prophetic, Apocalyptic, Inevitable"
+      },
+      {
+        "id": "the-reunion",
+        "heroAction": "Jacob bows low to the ground seven times, surrounded by his wives and children arranged behind him. His face shows anxiety and humility \u2014 the supplanter finally facing the brother he wronged. Wealthy patriarch's robes, smooth skin, neat beard.",
+        "villainAction": "Esau runs toward Jacob with 400 armed men behind him. His expression is unreadable \u2014 a mixture of long-simmered anger and unexpected brotherly emotion. Covered in red hair, dressed as a warrior chieftain. The dots above 'kissed him' leave his intentions ambiguous.",
+        "scene": "A vast open plain, sunset casting long shadows. Two camps facing each other \u2014 one a family with women and children, the other an army.",
+        "energy": "Tense, Emotional, Ambiguous Reconciliation"
+      }
+    ],
+    "scriptureReferences": [
+      {
+        "source": "Genesis 25:22-23",
+        "context": "God's revelation to Rebekah about the twins in her womb",
+        "hebrew": "\u05d5\u05b7\u05d9\u05b4\u05bc\u05ea\u05b0\u05e8\u05b9\u05e6\u05b0\u05e6\u05d5\u05bc \u05d4\u05b7\u05d1\u05b8\u05bc\u05e0\u05b4\u05d9\u05dd \u05d1\u05b0\u05bc\u05e7\u05b4\u05e8\u05b0\u05d1\u05b8\u05bc\u05d4\u05bc... \u05e9\u05b0\u05c1\u05e0\u05b5\u05d9 \u05d2\u05b9\u05d9\u05b4\u05d9\u05dd \u05d1\u05b0\u05bc\u05d1\u05b4\u05d8\u05b0\u05e0\u05b5\u05da\u05b0 \u05d5\u05bc\u05e9\u05b0\u05c1\u05e0\u05b5\u05d9 \u05dc\u05b0\u05d0\u05bb\u05de\u05b4\u05bc\u05d9\u05dd \u05de\u05b4\u05de\u05b5\u05bc\u05e2\u05b7\u05d9\u05b4\u05da\u05b0 \u05d9\u05b4\u05e4\u05b8\u05bc\u05e8\u05b5\u05d3\u05d5\u05bc \u05d5\u05bc\u05dc\u05b0\u05d0\u05b9\u05dd \u05de\u05b4\u05dc\u05b0\u05d0\u05b9\u05dd \u05d9\u05b6\u05d0\u05b1\u05de\u05b8\u05e5 \u05d5\u05b0\u05e8\u05b7\u05d1 \u05d9\u05b7\u05e2\u05b2\u05d1\u05b9\u05d3 \u05e6\u05b8\u05e2\u05b4\u05d9\u05e8",
+        "english": "The children struggled within her... Two nations are in your womb, two peoples shall be separated from your body; one people shall be stronger than the other, and the elder shall serve the younger.",
+        "mood": "Prophetic, Foreboding"
+      },
+      {
+        "source": "Genesis 25:25",
+        "context": "Esau's birth \u2014 the hairy, ruddy firstborn",
+        "hebrew": "\u05d5\u05b7\u05d9\u05b5\u05bc\u05e6\u05b5\u05d0 \u05d4\u05b8\u05e8\u05b4\u05d0\u05e9\u05c1\u05d5\u05b9\u05df \u05d0\u05b7\u05d3\u05b0\u05de\u05d5\u05b9\u05e0\u05b4\u05d9 \u05db\u05bb\u05bc\u05dc\u05bc\u05d5\u05b9 \u05db\u05b0\u05bc\u05d0\u05b7\u05d3\u05b6\u05bc\u05e8\u05b6\u05ea \u05e9\u05b5\u05c2\u05e2\u05b8\u05e8 \u05d5\u05b7\u05d9\u05b4\u05bc\u05e7\u05b0\u05e8\u05b0\u05d0\u05d5\u05bc \u05e9\u05b0\u05c1\u05de\u05d5\u05b9 \u05e2\u05b5\u05e9\u05b8\u05c2\u05d5",
+        "english": "The first came out ruddy, all of him like a hairy mantle, and they called his name Esau.",
+        "mood": "Ominous, Primal"
+      },
+      {
+        "source": "Genesis 27:22",
+        "context": "Isaac's fateful words that became a cosmic principle",
+        "hebrew": "\u05d4\u05b7\u05e7\u05b9\u05bc\u05dc \u05e7\u05d5\u05b9\u05dc \u05d9\u05b7\u05e2\u05b2\u05e7\u05b9\u05d1 \u05d5\u05b0\u05d4\u05b7\u05d9\u05b8\u05bc\u05d3\u05b7\u05d9\u05b4\u05dd \u05d9\u05b0\u05d3\u05b5\u05d9 \u05e2\u05b5\u05e9\u05b8\u05c2\u05d5",
+        "english": "The voice is the voice of Jacob, but the hands are the hands of Esau.",
+        "mood": "Prophetic, Defining"
+      },
+      {
+        "source": "Genesis 27:34",
+        "context": "Esau's bitter cry upon losing the blessing \u2014 echoed by Mordechai in Shushan",
+        "hebrew": "\u05d5\u05b7\u05d9\u05b4\u05bc\u05e6\u05b0\u05e2\u05b7\u05e7 \u05e6\u05b0\u05e2\u05b8\u05e7\u05b8\u05d4 \u05d2\u05b0\u05bc\u05d3\u05b9\u05dc\u05b8\u05d4 \u05d5\u05bc\u05de\u05b8\u05e8\u05b8\u05d4 \u05e2\u05b7\u05d3 \u05de\u05b0\u05d0\u05b9\u05d3",
+        "english": "He cried out an exceedingly great and bitter cry.",
+        "mood": "Devastating, Reverberating"
+      },
+      {
+        "source": "Genesis 25:33",
+        "context": "Esau sells his birthright to Jacob",
+        "hebrew": "\u05d5\u05b7\u05d9\u05b4\u05bc\u05de\u05b0\u05db\u05b9\u05bc\u05e8 \u05d0\u05b6\u05ea \u05d1\u05b0\u05bc\u05db\u05b9\u05e8\u05b8\u05ea\u05d5\u05b9 \u05dc\u05b0\u05d9\u05b7\u05e2\u05b2\u05e7\u05b9\u05d1",
+        "english": "And he sold his birthright to Jacob.",
+        "mood": "Impulsive, Irreversible"
+      },
+      {
+        "source": "Genesis 33:4",
+        "context": "The ambiguous reconciliation \u2014 dots above 'kissed him' hint at hidden intentions",
+        "hebrew": "\u05d5\u05b7\u05d9\u05b8\u05bc\u05e8\u05b8\u05e5 \u05e2\u05b5\u05e9\u05b8\u05c2\u05d5 \u05dc\u05b4\u05e7\u05b0\u05e8\u05b8\u05d0\u05ea\u05d5\u05b9 \u05d5\u05b7\u05d9\u05b0\u05d7\u05b7\u05d1\u05b0\u05bc\u05e7\u05b5\u05d4\u05d5\u05bc \u05d5\u05b7\u05d9\u05b4\u05bc\u05e4\u05b9\u05bc\u05dc \u05e2\u05b7\u05dc \u05e6\u05b7\u05d5\u05b8\u05bc\u05d0\u05e8\u05d5\u05b9 \u05d5\u05b7\u05d9\u05b4\u05bc\u05e9\u05b8\u05bc\u05c1\u05e7\u05b5\u05d4\u05d5\u05bc \u05d5\u05b7\u05d9\u05b4\u05bc\u05d1\u05b0\u05db\u05bc\u05d5\u05bc",
+        "english": "Esau ran to meet him, embraced him, fell on his neck, and kissed him; and they wept.",
+        "mood": "Ambiguous, Emotional"
+      },
+      {
+        "source": "Obadiah 1:18",
+        "context": "The prophetic verdict on Jacob vs Esau \u2014 fire consuming straw",
+        "hebrew": "\u05d5\u05b0\u05d4\u05b8\u05d9\u05b8\u05d4 \u05d1\u05b5\u05d9\u05ea \u05d9\u05b7\u05e2\u05b2\u05e7\u05b9\u05d1 \u05d0\u05b5\u05e9\u05c1 \u05d5\u05bc\u05d1\u05b5\u05d9\u05ea \u05d9\u05d5\u05b9\u05e1\u05b5\u05e3 \u05dc\u05b6\u05d4\u05b8\u05d1\u05b8\u05d4 \u05d5\u05bc\u05d1\u05b5\u05d9\u05ea \u05e2\u05b5\u05e9\u05b8\u05c2\u05d5 \u05dc\u05b0\u05e7\u05b7\u05e9\u05c1",
+        "english": "The House of Jacob shall be fire, the House of Joseph flame, and the House of Esau shall be straw; they shall burn it and devour it.",
+        "mood": "Prophetic, Apocalyptic, Final"
+      },
+      {
+        "source": "Genesis Rabbah 63:6",
+        "context": "Midrash \u2014 the twins fought in the womb, each running to kill the other",
+        "hebrew": "\u05d6\u05d4 \u05e8\u05e5 \u05dc\u05d4\u05e8\u05d5\u05d2 \u05d0\u05ea \u05d6\u05d4 \u05d5\u05d6\u05d4 \u05e8\u05e5 \u05dc\u05d4\u05e8\u05d5\u05d2 \u05d0\u05ea \u05d6\u05d4",
+        "english": "This one ran to kill that one, and that one ran to kill this one.",
+        "mood": "Primal, Violent, Cosmic"
+      },
+      {
+        "source": "Genesis Rabbah 65:15",
+        "context": "Midrash \u2014 Esau (hairy/sa'ir) connected to demons; Jacob (smooth/chalak) is God's portion",
+        "hebrew": "\u05e2\u05b5\u05e9\u05b8\u05c2\u05d5 \u05d0\u05b8\u05d7\u05b4\u05d9 \u05d0\u05b4\u05d9\u05e9\u05c1 \u05e9\u05b8\u05c2\u05e2\u05b4\u05d9\u05e8 \u2014 \u05d0\u05b4\u05d9\u05e9\u05c1 \u05e9\u05b5\u05c1\u05d3\u05b4\u05d9... \u05d5\u05b7\u05d0\u05b2\u05e0\u05b4\u05d9 \u05d0\u05b4\u05d9\u05e9\u05c1 \u05d7\u05b8\u05dc\u05b8\u05e7 \u2014 \u05db\u05b4\u05bc\u05d9 \u05d7\u05b5\u05dc\u05b6\u05e7 \u05d4\u05f3 \u05e2\u05b7\u05de\u05bc\u05d5\u05b9",
+        "english": "Esau my brother is a hairy man \u2014 a demon-like man. And I am a smooth man \u2014 for the Lord's portion is His people.",
+        "mood": "Mystical, Archetypal"
+      },
+      {
+        "source": "Genesis Rabbah 65:20",
+        "context": "Midrash \u2014 when Jacob's voice is in the synagogues, Esau's hands have no power",
+        "hebrew": "\u05d1\u05d6\u05de\u05df \u05e9\u05e7\u05d5\u05dc\u05d5 \u05e9\u05dc \u05d9\u05e2\u05e7\u05d1 \u05de\u05e6\u05d5\u05d9 \u05d1\u05d1\u05ea\u05d9 \u05db\u05e0\u05e1\u05d9\u05d5\u05ea \u05d0\u05d9\u05df \u05d4\u05d9\u05d3\u05d9\u05dd \u05d9\u05d3\u05d9 \u05e2\u05e9\u05d5",
+        "english": "When the voice of Jacob is found in the synagogues, the hands are not the hands of Esau.",
+        "mood": "Triumphant, Cosmic Principle"
+      }
+    ]
+  },
+  "player": {
+    "name": "Jacob",
+    "displayName": "Jacob",
+    "poseFileId": "jacob",
+    "characterType": "figure",
+    "attribute": "shepherd's staff and spotted flocks",
+    "attributeDescription": "shepherd's staff, surrounded by spotted and speckled sheep and goats representing his clever dealings with Laban",
+    "visualStyle": "cunning patriarch, the supplanter who became Israel",
+    "clothing": "wealthy patriarch's robes, layered fine fabrics, the dress of a successful man who earned it through wit",
+    "physicalDescription": "smooth-skinned man (contrast to hairy Esau), intelligent scheming eyes, neat beard, calculating expression, olive skin, always thinking three moves ahead",
+    "anatomyNote": "two arms only",
+    "archetype": "The Supplanter, wrestled God, outsmarted everyone on his path to greatness"
+  },
+  "figure": {
+    "name": "Esau",
+    "displayName": "Esau",
+    "poseFileId": "esau",
+    "characterType": "figure",
+    "attribute": "hunter's bow and wild game",
+    "attributeDescription": "powerful hunting bow, freshly caught wild game slung over shoulder, tools of the wild hunter",
+    "visualStyle": "wild hunter of the fields, firstborn who sold his birthright",
+    "clothing": "rough animal skins and furs, minimal clothing of a man who lives outdoors, leather straps and hunting gear",
+    "physicalDescription": "EXTREMELY HAIRY man covered in red hair all over body and arms (as described in Genesis), wild rugged appearance, powerful hunter's build, ruddy red complexion, fierce untamed eyes, lives by instinct",
+    "anatomyNote": "two arms only, may carry bow",
+    "archetype": "The Wild Man, lived for the moment, traded his future for today"
+  },
+  "connection": "The original sibling rivalry \u2014 stolen birthright, wrestling with destiny, reconciliation",
+  "interactions": [
+    {
+      "id": "face-off",
+      "description": "Jacob and Esau in an intense stare-down"
+    },
+    {
+      "id": "clash",
+      "description": "Jacob and Esau in mid-action collision"
+    },
+    {
+      "id": "judgment",
+      "description": "Jacob victorious, Esau acknowledging defeat"
+    }
+  ],
+  "defaultInteraction": "face-off",
+  "cardVariants": [
+    "thunder-lightning-rivalry",
+    "beam-team-rivalry",
+    "metal-universe-rivalry"
+  ],
+  "priority": 99,
+  "status": "active"
+}

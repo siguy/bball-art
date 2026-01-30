@@ -1,0 +1,59 @@
+{
+  "id": "sarah",
+  "name": "Sarah",
+  "displayName": "Sarah",
+  "defaultPose": "laughing-promise",
+  "physicalDescription": "Beautiful elderly woman with kind eyes and silver-white hair, weathered face showing both joy and hardship, dignified bearing of a matriarch",
+  "clothing": "Fine linen robes in cream and soft blue, modest head covering, simple gold jewelry befitting a wealthy nomad's wife",
+  "visualStyle": "ancient Near Eastern matriarch",
+  "poses": {
+    "laughing-promise": {
+      "id": "laughing-promise",
+      "name": "Laughing at the Promise",
+      "description": "Sarah laughing when told she would bear a child at 90",
+      "prompt": "Sarah standing with one hand covering her mouth in surprised laughter, eyes crinkled with disbelief and dawning hope, caught between doubt and wonder at the impossible promise",
+      "energy": "Disbelief, hope, the humor of God's timing",
+      "quoteId": "laughed-within"
+    },
+    "tent-hospitality": {
+      "id": "tent-hospitality",
+      "name": "Hospitality at the Tent",
+      "description": "Sarah preparing food for the three visitors",
+      "prompt": "Sarah in the tent doorway, directing the preparation of a feast, composed and efficient, the gracious hostess of a patriarch's household",
+      "energy": "Hospitality, dignity, quiet authority",
+      "quoteId": "three-visitors"
+    },
+    "holding-isaac": {
+      "id": "holding-isaac",
+      "name": "Holding Isaac",
+      "description": "Sarah cradling baby Isaac, the child of promise",
+      "prompt": "Sarah cradling infant Isaac in her arms, tears of joy streaming down her aged face, the miracle child she waited 90 years for finally in her embrace",
+      "energy": "Joy, fulfillment, maternal love, miracle realized",
+      "quoteId": "god-made-me-laugh"
+    },
+    "standing-with-abraham": {
+      "id": "standing-with-abraham",
+      "name": "Standing with Abraham",
+      "description": "Sarah standing beside Abraham as partners",
+      "prompt": "Sarah standing tall beside Abraham, her hand in his, equal partners in faith, looking toward an unseen future with determination",
+      "energy": "Partnership, shared faith, unity",
+      "quoteId": "father-of-nations"
+    },
+    "matriarch-blessing": {
+      "id": "matriarch-blessing",
+      "name": "Matriarch's Blessing",
+      "description": "Sarah in her role as matriarch, blessing her household",
+      "prompt": "Sarah with hands raised in blessing, silver hair gleaming, the dignified matriarch whose descendants would be as numerous as the stars",
+      "energy": "Blessing, legacy, maternal authority",
+      "quoteId": "mother-of-nations"
+    },
+    "protecting-isaac": {
+      "id": "protecting-isaac",
+      "name": "Protecting Isaac",
+      "description": "Sarah's fierce protection of her son's inheritance",
+      "prompt": "Sarah with protective stance, one arm around young Isaac, fierce maternal determination in her eyes, defending his birthright",
+      "energy": "Fierce protection, maternal strength, righteous anger",
+      "quoteId": "cast-out-slave"
+    }
+  }
+}

@@ -177,5 +177,79 @@
     "hero": "thunder-lightning",
     "villain": "thunder-lightning-dark",
     "rivalry": "thunder-lightning-rivalry"
+  },
+  "seriesSpecific": {
+    "torah-titans": {
+      "spouse-blessing": {
+        "id": "spouse-blessing",
+        "name": "Spouse Blessing",
+        "description": "Partnership cards for biblical spouses. Warm golden aesthetic emphasizing unity and blessing.",
+        "era": "Biblical",
+        "style": "Warm partnership",
+        "hasDarkMode": false,
+        "colors": {
+          "default": {
+            "primary": "golden amber",
+            "secondary": "rose pink",
+            "accent": "divine light"
+          }
+        },
+        "bestFor": ["spouse pairings", "partnerships", "matriarchs and patriarchs"],
+        "cardModes": ["figure-figure"]
+      },
+      "trial-card": {
+        "id": "trial-card",
+        "name": "Trial Card",
+        "description": "Solo cards showing a character facing a test or challenge. Dramatic tension between light and darkness.",
+        "era": "Biblical",
+        "style": "Dramatic tension",
+        "hasDarkMode": false,
+        "colors": {
+          "default": {
+            "primary": "dark bronze",
+            "secondary": "ember orange",
+            "accent": "divine gold breakthrough"
+          }
+        },
+        "bestFor": ["Abraham's trials", "tests of faith", "pivotal moments"],
+        "cardModes": ["solo-figure"]
+      },
+      "plague-card": {
+        "id": "plague-card",
+        "name": "Plague Card",
+        "description": "Rivalry cards for Moses vs Pharaoh featuring the 10 plagues. Each plague has unique visual theming.",
+        "era": "Biblical",
+        "style": "Epic rivalry",
+        "hasDarkMode": false,
+        "colors": {
+          "default": {
+            "primary": "plague-specific",
+            "secondary": "divine vs Egyptian",
+            "accent": "devastation"
+          }
+        },
+        "bestFor": ["10 plagues of Egypt", "Moses vs Pharaoh"],
+        "cardModes": ["figure-figure"],
+        "plagueOptions": ["blood", "frogs", "lice", "wild-beasts", "pestilence", "boils", "hail", "locusts", "darkness", "firstborn"]
+      },
+      "three-way": {
+        "id": "three-way",
+        "name": "Three-Way",
+        "description": "Multi-character cards for love triangles and complex dynamics. Three figures in dynamic composition.",
+        "era": "Biblical",
+        "style": "Complex dynamics",
+        "hasDarkMode": false,
+        "colors": {
+          "default": {
+            "primary": "warm bronze",
+            "secondary": "sunset gold",
+            "accent": "romantic twilight"
+          }
+        },
+        "bestFor": ["love triangles", "sibling dynamics", "three-way conflicts"],
+        "cardModes": ["multi-figure"],
+        "minCharacters": 3
+      }
+    }
   }
 }

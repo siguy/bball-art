@@ -1,0 +1,104 @@
+{
+  "id": "torah-titans",
+  "name": "Torah Titans",
+  "tagline": "Heroes and villains of the ancient world",
+  "description": "Biblical figures paired together - rivalries, spouses, trials, and more",
+  "theme": "biblical",
+  "cardModes": ["figure-figure", "solo-figure", "multi-figure"],
+  "logoStyle": "ancient-gold",
+  "defaultLogoPosition": "top-center",
+  "cardRatio": "2.5x3.5",
+
+  "cardTypes": {
+    "rivalry": {
+      "name": "Rivalry",
+      "description": "Hero vs villain confrontation",
+      "characterCount": 2,
+      "templates": ["thunder-lightning", "thunder-lightning-dark", "beam-team", "beam-team-shadow", "metal-universe", "metal-universe-dark", "downtown", "kaboom", "prizm-silver"]
+    },
+    "spouse": {
+      "name": "Spouse",
+      "description": "Husband & wife partnership",
+      "characterCount": 2,
+      "templates": ["spouse-blessing", "beam-team", "prizm-silver"]
+    },
+    "trial": {
+      "name": "Trial",
+      "description": "Character facing a test/challenge",
+      "characterCount": 1,
+      "templates": ["trial-card", "thunder-lightning", "metal-universe"]
+    },
+    "multi": {
+      "name": "Multi-Character",
+      "description": "3+ characters (love triangles, etc.)",
+      "characterCount": 3,
+      "templates": ["three-way"]
+    },
+    "plague": {
+      "name": "Plague",
+      "description": "Moses vs Pharaoh + specific plague",
+      "characterCount": 2,
+      "templates": ["plague-card", "thunder-lightning-dark", "metal-universe-dark"]
+    }
+  },
+
+  "subSeries": {
+    "spouses": {
+      "name": "Biblical Spouses",
+      "description": "Partnership cards featuring husbands and wives",
+      "cardType": "spouse"
+    },
+    "abrahams-trials": {
+      "name": "Abraham's 10 Trials",
+      "description": "The tests that forged a patriarch",
+      "cardType": "trial"
+    },
+    "plagues": {
+      "name": "The 10 Plagues",
+      "description": "Moses vs Pharaoh through each plague",
+      "cardType": "plague"
+    },
+    "triangles": {
+      "name": "Love Triangles",
+      "description": "Multi-character relationship cards",
+      "cardType": "multi"
+    }
+  },
+
+  "availableTemplates": [
+    "thunder-lightning",
+    "thunder-lightning-dark",
+    "beam-team",
+    "beam-team-shadow",
+    "metal-universe",
+    "metal-universe-dark",
+    "downtown",
+    "kaboom",
+    "prizm-silver",
+    "spouse-blessing",
+    "trial-card",
+    "plague-card",
+    "three-way"
+  ],
+
+  "seriesSpecificTemplates": [
+    "spouse-blessing",
+    "trial-card",
+    "plague-card",
+    "three-way"
+  ],
+
+  "priorityPairings": [
+    "david-goliath",
+    "moses-pharaoh",
+    "jacob-esau",
+    "abraham-sarah",
+    "samson-delilah"
+  ],
+
+  "socialPlatforms": ["instagram"],
+  "tone": {
+    "style": "epic-reverent",
+    "doNot": ["preachy", "flippant", "oversimplify"]
+  }
+}

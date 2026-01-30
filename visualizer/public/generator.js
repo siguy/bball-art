@@ -16,6 +16,7 @@ let currentFigurePoses = null;
 let lastGeneratedCard = null;
 let isGenerating = false;
 let currentHints = null;
+let currentSeries = 'court-covenant'; // Will be set from SeriesSelector
 
 // Solo mode state
 let players = [];
@@ -55,6 +56,12 @@ const characterInfo = document.getElementById('character-info');
 
 // Initialize
 async function init() {
+  // Initialize series selector
+  if (window.SeriesSelector) {
+    window.SeriesSelector.initSeriesSelector();
+    currentSeries = window.SeriesSelector.getSelectedSeries();
+  }
+
   await Promise.all([
     fetchPairings(),
     fetchPairingsFull(),
@@ -102,7 +109,7 @@ function handleUrlParams() {
 // API Calls
 async function fetchPairings() {
   try {
-    const res = await fetch(`${API_BASE}/api/pairings`);
+    const res = await fetch(`${API_BASE}/api/pairings?series=${currentSeries}`);
     pairings = await res.json();
   } catch (err) {
     console.error('Failed to fetch pairings:', err);
@@ -111,7 +118,7 @@ async function fetchPairings() {
 
 async function fetchPairingsFull() {
   try {
-    const res = await fetch(`${API_BASE}/api/pairings-full`);
+    const res = await fetch(`${API_BASE}/api/pairings-full?series=${currentSeries}`);
     pairingsFull = await res.json();
   } catch (err) {
     console.error('Failed to fetch full pairings:', err);

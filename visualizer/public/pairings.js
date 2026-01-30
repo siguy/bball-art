@@ -8,6 +8,7 @@ const API_BASE = '';
 let pairingsData = {};
 let manifest = { cards: [] };
 let currentPairingId = null;
+let currentSeries = 'court-covenant';
 
 // Creator state
 let creatorOpen = false;
@@ -25,6 +26,12 @@ const STANDARD_INTERACTIONS = [
 
 // Initialize
 async function init() {
+  // Initialize series selector
+  if (typeof initSeriesSelector === 'function') {
+    initSeriesSelector();
+  }
+  currentSeries = typeof getSelectedSeries === 'function' ? getSelectedSeries() : 'court-covenant';
+
   await Promise.all([
     fetchPairingsData(),
     fetchManifest()
@@ -37,7 +44,7 @@ async function init() {
 // Fetch full pairing data
 async function fetchPairingsData() {
   try {
-    const res = await fetch(`${API_BASE}/api/pairings-full`);
+    const res = await fetch(`${API_BASE}/api/pairings-full?series=${currentSeries}`);
     pairingsData = await res.json();
   } catch (err) {
     console.error('Failed to fetch pairings:', err);
@@ -47,7 +54,12 @@ async function fetchPairingsData() {
 async function fetchManifest() {
   try {
     const res = await fetch(`${API_BASE}/api/manifest`);
-    manifest = await res.json();
+    const data = await res.json();
+    // Filter cards by current series
+    manifest = {
+      ...data,
+      cards: data.cards.filter(card => card.series === currentSeries)
+    };
   } catch (err) {
     console.error('Failed to fetch manifest:', err);
   }

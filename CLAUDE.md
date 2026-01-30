@@ -4,8 +4,10 @@
 
 A **contemporary art project** creating collectible basketball cards that pair NBA legends with biblical/Jewish historical figures. Think "Thunder & Lightning" meets Torah.
 
-**Series 1**: Court & Covenant (Basketball + Biblical figures)
-**Future**: Founding Fathers series for America's 250th (July 4, 2026)
+**Series:**
+- **Court & Covenant** (Active) - NBA players + Biblical figures
+- **Torah Titans** (Active) - Biblical figure-vs-figure cards (rivalries, spouses, plagues)
+- **Future**: Founding Fathers for America's 250th (July 4, 2026)
 
 ## Project Status
 
@@ -30,6 +32,7 @@ A **contemporary art project** creating collectible basketball cards that pair N
 - [x] **Solo Character Mode** (generate single-character cards)
 - [x] **Feedback Export & Analysis** (download feedback, view stats, generation hints)
 - [x] **Sefaria Enrichment System** (midrash-powered rivalryScenes, scriptureReferences)
+- [x] **Multi-Series Support** (Court & Covenant + Torah Titans with series selector)
 
 ### In Progress
 - [ ] **Pairing Creation Assistant** (AI-powered pairing suggestions)
@@ -59,11 +62,111 @@ A **contemporary art project** creating collectible basketball cards that pair N
 | Website stack | Next.js + Tailwind + Vercel |
 | Game engine | Phaser.js |
 
+## Multi-Series Support
+
+The project supports multiple card series with shared infrastructure.
+
+### Available Series
+
+| Series | ID | Description | Card Modes |
+|--------|-----|-------------|------------|
+| Court & Covenant | `court-covenant` | NBA players + Biblical figures | player-figure, solo |
+| Torah Titans | `torah-titans` | Biblical figure-vs-figure | figure-figure, solo-figure, multi-figure |
+| Scripture Titans | `scripture-titans` | (Future) Christian variant | - |
+| Founding Fathers | `founding-fathers` | (Future) America's 250th | - |
+
+### Series Selection
+
+The visualizer includes a **global series selector** in the header. Selected series is stored in localStorage and persists across sessions. All pages filter data by the selected series.
+
+### File Naming Convention
+
+**New format:**
+```
+{series}_{pairing}_{template}_{pose1}_{pose2}_{timestamp}.jpeg
+```
+
+**Example:**
+```
+cc_jordan-moses_tl_tongue-dunk_part-sea_20260127T023406.jpeg
+```
+
+**Abbreviations:**
+
+| Series | Abbrev | | Template | Abbrev |
+|--------|--------|-|----------|--------|
+| court-covenant | cc | | thunder-lightning | tl |
+| torah-titans | tt | | thunder-lightning-dark | tld |
+| scripture-titans | st | | beam-team | bt |
+| founding-fathers | ff | | beam-team-shadow | bts |
+| | | | metal-universe | mu |
+| | | | downtown | dt |
+| | | | kaboom | kb |
+| | | | prizm-silver | ps |
+| | | | spouse-blessing | sb |
+| | | | trial-card | tc |
+| | | | plague-card | pc |
+| | | | three-way | tw |
+
+### Torah Titans Card Types
+
+| Type | Description | Example |
+|------|-------------|---------|
+| `rivalry` | Hero vs Villain confrontation | David vs Goliath |
+| `spouse` | Husband & wife partnership | Abraham & Sarah |
+| `trial` | Character facing a test | Abraham's 10 Trials |
+| `multi` | 3+ characters | Jacob-Rachel-Leah |
+| `plague` | Moses vs Pharaoh + plague | Blood, Frogs, etc. |
+
+### Torah Titans Templates
+
+| Template | Description | Best For |
+|----------|-------------|----------|
+| `spouse-blessing` | Warm golden partnership aesthetic | Spouse pairings |
+| `trial-card` | Dramatic light/darkness tension | Abraham's trials |
+| `plague-card` | Epic rivalry with plague imagery | 10 Plagues of Egypt |
+| `three-way` | Multi-character composition | Love triangles |
+
+### Generating for Different Series
+
+```bash
+# Court & Covenant (default)
+node scripts/generate-card.js jordan-moses thunder-lightning
+
+# Explicit series flag
+node scripts/generate-card.js jordan-moses thunder-lightning --series court-covenant
+
+# Torah Titans
+node scripts/generate-card.js david-goliath plague-card --series torah-titans
+
+# Auto-detection (finds pairing in any series)
+node scripts/generate-card.js abraham-sarah spouse-blessing
+```
+
+### API Endpoints with Series
+
+All visualizer API endpoints support `?series=` parameter:
+- `GET /api/pairings?series=torah-titans`
+- `GET /api/pairings-full?series=court-covenant`
+- `GET /api/series` - List all available series
+- `GET /api/series/:seriesId` - Get specific series config
+
 ## Directory Structure
 
 ```
 data/
-├── series/{series-name}/pairings/  # Player-figure pairings (+ NEW-PAIRINGS.md guide)
+├── series/                         # Multi-series support
+│   ├── court-covenant/             # NBA + Biblical pairings
+│   │   ├── series-config.json
+│   │   └── pairings/*.json
+│   └── torah-titans/               # Bible-only (Jewish focus)
+│       ├── series-config.json
+│       ├── pairings/*.json
+│       └── sub-series/             # Themed groupings
+│           ├── spouses/
+│           ├── abrahams-trials/
+│           ├── plagues/
+│           └── triangles/
 ├── poses/
 │   ├── players/                    # Character-specific player poses
 │   └── figures/                    # Character-specific figure poses
@@ -84,22 +187,36 @@ docs/
 └── sefaria-enrichment.md           # Midrash-enriched cards workflow
 
 prompts/
-├── components/    # Modular pieces (backgrounds, poses, finishes)
-├── templates/     # Full card templates (hero + villain variants)
-└── generated/     # Ready-to-use prompts
+├── components/        # Modular pieces (backgrounds, poses, finishes)
+├── templates/         # Full card templates (hero + villain variants)
+│   └── torah-titans/  # Series-specific templates
+└── generated/         # Ready-to-use prompts
 
 output/
-├── cards/                           # Generated images
-│   ├── {pairing-id}/                # Pairing cards (e.g., jordan-moses/)
-│   ├── solo-player-{id}/            # Solo player cards (e.g., solo-player-jordan/)
-│   └── solo-figure-{id}/            # Solo figure cards (e.g., solo-figure-moses/)
+├── cards/                           # Generated images (organized by series)
+│   ├── court-covenant/              # NBA + Biblical cards
+│   │   ├── {pairing-id}/
+│   │   └── solo-player-{id}/
+│   └── torah-titans/                # Bible-only cards
+│       ├── {pairing-id}/
+│       └── solo-figure-{id}/
 ├── motion/                          # Video files
 ├── test-runs/                       # Style testing & generation log
 └── social/                          # Platform-ready assets
 
+scripts/
+├── lib/
+│   └── filename-builder.js          # New file naming convention
+├── generate-card.js                 # Supports --series flag
+├── generate-with-poses.js           # Supports --series flag
+├── generate-solo.js                 # Supports --series flag
+└── migrate-to-series.js             # Migration utility
+
 visualizer/        # Card review & feedback system
-├── server.js      # Express API server
-├── public/        # Frontend (HTML/CSS/JS)
+├── server.js      # Express API server with series support
+├── public/
+│   ├── series-selector.js          # Global series selector component
+│   └── ...                          # Frontend (HTML/CSS/JS)
 └── data/          # Manifest & feedback JSON
 ```
 
@@ -549,8 +666,11 @@ AI-powered tool for creating new pairings, located on the Pairings page.
 # Start the card visualizer
 cd visualizer && npm start
 
-# Generate a card (basic)
+# Generate a card (basic - auto-detects series from pairing location)
 node scripts/generate-card.js jordan-moses thunder-lightning
+
+# Generate with explicit series
+node scripts/generate-card.js jordan-moses thunder-lightning --series court-covenant
 
 # Generate with specific interaction
 node scripts/generate-card.js curry-elijah thunder-lightning --interaction fire-rain
@@ -570,6 +690,14 @@ node scripts/generate-with-poses.js shaq-goliath beam-team-shadow \
 node scripts/generate-with-poses.js rodman-esau thunder-lightning-dark \
   --player-pose diving-loose-ball --figure-pose drawing-bow --hair green
 
+# --- TORAH TITANS (FIGURE-FIGURE) ---
+
+# Generate a spouse pairing card
+node scripts/generate-card.js abraham-sarah spouse-blessing --series torah-titans
+
+# Generate a plague card
+node scripts/generate-card.js moses-pharaoh plague-card --series torah-titans
+
 # --- SOLO MODE COMMANDS ---
 
 # Generate solo player card
@@ -577,6 +705,9 @@ node scripts/generate-solo.js player jordan thunder-lightning --pose tongue-out-
 
 # Generate solo figure card
 node scripts/generate-solo.js figure moses beam-team --pose parting-sea
+
+# Generate solo figure for Torah Titans
+node scripts/generate-solo.js figure abraham trial-card --pose binding-isaac --series torah-titans
 
 # Solo card with hair color (Rodman)
 node scripts/generate-solo.js player rodman metal-universe-dark --pose diving-loose-ball --hair green

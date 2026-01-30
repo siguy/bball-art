@@ -11,6 +11,7 @@ let feedback = {};
 let pairingData = {};
 let selects = { cards: [] };
 let selectedSortable = null;
+let currentSeries = 'court-covenant';
 
 // DOM Elements
 const selectedCardsGrid = document.getElementById('selected-cards');
@@ -21,6 +22,12 @@ const statsEl = document.getElementById('stats');
 
 // Initialize
 async function init() {
+  // Initialize series selector
+  if (typeof initSeriesSelector === 'function') {
+    initSeriesSelector();
+  }
+  currentSeries = typeof getSelectedSeries === 'function' ? getSelectedSeries() : 'court-covenant';
+
   await Promise.all([
     fetchManifest(),
     fetchFeedback(),
@@ -38,7 +45,12 @@ async function init() {
 async function fetchManifest() {
   try {
     const res = await fetch(`${API_BASE}/api/manifest`);
-    manifest = await res.json();
+    const data = await res.json();
+    // Filter cards by current series
+    manifest = {
+      ...data,
+      cards: data.cards.filter(card => card.series === currentSeries)
+    };
   } catch (err) {
     console.error('Failed to fetch manifest:', err);
   }
@@ -55,7 +67,7 @@ async function fetchFeedback() {
 
 async function fetchPairings() {
   try {
-    const res = await fetch(`${API_BASE}/api/pairings`);
+    const res = await fetch(`${API_BASE}/api/pairings?series=${currentSeries}`);
     pairingData = await res.json();
   } catch (err) {
     console.error('Failed to fetch pairings:', err);
