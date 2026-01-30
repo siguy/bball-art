@@ -81,6 +81,28 @@ The project supports multiple card series with shared infrastructure.
 
 The visualizer includes a **global series selector** in the header. Selected series is stored in localStorage and persists across sessions. All pages filter data by the selected series.
 
+### Series Auto-Discovery
+
+The visualizer server **automatically discovers** available series from the `data/series/` directory on startup. A directory is recognized as a series if it contains either:
+- A `pairings/` subdirectory, OR
+- A `series-config.json` file
+
+This means **new series can be added without code changes** - just create the directory structure.
+
+### Adding a New Series
+
+1. Create directory: `data/series/{series-id}/`
+2. Add `series-config.json` with series metadata
+3. Add `pairings/` subdirectory with pairing JSON files
+4. Optionally add `sub-series/` for themed groupings
+5. Add series abbreviation to `SERIES_ABBREV_REVERSE` in `visualizer/server.js` (for filename parsing)
+6. Restart the visualizer - the new series will be auto-discovered
+
+**Required fields for pairings** (see `data/schemas/pairing.schema.json`):
+- `id`, `series`, `type`, `cardMode`
+- `player` and `figure` objects with `name`, `poseFileId`, `characterType`
+- For biblical figures: `era: "Biblical"` for correct badge display
+
 ### File Naming Convention
 
 **New format:**
@@ -805,6 +827,11 @@ Schemas enforce:
 - Valid enums (`cardMode`, `characterType`)
 - Pattern matching (kebab-case IDs)
 - Reference integrity (warns about missing pose files)
+
+**Important for Torah Titans / figure-figure pairings:**
+- Both `player` and `figure` must have `characterType: "figure"`
+- Both must have `era: "Biblical"` for the era badge to display correctly
+- Both must have `poseFileId` pointing to a file in `data/poses/figures/`
 
 ## Common Tasks
 

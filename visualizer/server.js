@@ -75,6 +75,30 @@ const SERIES_ABBREV_REVERSE = {
 };
 
 /**
+ * Auto-discover available series from the data/series/ directory
+ * This allows new series to be added without code changes
+ * @returns {string[]} Array of series IDs (e.g., ['court-covenant', 'torah-titans'])
+ */
+function getAvailableSeries() {
+  const seriesDir = join(ROOT, 'data/series');
+  if (!existsSync(seriesDir)) return [];
+
+  return readdirSync(seriesDir).filter(f => {
+    const seriesPath = join(seriesDir, f);
+    const stat = statSync(seriesPath);
+    // Must be a directory with a pairings subdirectory or series-config.json
+    return stat.isDirectory() && (
+      existsSync(join(seriesPath, 'pairings')) ||
+      existsSync(join(seriesPath, 'series-config.json'))
+    );
+  });
+}
+
+// Cache the series list (refreshed on server restart)
+const AVAILABLE_SERIES = getAvailableSeries();
+console.log(`Discovered series: ${AVAILABLE_SERIES.join(', ')}`);
+
+/**
  * Parse a card filename (supports both old and new formats)
  * @param {string} file - Filename to parse
  * @returns {Object|null} Parsed data or null if not recognized
@@ -228,8 +252,8 @@ function buildManifest() {
     return { cards: [], series: [], pairings: [], templates: [], soloCharacters: [], generated: new Date().toISOString() };
   }
 
-  // Get all series directories
-  const seriesIds = ['court-covenant', 'torah-titans'];
+  // Get all series directories (auto-discovered)
+  const seriesIds = AVAILABLE_SERIES;
   const foundSeries = [];
   const scannedPairingIds = new Set(); // Track pairings already scanned from series dirs
 
@@ -459,7 +483,7 @@ function loadSeriesPairings(seriesId) {
  */
 function loadAllPairings() {
   const pairings = {};
-  const seriesIds = ['court-covenant', 'torah-titans'];
+  const seriesIds = AVAILABLE_SERIES;
 
   for (const seriesId of seriesIds) {
     const seriesPairings = loadSeriesPairings(seriesId);
@@ -637,7 +661,7 @@ app.get('/api/series/:seriesId', (req, res) => {
 // Get pairing data (summary) - supports ?series=court-covenant filter
 app.get('/api/pairings', (req, res) => {
   const { series: seriesFilter } = req.query;
-  const seriesIds = seriesFilter ? [seriesFilter] : ['court-covenant', 'torah-titans'];
+  const seriesIds = seriesFilter ? [seriesFilter] : AVAILABLE_SERIES;
   const pairings = {};
 
   for (const seriesId of seriesIds) {
@@ -669,7 +693,7 @@ app.get('/api/pairings', (req, res) => {
 // Get full pairing data (all details) - supports ?series= filter
 app.get('/api/pairings-full', (req, res) => {
   const { series: seriesFilter } = req.query;
-  const seriesIds = seriesFilter ? [seriesFilter] : ['court-covenant', 'torah-titans'];
+  const seriesIds = seriesFilter ? [seriesFilter] : AVAILABLE_SERIES;
   const pairings = {};
 
   for (const seriesId of seriesIds) {
@@ -823,7 +847,6 @@ app.post('/api/export-loved', (req, res) => {
   try {
     const feedbackData = loadFeedback();
     const manifest = buildManifest();
-    const pairingsDir = join(ROOT, 'data/series/court-covenant/pairings');
 
     // Get all cards with "loved" rating
     const lovedCardIds = Object.entries(feedbackData)
@@ -848,11 +871,11 @@ app.post('/api/export-loved', (req, res) => {
       const card = manifest.cards.find(c => c.id === cardId);
       if (!card) continue;
 
-      // Load pairing data if not already loaded
+      // Load pairing data if not already loaded (using card's series hint)
       if (!pairingsData[card.pairingId]) {
-        const pairingPath = join(pairingsDir, `${card.pairingId}.json`);
-        if (existsSync(pairingPath)) {
-          pairingsData[card.pairingId] = JSON.parse(readFileSync(pairingPath, 'utf-8'));
+        const pairing = loadPairingById(card.pairingId, card.series);
+        if (pairing) {
+          pairingsData[card.pairingId] = pairing;
         }
       }
 
@@ -1698,6 +1721,54 @@ app.post('/api/generate-from-prompt', async (req, res) => {
 const PAIRINGS_DIR = join(ROOT, 'data/series/court-covenant/pairings');
 
 /**
+ * Find a pairing file path across all series
+ * @param {string} pairingId - The pairing ID to find
+ * @param {string} seriesHint - Optional series hint from the card
+ * @returns {string|null} The full path to the pairing file, or null if not found
+ */
+function findPairingPath(pairingId, seriesHint = null) {
+  const seriesIds = seriesHint ? [seriesHint] : AVAILABLE_SERIES;
+
+  for (const seriesId of seriesIds) {
+    // Check main pairings directory
+    const mainPath = join(ROOT, `data/series/${seriesId}/pairings/${pairingId}.json`);
+    if (existsSync(mainPath)) return mainPath;
+
+    // Check sub-series directories
+    const subSeriesDir = join(ROOT, `data/series/${seriesId}/sub-series`);
+    if (existsSync(subSeriesDir)) {
+      const subDirs = readdirSync(subSeriesDir).filter(f => {
+        const stat = statSync(join(subSeriesDir, f));
+        return stat.isDirectory();
+      });
+      for (const subDir of subDirs) {
+        const subPath = join(subSeriesDir, subDir, `${pairingId}.json`);
+        if (existsSync(subPath)) return subPath;
+      }
+    }
+  }
+
+  // If series hint was provided but not found, search all series
+  if (seriesHint) {
+    return findPairingPath(pairingId, null);
+  }
+
+  return null;
+}
+
+/**
+ * Load a pairing by ID from any series
+ * @param {string} pairingId - The pairing ID
+ * @param {string} seriesHint - Optional series hint
+ * @returns {Object|null} The pairing data, or null if not found
+ */
+function loadPairingById(pairingId, seriesHint = null) {
+  const pairingPath = findPairingPath(pairingId, seriesHint);
+  if (!pairingPath) return null;
+  return JSON.parse(readFileSync(pairingPath, 'utf-8'));
+}
+
+/**
  * Get all unique players with their metadata
  * Extracts players from pairings, deduplicating by poseFileId
  */
@@ -1979,13 +2050,11 @@ app.get('/api/cards/:cardId/context', (req, res) => {
       return res.json(getSoloCardContext(card));
     }
 
-    // Load pairing data
-    const pairingPath = join(PAIRINGS_DIR, `${card.pairingId}.json`);
-    if (!existsSync(pairingPath)) {
+    // Load pairing data using series hint from card
+    const pairing = loadPairingById(card.pairingId, card.series);
+    if (!pairing) {
       return res.status(404).json({ error: 'Pairing not found' });
     }
-
-    const pairing = JSON.parse(readFileSync(pairingPath, 'utf-8'));
 
     // Determine which directory to use for each character based on characterType
     // For regular pairings: player from players, figure from figures
@@ -2170,14 +2239,11 @@ function getSoloCardContext(card) {
   if (existsSync(charPath)) {
     character = JSON.parse(readFileSync(charPath, 'utf-8'));
   } else {
-    // Try to find in pairings
-    const pairingFiles = existsSync(PAIRINGS_DIR)
-      ? readdirSync(PAIRINGS_DIR).filter(f => f.endsWith('.json'))
-      : [];
+    // Try to find in pairings across all series
+    const allPairings = loadAllPairings();
+    const charKey = isPlayer ? 'player' : 'figure';
 
-    for (const file of pairingFiles) {
-      const pairing = JSON.parse(readFileSync(join(PAIRINGS_DIR, file), 'utf-8'));
-      const charKey = isPlayer ? 'player' : 'figure';
+    for (const pairing of Object.values(allPairings)) {
       if (pairing[charKey]?.poseFileId === card.characterId) {
         character = pairing[charKey];
         break;
@@ -2694,17 +2760,14 @@ app.get('/api/characters/:type/:id', (req, res) => {
     if (existsSync(standaloneCharPath)) {
       character = JSON.parse(readFileSync(standaloneCharPath, 'utf-8'));
     } else {
-      // Try to find in pairings
-      const pairingsDir = join(ROOT, 'data/series/court-covenant/pairings');
-      if (existsSync(pairingsDir)) {
-        const pairingFiles = readdirSync(pairingsDir).filter(f => f.endsWith('.json'));
-        for (const file of pairingFiles) {
-          const pairing = JSON.parse(readFileSync(join(pairingsDir, file), 'utf-8'));
-          const charKey = type === 'player' ? 'player' : 'figure';
-          if (pairing[charKey]?.poseFileId === id || pairing[charKey]?.id === id) {
-            character = pairing[charKey];
-            break;
-          }
+      // Try to find in pairings across all series
+      const allPairings = loadAllPairings();
+      const charKey = type === 'player' ? 'player' : 'figure';
+
+      for (const pairing of Object.values(allPairings)) {
+        if (pairing[charKey]?.poseFileId === id || pairing[charKey]?.id === id) {
+          character = pairing[charKey];
+          break;
         }
       }
     }
@@ -3177,24 +3240,17 @@ function formatCharacterNameForExport(characterId) {
 
 // Load pairing data for selects export
 function loadPairingDataForExport() {
-  const pairingsDir = join(ROOT, 'data/series/court-covenant/pairings');
+  const allPairings = loadAllPairings();
   const pairings = {};
 
-  if (existsSync(pairingsDir)) {
-    const files = readdirSync(pairingsDir).filter(f => f.endsWith('.json'));
-    for (const file of files) {
-      try {
-        const data = JSON.parse(readFileSync(join(pairingsDir, file), 'utf-8'));
-        pairings[data.id] = {
-          playerName: data.player?.name || data.player,
-          figureName: data.figure?.name || data.figure,
-          connection: data.connection?.narrative || data.connection,
-          type: data.type || 'hero'
-        };
-      } catch (e) {
-        // Skip invalid files
-      }
-    }
+  for (const [id, data] of Object.entries(allPairings)) {
+    pairings[id] = {
+      playerName: data.player?.name || data.player,
+      figureName: data.figure?.name || data.figure,
+      connection: data.connection?.narrative || data.connection,
+      type: data.type || 'hero',
+      series: data.series
+    };
   }
 
   return pairings;
