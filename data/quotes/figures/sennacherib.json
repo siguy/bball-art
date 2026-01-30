@@ -1,0 +1,45 @@
+{
+  "id": "sennacherib",
+  "name": "Sennacherib",
+  "aliases": [
+    "Sin-ahhe-eriba",
+    "Sanherib"
+  ],
+  "quotes": {
+    "who-are-they-among-all-the-gods": {
+      "source": "2 Kings 18:35",
+      "context": "Sennacherib's messengers boast to the people of Jerusalem, questioning which gods have saved their nations.",
+      "hebrew": "מִֽי־בְכׇל־אֱלֹהֵי הָאֲרָצֹות אֲשֶׁר־הִצִּילוּ אֶת־אַרְצָם מִיָּדִי כִּי־יַצִּיל יְהֹוָה אֶת־יְרוּשָׁלִַם מִיָּדִי",
+      "english": "Who are they among all the gods of the lands that have delivered their land out of my hand, that the Lord should deliver Jerusalem out of my hand?",
+      "mood": "arrogant defiance, blasphemous taunt"
+    },
+    "hezekiah-deceives-you": {
+      "source": "2 Kings 18:29-30",
+      "context": "The Rabshakeh warns the people not to trust Hezekiah's promises of deliverance.",
+      "hebrew": "אַל־יַשִּׁא לָכֶם חִזְקִיָּהוּ כִּי־לֹא יוּכַל לְהַצִּיל אֶתְכֶם מִיָּדִי׃ וְאַל־יַבְטַח אֶתְכֶם חִזְקִיָּהוּ אֶל־יְהֹוָה לֵאמֹר הַצֵּל יַצִּילֵנוּ יְהֹוָה וְלֹא תִנָּתֵן הָעִיר הַזֹּאת בְּיַד־מֶלֶךְ אַשּׁוּר",
+      "english": "Thus says the king: ‘Do not let Hezekiah deceive you, for he will not be able to deliver you out of my hand. Nor let Hezekiah make you trust in the Lord, saying, “The Lord will surely deliver us; this city will not be given into the hand of the king of Assyria.”’",
+      "mood": "deceptive persuasion, threatening warning"
+    },
+    "where-are-the-gods-of-hamath-and-arphad": {
+      "source": "Isaiah 36:19",
+      "context": "The Rabshakeh challenges the Judeans to show which gods were able to save their people. ",
+      "hebrew": "אַיֵּה אֱלֹהֵי חֲמָת וְאַרְפָּד אִיֵּה אֱלֹהֵי סְפַרְוַיִם הַהֵנַע וְעִוָּה כִּי־הִצִּילוּ אֶת־שֹׁמְרֹון מִיָּדִי",
+      "english": "Where are the gods of Hamath and Arpad? Where are the gods of Sepharvaim? Indeed, have they delivered Samaria from my hand?",
+      "mood": "contemptuous dismissal, arrogant challenge"
+    },
+    "i-will-return-by-the-way-i-came": {
+      "source": "2 Kings 19:33",
+      "context": "Isaiah prophesies Sennacherib's retreat without conquering Jerusalem.",
+      "hebrew": "בַּדֶּרֶךְ אֲשֶׁר־בָּא בָהּ יָשׁוּב וְאֶל־הָעִיר הַזֹּאת לֹא יָבֹא נְאֻם־יְהֹוָה",
+      "english": "By the way that he came, by the same shall he return, and shall not come into this city, says the Lord.",
+      "mood": "prophetic declaration, inevitable defeat"
+    },
+    "against-me-you-have-lifted-up-your-voice": {
+      "source": "2 Kings 19:22",
+      "context": "Isaiah conveys God's anger at Sennacherib's blasphemy.",
+      "hebrew": "אֶת־מִי חֵרַפְתָּ וְגִדַּפְתָּ וְעַל־מִי הֲרִימֹותָ קֹול וַתִּשָּׂא מָרֹום עֵינֶיךָ עַל־קְדֹושׁ יִשְׂרָאֵל",
+      "english": "Against whom have you raised your voice and lifted up your eyes? Against the Holy One of Israel!",
+      "mood": "divine rebuke, righteous anger"
+    }
+  }
+}

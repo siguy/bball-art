@@ -1,0 +1,48 @@
+{
+  "id": "reggie-miller",
+  "name": "Reggie Miller",
+  "defaultPose": "choke-sign",
+  "description": "6'7\" shooting guard, known for his clutch shooting, trash talk, and rivalry with the New York Knicks. Extremely fit and lean build.",
+  "poses": {
+    "choke-sign": {
+      "id": "choke-sign",
+      "name": "The Choke Sign",
+      "description": "Making the 'choke' gesture towards Spike Lee during the 1994 Eastern Conference Finals",
+      "expression": "smirking confidence, taunting rival",
+      "prompt": "Reggie Miller, intensely focused, hands near his neck forming a choke gesture, directed at Spike Lee sitting courtside - game intensity, MSG crowd blurred in background, late in the game, confident smirk",
+      "energy": "unrepentant swagger, iconic taunt"
+    },
+    "running-arms-out": {
+      "id": "running-arms-out",
+      "name": "Running Arms Out Celebration",
+      "description": "Running down the court with arms outstretched after hitting a big shot",
+      "expression": "pure elation, disbelief, unadulterated joy",
+      "prompt": "Reggie Miller sprinting down the court, arms fully extended to each side, mouth wide open in a shout, uniform slightly disheveled from exertion - MSG court, Indiana Pacers colors, celebrating a clutch basket",
+      "energy": "joyous explosion, instant classic"
+    },
+    "high-knee-3pt": {
+      "id": "high-knee-3pt",
+      "name": "High-Knee Three Pointer",
+      "description": "His unique shooting form with a high knee lift on his jump shot",
+      "expression": "intense focus, determination",
+      "prompt": "Reggie Miller elevated for a three-point jump shot, right knee raised high in his distinctive shooting motion, eyes locked on the basket, left arm extended for balance - clean shooting form, basketball in hand, follow through",
+      "energy": "signature form, unwavering focus"
+    },
+    "pointing-to-wrist": {
+      "id": "pointing-to-wrist",
+      "name": "Miller Time",
+      "description": "Pointing to his wrist, indicating it's 'Miller Time' - time for him to take over the game",
+      "expression": "cocky confidence, clutch performer",
+      "prompt": "Reggie Miller pointing emphatically to his wrist, signaling 'Miller Time', sweat dripping from brow, intense game situation, slight smirk - confident swagger, MSG arena, late game pressure",
+      "energy": "clutch performance, game time"
+    },
+    "post-shot-stance": {
+      "id": "post-shot-stance",
+      "name": "Holding the Follow Through",
+      "description": "Standing tall holding his shooting form after a successful shot.",
+      "expression": "complete certainty, icy calm",
+      "prompt": "Reggie Miller standing tall in his follow-through after releasing a jump shot, arm extended perfectly, eyes tracking the ball's trajectory, unwavering confidence - game-winning shot, focused intensity, arena lights shining",
+      "energy": "silent killer, ultimate confidence"
+    }
+  }
+}

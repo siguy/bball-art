@@ -1,0 +1,19 @@
+{
+  "id": "devin-booker",
+  "name": "Devin Booker",
+  "displayName": "D Book",
+  "poseFileId": "devin-booker",
+  "era": "2020s",
+  "physicalDescription": "6'5\" shooting guard, known for his scoring prowess and smooth offensive game. Calm demeanor, silky smooth jumper, and a knack for hitting tough shots.",
+  "archetype": "Devin Booker is a dynamic and versatile scorer, renowned for his smooth offensive game and ability to create his own shot. A prolific shooter from all areas of the court, he excels in isolation situations and pick-and-roll scenarios. Off the court, Booker has become a style icon, influencing fashion trends and solidifying his status as a prominent figure in basketball culture.",
+  "jerseyColors": {
+    "primary": {
+      "base": "Purple",
+      "accent": "Orange"
+    },
+    "secondary": {
+      "base": "Black",
+      "accent": "Orange"
+    }
+  }
+}

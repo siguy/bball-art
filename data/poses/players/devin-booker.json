@@ -1,0 +1,48 @@
+{
+  "id": "devin-booker",
+  "name": "Devin Booker",
+  "defaultPose": "booker-shimmy",
+  "description": "6'5\" shooting guard, known for his scoring prowess and smooth offensive game. Calm demeanor, silky smooth jumper, and a knack for hitting tough shots.",
+  "poses": {
+    "booker-shimmy": {
+      "id": "booker-shimmy",
+      "name": "The Booker Shimmy",
+      "description": "Shoulder shimmy after hitting a tough shot.",
+      "expression": "confident smirk, subtle cockiness",
+      "prompt": "Devin Booker performing his signature shoulder shimmy - slight smirk on his face, hands pointing upwards, having just hit a difficult shot, crowd roaring in background, subtle flex.",
+      "energy": "smooth confidence, ice-cold"
+    },
+    "fadeaway-jumper": {
+      "id": "fadeaway-jumper",
+      "name": "Fadeaway Jumper",
+      "description": "Booker's textbook fadeaway, nearly impossible to guard.",
+      "expression": "intense focus, locked in on the basket",
+      "prompt": "Devin Booker executing a perfect fadeaway jumper - body leaning back at a sharp angle, shooting arm fully extended with perfect follow-through, defender reaching but unable to contest, determined look in his eyes, ball leaving his fingertips.",
+      "energy": "unguardable, pure offense"
+    },
+    "finger-gun": {
+      "id": "finger-gun",
+      "name": "Finger Guns Celebration",
+      "description": "Celebrating a big play with finger guns.",
+      "expression": "playful confidence, cocky swagger",
+      "prompt": "Devin Booker celebrating a clutch play by shooting imaginary finger guns towards the bench or crowd - big smile on his face, playful gesture, high energy, contagious enthusiasm, team mates celebrating with him.",
+      "energy": "celebratory swagger, infectious energy"
+    },
+    "driving-layup": {
+      "id": "driving-layup",
+      "name": "Driving Layup",
+      "description": "Strong drive to the basket, finishing with a layup.",
+      "expression": "determined focus, aggressive attack",
+      "prompt": "Devin Booker driving hard to the basket for a layup - body low and explosive, ball securely in hand, eyes locked on the rim, defender trailing behind, showing the speed and finesse.",
+      "energy": "aggressive attack, scoring mentality"
+    },
+    "sideline-strut": {
+      "id": "sideline-strut",
+      "name": "Sideline Strut",
+      "description": "Confident strut down the sideline after a timeout.",
+      "expression": "unbothered swagger, quiet confidence",
+      "prompt": "Devin Booker casually strutting down the sideline during a timeout - head held high, cool and collected demeanor, wearing team warmups, subtle swagger, radiating confidence, fans cheering in the background.",
+      "energy": "quiet confidence, unbothered"
+    }
+  }
+}
