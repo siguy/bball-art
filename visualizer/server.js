@@ -1666,6 +1666,322 @@ app.post('/api/generate-solo', async (req, res) => {
 });
 
 // ============================================================
+// Card Context API - Rich metadata for card detail view
+// ============================================================
+
+const QUOTES_DIR = join(ROOT, 'data/quotes/figures');
+
+/**
+ * Get enriched context for a specific card
+ * GET /api/cards/:cardId/context
+ * Returns pairing data, poses, quotes, and rivalry research
+ */
+app.get('/api/cards/:cardId/context', (req, res) => {
+  try {
+    const { cardId } = req.params;
+    const manifest = buildManifest();
+    const card = manifest.cards.find(c => c.id === cardId);
+
+    if (!card) {
+      return res.status(404).json({ error: 'Card not found' });
+    }
+
+    // Handle solo cards differently
+    if (card.mode === 'solo') {
+      return res.json(getSoloCardContext(card));
+    }
+
+    // Load pairing data
+    const pairingPath = join(PAIRINGS_DIR, `${card.pairingId}.json`);
+    if (!existsSync(pairingPath)) {
+      return res.status(404).json({ error: 'Pairing not found' });
+    }
+
+    const pairing = JSON.parse(readFileSync(pairingPath, 'utf-8'));
+
+    // Determine which directory to use for each character based on characterType
+    // For regular pairings: player from players, figure from figures
+    // For rivalry pairings: check characterType field
+    const playerCharType = pairing.player.characterType || 'player';
+    const playerPoseDir = playerCharType === 'figure' ? POSES_FIGURES_DIR : POSES_PLAYERS_DIR;
+
+    const figureCharType = pairing.figure.characterType || 'figure';
+    const figurePoseDir = figureCharType === 'figure' ? POSES_FIGURES_DIR : POSES_PLAYERS_DIR;
+
+    // Load player/hero poses
+    let playerPoses = null;
+    let detectedPlayerPose = null;
+    if (pairing.player.poseFileId) {
+      const playerPosePath = join(playerPoseDir, `${pairing.player.poseFileId}.json`);
+      if (existsSync(playerPosePath)) {
+        playerPoses = JSON.parse(readFileSync(playerPosePath, 'utf-8'));
+        detectedPlayerPose = detectPoseFromPrompt(card.prompt, playerPoses.poses);
+      }
+    }
+
+    // Load figure/villain poses
+    let figurePoses = null;
+    let detectedFigurePose = null;
+    if (pairing.figure.poseFileId) {
+      const figurePosePath = join(figurePoseDir, `${pairing.figure.poseFileId}.json`);
+      if (existsSync(figurePosePath)) {
+        figurePoses = JSON.parse(readFileSync(figurePosePath, 'utf-8'));
+        detectedFigurePose = detectPoseFromPrompt(card.prompt, figurePoses.poses);
+      }
+    }
+
+    // Load quotes - try both characters for figures
+    let quote = null;
+
+    // Try to get quote from figure's pose
+    if (detectedFigurePose?.quoteId && figureCharType === 'figure') {
+      const quotesPath = join(QUOTES_DIR, `${pairing.figure.poseFileId}.json`);
+      if (existsSync(quotesPath)) {
+        const quotes = JSON.parse(readFileSync(quotesPath, 'utf-8'));
+        quote = quotes.quotes?.[detectedFigurePose.quoteId] || null;
+      }
+    }
+
+    // For rivalry pairings, also try player's pose if it has a quoteId
+    if (!quote && detectedPlayerPose?.quoteId && playerCharType === 'figure') {
+      const quotesPath = join(QUOTES_DIR, `${pairing.player.poseFileId}.json`);
+      if (existsSync(quotesPath)) {
+        const quotes = JSON.parse(readFileSync(quotesPath, 'utf-8'));
+        quote = quotes.quotes?.[detectedPlayerPose.quoteId] || null;
+      }
+    }
+
+    // Filter rivalry scripture references to only include relevant ones for detected poses
+    let filteredRivalry = null;
+    if (pairing.rivalryResearch) {
+      // Only include scripture references that are relevant to the detected poses
+      let relevantSources = [];
+
+      if (pairing.rivalryResearch.scriptureReferences) {
+        // Get quoteIds from detected poses
+        const relevantQuoteIds = [];
+        if (detectedPlayerPose?.quoteId) relevantQuoteIds.push(detectedPlayerPose.quoteId);
+        if (detectedFigurePose?.quoteId) relevantQuoteIds.push(detectedFigurePose.quoteId);
+
+        // If we have detected poses, try to match scripture references
+        if (relevantQuoteIds.length > 0) {
+          // Try to match scripture references by looking for keywords from the pose
+          const poseKeywords = [];
+          if (detectedPlayerPose?.name) poseKeywords.push(...detectedPlayerPose.name.toLowerCase().split(/\s+/));
+          if (detectedFigurePose?.name) poseKeywords.push(...detectedFigurePose.name.toLowerCase().split(/\s+/));
+          if (detectedPlayerPose?.description) poseKeywords.push(...detectedPlayerPose.description.toLowerCase().split(/\s+/));
+          if (detectedFigurePose?.description) poseKeywords.push(...detectedFigurePose.description.toLowerCase().split(/\s+/));
+
+          // Filter to meaningful keywords
+          const meaningfulKeywords = poseKeywords.filter(k => k.length > 4);
+
+          relevantSources = pairing.rivalryResearch.scriptureReferences.filter(ref => {
+            const refText = `${ref.source} ${ref.context || ''} ${ref.english || ''}`.toLowerCase();
+            return meaningfulKeywords.some(keyword => refText.includes(keyword));
+          });
+
+          // If no matches found, take the first 2-3 most relevant
+          if (relevantSources.length === 0) {
+            relevantSources = pairing.rivalryResearch.scriptureReferences.slice(0, 2);
+          }
+        } else {
+          // No poses detected, show first 2 references
+          relevantSources = pairing.rivalryResearch.scriptureReferences.slice(0, 2);
+        }
+      }
+
+      filteredRivalry = {
+        relationship: pairing.rivalryResearch.relationship,
+        scriptureReferences: relevantSources
+        // Note: keyMoments intentionally omitted per user request
+      };
+    }
+
+    // Build response
+    const context = {
+      pairing: {
+        id: pairing.id,
+        type: pairing.type,
+        cardMode: pairing.cardMode,
+        connection: pairing.connection
+      },
+      player: {
+        name: pairing.player.name,
+        displayName: pairing.player.displayName,
+        era: pairing.player.era,
+        archetype: pairing.player.archetype,
+        physicalDescription: pairing.player.physicalDescription
+      },
+      figure: {
+        name: pairing.figure.name,
+        displayName: pairing.figure.displayName,
+        archetype: pairing.figure.archetype,
+        physicalDescription: pairing.figure.physicalDescription,
+        visualStyle: pairing.figure.visualStyle
+      },
+      poses: {
+        player: detectedPlayerPose ? {
+          id: detectedPlayerPose.id,
+          name: detectedPlayerPose.name,
+          description: detectedPlayerPose.description,
+          expression: detectedPlayerPose.expression,
+          energy: detectedPlayerPose.energy,
+          quoteId: detectedPlayerPose.quoteId
+        } : null,
+        figure: detectedFigurePose ? {
+          id: detectedFigurePose.id,
+          name: detectedFigurePose.name,
+          description: detectedFigurePose.description,
+          expression: detectedFigurePose.expression,
+          energy: detectedFigurePose.energy,
+          quoteId: detectedFigurePose.quoteId
+        } : null
+      },
+      quote: quote,
+      rivalry: filteredRivalry
+    };
+
+    res.json(context);
+  } catch (err) {
+    console.error('Card context error:', err);
+    res.status(500).json({ error: err.message });
+  }
+});
+
+/**
+ * Get context for a solo card
+ */
+function getSoloCardContext(card) {
+  const isPlayer = card.characterType === 'player';
+  const poseDir = isPlayer ? POSES_PLAYERS_DIR : POSES_FIGURES_DIR;
+  const posePath = join(poseDir, `${card.characterId}.json`);
+
+  let poses = null;
+  let detectedPose = null;
+  let quote = null;
+
+  if (existsSync(posePath)) {
+    poses = JSON.parse(readFileSync(posePath, 'utf-8'));
+    detectedPose = detectPoseFromPrompt(card.prompt, poses.poses);
+
+    // Load quote for figures
+    if (!isPlayer && detectedPose?.quoteId) {
+      const quotesPath = join(QUOTES_DIR, `${card.characterId}.json`);
+      if (existsSync(quotesPath)) {
+        const quotes = JSON.parse(readFileSync(quotesPath, 'utf-8'));
+        quote = quotes.quotes?.[detectedPose.quoteId] || null;
+      }
+    }
+  }
+
+  // Try to load character data from standalone file or pairing
+  let character = null;
+  const charDir = isPlayer ? CHARACTERS_PLAYERS_DIR : CHARACTERS_FIGURES_DIR;
+  const charPath = join(charDir, `${card.characterId}.json`);
+
+  if (existsSync(charPath)) {
+    character = JSON.parse(readFileSync(charPath, 'utf-8'));
+  } else {
+    // Try to find in pairings
+    const pairingFiles = existsSync(PAIRINGS_DIR)
+      ? readdirSync(PAIRINGS_DIR).filter(f => f.endsWith('.json'))
+      : [];
+
+    for (const file of pairingFiles) {
+      const pairing = JSON.parse(readFileSync(join(PAIRINGS_DIR, file), 'utf-8'));
+      const charKey = isPlayer ? 'player' : 'figure';
+      if (pairing[charKey]?.poseFileId === card.characterId) {
+        character = pairing[charKey];
+        break;
+      }
+    }
+  }
+
+  return {
+    pairing: null,
+    player: isPlayer && character ? {
+      name: character.name,
+      displayName: character.displayName,
+      era: character.era,
+      archetype: character.archetype,
+      physicalDescription: character.physicalDescription
+    } : null,
+    figure: !isPlayer && character ? {
+      name: character.name,
+      displayName: character.displayName,
+      archetype: character.archetype,
+      physicalDescription: character.physicalDescription,
+      visualStyle: character.visualStyle
+    } : null,
+    poses: {
+      player: isPlayer && detectedPose ? {
+        id: detectedPose.id,
+        name: detectedPose.name,
+        description: detectedPose.description,
+        expression: detectedPose.expression,
+        energy: detectedPose.energy
+      } : null,
+      figure: !isPlayer && detectedPose ? {
+        id: detectedPose.id,
+        name: detectedPose.name,
+        description: detectedPose.description,
+        expression: detectedPose.expression,
+        energy: detectedPose.energy,
+        quoteId: detectedPose.quoteId
+      } : null
+    },
+    quote: quote,
+    rivalry: null
+  };
+}
+
+/**
+ * Try to detect which pose was used by matching prompt text against pose prompts
+ * Returns the best matching pose or null if no confident match
+ */
+function detectPoseFromPrompt(promptText, poses) {
+  if (!promptText || !poses) return null;
+
+  const promptLower = promptText.toLowerCase();
+  let bestMatch = null;
+  let bestScore = 0;
+
+  for (const [poseId, pose] of Object.entries(poses)) {
+    if (!pose.prompt) continue;
+
+    // Score based on keyword matches from the pose prompt
+    const poseKeywords = pose.prompt.toLowerCase()
+      .split(/[^a-z]+/)
+      .filter(word => word.length > 3);
+
+    let matches = 0;
+    for (const keyword of poseKeywords) {
+      if (promptLower.includes(keyword)) {
+        matches++;
+      }
+    }
+
+    // Also check for pose name and description
+    if (pose.name && promptLower.includes(pose.name.toLowerCase())) {
+      matches += 5;
+    }
+    if (pose.description && promptLower.includes(pose.description.toLowerCase())) {
+      matches += 3;
+    }
+
+    // Normalize by keyword count to avoid bias toward longer prompts
+    const score = poseKeywords.length > 0 ? matches / poseKeywords.length : 0;
+
+    if (score > bestScore && matches >= 3) {
+      bestScore = score;
+      bestMatch = pose;
+    }
+  }
+
+  return bestMatch;
+}
+
+// ============================================================
 // Character Management Endpoints
 // ============================================================
 

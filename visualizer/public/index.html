@@ -80,21 +80,101 @@
         </div>
 
         <div class="modal-details">
-          <h2 id="modal-title"></h2>
-
-          <div class="detail-section">
-            <h3>Card Info</h3>
-            <dl>
-              <dt>Pairing:</dt>
-              <dd id="detail-pairing"></dd>
-              <dt>Template:</dt>
-              <dd id="detail-template"></dd>
-              <dt>Interaction:</dt>
-              <dd id="detail-interaction"></dd>
-              <dt>Generated:</dt>
-              <dd id="detail-timestamp"></dd>
-            </dl>
+          <!-- Card Header with Connection Narrative -->
+          <div class="card-header-section">
+            <h2 id="modal-title"></h2>
+            <p id="modal-narrative" class="narrative-text"></p>
+            <div class="meta-badges" id="modal-badges">
+              <span id="badge-era" class="badge era"></span>
+              <span id="badge-type" class="badge type"></span>
+              <span id="badge-template" class="badge template"></span>
+              <span id="badge-interaction" class="badge interaction"></span>
+            </div>
           </div>
+
+          <!-- Card Info section (at top, open by default) -->
+          <details class="context-section" id="section-card-info" open>
+            <summary>Card Info</summary>
+            <div class="context-content">
+              <dl>
+                <dt>Pairing:</dt>
+                <dd id="detail-pairing"></dd>
+                <dt>Template:</dt>
+                <dd id="detail-template"></dd>
+                <dt>Interaction:</dt>
+                <dd id="detail-interaction"></dd>
+                <dt>Generated:</dt>
+                <dd id="detail-timestamp"></dd>
+                <dt>Filename:</dt>
+                <dd id="detail-filename" class="filename-value"></dd>
+              </dl>
+            </div>
+          </details>
+
+          <!-- The Connection (Collapsible) -->
+          <details class="context-section" id="section-connection" open>
+            <summary>The Connection</summary>
+            <div class="context-content" id="connection-content">
+              <p id="connection-thematic" class="thematic-text"></p>
+              <div class="archetypes">
+                <div class="archetype player-archetype" id="player-archetype">
+                  <span class="archetype-label">Player:</span>
+                  <span class="archetype-value"></span>
+                </div>
+                <div class="archetype figure-archetype" id="figure-archetype">
+                  <span class="archetype-label">Figure:</span>
+                  <span class="archetype-value"></span>
+                </div>
+              </div>
+            </div>
+          </details>
+
+          <!-- The Rivalry (only for rivalry pairings) -->
+          <details class="context-section rivalry-section" id="section-rivalry" hidden>
+            <summary>The Rivalry</summary>
+            <div class="context-content" id="rivalry-content">
+              <p id="rivalry-relationship" class="rivalry-text"></p>
+            </div>
+          </details>
+
+          <!-- This Moment / Poses -->
+          <details class="context-section" id="section-poses" open>
+            <summary>This Moment</summary>
+            <div class="context-content poses-grid" id="poses-content">
+              <div class="pose-card player-pose" id="player-pose-card">
+                <div class="pose-icon">&#9889;</div>
+                <h4 id="player-pose-name">Unknown Pose</h4>
+                <p id="player-pose-description" class="pose-description"></p>
+                <div class="pose-meta">
+                  <div class="pose-expression" id="player-pose-expression"></div>
+                  <div class="pose-energy" id="player-pose-energy"></div>
+                </div>
+              </div>
+              <div class="pose-card figure-pose" id="figure-pose-card">
+                <div class="pose-icon">&#127967;</div>
+                <h4 id="figure-pose-name">Unknown Pose</h4>
+                <p id="figure-pose-description" class="pose-description"></p>
+                <div class="pose-meta">
+                  <div class="pose-expression" id="figure-pose-expression"></div>
+                  <div class="pose-energy" id="figure-pose-energy"></div>
+                </div>
+              </div>
+            </div>
+          </details>
+
+          <!-- Scripture Quote -->
+          <details class="context-section" id="section-scripture" open>
+            <summary>Scripture</summary>
+            <div class="context-content scripture-content" id="scripture-content">
+              <blockquote id="quote-english" class="quote-english"></blockquote>
+              <p id="quote-hebrew" class="quote-hebrew" dir="rtl"></p>
+              <cite id="quote-source" class="quote-source"></cite>
+              <div class="quote-meta">
+                <span id="quote-context" class="quote-context"></span>
+                <span id="quote-mood" class="quote-mood"></span>
+              </div>
+            </div>
+          </details>
 
           <div class="detail-section">
             <h3>Card Actions</h3>

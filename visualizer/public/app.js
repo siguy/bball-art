@@ -533,7 +533,7 @@ function renderGallery() {
 }
 
 // Modal
-function openModal(index) {
+async function openModal(index) {
   currentCardIndex = index;
   const card = filteredCards[index];
   if (!card) return;
@@ -563,6 +563,7 @@ function openModal(index) {
   document.getElementById('detail-template').textContent = formatTemplateName(card.template);
   document.getElementById('detail-interaction').textContent = interactionLabel;
   document.getElementById('detail-timestamp').textContent = card.timestamp;
+  document.getElementById('detail-filename').textContent = card.filename || '';
   document.getElementById('detail-prompt').textContent = card.prompt || 'No prompt saved';
 
   // Load feedback
@@ -595,8 +596,189 @@ function openModal(index) {
   captions = { instagram: '', twitter: '' };
   updateExportUI();
 
+  // Fetch and render rich context
+  await fetchAndRenderCardContext(card);
+
   modal.classList.add('active');
   document.body.style.overflow = 'hidden';
+}
+
+/**
+ * Fetch enriched context for a card and render it
+ */
+async function fetchAndRenderCardContext(card) {
+  // Reset all context sections to default/empty state
+  resetContextSections();
+
+  try {
+    const res = await fetch(`${API_BASE}/api/cards/${encodeURIComponent(card.id)}/context`);
+    if (!res.ok) {
+      console.warn('Failed to fetch card context:', res.status);
+      return;
+    }
+
+    const context = await res.json();
+    renderCardContext(context, card);
+  } catch (err) {
+    console.error('Error fetching card context:', err);
+  }
+}
+
+/**
+ * Reset all context sections to empty/default state
+ */
+function resetContextSections() {
+  // Narrative
+  document.getElementById('modal-narrative').textContent = '';
+
+  // Badges
+  document.getElementById('badge-era').textContent = '';
+  document.getElementById('badge-type').textContent = '';
+  document.getElementById('badge-type').className = 'badge type';
+
+  // Connection section
+  document.getElementById('connection-thematic').textContent = '';
+  document.querySelector('#player-archetype .archetype-value').textContent = '';
+  document.querySelector('#figure-archetype .archetype-value').textContent = '';
+
+  // Rivalry section
+  document.getElementById('section-rivalry').hidden = true;
+  document.getElementById('rivalry-relationship').textContent = '';
+
+  // Poses section
+  document.getElementById('player-pose-name').textContent = 'Unknown Pose';
+  document.getElementById('player-pose-description').textContent = '';
+  document.getElementById('player-pose-expression').textContent = '';
+  document.getElementById('player-pose-energy').textContent = '';
+  document.getElementById('figure-pose-name').textContent = 'Unknown Pose';
+  document.getElementById('figure-pose-description').textContent = '';
+  document.getElementById('figure-pose-expression').textContent = '';
+  document.getElementById('figure-pose-energy').textContent = '';
+
+  // Scripture section
+  document.getElementById('section-scripture').hidden = true;
+  document.getElementById('quote-english').textContent = '';
+  document.getElementById('quote-hebrew').textContent = '';
+  document.getElementById('quote-source').textContent = '';
+  document.getElementById('quote-context').textContent = '';
+  document.getElementById('quote-mood').textContent = '';
+
+  // Sources section is now part of the scripture section, reset handled there
+}
+
+/**
+ * Render the card context data into the modal
+ */
+function renderCardContext(context, card) {
+  // Narrative
+  if (context.pairing?.connection?.narrative) {
+    document.getElementById('modal-narrative').textContent = context.pairing.connection.narrative;
+  }
+
+  // Badges
+  const fullPairing = pairingsFull[card.pairingId];
+  if (context.player?.era) {
+    document.getElementById('badge-era').textContent = context.player.era;
+  }
+  if (context.pairing?.type) {
+    const typeEl = document.getElementById('badge-type');
+    typeEl.textContent = context.pairing.type;
+    typeEl.className = `badge type ${context.pairing.type}`;
+  }
+  document.getElementById('badge-template').textContent = formatTemplateName(card.template);
+  document.getElementById('badge-interaction').textContent = formatInteractionName(card.interaction);
+
+  // Connection section
+  if (context.pairing?.connection?.thematic) {
+    document.getElementById('connection-thematic').textContent = context.pairing.connection.thematic;
+  } else if (context.pairing?.connection?.relationship) {
+    // For rivalries, show the relationship as thematic
+    document.getElementById('connection-thematic').textContent = context.pairing.connection.relationship || context.pairing.connection;
+  } else if (typeof context.pairing?.connection === 'string') {
+    document.getElementById('connection-thematic').textContent = context.pairing.connection;
+  }
+
+  if (context.player?.archetype) {
+    document.querySelector('#player-archetype .archetype-value').textContent = context.player.archetype;
+  }
+  if (context.figure?.archetype) {
+    document.querySelector('#figure-archetype .archetype-value').textContent = context.figure.archetype;
+  }
+
+  // Rivalry section (only for rivalry pairings)
+  if (context.rivalry) {
+    document.getElementById('section-rivalry').hidden = false;
+    if (context.rivalry.relationship) {
+      document.getElementById('rivalry-relationship').textContent = context.rivalry.relationship;
+    }
+  }
+
+  // For rivalry cards with scripture references, show them in the scripture section
+  if (context.rivalry?.scriptureReferences && context.rivalry.scriptureReferences.length > 0 && !context.quote) {
+    // Use the first relevant scripture reference as the quote
+    const ref = context.rivalry.scriptureReferences[0];
+    document.getElementById('section-scripture').hidden = false;
+    document.getElementById('quote-english').textContent = ref.english || '';
+    document.getElementById('quote-hebrew').textContent = ref.hebrew || '';
+    document.getElementById('quote-source').textContent = ref.source || '';
+    document.getElementById('quote-context').textContent = ref.context || '';
+    document.getElementById('quote-mood').textContent = ref.mood || '';
+  }
+
+  // Poses section
+  if (context.poses?.player) {
+    const p = context.poses.player;
+    document.getElementById('player-pose-name').textContent = p.name || 'Unknown Pose';
+    document.getElementById('player-pose-description').textContent = p.description || '';
+    document.getElementById('player-pose-expression').textContent = p.expression || '';
+    document.getElementById('player-pose-energy').textContent = p.energy || '';
+  }
+  if (context.poses?.figure) {
+    const f = context.poses.figure;
+    document.getElementById('figure-pose-name').textContent = f.name || 'Unknown Pose';
+    document.getElementById('figure-pose-description').textContent = f.description || '';
+    document.getElementById('figure-pose-expression').textContent = f.expression || '';
+    document.getElementById('figure-pose-energy').textContent = f.energy || '';
+  }
+
+  // Scripture section
+  if (context.quote) {
+    document.getElementById('section-scripture').hidden = false;
+    document.getElementById('quote-english').textContent = context.quote.english || '';
+    document.getElementById('quote-hebrew').textContent = context.quote.hebrew || '';
+    document.getElementById('quote-source').textContent = context.quote.source || '';
+    document.getElementById('quote-context').textContent = context.quote.context || '';
+    document.getElementById('quote-mood').textContent = context.quote.mood || '';
+  }
+
+  // For solo cards, adjust labels
+  if (card.mode === 'solo') {
+    // Hide connection section for solo cards
+    document.getElementById('section-connection').hidden = true;
+
+    // Adjust pose cards - only show one
+    if (card.characterType === 'player') {
+      document.getElementById('figure-pose-card').hidden = true;
+      document.getElementById('player-pose-card').hidden = false;
+    } else {
+      document.getElementById('player-pose-card').hidden = true;
+      document.getElementById('figure-pose-card').hidden = false;
+    }
+  } else {
+    document.getElementById('section-connection').hidden = false;
+    document.getElementById('player-pose-card').hidden = false;
+    document.getElementById('figure-pose-card').hidden = false;
+  }
+}
+
+/**
+ * Escape HTML to prevent XSS
+ */
+function escapeHtml(text) {
+  if (!text) return '';
+  const div = document.createElement('div');
+  div.textContent = text;
+  return div.innerHTML;
 }
 
 function closeModal() {
@@ -604,10 +786,10 @@ function closeModal() {
   document.body.style.overflow = '';
 }
 
-function navigateCard(direction) {
+async function navigateCard(direction) {
   const newIndex = currentCardIndex + direction;
   if (newIndex >= 0 && newIndex < filteredCards.length) {
-    openModal(newIndex);
+    await openModal(newIndex);
   }
 }
 
