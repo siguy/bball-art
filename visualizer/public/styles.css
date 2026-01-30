@@ -86,6 +86,39 @@ header h1 {
   font-size: 0.9rem;
 }
 
+/* Series Selector */
+.series-selector {
+  margin-left: 1rem;
+  padding-left: 1rem;
+  border-left: 1px solid var(--border);
+}
+
+.series-select {
+  background: var(--bg-card);
+  color: var(--gold);
+  border: 1px solid var(--gold);
+  border-radius: 4px;
+  padding: 0.5rem 1rem;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.series-select:hover {
+  background: var(--bg-hover);
+  border-color: var(--gold-bright);
+}
+
+.series-select:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(212, 175, 55, 0.3);
+}
+
+.series-select option {
+  background: var(--bg-card);
+  color: var(--text-primary);
+}
+
 /* Main */
 main {
   max-width: 1600px;

@@ -6,7 +6,7 @@
 const API_BASE = '';
 
 // State
-let manifest = { cards: [], pairings: [], templates: [], interactions: [] };
+let manifest = { cards: [], pairings: [], templates: [], interactions: [], series: [] };
 let feedback = {};
 let pairingData = {};
 let pairingsFull = {};
@@ -15,6 +15,7 @@ let filteredCards = [];
 let currentCardIndex = 0;
 let currentPlatformTab = 'instagram';
 let captions = { instagram: '', twitter: '' };
+let currentSeries = 'court-covenant'; // Will be set from SeriesSelector
 
 // DOM Elements
 const gallery = document.getElementById('gallery');
@@ -27,6 +28,12 @@ const filterFeedback = document.getElementById('filter-feedback');
 
 // Initialize
 async function init() {
+  // Initialize series selector
+  if (window.SeriesSelector) {
+    window.SeriesSelector.initSeriesSelector();
+    currentSeries = window.SeriesSelector.getSelectedSeries();
+  }
+
   await Promise.all([
     fetchManifest(),
     fetchFeedback(),
@@ -63,7 +70,16 @@ async function init() {
 async function fetchManifest() {
   try {
     const res = await fetch(`${API_BASE}/api/manifest`);
-    manifest = await res.json();
+    const data = await res.json();
+    // Filter cards by selected series
+    manifest = {
+      ...data,
+      cards: data.cards.filter(c => !c.series || c.series === currentSeries),
+      pairings: data.pairings.filter(p => {
+        // Check if any card with this pairingId belongs to current series
+        return data.cards.some(c => c.pairingId === p && (!c.series || c.series === currentSeries));
+      })
+    };
   } catch (err) {
     console.error('Failed to fetch manifest:', err);
   }
@@ -80,7 +96,7 @@ async function fetchFeedback() {
 
 async function fetchPairings() {
   try {
-    const res = await fetch(`${API_BASE}/api/pairings`);
+    const res = await fetch(`${API_BASE}/api/pairings?series=${currentSeries}`);
     pairingData = await res.json();
   } catch (err) {
     console.error('Failed to fetch pairings:', err);
@@ -89,7 +105,7 @@ async function fetchPairings() {
 
 async function fetchPairingsFull() {
   try {
-    const res = await fetch(`${API_BASE}/api/pairings-full`);
+    const res = await fetch(`${API_BASE}/api/pairings-full?series=${currentSeries}`);
     pairingsFull = await res.json();
   } catch (err) {
     console.error('Failed to fetch full pairings:', err);
