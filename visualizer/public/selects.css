@@ -165,36 +165,49 @@
   margin-top: 0.25rem;
 }
 
-/* Action Button (Add/Remove) */
+/* Action Buttons */
 .card-action-btn {
   position: absolute;
   top: 8px;
-  right: 8px;
   width: 28px;
   height: 28px;
   border-radius: 50%;
-  background: rgba(0, 0, 0, 0.6);
+  background: rgba(0, 0, 0, 0.7);
   border: none;
   color: white;
   font-size: 1.2rem;
+  font-weight: bold;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  opacity: 0;
   transition: all 0.2s;
   z-index: 5;
-}
-
-.select-card:hover .card-action-btn {
-  opacity: 1;
 }
 
 .card-action-btn:hover {
   transform: scale(1.1);
 }
 
+/* Unlove button - LEFT side, below position badge if present */
+.card-action-btn.unlove-btn {
+  left: 8px;
+  top: 8px;
+  background: rgba(100, 100, 100, 0.8);
+}
+
+/* When there's a position badge, move unlove button down */
+.position-badge + .card-action-btn.unlove-btn {
+  top: 44px;
+}
+
+.card-action-btn.unlove-btn:hover {
+  background: var(--red);
+}
+
+/* Add button - RIGHT side */
 .card-action-btn.add-btn {
+  right: 8px;
   background: var(--green);
 }
 
@@ -202,12 +215,14 @@
   background: #4da673;
 }
 
+/* Remove from website button - RIGHT side */
 .card-action-btn.remove-btn {
-  background: var(--red);
+  right: 8px;
+  background: var(--purple);
 }
 
 .card-action-btn.remove-btn:hover {
-  background: #e05050;
+  background: #7d5cb3;
 }
 
 /* Separator */

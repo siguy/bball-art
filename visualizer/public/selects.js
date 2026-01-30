@@ -101,7 +101,8 @@ function renderSelectedCards() {
     return `
       <div class="select-card" data-card-id="${select.cardId}" data-position="${select.position}">
         <span class="position-badge">${index + 1}</span>
-        <button class="card-action-btn remove-btn" data-card-id="${select.cardId}" title="Remove from website">&times;</button>
+        <button class="card-action-btn unlove-btn" data-card-id="${select.cardId}" title="Remove from loved">&times;</button>
+        <button class="card-action-btn remove-btn" data-card-id="${select.cardId}" title="Remove from website">&minus;</button>
         <img class="select-card-image" src="${card.path}" alt="${title}" loading="lazy">
         <div class="select-card-info">
           <div class="select-card-title">${title}</div>
@@ -137,6 +138,7 @@ function renderAvailableCards() {
 
     return `
       <div class="select-card" data-card-id="${card.id}">
+        <button class="card-action-btn unlove-btn" data-card-id="${card.id}" title="Remove from loved">&times;</button>
         <button class="card-action-btn add-btn" data-card-id="${card.id}" title="Add to website">+</button>
         <img class="select-card-image" src="${card.path}" alt="${title}" loading="lazy">
         <div class="select-card-info">
@@ -237,6 +239,35 @@ async function removeFromSelects(cardId) {
   }
 }
 
+async function unloveCard(cardId) {
+  try {
+    // First remove from selects if it's there
+    if (selects.cards.some(c => c.cardId === cardId)) {
+      await fetch(`${API_BASE}/api/selects/${encodeURIComponent(cardId)}`, {
+        method: 'DELETE'
+      });
+    }
+
+    // Then remove the loved rating
+    const res = await fetch(`${API_BASE}/api/feedback/${encodeURIComponent(cardId)}`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ rating: null, notes: feedback[cardId]?.notes || '' })
+    });
+    const result = await res.json();
+
+    if (result.success) {
+      feedback[cardId] = result.feedback;
+      // Refresh selects in case it was removed
+      await fetchSelects();
+      renderCards();
+      updateStats();
+    }
+  } catch (err) {
+    console.error('Unlove card error:', err);
+  }
+}
+
 async function reorderSelects(cardIds) {
   try {
     const res = await fetch(`${API_BASE}/api/selects/reorder`, {
@@ -289,23 +320,45 @@ function showExportSuccess(cardCount) {
 
 // Event Listeners
 function setupEventListeners() {
-  // Add button clicks
+  // Available cards: Add and Unlove button clicks
   availableCardsGrid.addEventListener('click', (e) => {
     const addBtn = e.target.closest('.add-btn');
     if (addBtn) {
+      e.preventDefault();
       e.stopPropagation();
       const cardId = addBtn.dataset.cardId;
       addToSelects(cardId);
+      return;
+    }
+
+    const unloveBtn = e.target.closest('.unlove-btn');
+    if (unloveBtn) {
+      e.preventDefault();
+      e.stopPropagation();
+      const cardId = unloveBtn.dataset.cardId;
+      unloveCard(cardId);
+      return;
     }
   });
 
-  // Remove button clicks
+  // Selected cards: Remove and Unlove button clicks
   selectedCardsGrid.addEventListener('click', (e) => {
     const removeBtn = e.target.closest('.remove-btn');
     if (removeBtn) {
+      e.preventDefault();
       e.stopPropagation();
       const cardId = removeBtn.dataset.cardId;
       removeFromSelects(cardId);
+      return;
+    }
+
+    const unloveBtn = e.target.closest('.unlove-btn');
+    if (unloveBtn) {
+      e.preventDefault();
+      e.stopPropagation();
+      const cardId = unloveBtn.dataset.cardId;
+      unloveCard(cardId);
+      return;
     }
   });
 
