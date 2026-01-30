@@ -93,10 +93,14 @@
   position: relative;
   background: var(--bg-dark);
   border-radius: 8px;
-  overflow: hidden;
+  overflow: visible;
   border: 1px solid var(--border);
   cursor: grab;
   transition: all 0.2s;
+}
+
+.select-card-image {
+  border-radius: 8px 8px 0 0;
 }
 
 .select-card:hover {
@@ -169,20 +173,21 @@
 .card-action-btn {
   position: absolute;
   top: 8px;
-  width: 28px;
-  height: 28px;
+  width: 32px;
+  height: 32px;
   border-radius: 50%;
   background: rgba(0, 0, 0, 0.7);
-  border: none;
+  border: 2px solid rgba(255, 255, 255, 0.3);
   color: white;
-  font-size: 1.2rem;
+  font-size: 1.4rem;
   font-weight: bold;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
   transition: all 0.2s;
-  z-index: 5;
+  z-index: 10;
+  pointer-events: auto;
 }
 
 .card-action-btn:hover {
@@ -198,7 +203,7 @@
 
 /* When there's a position badge, move unlove button down */
 .position-badge + .card-action-btn.unlove-btn {
-  top: 44px;
+  top: 48px;
 }
 
 .card-action-btn.unlove-btn:hover {

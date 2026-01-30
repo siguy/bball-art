@@ -200,13 +200,25 @@ function setupSortable() {
 
 // API Actions
 async function addToSelects(cardId) {
+  console.log('addToSelects called with cardId:', cardId);
+
+  // Find and disable the button while processing
+  const btn = availableCardsGrid.querySelector(`.add-btn[data-card-id="${cardId}"]`);
+  if (btn) {
+    btn.textContent = '...';
+    btn.disabled = true;
+  }
+
   try {
     const res = await fetch(`${API_BASE}/api/selects`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ cardId })
     });
+
+    console.log('API response status:', res.status);
     const result = await res.json();
+    console.log('API response:', result);
 
     if (result.success) {
       selects = result.selects;
@@ -214,9 +226,18 @@ async function addToSelects(cardId) {
       updateStats();
     } else {
       alert(result.error || 'Failed to add card');
+      if (btn) {
+        btn.textContent = '+';
+        btn.disabled = false;
+      }
     }
   } catch (err) {
     console.error('Add to selects error:', err);
+    alert('Error: ' + err.message);
+    if (btn) {
+      btn.textContent = '+';
+      btn.disabled = false;
+    }
   }
 }
 
@@ -318,9 +339,57 @@ function showExportSuccess(cardCount) {
   document.body.style.overflow = 'hidden';
 }
 
+// Current card being previewed
+let currentPreviewCardId = null;
+
+function openPreviewModal(cardId) {
+  const card = manifest.cards.find(c => c.id === cardId);
+  if (!card) return;
+
+  currentPreviewCardId = cardId;
+  const isSelected = selects.cards.some(c => c.cardId === cardId);
+
+  // Populate modal
+  document.getElementById('preview-img').src = card.path;
+  document.getElementById('preview-title').textContent = getCardTitle(card);
+  document.getElementById('preview-template').textContent = formatTemplateName(card.template);
+  document.getElementById('preview-timestamp').textContent = card.timestamp;
+
+  // Update action button based on whether card is selected
+  const actionBtn = document.getElementById('preview-action-btn');
+  if (isSelected) {
+    actionBtn.textContent = 'Remove from Website';
+    actionBtn.className = 'btn btn-outline';
+    actionBtn.onclick = () => {
+      removeFromSelects(cardId);
+      closePreviewModal();
+    };
+  } else {
+    actionBtn.textContent = 'Add to Website';
+    actionBtn.className = 'btn btn-primary';
+    actionBtn.onclick = () => {
+      addToSelects(cardId);
+      closePreviewModal();
+    };
+  }
+
+  // Set link to full details page
+  document.getElementById('preview-full-link').href = `/?card=${encodeURIComponent(cardId)}`;
+
+  // Show modal
+  document.getElementById('preview-modal').classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+
+function closePreviewModal() {
+  document.getElementById('preview-modal').classList.remove('active');
+  document.body.style.overflow = '';
+  currentPreviewCardId = null;
+}
+
 // Event Listeners
 function setupEventListeners() {
-  // Available cards: Add and Unlove button clicks
+  // Available cards: Add, Unlove, and Card click
   availableCardsGrid.addEventListener('click', (e) => {
     const addBtn = e.target.closest('.add-btn');
     if (addBtn) {
@@ -339,9 +408,16 @@ function setupEventListeners() {
       unloveCard(cardId);
       return;
     }
+
+    // Card click - open preview
+    const card = e.target.closest('.select-card');
+    if (card) {
+      const cardId = card.dataset.cardId;
+      openPreviewModal(cardId);
+    }
   });
 
-  // Selected cards: Remove and Unlove button clicks
+  // Selected cards: Remove, Unlove, and Card click
   selectedCardsGrid.addEventListener('click', (e) => {
     const removeBtn = e.target.closest('.remove-btn');
     if (removeBtn) {
@@ -360,16 +436,20 @@ function setupEventListeners() {
       unloveCard(cardId);
       return;
     }
+
+    // Card click - open preview
+    const card = e.target.closest('.select-card');
+    if (card) {
+      const cardId = card.dataset.cardId;
+      openPreviewModal(cardId);
+    }
   });
 
   // Export button
   exportBtn.addEventListener('click', exportToWebsite);
 
-  // Modal close buttons
-  document.getElementById('modal-close')?.addEventListener('click', () => {
-    document.getElementById('preview-modal').classList.remove('active');
-    document.body.style.overflow = '';
-  });
+  // Preview modal close button
+  document.getElementById('preview-modal-close')?.addEventListener('click', closePreviewModal);
 
   document.getElementById('export-modal-close')?.addEventListener('click', () => {
     document.getElementById('export-modal').classList.remove('active');
@@ -398,4 +478,9 @@ function setupEventListeners() {
 }
 
 // Start
-init();
+console.log('Selects page loading...');
+init().then(() => {
+  console.log('Selects page initialized. Selects:', selects);
+  console.log('Feedback entries:', Object.keys(feedback).length);
+  console.log('Available cards grid:', availableCardsGrid);
+});
