@@ -231,6 +231,7 @@ function buildManifest() {
   // Get all series directories
   const seriesIds = ['court-covenant', 'torah-titans'];
   const foundSeries = [];
+  const scannedPairingIds = new Set(); // Track pairings already scanned from series dirs
 
   for (const seriesId of seriesIds) {
     const seriesDir = join(cardsDir, seriesId);
@@ -263,12 +264,14 @@ function buildManifest() {
           const dirCards = scanCardDirectory(pairingDir, seriesId, pairingId, urlBase);
           dirCards.forEach(c => { c.subSeries = subDir; });
           cards = cards.concat(dirCards);
+          scannedPairingIds.add(pairingId); // Track as scanned
         }
       } else {
         // Direct pairing or solo directory
         const urlBase = `/cards/${seriesId}/${subDir}`;
         const dirCards = scanCardDirectory(subDirPath, seriesId, subDir, urlBase);
         cards = cards.concat(dirCards);
+        scannedPairingIds.add(subDir); // Track as scanned
 
         // Track solo characters
         if (subDir.startsWith('solo-')) {
@@ -287,9 +290,10 @@ function buildManifest() {
   // Also scan legacy flat structure (for any non-migrated cards)
   const legacyDirs = readdirSync(cardsDir).filter(f => {
     const stat = statSync(join(cardsDir, f));
-    // Skip series directories and backups
+    // Skip series directories, already-scanned pairings, and backups
     return stat.isDirectory() &&
            !seriesIds.includes(f) &&
+           !scannedPairingIds.has(f) &&
            !f.startsWith('cards-backup') &&
            !f.startsWith('.');
   });
