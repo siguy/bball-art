@@ -11,20 +11,23 @@
  * Examples:
  *   node scripts/generate-solo.js player jordan thunder-lightning --pose tongue-out-dunk
  *   node scripts/generate-solo.js figure moses beam-team --pose parting-sea
+ *   node scripts/generate-solo.js figure moses beam-team --pose parting-sea --series torah-titans
  *   node scripts/generate-solo.js player rodman metal-universe-dark --pose diving-loose-ball --hair green
  *   node scripts/generate-solo.js player curry --list-poses
  *
  * Options:
+ *   --series <id>     Series ID (default: court-covenant for players, auto-detect for figures)
  *   --pose <id>       Pose ID (or 'default')
  *   --hair <color>    Hair color override (for players with hair colors, e.g., Rodman)
  *   --list-poses      List available poses for this character
  *   --dry-run         Show prompt without generating
  */
 
-import { readFileSync, writeFileSync, existsSync, readdirSync, mkdirSync } from 'fs';
+import { readFileSync, writeFileSync, existsSync, readdirSync, mkdirSync, statSync } from 'fs';
 import { join, dirname } from 'path';
 import { fileURLToPath } from 'url';
 import { generateImage } from './nano-banana-client.js';
+import { buildSoloFilename, getOutputDir } from './lib/filename-builder.js';
 import {
   getPlayerPose,
   getFigurePose,
@@ -70,9 +73,11 @@ if (!characterType || !['player', 'figure'].includes(characterType)) {
   console.error('Examples:');
   console.error('  node scripts/generate-solo.js player jordan thunder-lightning --pose tongue-out-dunk');
   console.error('  node scripts/generate-solo.js figure moses beam-team --pose parting-sea');
+  console.error('  node scripts/generate-solo.js figure moses beam-team --series torah-titans');
   console.error('  node scripts/generate-solo.js player curry --list-poses');
   console.error('');
   console.error('Options:');
+  console.error('  --series <id>     Series ID (default: court-covenant)');
   console.error('  --pose <id>       Pose ID (or "default")');
   console.error('  --hair <color>    Hair color override');
   console.error('  --list-poses      List available poses for this character');
@@ -124,8 +129,9 @@ if (!characterId || !template) {
 /**
  * Find character data from standalone character file or pairings.
  * Standalone files take priority over pairing data.
+ * Returns { data, series } or null
  */
-function findCharacterData(characterType, characterId) {
+function findCharacterData(characterType, characterId, preferredSeries = null) {
   // First, check for standalone character file
   const standaloneDir = join(ROOT, `data/characters/${characterType}s`);
   const standaloneFile = join(standaloneDir, `${characterId}.json`);
@@ -133,35 +139,86 @@ function findCharacterData(characterType, characterId) {
   if (existsSync(standaloneFile)) {
     const data = JSON.parse(readFileSync(standaloneFile, 'utf-8'));
     return {
-      ...data,
-      type: characterType
+      data: { ...data, type: characterType },
+      series: data.series || preferredSeries || 'court-covenant'
     };
   }
 
-  // Fall back to searching pairings
-  const pairingsDir = join(ROOT, 'data/series/court-covenant/pairings');
+  // Fall back to searching pairings across all series
+  const seriesList = preferredSeries
+    ? [preferredSeries, 'court-covenant', 'torah-titans']
+    : ['court-covenant', 'torah-titans'];
 
-  if (!existsSync(pairingsDir)) {
-    return null;
-  }
+  for (const series of seriesList) {
+    const pairingsDir = join(ROOT, `data/series/${series}/pairings`);
+    if (!existsSync(pairingsDir)) continue;
 
-  const files = readdirSync(pairingsDir).filter(f => f.endsWith('.json'));
+    const files = readdirSync(pairingsDir).filter(f => f.endsWith('.json'));
 
-  for (const file of files) {
-    const pairing = JSON.parse(readFileSync(join(pairingsDir, file), 'utf-8'));
+    for (const file of files) {
+      const pairing = JSON.parse(readFileSync(join(pairingsDir, file), 'utf-8'));
 
-    if (characterType === 'player' && pairing.player.poseFileId === characterId) {
-      return {
-        ...pairing.player,
-        type: 'player'
-      };
+      if (characterType === 'player' && pairing.player?.poseFileId === characterId) {
+        return {
+          data: { ...pairing.player, type: 'player' },
+          series
+        };
+      }
+
+      if (characterType === 'figure' && pairing.figure?.poseFileId === characterId) {
+        return {
+          data: { ...pairing.figure, type: 'figure' },
+          series
+        };
+      }
+
+      // Also check multi-character pairings
+      if (pairing.characters) {
+        for (const char of pairing.characters) {
+          if (char.poseFileId === characterId && char.characterType === characterType) {
+            return {
+              data: { ...char, type: characterType },
+              series
+            };
+          }
+        }
+      }
     }
 
-    if (characterType === 'figure' && pairing.figure.poseFileId === characterId) {
-      return {
-        ...pairing.figure,
-        type: 'figure'
-      };
+    // Also check sub-series
+    const subSeriesDir = join(ROOT, `data/series/${series}/sub-series`);
+    if (existsSync(subSeriesDir)) {
+      const subDirs = readdirSync(subSeriesDir).filter(f => {
+        const stat = statSync(join(subSeriesDir, f));
+        return stat.isDirectory();
+      });
+
+      for (const subDir of subDirs) {
+        const subPairingsDir = join(subSeriesDir, subDir);
+        const subFiles = readdirSync(subPairingsDir).filter(f => f.endsWith('.json'));
+
+        for (const file of subFiles) {
+          const pairing = JSON.parse(readFileSync(join(subPairingsDir, file), 'utf-8'));
+
+          if (characterType === 'figure' && pairing.figure?.poseFileId === characterId) {
+            return {
+              data: { ...pairing.figure, type: 'figure' },
+              series
+            };
+          }
+
+          if (pairing.characters) {
+            for (const char of pairing.characters) {
+              if (char.poseFileId === characterId && char.characterType === characterType) {
+                return {
+                  data: { ...char, type: characterType },
+                  series
+                };
+              }
+            }
+          }
+        }
+      }
     }
   }
 
@@ -203,9 +260,9 @@ async function generateSoloCard() {
   }
 
   // Find character data from standalone file or pairings
-  const characterData = findCharacterData(characterType, characterId);
+  const characterResult = findCharacterData(characterType, characterId, flags.series);
 
-  if (!characterData) {
+  if (!characterResult) {
     console.error(`Character data not found: ${characterId}`);
     console.error('');
     console.error('Character data can come from either:');
@@ -215,6 +272,8 @@ async function generateSoloCard() {
     console.error('See docs/solo-characters.md for how to create standalone characters.');
     process.exit(1);
   }
+
+  const { data: characterData, series } = characterResult;
 
   // Build the character object for the template
   const character = {
@@ -226,8 +285,18 @@ async function generateSoloCard() {
 
   // Load and run template
   try {
-    const templatePath = `../prompts/templates/${template}.js`;
-    const templateModule = await import(templatePath);
+    let templateModule;
+
+    // Try series-specific template first
+    try {
+      const seriesTemplatePath = `../prompts/templates/${series}/${template}.js`;
+      templateModule = await import(seriesTemplatePath);
+    } catch {
+      // Fall back to shared templates
+      const templatePath = `../prompts/templates/${template}.js`;
+      templateModule = await import(templatePath);
+    }
+
     const templateObj = templateModule.default || Object.values(templateModule)[0];
 
     if (!templateObj || !templateObj.generateSolo) {
@@ -251,6 +320,7 @@ async function generateSoloCard() {
     console.log('='.repeat(60));
     console.log('SOLO CARD GENERATION');
     console.log('='.repeat(60));
+    console.log(`Series: ${series}`);
     console.log(`Type: ${characterType.toUpperCase()}`);
     console.log(`Character: ${character.name}`);
     console.log(`Pose: ${pose.name} (${poseId})`);
@@ -266,17 +336,23 @@ async function generateSoloCard() {
       return;
     }
 
-    // Generate timestamp for unique filename
-    const timestamp = new Date().toISOString().replace(/[:.]/g, '-').slice(0, 19);
-    // Solo cards go in same folder as pairings: output/cards/solo-{type}-{id}/
-    const outputDir = join(ROOT, 'output/cards', `solo-${characterType}-${characterId}`);
+    // Build output path with new filename format
+    const filename = buildSoloFilename({
+      series,
+      characterType,
+      characterId,
+      template,
+      pose: poseId
+    });
+
+    const outputDir = getOutputDir(ROOT, series, `solo-${characterType}-${characterId}`);
 
     // Ensure output directory exists
     if (!existsSync(outputDir)) {
       mkdirSync(outputDir, { recursive: true });
     }
 
-    const outputPath = join(outputDir, `${template}-${timestamp}`);
+    const outputPath = join(outputDir, filename.replace(/\.[^.]+$/, ''));
 
     console.log(`\nGenerating image...`);
     console.log(`Output: ${outputPath}`);
@@ -297,7 +373,7 @@ async function generateSoloCard() {
     });
 
     if (result.success) {
-      console.log('\n✓ Solo card generated successfully!');
+      console.log('\nSolo card generated successfully!');
       console.log(`  File: ${result.path}`);
       console.log(`  Size: ${(result.size / 1024).toFixed(1)} KB`);
 
@@ -310,6 +386,7 @@ async function generateSoloCard() {
       const logEntry = {
         timestamp: new Date().toISOString(),
         mode: 'solo',
+        series,
         characterType,
         characterId,
         characterName: character.name,
@@ -327,7 +404,7 @@ async function generateSoloCard() {
       writeFileSync(logPath, logLine, { flag: 'a' });
 
     } else {
-      console.log('\n✗ Generation failed');
+      console.log('\nGeneration failed');
       console.log(`  Error: ${result.error}`);
       if (result.message) {
         console.log(`  Message: ${result.message}`);

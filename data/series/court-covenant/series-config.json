@@ -4,10 +4,33 @@
   "tagline": "Where legends meet legacy",
   "description": "Basketball players paired with biblical and Jewish historical figures",
   "theme": "biblical",
+  "cardModes": ["player-figure", "solo-player", "solo-figure"],
   "logoStyle": "gold-script",
   "defaultLogoPosition": "top-center",
   "cardRatio": "2.5x3.5",
   "minCardsPerPairing": 2,
+
+  "availableTemplates": [
+    "thunder-lightning",
+    "thunder-lightning-dark",
+    "thunder-lightning-rivalry",
+    "beam-team",
+    "beam-team-shadow",
+    "beam-team-rivalry",
+    "beam-team-a",
+    "beam-team-b",
+    "beam-team-c",
+    "beam-team-c-dunk",
+    "metal-universe",
+    "metal-universe-dark",
+    "metal-universe-dark-alt",
+    "metal-universe-dark-alt-realistic",
+    "metal-universe-rivalry",
+    "downtown",
+    "kaboom",
+    "prizm-silver"
+  ],
+
   "priorityPairings": [
     "jordan-moses",
     "lebron-david",
