@@ -1,0 +1,63 @@
+{
+  "id": "abraham-sarah",
+  "series": "torah-titans",
+  "subSeries": "spouses",
+  "type": "spouse",
+  "cardMode": "figure-figure",
+  "priority": 1,
+
+  "player": {
+    "name": "Abraham",
+    "displayName": "Abraham",
+    "characterType": "figure",
+    "poseFileId": "abraham",
+    "era": "Biblical",
+    "physicalDescription": "Elderly man with long white beard and deeply weathered face showing both wisdom and kindness, strong build despite his age",
+    "clothing": "Simple shepherd's robes in earth tones, wooden staff, sandals",
+    "visualStyle": "ancient Near Eastern patriarch",
+    "attribute": "faith",
+    "attributeDescription": "father of nations through unwavering faith"
+  },
+
+  "figure": {
+    "name": "Sarah",
+    "displayName": "Sarah",
+    "characterType": "figure",
+    "poseFileId": "sarah",
+    "era": "Biblical",
+    "physicalDescription": "Beautiful elderly woman with kind eyes and silver-white hair, weathered face showing both joy and hardship, dignified bearing of a matriarch",
+    "clothing": "Fine linen robes in cream and soft blue, modest head covering, simple gold jewelry",
+    "visualStyle": "ancient Near Eastern matriarch",
+    "attribute": "endurance",
+    "attributeDescription": "mother of nations through faithful endurance"
+  },
+
+  "connection": {
+    "thematic": "Faith through impossible promise",
+    "narrative": "Together they left everything familiar, waited decades for a child, and became the father and mother of nations. Their partnership shows that even when God's promises seem impossible, faithful waiting bears fruit.",
+    "relationship": "husband and wife, partners in faith"
+  },
+
+  "defaultInteraction": "side-by-side",
+
+  "interactions": {
+    "side-by-side": {
+      "playerAction": "standing with arm around Sarah, looking toward the horizon with hope",
+      "figureAction": "leaning into Abraham, one hand on her heart, sharing his vision"
+    },
+    "blessing": {
+      "playerAction": "hands raised in blessing over Sarah",
+      "figureAction": "head bowed receiving the blessing, hands clasped"
+    },
+    "promise": {
+      "playerAction": "pointing up at the stars, explaining God's promise",
+      "figureAction": "looking up in wonder, hand over her mouth in amazement"
+    }
+  },
+
+  "seriesSpecificData": {
+    "relationshipType": "spouse",
+    "biblicalSource": "Genesis 12-23",
+    "themes": ["faith", "promise", "waiting", "partnership", "legacy"]
+  }
+}
