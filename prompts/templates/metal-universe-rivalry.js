@@ -71,7 +71,7 @@ CENTER DIVIDER: A jagged vertical crack of glowing MOLTEN METAL - orange-white h
 === TEXT ELEMENTS (render exactly as specified) ===
 TOP: Write "METAL UNIVERSE" in bold 3D metallic font - left half polished chrome, right half rusted iron. Add "RIVALRY" in smaller crimson metallic text below. Centered at top.
 
-LOGO: Below the title, render the provided "Court & Covenant" logo image in SHINY GOLD metallic finish with rich reflective quality.
+LOGO: Below the title, render the "Court & Covenant" logo in SHINY GOLD metallic finish. IMPORTANT: Keep the logo SMALL - approximately 15-20% of the card width, subtle and elegant, NOT dominant.
 
 BOTTOM LEFT: Write "${hero.displayName || hero.name}" in chrome gradient text.
 BOTTOM RIGHT: Write "${villain.displayName || villain.name}" in rust-red metallic text.

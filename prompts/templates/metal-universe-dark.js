@@ -159,7 +159,7 @@ DARK industrial hellscape. Black chrome and burnt steel environment. Gunmetal su
 === TEXT ELEMENTS (render exactly as specified) ===
 TOP: Write "METAL UNIVERSE" in bold BLACK CHROME 3D metallic font with blood-red reflections and industrial feel. Looks like blackened steel. Add "DARK" in smaller crimson text below. Centered at top.
 
-LOGO: Below the title, render the provided "Court & Covenant" logo image in BRIGHT SHINY GOLD with subtle glow effect. Smaller than the title.
+LOGO: Below the title, render the "Court & Covenant" logo in BRIGHT SHINY GOLD with subtle glow effect. IMPORTANT: Keep the logo SMALL - approximately 15-20% of the card width, subtle and elegant, NOT dominant.
 
 BOTTOM: Write "${player.name} & ${figure.displayName}" in dark chrome gradient text with crimson highlights. Industrial premium typography.
 
@@ -237,7 +237,7 @@ DARK industrial hellscape. Black chrome and burnt steel environment. Gunmetal su
 === TEXT ELEMENTS (render exactly as specified) ===
 TOP: Write "METAL UNIVERSE" in bold BLACK CHROME 3D metallic font with blood-red reflections. Add "DARK" in smaller crimson text below. Centered at top.
 
-LOGO: Below the title, render the provided "Court & Covenant" logo image in BRIGHT SHINY GOLD with subtle glow effect.
+LOGO: Below the title, render the "Court & Covenant" logo in BRIGHT SHINY GOLD with subtle glow effect. IMPORTANT: Keep the logo SMALL - approximately 15-20% of the card width, subtle and elegant, NOT dominant.
 
 BOTTOM: Write "${character.displayName || character.name}" in dark chrome gradient text with crimson highlights. Centered at bottom.
 

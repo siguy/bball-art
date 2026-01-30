@@ -96,7 +96,7 @@ DARK industrial environment with LIGHT GREEN and DEEP PURPLE as dominant colors.
 === TEXT ELEMENTS (render exactly as specified) ===
 TOP: Write "METAL UNIVERSE" in bold chrome 3D metallic font with LIGHT GREEN and PURPLE reflections. Add "DARK" in smaller text below. Centered at top.
 
-LOGO: Below the title, render the provided "Court & Covenant" logo image in BRIGHT SHINY GOLD with subtle glow effect. Smaller than the title.
+LOGO: Below the title, render the "Court & Covenant" logo in BRIGHT SHINY GOLD with subtle glow effect. IMPORTANT: Keep the logo SMALL - approximately 15-20% of the card width, subtle and elegant, NOT dominant.
 
 BOTTOM: Write "${player.name} & ${figure.displayName}" in chrome gradient text with green-purple highlights. Industrial premium typography.
 
