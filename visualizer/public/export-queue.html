@@ -45,13 +45,21 @@
     </section>
   </main>
 
+  <script src="series-selector.js"></script>
   <script>
     const API_BASE = '';
     let queueData = { queue: [], processed: [] };
     let manifest = { cards: [] };
     let pairingData = {};
+    let currentSeries = 'court-covenant';
 
     async function init() {
+      // Initialize series selector
+      if (typeof initSeriesSelector === 'function') {
+        initSeriesSelector();
+      }
+      currentSeries = typeof getSelectedSeries === 'function' ? getSelectedSeries() : 'court-covenant';
+
       await Promise.all([
         fetchQueue(),
         fetchManifest(),
@@ -82,7 +90,7 @@
 
     async function fetchPairings() {
       try {
-        const res = await fetch(`${API_BASE}/api/pairings`);
+        const res = await fetch(`${API_BASE}/api/pairings?series=${currentSeries}`);
         pairingData = await res.json();
       } catch (err) {
         console.error('Failed to fetch pairings:', err);
@@ -91,7 +99,16 @@
 
     function updateStats() {
       const stats = document.getElementById('stats');
-      stats.textContent = `${queueData.queue.length} pending | ${queueData.processed.length} processed`;
+      // Filter counts by current series
+      const pendingCount = queueData.queue.filter(item => {
+        const card = manifest.cards.find(c => c.id === item.cardId);
+        return card && card.series === currentSeries;
+      }).length;
+      const processedCount = queueData.processed.filter(item => {
+        const card = manifest.cards.find(c => c.id === item.cardId);
+        return card && card.series === currentSeries;
+      }).length;
+      stats.textContent = `${pendingCount} pending | ${processedCount} processed`;
     }
 
     function formatDate(isoString) {
@@ -103,7 +120,13 @@
     function renderQueue() {
       const container = document.getElementById('queue-list');
 
-      if (queueData.queue.length === 0) {
+      // Filter queue items to only show cards from current series
+      const filteredQueue = queueData.queue.filter(item => {
+        const card = manifest.cards.find(c => c.id === item.cardId);
+        return card && card.series === currentSeries;
+      });
+
+      if (filteredQueue.length === 0) {
         container.innerHTML = `
           <div class="empty-queue">
             <h3>No pending exports</h3>
@@ -113,7 +136,7 @@
         return;
       }
 
-      container.innerHTML = queueData.queue.map(item => {
+      container.innerHTML = filteredQueue.map(item => {
         const card = manifest.cards.find(c => c.id === item.cardId);
         const pairing = card ? pairingData[card.pairingId] : null;
         const title = pairing ? `${pairing.playerName} & ${pairing.figureName}` : item.cardId;
@@ -141,7 +164,14 @@
 
     function renderProcessed() {
       const container = document.getElementById('processed-list');
-      const recentProcessed = queueData.processed.slice(-10).reverse();
+
+      // Filter processed items to only show cards from current series
+      const filteredProcessed = queueData.processed.filter(item => {
+        const card = manifest.cards.find(c => c.id === item.cardId);
+        return card && card.series === currentSeries;
+      });
+
+      const recentProcessed = filteredProcessed.slice(-10).reverse();
 
       if (recentProcessed.length === 0) {
         container.innerHTML = `

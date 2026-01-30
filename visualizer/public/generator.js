@@ -25,6 +25,19 @@ let currentCharacterType = null;
 let currentCharacterId = null;
 let currentSoloPoses = null;
 
+// Helper: Detect figure-figure mode (Torah Titans)
+function isFigureFigureMode(pairing) {
+  if (!pairing) return false;
+  return pairing.cardMode?.includes('figure-figure') ||
+         pairing.player?.characterType === 'figure';
+}
+
+// Helper: Determine if dark mode should auto-enable based on type
+function shouldAutoDarkMode(type) {
+  const darkTypes = ['villain', 'rivalry', 'trial', 'plague'];
+  return darkTypes.includes(type);
+}
+
 // DOM Elements
 const pairingSelect = document.getElementById('pairing-select');
 const templateSelect = document.getElementById('template-select');
@@ -48,6 +61,10 @@ const pairingInfo = document.getElementById('pairing-info');
 const templateInfo = document.getElementById('template-info');
 const playerPosePreview = document.getElementById('player-pose-preview');
 const figurePosePreview = document.getElementById('figure-pose-preview');
+
+// Pose labels (for dynamic updating)
+const playerPoseLabel = document.getElementById('player-pose-label');
+const figurePoseLabel = document.getElementById('figure-pose-label');
 
 // Solo mode DOM elements
 const characterTypeSelect = document.getElementById('character-type-select');
@@ -73,6 +90,14 @@ async function init() {
   populatePairings();
   populateTemplates();
   setupEventListeners();
+
+  // Hide NBA Player option in solo mode for Torah Titans (figure-only series)
+  if (currentSeries === 'torah-titans') {
+    const playerOption = characterTypeSelect.querySelector('option[value="player"]');
+    if (playerOption) {
+      playerOption.style.display = 'none';
+    }
+  }
 
   // Check for URL parameters (e.g., from Characters page redirect)
   handleUrlParams();
@@ -193,29 +218,37 @@ function populatePairings() {
   const sortedPairings = Object.entries(pairingsFull)
     .sort((a, b) => (a[1].priority || 99) - (b[1].priority || 99));
 
-  // Group by type
-  const heroes = sortedPairings.filter(([_, p]) => p.type === 'hero' || !p.type);
-  const villains = sortedPairings.filter(([_, p]) => p.type === 'villain');
+  // Group by type - handle Court & Covenant types and Torah Titans types
+  const typeGroups = {
+    hero: { label: 'Heroes', items: [] },
+    villain: { label: 'Villains', items: [] },
+    spouse: { label: 'Spouses', items: [] },
+    rivalry: { label: 'Rivalries', items: [] },
+    trial: { label: 'Trials', items: [] },
+    multi: { label: 'Multi-Character', items: [] },
+    plague: { label: 'Plagues', items: [] },
+    other: { label: 'Other', items: [] }
+  };
+
+  sortedPairings.forEach(([id, pairing]) => {
+    const type = pairing.type || 'hero'; // default to hero for Court & Covenant
+    const group = typeGroups[type] || typeGroups.other;
+    group.items.push([id, pairing]);
+  });
 
   let html = '<option value="">Select a pairing...</option>';
 
-  if (heroes.length > 0) {
-    html += '<optgroup label="Heroes">';
-    heroes.forEach(([id, pairing]) => {
-      const label = `${pairing.player.name} & ${pairing.figure.name}`;
-      html += `<option value="${id}">${label}</option>`;
-    });
-    html += '</optgroup>';
-  }
-
-  if (villains.length > 0) {
-    html += '<optgroup label="Villains">';
-    villains.forEach(([id, pairing]) => {
-      const label = `${pairing.player.name} & ${pairing.figure.name}`;
-      html += `<option value="${id}">${label}</option>`;
-    });
-    html += '</optgroup>';
-  }
+  // Render each non-empty group
+  Object.entries(typeGroups).forEach(([type, group]) => {
+    if (group.items.length > 0) {
+      html += `<optgroup label="${group.label}">`;
+      group.items.forEach(([id, pairing]) => {
+        const label = `${pairing.player.name} & ${pairing.figure.name}`;
+        html += `<option value="${id}">${label}</option>`;
+      });
+      html += '</optgroup>';
+    }
+  });
 
   pairingSelect.innerHTML = html;
 }
@@ -255,6 +288,9 @@ async function populatePlayerPoses(poseFileId) {
 
   // Update hair color options if available
   updateHairColorOptions();
+
+  // Show description for default pose
+  updatePosePreview('player');
 }
 
 async function populateFigurePoses(poseFileId) {
@@ -278,6 +314,49 @@ async function populateFigurePoses(poseFileId) {
 
   figurePoseSelect.innerHTML = html;
   figurePoseSelect.disabled = false;
+
+  // Show description for default pose
+  updatePosePreview('figure');
+}
+
+/**
+ * Load figure poses into either the player or figure pose select
+ * Used for Torah Titans figure-figure pairings
+ */
+async function populateFigurePosesAs(targetSlot, poseFileId) {
+  const posesData = await fetchFigurePoses(poseFileId);
+
+  const select = targetSlot === 'player' ? playerPoseSelect : figurePoseSelect;
+  const preview = targetSlot === 'player' ? playerPosePreview : figurePosePreview;
+
+  // Store in the appropriate state variable
+  if (targetSlot === 'player') {
+    currentPlayerPoses = posesData;
+  } else {
+    currentFigurePoses = posesData;
+  }
+
+  if (!posesData || !posesData.poses) {
+    select.innerHTML = '<option value="default">Default (no poses defined)</option>';
+    select.disabled = true;
+    preview.textContent = '';
+    return;
+  }
+
+  const poses = posesData.poses;
+  const defaultPose = posesData.defaultPose;
+
+  let html = `<option value="default">Default (${defaultPose})</option>`;
+  Object.values(poses).forEach(pose => {
+    const isDefault = pose.id === defaultPose ? ' *' : '';
+    html += `<option value="${pose.id}">${pose.name}${isDefault}</option>`;
+  });
+
+  select.innerHTML = html;
+  select.disabled = false;
+
+  // Show description for default pose
+  updatePosePreview(targetSlot);
 }
 
 function updateHairColorOptions() {
@@ -304,7 +383,14 @@ function updateHairColorOptions() {
 function updatePosePreview(type) {
   const select = type === 'player' ? playerPoseSelect : figurePoseSelect;
   const preview = type === 'player' ? playerPosePreview : figurePosePreview;
-  const poses = type === 'player' ? currentPlayerPoses : currentFigurePoses;
+
+  // In solo mode, use currentSoloPoses for the player slot
+  let poses;
+  if (mode === 'solo' && type === 'player') {
+    poses = currentSoloPoses;
+  } else {
+    poses = type === 'player' ? currentPlayerPoses : currentFigurePoses;
+  }
 
   if (!poses || !poses.poses) {
     preview.textContent = '';
@@ -321,7 +407,11 @@ function updatePosePreview(type) {
   }
 
   if (pose) {
-    let text = pose.description || pose.prompt;
+    let text = pose.description || '';
+    if (!text && pose.prompt) {
+      // Use first sentence of prompt if no description
+      text = pose.prompt.split('.')[0];
+    }
     if (pose.energy) {
       text += ` <span class="pose-energy">[${pose.energy}]</span>`;
     }
@@ -431,6 +521,19 @@ function onModeChange(e) {
     el.classList.toggle('hidden', mode === 'pairing');
   });
 
+  // Handle pose group visibility
+  const figurePoseGroup = document.getElementById('figure-pose-group');
+  if (mode === 'solo') {
+    // Solo mode: hide figure pose group, show player pose group (relabeled as "Pose")
+    figurePoseGroup.style.display = 'none';
+    if (playerPoseLabel) playerPoseLabel.textContent = 'Pose';
+  } else {
+    // Pairing mode: show both pose groups with proper labels
+    figurePoseGroup.style.display = '';
+    if (playerPoseLabel) playerPoseLabel.textContent = 'Player Pose';
+    if (figurePoseLabel) figurePoseLabel.textContent = 'Figure Pose';
+  }
+
   // Reset selections
   if (mode === 'solo') {
     pairingSelect.value = '';
@@ -487,15 +590,6 @@ function onCharacterTypeChange() {
   characterSelect.innerHTML = html;
   characterSelect.disabled = false;
   characterInfo.textContent = '';
-
-  // Hide figure pose select, show player pose select for players
-  if (type === 'player') {
-    document.querySelector('.control-group:has(#player-pose-select) label').textContent = 'Pose';
-    document.querySelector('.control-group:has(#figure-pose-select)').style.display = 'none';
-  } else {
-    document.querySelector('.control-group:has(#player-pose-select) label').textContent = 'Pose';
-    document.querySelector('.control-group:has(#figure-pose-select)').style.display = 'none';
-  }
 
   updateGenerateButton();
 }
@@ -554,6 +648,9 @@ async function onCharacterChange() {
     playerPoseSelect.innerHTML = html;
     playerPoseSelect.disabled = false;
 
+    // Show description for default pose
+    updatePosePreview('player');
+
     // Show hair colors if available (for players like Rodman)
     if (currentCharacterType === 'player' && currentSoloPoses.hairColors) {
       const hairColors = currentSoloPoses.hairColors;
@@ -594,6 +691,9 @@ async function onPairingChange() {
     autoBadge.classList.add('hidden');
     currentHints = null;
     displayHints(null);
+    // Reset labels to defaults
+    if (playerPoseLabel) playerPoseLabel.textContent = 'Player Pose';
+    if (figurePoseLabel) figurePoseLabel.textContent = 'Figure Pose';
     updateGenerateButton();
     return;
   }
@@ -601,27 +701,48 @@ async function onPairingChange() {
   const pairing = pairingsFull[pairingId];
   if (!pairing) return;
 
+  // Check if this is a figure-figure pairing (Torah Titans)
+  const figureMode = isFigureFigureMode(pairing);
+
+  // Update pose labels based on mode
+  if (figureMode) {
+    // Use character names for Torah Titans
+    if (playerPoseLabel) playerPoseLabel.textContent = `${pairing.player.name} Pose`;
+    if (figurePoseLabel) figurePoseLabel.textContent = `${pairing.figure.name} Pose`;
+  } else {
+    // Standard Court & Covenant labels
+    if (playerPoseLabel) playerPoseLabel.textContent = 'Player Pose';
+    if (figurePoseLabel) figurePoseLabel.textContent = 'Figure Pose';
+  }
+
   // Update info display
   pairingInfo.innerHTML = `
     <strong>${pairing.connection.thematic}</strong><br>
     <em>"${pairing.connection.narrative}"</em>
   `;
 
-  // Auto-set dark mode based on type
-  const isVillain = pairing.type === 'villain';
-  darkModeToggle.checked = isVillain;
-  if (isVillain) {
+  // Auto-set dark mode based on type (handles both C&C and Torah Titans types)
+  const shouldDark = shouldAutoDarkMode(pairing.type);
+  darkModeToggle.checked = shouldDark;
+  if (shouldDark) {
     autoBadge.classList.remove('hidden');
   } else {
     autoBadge.classList.add('hidden');
   }
 
-  // Load poses
+  // Load poses - for figure-figure mode, both come from figures endpoint
   const playerPoseFileId = pairing.player.poseFileId;
   const figurePoseFileId = pairing.figure.poseFileId;
 
-  populatePlayerPoses(playerPoseFileId);
-  populateFigurePoses(figurePoseFileId);
+  if (figureMode) {
+    // Both are figures - load both from figures endpoint
+    await populateFigurePosesAs('player', playerPoseFileId);
+    await populateFigurePosesAs('figure', figurePoseFileId);
+  } else {
+    // Standard: player from players, figure from figures
+    await populatePlayerPoses(playerPoseFileId);
+    await populateFigurePoses(figurePoseFileId);
+  }
 
   // Fetch and display hints
   currentHints = await fetchHints(pairingId);
@@ -689,6 +810,10 @@ async function onGenerate() {
 
   if (!pairingId || !template) return;
 
+  // Get pairing data for cardMode
+  const pairing = pairingsFull[pairingId];
+  const cardMode = pairing?.cardMode || 'player-figure';
+
   isGenerating = true;
   generateBtn.classList.add('generating');
   generateBtn.disabled = true;
@@ -708,7 +833,9 @@ async function onGenerate() {
         darkMode,
         playerPose,
         figurePose,
-        hairColor
+        hairColor,
+        cardMode,
+        series: currentSeries
       })
     });
 
@@ -718,8 +845,9 @@ async function onGenerate() {
       // Update log
       logOutput.textContent += result.output || 'Generation complete!\n';
 
-      // Show result
-      const imagePath = `/cards/${pairingId}/${result.filename}`;
+      // Show result - use series-aware path
+      const seriesPath = result.series || currentSeries;
+      const imagePath = `/cards/${seriesPath}/${pairingId}/${result.filename}`;
       resultImage.src = imagePath + '?t=' + Date.now(); // Cache bust
       resultViewLink.href = `/?pairing=${pairingId}&card=${result.cardId}`;
 
@@ -731,6 +859,8 @@ async function onGenerate() {
       lastGeneratedCard = {
         mode: 'pairing',
         pairingId,
+        series: seriesPath,
+        cardMode,
         template,
         darkMode,
         playerPose,
@@ -793,7 +923,8 @@ async function onGenerateSolo() {
         characterId: currentCharacterId,
         template,
         pose,
-        hairColor
+        hairColor,
+        series: currentSeries
       })
     });
 
@@ -802,8 +933,9 @@ async function onGenerateSolo() {
     if (result.success) {
       logOutput.textContent += result.output || 'Generation complete!\n';
 
-      // Build the image path based on solo structure
-      const imagePath = `/cards/solo-${currentCharacterType}-${currentCharacterId}/${result.filename}`;
+      // Build the image path based on solo structure (series-aware)
+      const seriesPath = result.series || currentSeries;
+      const imagePath = `/cards/${seriesPath}/solo-${currentCharacterType}-${currentCharacterId}/${result.filename}`;
       resultImage.src = imagePath + '?t=' + Date.now();
       resultViewLink.href = `/?card=${result.cardId}`;
 
@@ -814,6 +946,7 @@ async function onGenerateSolo() {
       // Store last generated settings
       lastGeneratedCard = {
         mode: 'solo',
+        series: seriesPath,
         characterType: currentCharacterType,
         characterId: currentCharacterId,
         template,

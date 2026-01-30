@@ -28,6 +28,24 @@ const poseCardTemplate = document.getElementById('pose-card-template');
 
 // Initialize
 async function init() {
+  // Initialize series selector
+  if (typeof initSeriesSelector === 'function') {
+    initSeriesSelector();
+  }
+  const currentSeries = typeof getSelectedSeries === 'function' ? getSelectedSeries() : 'court-covenant';
+
+  // Hide NBA Players option for Torah Titans (figure-only series)
+  if (currentSeries === 'torah-titans') {
+    const playerOption = typeFilter.querySelector('option[value="player"]');
+    if (playerOption) {
+      playerOption.style.display = 'none';
+    }
+    // Force filter to figures only if player was selected
+    if (typeFilter.value === 'player') {
+      typeFilter.value = 'figure';
+    }
+  }
+
   await loadCharacters();
   renderGrid();
   setupEventListeners();

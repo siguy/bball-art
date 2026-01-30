@@ -97,23 +97,23 @@
         <label class="toggle-label" for="dark-mode-toggle">
           <input type="checkbox" id="dark-mode-toggle">
           <span class="toggle-switch"></span>
-          <span class="toggle-text">Dark Mode (Villain)</span>
+          <span class="toggle-text">Dark Mode</span>
         </label>
         <span class="auto-badge hidden" id="auto-badge">AUTO</span>
       </div>
 
-      <!-- Player Pose Selection -->
-      <div class="control-group">
-        <label for="player-pose-select">Player Pose</label>
+      <!-- Player/Figure 1 Pose Selection (used in both pairing and solo modes) -->
+      <div class="control-group" id="player-pose-group">
+        <label for="player-pose-select" id="player-pose-label">Player Pose</label>
         <select id="player-pose-select" disabled>
           <option value="default">Default</option>
         </select>
         <div class="pose-preview" id="player-pose-preview"></div>
       </div>
 
-      <!-- Figure Pose Selection -->
-      <div class="control-group">
-        <label for="figure-pose-select">Figure Pose</label>
+      <!-- Figure/Figure 2 Pose Selection (hidden in solo mode via JS) -->
+      <div class="control-group" id="figure-pose-group">
+        <label for="figure-pose-select" id="figure-pose-label">Figure Pose</label>
         <select id="figure-pose-select" disabled>
           <option value="default">Default</option>
         </select>

@@ -1409,6 +1409,7 @@ app.get('/api/templates', (req, res) => {
 /**
  * Generate card with poses
  * Full pose-controlled generation using generate-with-poses.js script
+ * Supports both player-figure (Court & Covenant) and figure-figure (Torah Titans) modes
  */
 app.post('/api/generate-with-poses', async (req, res) => {
   const {
@@ -1417,7 +1418,9 @@ app.post('/api/generate-with-poses', async (req, res) => {
     playerPose,
     figurePose,
     hairColor,
-    darkMode
+    darkMode,
+    cardMode,
+    series
   } = req.body;
 
   if (!pairingId || !template) {
@@ -1435,11 +1438,15 @@ app.post('/api/generate-with-poses', async (req, res) => {
       }
     }
 
+    // Determine actual series (default to court-covenant if not specified)
+    const actualSeries = series || 'court-covenant';
+
     // Build the command arguments
     const args = [
       join(ROOT, 'scripts/generate-with-poses.js'),
       pairingId,
-      actualTemplate
+      actualTemplate,
+      '--series', actualSeries
     ];
 
     // Add pose arguments if specified
@@ -1453,7 +1460,7 @@ app.post('/api/generate-with-poses', async (req, res) => {
       args.push('--hair', hairColor);
     }
 
-    console.log(`Generating card with poses: ${pairingId} ${actualTemplate}`);
+    console.log(`Generating card with poses: ${pairingId} ${actualTemplate} (${actualSeries})`);
     console.log(`  Player pose: ${playerPose || 'default'}`);
     console.log(`  Figure pose: ${figurePose || 'default'}`);
     if (hairColor) console.log(`  Hair color: ${hairColor}`);
@@ -1491,10 +1498,10 @@ app.post('/api/generate-with-poses', async (req, res) => {
           cardId = `${pairingId}-${extractedTemplate}-${timestamp}`;
         }
 
-        // Try to read the prompt file
+        // Try to read the prompt file (now uses series-aware path)
         let prompt = null;
         const promptFilename = filename.replace(/\.(png|jpe?g)$/, '-prompt.txt');
-        const promptPath = join(ROOT, 'output/cards', pairingId, promptFilename);
+        const promptPath = join(ROOT, 'output/cards', actualSeries, pairingId, promptFilename);
         try {
           if (existsSync(promptPath)) {
             prompt = readFileSync(promptPath, 'utf-8');
@@ -1508,6 +1515,7 @@ app.post('/api/generate-with-poses', async (req, res) => {
           filename,
           cardId,
           pairingId,
+          series: actualSeries,
           template: actualTemplate,
           playerPose: playerPose || 'default',
           figurePose: figurePose || 'default',
@@ -1839,7 +1847,7 @@ app.get('/api/characters/figures', (req, res) => {
  * Generate solo character card
  */
 app.post('/api/generate-solo', async (req, res) => {
-  const { type, characterId, template, pose, darkMode, hairColor } = req.body;
+  const { type, characterId, template, pose, darkMode, hairColor, series } = req.body;
 
   if (!type || !characterId || !template) {
     return res.status(400).json({ success: false, error: 'Missing type, characterId, or template' });
@@ -1849,13 +1857,17 @@ app.post('/api/generate-solo', async (req, res) => {
     return res.status(400).json({ success: false, error: 'Type must be "player" or "figure"' });
   }
 
+  // Determine actual series (default to court-covenant if not specified)
+  const actualSeries = series || 'court-covenant';
+
   try {
     // Build the command arguments
     const args = [
       join(ROOT, 'scripts/generate-solo.js'),
       type,
       characterId,
-      template
+      template,
+      '--series', actualSeries
     ];
 
     // Add pose if specified
@@ -1868,7 +1880,7 @@ app.post('/api/generate-solo', async (req, res) => {
       args.push('--hair', hairColor);
     }
 
-    console.log(`Generating solo card: ${type} ${characterId} ${template}`);
+    console.log(`Generating solo card: ${type} ${characterId} ${template} (${actualSeries})`);
     console.log(`  Pose: ${pose || 'default'}`);
     if (hairColor) console.log(`  Hair color: ${hairColor}`);
 
@@ -1905,6 +1917,7 @@ app.post('/api/generate-solo', async (req, res) => {
           success: true,
           filename,
           cardId,
+          series: actualSeries,
           type,
           characterId,
           template,
