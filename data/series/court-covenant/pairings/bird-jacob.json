@@ -2,16 +2,27 @@
   "id": "bird-jacob",
   "series": "court-covenant",
   "type": "villain",
+  "cardMode": "player-figure",
   "player": {
     "name": "Larry Bird",
     "poseFileId": "bird",
     "displayName": "Larry Legend",
     "era": "1980s",
     "jerseyColors": {
-      "primary": { "base": "green", "accent": "white" },
-      "secondary": { "base": "white", "accent": "green" }
+      "primary": {
+        "base": "green",
+        "accent": "white"
+      },
+      "secondary": {
+        "base": "white",
+        "accent": "green"
+      }
     },
-    "signatureMoves": ["trash talk", "clutch shooting", "basketball IQ"],
+    "signatureMoves": [
+      "trash talk",
+      "clutch shooting",
+      "basketball IQ"
+    ],
     "physicalDescription": "tall 6'9\" forward, not traditionally athletic, blonde hair with mustache, pale white skin, blue eyes, confident smirk, deceptive appearance hiding killer instinct",
     "archetype": "The Trash Talker, strategic genius, would do anything to win"
   },
@@ -43,7 +54,10 @@
     }
   ],
   "defaultInteraction": "side-by-side",
-  "cardVariants": ["thunder-lightning", "downtown"],
+  "cardVariants": [
+    "thunder-lightning",
+    "downtown"
+  ],
   "priority": 19,
   "status": "active"
 }

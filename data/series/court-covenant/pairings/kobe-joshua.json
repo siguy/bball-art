@@ -2,16 +2,27 @@
   "id": "kobe-joshua",
   "series": "court-covenant",
   "type": "hero",
+  "cardMode": "player-figure",
   "player": {
     "name": "Kobe Bryant",
     "displayName": "Mamba",
     "poseFileId": "kobe",
     "era": "2000s",
     "jerseyColors": {
-      "primary": { "base": "purple", "accent": "gold" },
-      "secondary": { "base": "gold", "accent": "purple" }
+      "primary": {
+        "base": "purple",
+        "accent": "gold"
+      },
+      "secondary": {
+        "base": "gold",
+        "accent": "purple"
+      }
     },
-    "signatureMoves": ["fadeaway jumper", "footwork in the post", "clutch dagger"],
+    "signatureMoves": [
+      "fadeaway jumper",
+      "footwork in the post",
+      "clutch dagger"
+    ],
     "physicalDescription": "athletic build, shaved head, intense killer instinct in eyes",
     "archetype": "The Black Mamba, relentless work ethic, succeeded the GOAT"
   },
@@ -47,7 +58,11 @@
     }
   ],
   "defaultInteraction": "back-to-back",
-  "cardVariants": ["thunder-lightning", "spx-spectrum", "chrome-refractor"],
+  "cardVariants": [
+    "thunder-lightning",
+    "spx-spectrum",
+    "chrome-refractor"
+  ],
   "priority": 4,
   "status": "active"
 }

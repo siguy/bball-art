@@ -2,16 +2,28 @@
   "id": "hakeem-abraham",
   "series": "court-covenant",
   "type": "hero",
+  "cardMode": "player-figure",
   "player": {
     "name": "Hakeem Olajuwon",
     "displayName": "The Dream",
     "poseFileId": "hakeem",
     "era": "1990s",
     "jerseyColors": {
-      "primary": { "base": "red", "accent": "white" },
-      "secondary": { "base": "white", "accent": "red" }
+      "primary": {
+        "base": "red",
+        "accent": "white"
+      },
+      "secondary": {
+        "base": "white",
+        "accent": "red"
+      }
     },
-    "signatureMoves": ["Dream Shake", "up-and-under", "block timing", "fadeaway"],
+    "signatureMoves": [
+      "Dream Shake",
+      "up-and-under",
+      "block timing",
+      "fadeaway"
+    ],
     "physicalDescription": "7'0\" center, long graceful limbs, kind intelligent eyes, lean athletic build for a big man",
     "archetype": "The Dream, graceful giant who dominated through footwork and faith"
   },
@@ -47,7 +59,10 @@
     }
   ],
   "defaultInteraction": "side-by-side",
-  "cardVariants": ["thunder-lightning", "beam-team"],
+  "cardVariants": [
+    "thunder-lightning",
+    "beam-team"
+  ],
   "priority": 7,
   "status": "active"
 }

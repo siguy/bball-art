@@ -23,145 +23,38 @@
  *   --dry-run            Show prompt without generating
  */
 
+import minimist from 'minimist';
 import { spawn } from 'child_process';
-import { readFileSync, existsSync, readdirSync, statSync } from 'fs';
+import { readFileSync, existsSync } from 'fs';
 import { join, dirname } from 'path';
 import { fileURLToPath } from 'url';
 import {
-  getPlayerPose,
-  getFigurePose,
   getCharacterPose,
   listPlayerPoses,
   listFigurePoses,
-  listPlayerHairColors
+  listPlayerHairColors,
 } from '../prompts/components/character-poses.js';
+import { CONFIG } from './lib/config.js';
+import { loadPairing, extractPairingCharacters } from './lib/data-loader.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
-const ROOT = join(__dirname, '..');
 
 // Parse arguments
-const args = process.argv.slice(2);
-const flags = {};
-const positional = [];
+const args = minimist(process.argv.slice(2), {
+  string: ['series', 'player-pose', 'figure-pose', 'hair'],
+  boolean: ['list-poses', 'show-hints', 'dry-run', 'help'],
+  alias: { h: 'help' },
+});
 
-for (let i = 0; i < args.length; i++) {
-  if (args[i].startsWith('--')) {
-    const flag = args[i].slice(2);
-    if (args[i + 1] && !args[i + 1].startsWith('--')) {
-      flags[flag] = args[i + 1];
-      i++;
-    } else {
-      flags[flag] = true;
-    }
-  } else {
-    positional.push(args[i]);
-  }
-}
-
-const [pairingId, template] = positional;
+const [pairingId, template] = args._;
 
 /**
- * Find pairing file across all series
- * Returns { path, series, subSeries } or null
+ * Show available poses for a pairing
  */
-function findPairingFile(pairingId, preferredSeries = null) {
-  const seriesList = preferredSeries
-    ? [preferredSeries, 'court-covenant', 'torah-titans']
-    : ['court-covenant', 'torah-titans'];
-
-  for (const series of seriesList) {
-    // Check main pairings directory
-    const mainPath = join(ROOT, `data/series/${series}/pairings`, `${pairingId}.json`);
-    if (existsSync(mainPath)) {
-      return { path: mainPath, series, subSeries: null };
-    }
-
-    // Check sub-series directories
-    const subSeriesDir = join(ROOT, `data/series/${series}/sub-series`);
-    if (existsSync(subSeriesDir)) {
-      const subDirs = readdirSync(subSeriesDir).filter(f => {
-        const stat = statSync(join(subSeriesDir, f));
-        return stat.isDirectory();
-      });
-
-      for (const subDir of subDirs) {
-        const subPath = join(subSeriesDir, subDir, `${pairingId}.json`);
-        if (existsSync(subPath)) {
-          return { path: subPath, series, subSeries: subDir };
-        }
-      }
-    }
-  }
-
-  return null;
-}
-
-/**
- * Load pairing data from JSON file
- * Returns { playerId, figureId, pairing, series, subSeries } where IDs are from poseFileId fields
- */
-function loadPairingData(pairingId, preferredSeries = null) {
-  const pairingFile = findPairingFile(pairingId, preferredSeries);
-
-  if (!pairingFile) {
-    console.error(`Pairing file not found: ${pairingId}`);
-    console.error('Searched in: court-covenant, torah-titans');
-    return null;
-  }
-
-  const pairing = JSON.parse(readFileSync(pairingFile.path, 'utf-8'));
-
-  // Handle both player-figure and figure-figure pairings
-  let char1, char2;
-
-  if (pairing.player && pairing.figure) {
-    // Standard player-figure pairing
-    char1 = pairing.player;
-    char2 = pairing.figure;
-  } else if (pairing.characters && pairing.characters.length >= 2) {
-    // Multi-character pairing (figure-figure, etc.)
-    char1 = pairing.characters[0];
-    char2 = pairing.characters[1];
-  } else {
-    console.error('Invalid pairing structure - needs player/figure or characters array');
-    return null;
-  }
-
-  // Get pose file IDs - use explicit poseFileId if available, otherwise fall back to name-based ID
-  const char1Id = char1.poseFileId || generateFallbackId(char1.name);
-  const char2Id = char2.poseFileId || generateFallbackId(char2.name);
-
-  return {
-    char1Id,
-    char2Id,
-    char1,
-    char2,
-    pairing,
-    series: pairingFile.series,
-    subSeries: pairingFile.subSeries
-  };
-}
-
-/**
- * Generate a fallback ID from a name (for backwards compatibility)
- * "Isiah Thomas" -> "isiah-thomas"
- * "Dennis Rodman" -> "dennis-rodman"
- */
-function generateFallbackId(name) {
-  return name.toLowerCase().replace(/\s+/g, '-');
-}
-
-// Validate pairing argument exists for list-poses
-if (flags['list-poses'] && pairingId) {
-  const pairingData = loadPairingData(pairingId, flags.series);
-  if (!pairingData) {
-    process.exit(1);
-  }
-
-  const { char1Id, char2Id, char1, char2, pairing, series } = pairingData;
-  const char1Type = char1.characterType || 'player';
-  const char2Type = char2.characterType || 'figure';
+function showPoses(pairingId, pairingData) {
+  const { char1Id, char2Id, char1, char2, char1Type, char2Type } = pairingData;
+  const series = pairingData.series;
 
   console.log(`\n=== POSES FOR ${pairingId.toUpperCase()} (${series}) ===\n`);
 
@@ -204,15 +97,13 @@ if (flags['list-poses'] && pairingId) {
       });
     }
   }
-
-  process.exit(0);
 }
 
 /**
  * Load and display generation hints for a pairing
  */
 function showHints(pairingId) {
-  const hintsPath = join(ROOT, 'visualizer/data/generation-hints.json');
+  const hintsPath = join(CONFIG.root, 'visualizer/data/generation-hints.json');
 
   if (!existsSync(hintsPath)) {
     console.log('\nNo hints available yet. Run: node scripts/regenerate-hints.js\n');
@@ -257,8 +148,22 @@ function showHints(pairingId) {
   console.log('\n' + '='.repeat(50) + '\n');
 }
 
+// Handle --list-poses
+if (args['list-poses'] && pairingId) {
+  const pairing = loadPairing(pairingId, args.series);
+  if (!pairing) {
+    console.error(`Pairing file not found: ${pairingId}`);
+    console.error('Searched in: court-covenant, torah-titans');
+    process.exit(1);
+  }
+
+  const pairingData = extractPairingCharacters(pairing);
+  showPoses(pairingId, { ...pairingData, series: pairing.series });
+  process.exit(0);
+}
+
 // Show hints if requested
-if (flags['show-hints'] && pairingId) {
+if (args['show-hints'] && pairingId) {
   showHints(pairingId);
 }
 
@@ -284,21 +189,20 @@ Options:
   process.exit(1);
 }
 
-// Load pairing data to get pose file IDs
-const pairingData = loadPairingData(pairingId, flags.series);
-if (!pairingData) {
+// Load pairing data
+const pairing = loadPairing(pairingId, args.series);
+if (!pairing) {
+  console.error(`Pairing file not found: ${pairingId}`);
+  console.error('Searched in: court-covenant, torah-titans');
   process.exit(1);
 }
 
-const { char1Id, char2Id, char1, char2, pairing, series, subSeries } = pairingData;
-const char1PoseId = flags['player-pose'] || 'default';
-const char2PoseId = flags['figure-pose'] || 'default';
-const hairColor = flags['hair'] || null;
+const { char1Id, char2Id, char1, char2, char1Type, char2Type } = extractPairingCharacters(pairing);
+const series = pairing.series;
 
-// Use characterType from pairing JSON to route to correct pose directory
-// Defaults to 'player'/'figure' for standard pairings (backward compatible)
-const char1Type = char1.characterType || 'player';
-const char2Type = char2.characterType || 'figure';
+const char1PoseId = args['player-pose'] || 'default';
+const char2PoseId = args['figure-pose'] || 'default';
+const hairColor = args['hair'] || null;
 
 // Get the poses using the correct pose file IDs and character types
 const char1Pose = getCharacterPose(char1Id, char1PoseId, char1Type, hairColor);
@@ -329,10 +233,10 @@ const cmdArgs = [
   '--custom-player-action', char1Pose.prompt,
   '--custom-figure-action', char2Pose.prompt,
   '--player-pose', char1PoseId,
-  '--figure-pose', char2PoseId
+  '--figure-pose', char2PoseId,
 ];
 
-if (flags['dry-run']) {
+if (args['dry-run']) {
   console.log('\n=== DRY RUN ===\n');
   console.log('Series:', series);
   console.log('Pairing:', char1.name, '&', char2.name);

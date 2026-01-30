@@ -2,16 +2,27 @@
   "id": "laimbeer-haman",
   "series": "court-covenant",
   "type": "villain",
+  "cardMode": "player-figure",
   "player": {
     "name": "Bill Laimbeer",
     "poseFileId": "laimbeer",
     "displayName": "Laimbeer",
     "era": "1980s",
     "jerseyColors": {
-      "primary": { "base": "blue", "accent": "red" },
-      "secondary": { "base": "white", "accent": "blue" }
+      "primary": {
+        "base": "blue",
+        "accent": "red"
+      },
+      "secondary": {
+        "base": "white",
+        "accent": "blue"
+      }
     },
-    "signatureMoves": ["hard foul", "three-point shooting", "flopping"],
+    "signatureMoves": [
+      "hard foul",
+      "three-point shooting",
+      "flopping"
+    ],
     "physicalDescription": "tall 6'11\" center, gangly build, curly dark hair, smug villainous expression, white skin, the face you love to hate",
     "archetype": "The Villain, most hated player of his era, schemer and agitator"
   },
@@ -43,7 +54,10 @@
     }
   ],
   "defaultInteraction": "side-by-side",
-  "cardVariants": ["thunder-lightning", "downtown"],
+  "cardVariants": [
+    "thunder-lightning",
+    "downtown"
+  ],
   "priority": 16,
   "status": "active"
 }

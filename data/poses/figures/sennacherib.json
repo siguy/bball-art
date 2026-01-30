@@ -1,0 +1,57 @@
+{
+  "id": "sennacherib",
+  "name": "Sennacherib",
+  "defaultPose": "siege-jerusalem",
+  "description": "Assyrian king known for his military campaigns, particularly his siege of Jerusalem. Depicted with a stern, imperious bearing, clad in ornate armor and royal robes, a symbol of Assyrian might.",
+  "attribute": "Royal Scepter",
+  "attributeDescription": "A long, intricately carved scepter of gold and lapis lazuli, signifying his royal authority and divine mandate to rule.",
+  "visualStyle": "Epic, imposing, detailed",
+  "clothing": "Ornate Assyrian armor with bronze scales, layered with royal robes embroidered with symbols of power and conquest. A tall, elaborate headdress adorns his head.",
+  "poses": {
+    "siege-jerusalem": {
+      "id": "siege-jerusalem",
+      "name": "Siege of Jerusalem",
+      "description": "Overseeing the siege of Jerusalem, displaying military power and imperial ambition.",
+      "expression": "Stern, calculating, confident dominance",
+      "prompt": "Standing atop a siege ramp overlooking Jerusalem - surrounded by Assyrian soldiers and siege engines, pointing towards the city with a commanding gesture, displaying arrogance and military might, with fires burning in the background.",
+      "energy": "Imperial Dominance, Ruthless Power",
+      "quoteId": "siege-threat"
+    },
+    "receiving-tribute": {
+      "id": "receiving-tribute",
+      "name": "Receiving Tribute",
+      "description": "Enthroned, accepting tribute from conquered peoples, demonstrating Assyrian supremacy.",
+      "expression": "Arrogant satisfaction, cold calculation",
+      "prompt": "Seated on a grand throne adorned with lion motifs - receiving tribute from kneeling figures in foreign garb, a display of subjugation and wealth, surrounded by guards and attendants.",
+      "energy": "Triumphant Greed, Unquestioned Authority",
+      "quoteId": "tribute-demanded"
+    },
+    "planning-campaign": {
+      "id": "planning-campaign",
+      "name": "Planning Campaign",
+      "description": "Studying war maps, strategizing his next military conquest.",
+      "expression": "Intense focus, strategic calculation",
+      "prompt": "Leaning over a detailed map of the region spread across a table - surrounded by advisors and generals, pointing with a stylus at key locations, deep in thought and strategic planning, with torches providing dim light.",
+      "energy": "Calculating Ambition, Strategic Intensity",
+      "quoteId": "war-planning"
+    },
+    "divine-omen": {
+      "id": "divine-omen",
+      "name": "Interpreting Omens",
+      "description": "Consulting with priests and diviners, seeking favorable omens for his campaigns.",
+      "expression": "Anxious seeking, uncertain expectation",
+      "prompt": "Standing in a dimly lit temple chamber - consulting with priests interpreting omens from animal sacrifices or celestial events, face showing a mix of anxiety and anticipation, seeking divine guidance for his war campaigns.",
+      "energy": "Superstitious Seeking, Fate's Uncertainty",
+      "quoteId": "omen-consultation"
+    },
+    "assassination": {
+      "id": "assassination",
+      "name": "Assassination",
+      "description": "His assassination by his own sons while worshiping in the temple.",
+      "expression": "Surprise, Betrayal, Finality",
+      "prompt": "Kneeling in prayer before a statue of a god in a temple - sons standing behind him with daggers raised, face contorted in shock and pain, the moment of betrayal and death, blood splattering on the temple floor.",
+      "energy": "Sudden Betrayal, Tragic Downfall",
+      "quoteId": "death-temple"
+    }
+  }
+}

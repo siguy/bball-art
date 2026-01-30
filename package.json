@@ -18,7 +18,9 @@
   "license": "MIT",
   "dependencies": {
     "@google/genai": "^1.0.0",
-    "dotenv": "^16.4.0"
-  },
-  "devDependencies": {}
+    "ajv": "^8.17.1",
+    "ajv-formats": "^3.0.1",
+    "dotenv": "^16.4.0",
+    "minimist": "^1.2.8"
+  }
 }

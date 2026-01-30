@@ -2,16 +2,27 @@
   "id": "rodman-esau",
   "series": "court-covenant",
   "type": "villain",
+  "cardMode": "player-figure",
   "player": {
     "name": "Dennis Rodman",
     "poseFileId": "rodman",
     "displayName": "The Worm",
     "era": "1990s",
     "jerseyColors": {
-      "primary": { "base": "red", "accent": "white" },
-      "secondary": { "base": "black", "accent": "red" }
+      "primary": {
+        "base": "red",
+        "accent": "white"
+      },
+      "secondary": {
+        "base": "black",
+        "accent": "red"
+      }
     },
-    "signatureMoves": ["relentless rebounding", "lockdown defense", "chaotic energy"],
+    "signatureMoves": [
+      "relentless rebounding",
+      "lockdown defense",
+      "chaotic energy"
+    ],
     "physicalDescription": "tall 6'7\" forward, wiry muscular build, wild multi-colored hair (show as bright red or green), multiple piercings and tattoos visible, dark skin, intense wild eyes, untamed energy",
     "archetype": "The Wild Card, lived by his own rules, rebounding savant, agent of chaos"
   },
@@ -43,7 +54,10 @@
     }
   ],
   "defaultInteraction": "back-to-back",
-  "cardVariants": ["thunder-lightning", "downtown"],
+  "cardVariants": [
+    "thunder-lightning",
+    "downtown"
+  ],
   "priority": 17,
   "status": "active"
 }

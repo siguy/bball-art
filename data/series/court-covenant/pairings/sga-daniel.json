@@ -2,16 +2,27 @@
   "id": "sga-daniel",
   "series": "court-covenant",
   "type": "hero",
+  "cardMode": "player-figure",
   "player": {
     "name": "Shai Gilgeous-Alexander",
     "displayName": "SGA",
     "poseFileId": "sga",
     "era": "2020s",
     "jerseyColors": {
-      "primary": { "base": "blue", "accent": "orange" },
-      "secondary": { "base": "white", "accent": "blue" }
+      "primary": {
+        "base": "blue",
+        "accent": "orange"
+      },
+      "secondary": {
+        "base": "white",
+        "accent": "blue"
+      }
     },
-    "signatureMoves": ["crafty floater", "change of pace", "mid-range mastery"],
+    "signatureMoves": [
+      "crafty floater",
+      "change of pace",
+      "mid-range mastery"
+    ],
     "physicalDescription": "tall 6'6\" guard with long arms, slim athletic build, unique style with braided hair, calm composed expression, dark skin, effortlessly cool demeanor",
     "archetype": "The Rising King, smooth operator, unflappable under pressure"
   },
@@ -43,7 +54,10 @@
     }
   ],
   "defaultInteraction": "side-by-side",
-  "cardVariants": ["thunder-lightning", "downtown"],
+  "cardVariants": [
+    "thunder-lightning",
+    "downtown"
+  ],
   "priority": 14,
   "status": "active"
 }

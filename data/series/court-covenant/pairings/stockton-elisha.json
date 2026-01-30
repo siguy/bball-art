@@ -2,16 +2,27 @@
   "id": "stockton-elisha",
   "series": "court-covenant",
   "type": "hero",
+  "cardMode": "player-figure",
   "player": {
     "name": "John Stockton",
     "displayName": "Stockton",
     "poseFileId": "stockton",
     "era": "1990s",
     "jerseyColors": {
-      "primary": { "base": "purple", "accent": "green" },
-      "secondary": { "base": "white", "accent": "purple" }
+      "primary": {
+        "base": "purple",
+        "accent": "green"
+      },
+      "secondary": {
+        "base": "white",
+        "accent": "purple"
+      }
     },
-    "signatureMoves": ["pinpoint assist", "pick and roll", "steal"],
+    "signatureMoves": [
+      "pinpoint assist",
+      "pick and roll",
+      "steal"
+    ],
     "physicalDescription": "smaller 6'1\" guard, stocky strong build, short brown hair, intense focused expression, white skin, deceptively tough, blue collar appearance",
     "archetype": "The Accountant, all-time assists and steals leader, quiet consistent greatness"
   },
@@ -43,7 +54,10 @@
     }
   ],
   "defaultInteraction": "dap-up",
-  "cardVariants": ["thunder-lightning", "downtown"],
+  "cardVariants": [
+    "thunder-lightning",
+    "downtown"
+  ],
   "priority": 10,
   "status": "active"
 }

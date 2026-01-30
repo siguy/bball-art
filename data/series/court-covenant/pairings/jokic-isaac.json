@@ -2,6 +2,7 @@
   "id": "jokic-isaac",
   "series": "court-covenant",
   "type": "hero",
+  "cardMode": "player-figure",
   "player": {
     "name": "Nikola Jokic",
     "displayName": "Joker",

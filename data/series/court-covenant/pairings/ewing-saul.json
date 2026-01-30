@@ -2,16 +2,28 @@
   "id": "ewing-saul",
   "series": "court-covenant",
   "type": "villain",
+  "cardMode": "player-figure",
   "player": {
     "name": "Patrick Ewing",
     "displayName": "The Franchise",
     "poseFileId": "ewing",
     "era": "1990s",
     "jerseyColors": {
-      "primary": { "base": "blue", "accent": "orange" },
-      "secondary": { "base": "white", "accent": "blue" }
+      "primary": {
+        "base": "blue",
+        "accent": "orange"
+      },
+      "secondary": {
+        "base": "white",
+        "accent": "blue"
+      }
     },
-    "signatureMoves": ["fadeaway jumper", "finger roll", "blocked shot", "post up"],
+    "signatureMoves": [
+      "fadeaway jumper",
+      "finger roll",
+      "blocked shot",
+      "post up"
+    ],
     "physicalDescription": "7'0\" center, muscular imposing frame, intense eyes, always glistening with sweat, intimidating presence",
     "archetype": "King of New York who never won the crown, always overshadowed by Jordan"
   },
@@ -47,7 +59,12 @@
     }
   ],
   "defaultInteraction": "back-to-back",
-  "cardVariants": ["thunder-lightning", "thunder-lightning-dark", "beam-team", "beam-team-shadow"],
+  "cardVariants": [
+    "thunder-lightning",
+    "thunder-lightning-dark",
+    "beam-team",
+    "beam-team-shadow"
+  ],
   "priority": 9,
   "status": "active"
 }

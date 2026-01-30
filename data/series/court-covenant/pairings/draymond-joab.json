@@ -2,16 +2,27 @@
   "id": "draymond-joab",
   "series": "court-covenant",
   "type": "villain",
+  "cardMode": "player-figure",
   "player": {
     "name": "Draymond Green",
     "poseFileId": "draymond",
     "displayName": "Draymond",
     "era": "2010s",
     "jerseyColors": {
-      "primary": { "base": "blue", "accent": "gold" },
-      "secondary": { "base": "white", "accent": "blue" }
+      "primary": {
+        "base": "blue",
+        "accent": "gold"
+      },
+      "secondary": {
+        "base": "white",
+        "accent": "blue"
+      }
     },
-    "signatureMoves": ["defensive intensity", "trash talk", "hockey assist"],
+    "signatureMoves": [
+      "defensive intensity",
+      "trash talk",
+      "hockey assist"
+    ],
     "physicalDescription": "undersized 6'6\" power forward, thick muscular build, intense aggressive expression, dark skin, always talking, emotional intensity radiating",
     "archetype": "The Enforcer, does the dirty work, crosses lines when needed, heart of champions"
   },
@@ -43,7 +54,10 @@
     }
   ],
   "defaultInteraction": "back-to-back",
-  "cardVariants": ["thunder-lightning", "downtown"],
+  "cardVariants": [
+    "thunder-lightning",
+    "downtown"
+  ],
   "priority": 18,
   "status": "active"
 }

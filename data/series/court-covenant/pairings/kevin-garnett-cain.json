@@ -2,6 +2,7 @@
   "id": "kevin-garnett-cain",
   "series": "court-covenant",
   "type": "villain",
+  "cardMode": "player-figure",
   "isAlternate": false,
   "alternateOf": null,
   "opposingPairing": "tim-bezalel",

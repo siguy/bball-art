@@ -2,16 +2,28 @@
   "id": "giannis-ruth",
   "series": "court-covenant",
   "type": "hero",
+  "cardMode": "player-figure",
   "player": {
     "name": "Giannis Antetokounmpo",
     "displayName": "The Greek Freak",
     "poseFileId": "giannis",
     "era": "2020s",
     "jerseyColors": {
-      "primary": { "base": "green", "accent": "cream" },
-      "secondary": { "base": "cream", "accent": "green" }
+      "primary": {
+        "base": "green",
+        "accent": "cream"
+      },
+      "secondary": {
+        "base": "cream",
+        "accent": "green"
+      }
     },
-    "signatureMoves": ["eurostep", "dunk", "block", "transition"],
+    "signatureMoves": [
+      "eurostep",
+      "dunk",
+      "block",
+      "transition"
+    ],
     "physicalDescription": "6'11\" forward, impossibly long wingspan, athletic build, infectious smile, intense game face",
     "archetype": "Immigrant who became champion through relentless work and humble heart"
   },
@@ -47,7 +59,11 @@
     }
   ],
   "defaultInteraction": "side-by-side",
-  "cardVariants": ["thunder-lightning", "prizm-silver", "beam-team"],
+  "cardVariants": [
+    "thunder-lightning",
+    "prizm-silver",
+    "beam-team"
+  ],
   "priority": 8,
   "status": "active"
 }

@@ -2,16 +2,27 @@
   "id": "durant-jonathan",
   "series": "court-covenant",
   "type": "hero",
+  "cardMode": "player-figure",
   "player": {
     "name": "Kevin Durant",
     "displayName": "KD",
     "poseFileId": "durant",
     "era": "2010s",
     "jerseyColors": {
-      "primary": { "base": "blue", "accent": "gold" },
-      "secondary": { "base": "white", "accent": "blue" }
+      "primary": {
+        "base": "blue",
+        "accent": "gold"
+      },
+      "secondary": {
+        "base": "white",
+        "accent": "blue"
+      }
     },
-    "signatureMoves": ["pull-up jumper", "unstoppable scoring", "silky smooth shooting"],
+    "signatureMoves": [
+      "pull-up jumper",
+      "unstoppable scoring",
+      "silky smooth shooting"
+    ],
     "physicalDescription": "extremely tall 6'10\" with impossibly long arms and lean frame, slim build, short hair, facial hair, dark skin, effortless athletic grace",
     "archetype": "The Slim Reaper, pure scorer, complicated legacy and loyalties"
   },
@@ -43,7 +54,10 @@
     }
   ],
   "defaultInteraction": "side-by-side",
-  "cardVariants": ["thunder-lightning", "downtown"],
+  "cardVariants": [
+    "thunder-lightning",
+    "downtown"
+  ],
   "priority": 12,
   "status": "active"
 }

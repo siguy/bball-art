@@ -2,16 +2,27 @@
   "id": "lebron-david",
   "series": "court-covenant",
   "type": "hero",
+  "cardMode": "player-figure",
   "player": {
     "name": "LeBron James",
     "displayName": "King James",
     "poseFileId": "lebron",
     "era": "2010s",
     "jerseyColors": {
-      "primary": { "base": "purple", "accent": "gold" },
-      "secondary": { "base": "gold", "accent": "purple" }
+      "primary": {
+        "base": "purple",
+        "accent": "gold"
+      },
+      "secondary": {
+        "base": "gold",
+        "accent": "purple"
+      }
     },
-    "signatureMoves": ["chase-down block", "tomahawk dunk", "no-look pass"],
+    "signatureMoves": [
+      "chase-down block",
+      "tomahawk dunk",
+      "no-look pass"
+    ],
     "physicalDescription": "powerful muscular build, receding hairline, intense determined expression",
     "archetype": "The King, versatile greatness, longevity personified"
   },
@@ -47,7 +58,11 @@
     }
   ],
   "defaultInteraction": "back-to-back",
-  "cardVariants": ["thunder-lightning", "prizm-silver", "select-courtside"],
+  "cardVariants": [
+    "thunder-lightning",
+    "prizm-silver",
+    "select-courtside"
+  ],
   "priority": 2,
   "status": "active"
 }

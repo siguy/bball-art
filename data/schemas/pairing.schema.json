@@ -1,0 +1,207 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "pairing",
+  "title": "Pairing",
+  "description": "A pairing of characters for card generation",
+  "type": "object",
+  "required": ["id", "series", "type"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z0-9-]+$",
+      "description": "Unique pairing ID in kebab-case"
+    },
+    "series": {
+      "type": "string",
+      "enum": ["court-covenant", "torah-titans", "scripture-titans", "founding-fathers"],
+      "description": "Series this pairing belongs to"
+    },
+    "subSeries": {
+      "type": "string",
+      "description": "Optional sub-series (e.g., 'spouses', 'plagues')"
+    },
+    "type": {
+      "type": "string",
+      "enum": ["hero", "villain", "spouse", "rivalry", "trial", "plague", "multi"],
+      "description": "Type of pairing"
+    },
+    "cardMode": {
+      "type": "string",
+      "enum": [
+        "player-figure",
+        "player-player",
+        "figure-figure",
+        "solo-figure",
+        "solo-player",
+        "multi-figure",
+        "rivalry-player-figure",
+        "rivalry-player-player",
+        "rivalry-figure-figure"
+      ],
+      "description": "Card generation mode"
+    },
+    "priority": {
+      "type": "integer",
+      "minimum": 1,
+      "description": "Priority for generation order (1 = highest)"
+    },
+    "status": {
+      "type": "string",
+      "enum": ["active", "draft", "archived"],
+      "default": "active"
+    },
+    "player": {
+      "$ref": "#/$defs/character",
+      "description": "First character (player or figure)"
+    },
+    "figure": {
+      "$ref": "#/$defs/character",
+      "description": "Second character (figure)"
+    },
+    "characters": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/character" },
+      "minItems": 2,
+      "description": "Array of characters for multi-character pairings"
+    },
+    "connection": {
+      "oneOf": [
+        {
+          "type": "object",
+          "properties": {
+            "thematic": { "type": "string" },
+            "narrative": { "type": "string" },
+            "relationship": { "type": "string" }
+          }
+        },
+        {
+          "type": "string",
+          "description": "Simple connection string"
+        }
+      ],
+      "description": "Thematic connection (object or string)"
+    },
+    "interactions": {
+      "oneOf": [
+        {
+          "type": "array",
+          "items": { "$ref": "#/$defs/interactionArray" },
+          "description": "Array of interaction options"
+        },
+        {
+          "type": "object",
+          "additionalProperties": { "$ref": "#/$defs/interactionObject" },
+          "description": "Object map of interactions"
+        }
+      ]
+    },
+    "defaultInteraction": {
+      "type": "string",
+      "description": "Default interaction ID"
+    },
+    "cardVariants": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Recommended card templates for this pairing"
+    },
+    "seriesSpecificData": {
+      "type": "object",
+      "description": "Additional data specific to the series"
+    },
+    "isAlternate": {
+      "type": "boolean",
+      "description": "Whether this is an alternate pairing for a character"
+    },
+    "alternateOf": {
+      "type": ["string", "null"],
+      "description": "ID of the primary pairing if this is alternate"
+    },
+    "opposingPairing": {
+      "type": ["string", "null"],
+      "description": "ID of an opposing pairing (for villains vs heroes)"
+    }
+  },
+  "$defs": {
+    "character": {
+      "type": "object",
+      "required": ["name", "poseFileId"],
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Full character name"
+        },
+        "displayName": {
+          "type": "string",
+          "description": "Short display name"
+        },
+        "poseFileId": {
+          "type": "string",
+          "pattern": "^[a-z0-9-]+$",
+          "description": "ID of the pose file (without .json)"
+        },
+        "characterType": {
+          "type": "string",
+          "enum": ["player", "figure"],
+          "description": "Type of character"
+        },
+        "era": {
+          "type": "string",
+          "description": "Era (e.g., '1990s', 'Biblical')"
+        },
+        "jerseyColors": {
+          "type": "object",
+          "description": "Jersey color scheme (for players)"
+        },
+        "signatureMoves": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Signature basketball moves (for players)"
+        },
+        "physicalDescription": {
+          "type": "string",
+          "description": "Physical appearance description"
+        },
+        "clothing": {
+          "type": "string",
+          "description": "Clothing/costume description"
+        },
+        "visualStyle": {
+          "type": "string",
+          "description": "Visual style notes"
+        },
+        "attribute": {
+          "type": "string",
+          "description": "Key attribute (for figures)"
+        },
+        "attributeDescription": {
+          "type": "string",
+          "description": "Description of the attribute"
+        },
+        "archetype": {
+          "type": "string",
+          "description": "Character archetype"
+        },
+        "anatomyNote": {
+          "type": "string",
+          "description": "Notes about anatomy for image generation"
+        }
+      }
+    },
+    "interactionArray": {
+      "type": "object",
+      "required": ["id"],
+      "properties": {
+        "id": { "type": "string" },
+        "description": { "type": "string" }
+      }
+    },
+    "interactionObject": {
+      "type": "object",
+      "properties": {
+        "playerAction": { "type": "string" },
+        "figureAction": { "type": "string" },
+        "description": { "type": "string" }
+      }
+    }
+  }
+}

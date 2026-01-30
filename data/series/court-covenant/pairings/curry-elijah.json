@@ -2,16 +2,27 @@
   "id": "curry-elijah",
   "series": "court-covenant",
   "type": "hero",
+  "cardMode": "player-figure",
   "player": {
     "name": "Stephen Curry",
     "displayName": "Chef Curry",
     "poseFileId": "curry",
     "era": "2010s",
     "jerseyColors": {
-      "primary": { "base": "blue", "accent": "gold" },
-      "secondary": { "base": "gold", "accent": "blue" }
+      "primary": {
+        "base": "blue",
+        "accent": "gold"
+      },
+      "secondary": {
+        "base": "gold",
+        "accent": "blue"
+      }
     },
-    "signatureMoves": ["deep three-pointer", "behind-the-back dribble", "shimmy celebration"],
+    "signatureMoves": [
+      "deep three-pointer",
+      "behind-the-back dribble",
+      "shimmy celebration"
+    ],
     "physicalDescription": "lean athletic build, light skin, baby-faced with confident smile",
     "archetype": "The Revolutionary, changed the game forever, unlimited range"
   },
@@ -47,7 +58,11 @@
     }
   ],
   "defaultInteraction": "fire-rain",
-  "cardVariants": ["thunder-lightning", "prizm-silver", "downtown"],
+  "cardVariants": [
+    "thunder-lightning",
+    "prizm-silver",
+    "downtown"
+  ],
   "priority": 5,
   "status": "active"
 }
