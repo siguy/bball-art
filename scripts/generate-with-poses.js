@@ -17,6 +17,7 @@
  *   --figure-pose <id>   Figure pose ID (or 'default')
  *   --hair <color>       Hair color override for player
  *   --list-poses         List available poses for this pairing
+ *   --show-hints         Show generation hints before generating
  *   --dry-run            Show prompt without generating
  */
 
@@ -143,6 +144,60 @@ if (flags['list-poses'] && pairingId) {
   process.exit(0);
 }
 
+/**
+ * Load and display generation hints for a pairing
+ */
+function showHints(pairingId) {
+  const hintsPath = join(ROOT, 'visualizer/data/generation-hints.json');
+
+  if (!existsSync(hintsPath)) {
+    console.log('\n💡 No hints available yet. Run: node scripts/regenerate-hints.js\n');
+    return;
+  }
+
+  const hints = JSON.parse(readFileSync(hintsPath, 'utf-8'));
+  const pairingHints = hints.quickHints[pairingId];
+  const global = hints.globalRecommendations;
+
+  console.log('\n💡 GENERATION HINTS');
+  console.log('='.repeat(50));
+
+  // Show recommended templates
+  const recommended = pairingHints?.recommendedTemplates || global?.topTemplates || [];
+  if (recommended.length > 0) {
+    console.log('\n✓ Recommended templates:');
+    recommended.forEach(t => console.log(`  • ${t}`));
+  }
+
+  // Show templates to avoid
+  const avoid = pairingHints?.avoidTemplates || global?.avoidTemplates || [];
+  if (avoid.length > 0) {
+    console.log('\n✗ Templates to avoid:');
+    avoid.forEach(t => console.log(`  • ${t}`));
+  }
+
+  // Show issue notes
+  const notes = pairingHints?.issueNotes || [];
+  if (notes.length > 0) {
+    console.log('\n⚠ Previous issues:');
+    notes.slice(0, 3).forEach(n => console.log(`  "${n}"`));
+  }
+
+  if (recommended.length === 0 && avoid.length === 0) {
+    console.log('\n  No specific hints for this pairing.');
+    if (global?.topTemplates?.length > 0) {
+      console.log(`  Global top templates: ${global.topTemplates.join(', ')}`);
+    }
+  }
+
+  console.log('\n' + '='.repeat(50) + '\n');
+}
+
+// Show hints if requested
+if (flags['show-hints'] && pairingId) {
+  showHints(pairingId);
+}
+
 // Validate required arguments
 if (!pairingId || !template) {
   console.log(`
@@ -151,12 +206,14 @@ Usage: node scripts/generate-with-poses.js <pairing> <template> [options]
 Examples:
   node scripts/generate-with-poses.js rodman-esau thunder-lightning-dark --player-pose diving-loose-ball --figure-pose drawing-bow
   node scripts/generate-with-poses.js isiah-pharaoh metal-universe-dark --player-pose default --figure-pose default
+  node scripts/generate-with-poses.js jordan-moses --show-hints thunder-lightning
 
 Options:
   --player-pose <id>   Player pose ID (or 'default')
   --figure-pose <id>   Figure pose ID (or 'default')
   --hair <color>       Hair color override (e.g., 'green', 'pink', 'leopard')
   --list-poses         List available poses for this pairing
+  --show-hints         Show generation hints before generating
   --dry-run            Show command without executing
   `);
   process.exit(1);

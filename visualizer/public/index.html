@@ -54,6 +54,10 @@
         </select>
       </div>
       <button id="refresh-btn" class="btn">Refresh</button>
+      <div class="filter-actions">
+        <button id="download-feedback-btn" class="btn btn-small">Download Feedback</button>
+        <button id="view-analysis-btn" class="btn btn-small">View Analysis</button>
+      </div>
       <a href="/export-queue.html" class="btn btn-export">Export Queue</a>
     </section>
 
@@ -177,6 +181,54 @@
               <pre id="detail-prompt"></pre>
             </div>
           </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Analysis Modal -->
+  <div class="modal" id="analysis-modal">
+    <div class="modal-content modal-wide">
+      <button class="modal-close" id="analysis-modal-close">&times;</button>
+
+      <h2>Feedback Analysis</h2>
+
+      <div class="analysis-content" id="analysis-content">
+        <div class="analysis-loading">Loading analysis...</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Download Options Modal -->
+  <div class="modal" id="download-modal">
+    <div class="modal-content modal-small">
+      <button class="modal-close" id="download-modal-close">&times;</button>
+
+      <h2>Download Feedback</h2>
+
+      <div class="download-options">
+        <div class="download-option-group">
+          <label for="download-rating">Filter by Rating:</label>
+          <select id="download-rating">
+            <option value="">All Ratings</option>
+            <option value="loved">Loved Only</option>
+            <option value="liked">Liked Only</option>
+            <option value="issues">Has Issues Only</option>
+            <option value="none">Unrated Only</option>
+          </select>
+        </div>
+
+        <div class="download-option-group">
+          <label for="download-format">Format:</label>
+          <select id="download-format">
+            <option value="json-enriched">JSON (Enriched)</option>
+            <option value="csv">CSV (Spreadsheet)</option>
+            <option value="json-raw">JSON (Raw)</option>
+          </select>
+        </div>
+
+        <div class="download-actions">
+          <button id="do-download-btn" class="btn btn-primary">Download</button>
         </div>
       </div>
     </div>

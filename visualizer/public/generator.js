@@ -15,6 +15,7 @@ let currentPlayerPoses = null;
 let currentFigurePoses = null;
 let lastGeneratedCard = null;
 let isGenerating = false;
+let currentHints = null;
 
 // Solo mode state
 let players = [];
@@ -168,6 +169,17 @@ async function fetchFigurePoses(poseFileId) {
   }
 }
 
+async function fetchHints(pairingId) {
+  try {
+    const res = await fetch(`${API_BASE}/api/generation-hints?pairingId=${encodeURIComponent(pairingId)}`);
+    if (!res.ok) return null;
+    return await res.json();
+  } catch (err) {
+    console.error('Failed to fetch hints:', err);
+    return null;
+  }
+}
+
 // Populate Controls
 function populatePairings() {
   // Sort pairings by priority
@@ -310,6 +322,93 @@ function updatePosePreview(type) {
   } else {
     preview.textContent = '';
   }
+}
+
+/**
+ * Display generation hints for the current pairing
+ */
+function displayHints(hints) {
+  const panel = document.getElementById('hints-panel');
+  const content = document.getElementById('hints-content');
+
+  if (!hints || (!hints.pairing && (!hints.global || hints.global.topTemplates.length === 0))) {
+    panel.classList.add('hidden');
+    return;
+  }
+
+  let html = '';
+
+  // Show recommended templates
+  const recommended = hints.pairing?.recommendedTemplates || hints.global?.topTemplates || [];
+  if (recommended.length > 0) {
+    html += `
+      <div class="hints-section">
+        <span class="hints-label">Recommended:</span>
+        <span class="hints-templates">
+          ${recommended.map(t => `<span class="hint-template recommended">${formatTemplateName(t)}</span>`).join('')}
+        </span>
+      </div>
+    `;
+  }
+
+  // Show templates to avoid
+  const avoid = hints.pairing?.avoidTemplates || hints.global?.avoidTemplates || [];
+  if (avoid.length > 0) {
+    html += `
+      <div class="hints-section">
+        <span class="hints-label">Avoid:</span>
+        <span class="hints-templates">
+          ${avoid.map(t => `<span class="hint-template avoid">${formatTemplateName(t)}</span>`).join('')}
+        </span>
+      </div>
+    `;
+  }
+
+  // Show issue notes
+  const notes = hints.pairing?.issueNotes || [];
+  if (notes.length > 0) {
+    html += `
+      <div class="hints-warning">
+        <span class="hints-warning-icon">&#9888;</span>
+        Previous issues: ${notes[0]}
+      </div>
+    `;
+  }
+
+  if (html) {
+    content.innerHTML = html;
+    panel.classList.remove('hidden');
+  } else {
+    panel.classList.add('hidden');
+  }
+}
+
+/**
+ * Check if current template selection conflicts with hints
+ */
+function checkTemplateWarning() {
+  if (!currentHints || !currentHints.pairing) return;
+
+  const selectedTemplate = templateSelect.value;
+  const avoidTemplates = currentHints.pairing.avoidTemplates || [];
+
+  if (avoidTemplates.includes(selectedTemplate)) {
+    // Template is in avoid list - show a warning
+    const panel = document.getElementById('hints-panel');
+    const existingWarning = panel.querySelector('.hints-warning');
+
+    if (!existingWarning) {
+      const warning = document.createElement('div');
+      warning.className = 'hints-warning';
+      warning.innerHTML = `<span class="hints-warning-icon">&#9888;</span> This template had issues with this pairing previously.`;
+      panel.appendChild(warning);
+    }
+  }
+}
+
+function formatTemplateName(template) {
+  if (!template) return '';
+  return template.split('-').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
 }
 
 // Mode Toggle Handler
@@ -474,7 +573,7 @@ async function onCharacterChange() {
 }
 
 // Event Handlers
-function onPairingChange() {
+async function onPairingChange() {
   const pairingId = pairingSelect.value;
 
   if (!pairingId) {
@@ -486,6 +585,8 @@ function onPairingChange() {
     hairColorGroup.classList.add('hidden');
     darkModeToggle.checked = false;
     autoBadge.classList.add('hidden');
+    currentHints = null;
+    displayHints(null);
     updateGenerateButton();
     return;
   }
@@ -515,6 +616,10 @@ function onPairingChange() {
   populatePlayerPoses(playerPoseFileId);
   populateFigurePoses(figurePoseFileId);
 
+  // Fetch and display hints
+  currentHints = await fetchHints(pairingId);
+  displayHints(currentHints);
+
   updateGenerateButton();
 }
 
@@ -535,6 +640,9 @@ function onTemplateChange() {
     ${template.description}
     ${template.hasDarkMode ? '<br><em>Dark mode available</em>' : ''}
   `;
+
+  // Check for template warnings based on hints
+  checkTemplateWarning();
 
   updateGenerateButton();
 }

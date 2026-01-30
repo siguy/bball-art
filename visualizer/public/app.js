@@ -763,5 +763,290 @@ async function autoSaveFeedback() {
   }
 }
 
+// ========================================
+// FEEDBACK EXPORT & ANALYSIS
+// ========================================
+
+const analysisModal = document.getElementById('analysis-modal');
+const downloadModal = document.getElementById('download-modal');
+
+/**
+ * Open the download modal
+ */
+function openDownloadModal() {
+  downloadModal.classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+
+/**
+ * Close the download modal
+ */
+function closeDownloadModal() {
+  downloadModal.classList.remove('active');
+  document.body.style.overflow = '';
+}
+
+/**
+ * Download feedback with selected options
+ */
+async function doDownload() {
+  const rating = document.getElementById('download-rating').value;
+  const format = document.getElementById('download-format').value;
+
+  let url;
+  let filename;
+
+  if (format === 'json-raw') {
+    url = `/api/feedback/export${rating ? `?rating=${rating}` : ''}`;
+    filename = `feedback-raw-${rating || 'all'}.json`;
+  } else if (format === 'csv') {
+    url = `/api/feedback/export/enriched?format=csv${rating ? `&rating=${rating}` : ''}`;
+    filename = `feedback-enriched-${rating || 'all'}.csv`;
+  } else {
+    // json-enriched (default)
+    url = `/api/feedback/export/enriched?format=json${rating ? `&rating=${rating}` : ''}`;
+    filename = `feedback-enriched-${rating || 'all'}.json`;
+  }
+
+  try {
+    const res = await fetch(url);
+    const blob = await res.blob();
+
+    // Create download link
+    const downloadUrl = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = downloadUrl;
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(downloadUrl);
+
+    closeDownloadModal();
+  } catch (err) {
+    console.error('Download failed:', err);
+    alert('Download failed: ' + err.message);
+  }
+}
+
+/**
+ * Open the analysis modal and load data
+ */
+async function openAnalysisModal() {
+  analysisModal.classList.add('active');
+  document.body.style.overflow = 'hidden';
+
+  const content = document.getElementById('analysis-content');
+  content.innerHTML = '<div class="analysis-loading">Loading analysis...</div>';
+
+  try {
+    const res = await fetch('/api/feedback/analysis');
+    const analysis = await res.json();
+    renderAnalysis(analysis, content);
+  } catch (err) {
+    content.innerHTML = `<div class="analysis-error">Failed to load analysis: ${err.message}</div>`;
+  }
+}
+
+/**
+ * Close the analysis modal
+ */
+function closeAnalysisModal() {
+  analysisModal.classList.remove('active');
+  document.body.style.overflow = '';
+}
+
+/**
+ * Render analysis data in the modal
+ */
+function renderAnalysis(analysis, container) {
+  const scoreToPercent = (score) => Math.round(score * 100);
+  const scoreClass = (score) => {
+    if (score >= 0.8) return 'score-high';
+    if (score >= 0.5) return 'score-medium';
+    return 'score-low';
+  };
+
+  let html = `
+    <div class="analysis-summary">
+      <h3>Summary</h3>
+      <div class="summary-stats">
+        <div class="stat">
+          <span class="stat-value">${analysis.totalCards}</span>
+          <span class="stat-label">Total Cards</span>
+        </div>
+        <div class="stat loved">
+          <span class="stat-value">${analysis.summary.loved}</span>
+          <span class="stat-label">Loved</span>
+        </div>
+        <div class="stat liked">
+          <span class="stat-value">${analysis.summary.liked}</span>
+          <span class="stat-label">Liked</span>
+        </div>
+        <div class="stat issues">
+          <span class="stat-value">${analysis.summary.issues}</span>
+          <span class="stat-label">Has Issues</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="analysis-section">
+      <h3>Top Performing Templates</h3>
+      <div class="performance-list">
+        ${analysis.topTemplates.map(t => `
+          <div class="performance-item">
+            <span class="perf-name">${formatTemplateName(t.name)}</span>
+            <span class="perf-score ${scoreClass(t.score)}">${scoreToPercent(t.score)}%</span>
+            <span class="perf-counts">
+              <span class="count loved">${t.loved}L</span>
+              <span class="count liked">${t.liked}l</span>
+              <span class="count issues">${t.issues}i</span>
+              <span class="count total">${t.total} total</span>
+            </span>
+          </div>
+        `).join('')}
+      </div>
+    </div>
+
+    <div class="analysis-section">
+      <h3>Top Performing Pairings</h3>
+      <div class="performance-list">
+        ${analysis.topPairings.map(p => {
+          const pairing = pairingData[p.name];
+          const label = pairing ? `${pairing.playerName} & ${pairing.figureName}` : p.name;
+          return `
+            <div class="performance-item">
+              <span class="perf-name">${label}</span>
+              <span class="perf-score ${scoreClass(p.score)}">${scoreToPercent(p.score)}%</span>
+              <span class="perf-counts">
+                <span class="count loved">${p.loved}L</span>
+                <span class="count liked">${p.liked}l</span>
+                <span class="count issues">${p.issues}i</span>
+                <span class="count total">${p.total} total</span>
+              </span>
+            </div>
+          `;
+        }).join('')}
+      </div>
+    </div>
+
+    ${analysis.problemCombinations.length > 0 ? `
+      <div class="analysis-section">
+        <h3>Problem Combinations</h3>
+        <div class="problem-list">
+          ${analysis.problemCombinations.slice(0, 5).map(p => {
+            const pairing = pairingData[p.pairingId];
+            const label = pairing ? `${pairing.playerName} & ${pairing.figureName}` : p.pairingId;
+            return `
+              <div class="problem-item">
+                <span class="problem-pairing">${label}</span>
+                <span class="problem-template">${formatTemplateName(p.template)}</span>
+                <span class="problem-count">${p.issues} issue${p.issues > 1 ? 's' : ''}</span>
+                ${p.notes.length > 0 ? `
+                  <div class="problem-notes">
+                    ${p.notes.slice(0, 2).map(n => `<div class="note">"${n}"</div>`).join('')}
+                  </div>
+                ` : ''}
+              </div>
+            `;
+          }).join('')}
+        </div>
+      </div>
+    ` : ''}
+
+    <div class="analysis-actions">
+      <button id="regenerate-hints-btn" class="btn btn-primary">Regenerate Hints</button>
+    </div>
+  `;
+
+  container.innerHTML = html;
+
+  // Add event listener for regenerate hints button
+  document.getElementById('regenerate-hints-btn').addEventListener('click', regenerateHints);
+}
+
+/**
+ * Regenerate generation hints
+ */
+async function regenerateHints() {
+  const btn = document.getElementById('regenerate-hints-btn');
+  btn.textContent = 'Regenerating...';
+  btn.disabled = true;
+
+  try {
+    const res = await fetch('/api/generation-hints/regenerate', { method: 'POST' });
+    const result = await res.json();
+
+    if (result.success) {
+      btn.textContent = 'Hints Updated!';
+      setTimeout(() => {
+        btn.textContent = 'Regenerate Hints';
+        btn.disabled = false;
+      }, 2000);
+    } else {
+      btn.textContent = 'Failed';
+      setTimeout(() => {
+        btn.textContent = 'Regenerate Hints';
+        btn.disabled = false;
+      }, 2000);
+    }
+  } catch (err) {
+    console.error('Regenerate hints failed:', err);
+    btn.textContent = 'Failed';
+    setTimeout(() => {
+      btn.textContent = 'Regenerate Hints';
+      btn.disabled = false;
+    }, 2000);
+  }
+}
+
+// Setup export/analysis event listeners
+function setupExportListeners() {
+  // Download button
+  const downloadBtn = document.getElementById('download-feedback-btn');
+  if (downloadBtn) {
+    downloadBtn.addEventListener('click', openDownloadModal);
+  }
+
+  // Download modal close
+  const downloadCloseBtn = document.getElementById('download-modal-close');
+  if (downloadCloseBtn) {
+    downloadCloseBtn.addEventListener('click', closeDownloadModal);
+  }
+
+  // Download modal background click
+  if (downloadModal) {
+    downloadModal.addEventListener('click', (e) => {
+      if (e.target === downloadModal) closeDownloadModal();
+    });
+  }
+
+  // Do download button
+  const doDownloadBtn = document.getElementById('do-download-btn');
+  if (doDownloadBtn) {
+    doDownloadBtn.addEventListener('click', doDownload);
+  }
+
+  // Analysis button
+  const analysisBtn = document.getElementById('view-analysis-btn');
+  if (analysisBtn) {
+    analysisBtn.addEventListener('click', openAnalysisModal);
+  }
+
+  // Analysis modal close
+  const analysisCloseBtn = document.getElementById('analysis-modal-close');
+  if (analysisCloseBtn) {
+    analysisCloseBtn.addEventListener('click', closeAnalysisModal);
+  }
+
+  // Analysis modal background click
+  if (analysisModal) {
+    analysisModal.addEventListener('click', (e) => {
+      if (e.target === analysisModal) closeAnalysisModal();
+    });
+  }
+}
+
 // Start
 init();
+setupExportListeners();

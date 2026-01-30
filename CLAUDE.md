@@ -28,6 +28,7 @@ A **contemporary art project** creating collectible basketball cards that pair N
 - [x] **Multi-Platform Export System** (Website, Instagram, Twitter)
 - [x] **Card Generator UI** (interactive control panel for card generation)
 - [x] **Solo Character Mode** (generate single-character cards)
+- [x] **Feedback Export & Analysis** (download feedback, view stats, generation hints)
 
 ### In Progress
 - [ ] **Pairing Creation Assistant** (AI-powered pairing suggestions)

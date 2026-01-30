@@ -12,6 +12,8 @@ import captionGenerator from './lib/caption-generator.js';
 import bufferClient from './lib/buffer-client.js';
 import pairingAssistant, { callGemini, generatePlayerPoseFile, generateFigurePoseFile, generateFigureQuotesFile } from './lib/pairing-assistant.js';
 import { researchBiblicalFigure } from './lib/sefaria-client.js';
+import feedbackEnricher from './lib/feedback-enricher.js';
+import feedbackAnalyzer from './lib/feedback-analyzer.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -228,9 +230,167 @@ app.post('/api/feedback/:cardId', (req, res) => {
 // Delete feedback for a card
 app.delete('/api/feedback/:cardId', (req, res) => {
   const feedback = loadFeedback();
-  delete feedback[cardId];
+  delete feedback[req.params.cardId];
   saveFeedback(feedback);
   res.json({ success: true });
+});
+
+// ========================================
+// FEEDBACK EXPORT & ANALYSIS ENDPOINTS
+// ========================================
+
+/**
+ * Load all pairing data for enrichment
+ */
+function loadAllPairings() {
+  const pairingsDir = join(ROOT, 'data/series/court-covenant/pairings');
+  const pairings = {};
+
+  if (!existsSync(pairingsDir)) {
+    return pairings;
+  }
+
+  const files = readdirSync(pairingsDir).filter(f => f.endsWith('.json'));
+  for (const file of files) {
+    const data = JSON.parse(readFileSync(join(pairingsDir, file), 'utf-8'));
+    pairings[data.id] = data;
+  }
+
+  return pairings;
+}
+
+/**
+ * Export raw feedback (with optional rating filter)
+ * GET /api/feedback/export?rating=loved
+ */
+app.get('/api/feedback/export', (req, res) => {
+  try {
+    const { rating } = req.query;
+    const feedback = loadFeedback();
+
+    let exportData = feedback;
+
+    // Filter by rating if specified
+    if (rating) {
+      exportData = {};
+      for (const [cardId, fb] of Object.entries(feedback)) {
+        if (rating === 'none' || rating === 'unrated') {
+          if (!fb.rating) exportData[cardId] = fb;
+        } else if (fb.rating === rating) {
+          exportData[cardId] = fb;
+        }
+      }
+    }
+
+    // Set headers for file download
+    res.setHeader('Content-Type', 'application/json');
+    res.setHeader('Content-Disposition', `attachment; filename="feedback-${rating || 'all'}-${new Date().toISOString().split('T')[0]}.json"`);
+    res.json(exportData);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+/**
+ * Export enriched feedback with card metadata
+ * GET /api/feedback/export/enriched?rating=loved&format=json
+ * Supports JSON or CSV format
+ */
+app.get('/api/feedback/export/enriched', (req, res) => {
+  try {
+    const { rating, format = 'json' } = req.query;
+    const feedback = loadFeedback();
+    const manifest = buildManifest();
+    const pairings = loadAllPairings();
+
+    // Enrich feedback
+    let enriched = feedbackEnricher.enrichFeedback(feedback, manifest, pairings);
+
+    // Filter by rating if specified
+    if (rating) {
+      enriched = feedbackEnricher.filterByRating(enriched, rating);
+    }
+
+    // Return in requested format
+    if (format === 'csv') {
+      const csv = feedbackEnricher.toCSV(enriched);
+      res.setHeader('Content-Type', 'text/csv');
+      res.setHeader('Content-Disposition', `attachment; filename="feedback-enriched-${rating || 'all'}-${new Date().toISOString().split('T')[0]}.csv"`);
+      res.send(csv);
+    } else {
+      res.setHeader('Content-Type', 'application/json');
+      res.setHeader('Content-Disposition', `attachment; filename="feedback-enriched-${rating || 'all'}-${new Date().toISOString().split('T')[0]}.json"`);
+      res.json(enriched);
+    }
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+/**
+ * Get feedback analysis / statistics
+ * GET /api/feedback/analysis
+ */
+app.get('/api/feedback/analysis', (req, res) => {
+  try {
+    const feedback = loadFeedback();
+    const manifest = buildManifest();
+    const pairings = loadAllPairings();
+
+    // Enrich and analyze
+    const enriched = feedbackEnricher.enrichFeedback(feedback, manifest, pairings);
+    const analysis = feedbackAnalyzer.analyzeFeedback(enriched);
+
+    res.json(analysis);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+/**
+ * Get generation hints for a pairing (or all hints)
+ * GET /api/generation-hints?pairingId=jordan-moses
+ */
+app.get('/api/generation-hints', (req, res) => {
+  try {
+    const { pairingId } = req.query;
+
+    if (pairingId) {
+      // Get hints for specific pairing
+      const hints = feedbackAnalyzer.getHintsForPairing(pairingId);
+      res.json(hints || { pairing: null, global: { topTemplates: [], avoidTemplates: [] } });
+    } else {
+      // Get all hints
+      const hints = feedbackAnalyzer.loadHints();
+      res.json(hints || { quickHints: {}, globalRecommendations: { topTemplates: [], avoidTemplates: [] } });
+    }
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+/**
+ * Regenerate hints from current feedback
+ * POST /api/generation-hints/regenerate
+ */
+app.post('/api/generation-hints/regenerate', (req, res) => {
+  try {
+    const feedback = loadFeedback();
+    const manifest = buildManifest();
+    const pairings = loadAllPairings();
+
+    // Enrich, analyze, generate hints
+    const enriched = feedbackEnricher.enrichFeedback(feedback, manifest, pairings);
+    const analysis = feedbackAnalyzer.analyzeFeedback(enriched);
+    const hints = feedbackAnalyzer.generateHints(analysis);
+
+    // Save hints
+    feedbackAnalyzer.saveHints(hints);
+
+    res.json({ success: true, hints });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
 });
 
 // Get pairing data (summary)
