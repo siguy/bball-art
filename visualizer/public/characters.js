@@ -32,23 +32,30 @@ async function init() {
   if (typeof initSeriesSelector === 'function') {
     initSeriesSelector();
   }
-  const currentSeries = typeof getSelectedSeries === 'function' ? getSelectedSeries() : 'court-covenant';
 
-  // Hide NBA Players option for Torah Titans (figure-only series)
-  if (currentSeries === 'torah-titans') {
-    const playerOption = typeFilter.querySelector('option[value="player"]');
-    if (playerOption) {
-      playerOption.style.display = 'none';
-    }
-    // Force filter to figures only if player was selected
-    if (typeFilter.value === 'player') {
-      typeFilter.value = 'figure';
-    }
-  }
-
+  updateTypeFilterForSeries();
   await loadCharacters();
   renderGrid();
   setupEventListeners();
+}
+
+// Update type filter dropdown based on series
+function updateTypeFilterForSeries() {
+  const currentSeries = getCurrentSeries();
+  const playerOption = typeFilter.querySelector('option[value="player"]');
+  const allOption = typeFilter.querySelector('option[value="all"]');
+
+  if (!seriesSupportsPlayers(currentSeries)) {
+    // Hide player and "all" options for figure-only series
+    if (playerOption) playerOption.style.display = 'none';
+    if (allOption) allOption.style.display = 'none';
+    // Force to figures
+    typeFilter.value = 'figure';
+  } else {
+    // Show all options for series that support players
+    if (playerOption) playerOption.style.display = '';
+    if (allOption) allOption.style.display = '';
+  }
 }
 
 // API Calls
@@ -128,6 +135,16 @@ async function deleteCharacter(type, id) {
   return await res.json();
 }
 
+// Get current series
+function getCurrentSeries() {
+  return typeof getSelectedSeries === 'function' ? getSelectedSeries() : 'court-covenant';
+}
+
+// Check if series supports players
+function seriesSupportsPlayers(series) {
+  return series !== 'torah-titans';
+}
+
 // Render Functions
 function renderGrid() {
   const filtered = getFilteredCharacters();
@@ -170,6 +187,12 @@ function renderGrid() {
 
 function getFilteredCharacters() {
   let filtered = [...allCharacters];
+  const currentSeries = getCurrentSeries();
+
+  // For Torah Titans, exclude players entirely
+  if (!seriesSupportsPlayers(currentSeries)) {
+    filtered = filtered.filter(c => c.type === 'figure');
+  }
 
   // Filter by type
   const typeValue = typeFilter.value;
@@ -218,8 +241,22 @@ function showCreateForm() {
   // Reset form
   document.getElementById('research-name').value = '';
   document.getElementById('research-error').classList.add('hidden');
-  document.querySelector('input[name="char-type"][value="player"]').checked = true;
-  currentCharacterType = 'player';
+
+  const currentSeries = getCurrentSeries();
+  const playerRadio = document.querySelector('input[name="char-type"][value="player"]');
+  const figureRadio = document.querySelector('input[name="char-type"][value="figure"]');
+  const playerLabel = playerRadio?.closest('label');
+
+  if (!seriesSupportsPlayers(currentSeries)) {
+    // Hide player option for figure-only series
+    if (playerLabel) playerLabel.style.display = 'none';
+    figureRadio.checked = true;
+    currentCharacterType = 'figure';
+  } else {
+    if (playerLabel) playerLabel.style.display = '';
+    playerRadio.checked = true;
+    currentCharacterType = 'player';
+  }
 
   window.scrollTo(0, 0);
 }
