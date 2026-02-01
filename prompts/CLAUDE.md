@@ -38,7 +38,7 @@ const template = loadTemplate('thunder-lightning', 'court-covenant');
 
 ## Available Templates
 
-### Hero Templates (6)
+### Hero Templates (7)
 | Template | Style | Key Elements |
 |----------|-------|--------------|
 | `thunder-lightning` | 90s Fleer Ultra | Electric gradient, lightning bolts |
@@ -47,6 +47,7 @@ const template = loadTemplate('thunder-lightning', 'court-covenant');
 | `kaboom` | 2010s Panini | Comic book/pop art, bold outlines |
 | `metal-universe` | 90s Fleer Metal | Chrome, industrial, metallic |
 | `prizm-silver` | 2010s Panini Prizm | Clean geometric, silver shimmer |
+| `hot-shots` | 90s Flair Showcase | Flames, fire gradient, die-cut edges |
 
 ### Villain Templates (3)
 | Template | Style | Key Elements |

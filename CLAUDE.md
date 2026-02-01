@@ -13,6 +13,7 @@ A **contemporary art project** creating collectible basketball cards that pair N
 2. **Build for Reuse** - Everything should work for future series.
 3. **Document Everything** - Code explains "why", not just "what".
 4. **Keep Docs in Sync** - ALWAYS update relevant CLAUDE.md files as changes are made.
+5. **Discovery Before Modification** - Before changing any pattern, search the entire codebase to find ALL instances. Don't trust plans or assumptions to be complete. Use `grep` to find all files containing the pattern you're modifying.
 
 ## Key Decisions
 
@@ -57,7 +58,7 @@ node scripts/validate-data.js
 
 ## Available Templates
 
-**Hero:** `thunder-lightning`, `beam-team`, `downtown`, `kaboom`, `metal-universe`, `prizm-silver`
+**Hero:** `thunder-lightning`, `beam-team`, `downtown`, `kaboom`, `metal-universe`, `prizm-silver`, `hot-shots`
 
 **Villain:** `thunder-lightning-dark`, `beam-team-shadow`, `metal-universe-dark`
 
@@ -69,7 +70,7 @@ Context-specific docs load automatically when working in subdirectories:
 
 | Location | CLAUDE.md covers |
 |----------|------------------|
-| `visualizer/` | API endpoints, export system, Generator UI |
+| `visualizer/` | API endpoints, export system, Generator UI, feedback system |
 | `data/` | Data formats, multi-series, validation, schemas |
 | `scripts/` | CLI reference, shared libraries, environment vars |
 | `prompts/` | Template system, adding new templates |
@@ -80,13 +81,27 @@ Additional guides in `docs/`:
 - `pairing-creator.md` - AI-powered pairing creation
 - `sefaria-enrichment.md` - Midrash-enriched cards workflow
 
+## Feedback-to-Claude Workflow
+
+The visualizer includes a real-time feedback system for iterating on card prompts:
+
+1. **Rate card** in visualizer (loved/liked/issues)
+2. **Set scope** - card only, template-wide, pairing-wide, or global
+3. **Tag categories** - composition, colors, poses, style, characters, text
+4. **Click "Send to Claude"** - copies formatted feedback to clipboard
+5. **Paste into Claude Code** - get prompt adjustments based on feedback
+6. **Regenerate** - new version is tracked in version history
+7. **Compare versions** - side-by-side view in visualizer
+
+See `visualizer/CLAUDE.md` for full documentation.
+
 ## Adding New Content
 
 **New Pairing:** See `data/series/court-covenant/pairings/NEW-PAIRINGS.md`
 
 **New Character:** See `docs/solo-characters.md`
 
-**New Template:** See `prompts/CLAUDE.md`
+**New Template:** See `docs/template-creation.md` (creative process) and `prompts/CLAUDE.md` (technical)
 
 ## What NOT to Do
 

@@ -116,6 +116,29 @@
         }
       },
       "bestFor": ["clean aesthetics", "modern legends", "all pairings"]
+    },
+    "hot-shots": {
+      "id": "hot-shots",
+      "name": "Hot Shots",
+      "description": "1996-97 Flair Showcase Hot Shots die-cut insert style. Flames radiating from basketball, fire gradient, black void edges.",
+      "era": "1990s",
+      "style": "Fire and intensity",
+      "hasDarkMode": false,
+      "darkVariantId": null,
+      "colors": {
+        "hero": {
+          "primary": "fire gradient (red/orange/yellow)",
+          "secondary": "black void",
+          "accent": "white-hot center"
+        }
+      },
+      "bestFor": ["fire themes", "Elijah calling fire", "burning bush", "fiery furnace", "sharpshooters on fire"],
+      "avoidWith": {
+        "poses": ["torches", "flames in pose", "fire-related actions"],
+        "figures": ["Gideon (torch pose)", "any pose with fire elements"],
+        "reason": "Fire background + fire in pose = visual chaos. Use thunder-lightning or prizm-silver instead."
+      },
+      "visualNote": "This template has a busy fire background. Works best when the pose itself is clean/simple. Avoid combining with poses that already contain fire, torches, or crowd scenes."
     }
   },
   "rivalryVariants": {
