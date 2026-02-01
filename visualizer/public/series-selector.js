@@ -8,7 +8,7 @@
 const SERIES_STORAGE_KEY = 'selectedSeries';
 const DEFAULT_SERIES = 'court-covenant';
 
-// Series configurations
+// Series configurations (fallback if API unavailable)
 const SERIES_CONFIG = {
   'court-covenant': {
     name: 'Court & Covenant',
@@ -21,6 +21,18 @@ const SERIES_CONFIG = {
     shortName: 'TT',
     logo: '/brand/logos/court and covenant logo - 1.png', // TODO: Create Torah Titans logo
     color: '#4a7c59' // ancient green
+  },
+  'founding-fathers': {
+    name: 'Founding Fathers',
+    shortName: 'FF',
+    logo: '/brand/logos/court and covenant logo - 1.png', // TODO: Create Founding Fathers logo
+    color: '#1a3a5c' // colonial blue
+  },
+  'parasha-pack': {
+    name: 'Parasha Pack',
+    shortName: 'PP',
+    logo: '/brand/logos/court and covenant logo - 1.png', // TODO: Create Parasha Pack logo
+    color: '#8b5cf6' // purple for kids
   }
 };
 
@@ -51,19 +63,45 @@ function getSeriesConfig(seriesId) {
  * Initialize the series selector in the header
  * Call this from each page's init function
  */
-function initSeriesSelector() {
+async function initSeriesSelector() {
   const headerContent = document.querySelector('.header-content');
   if (!headerContent) return;
 
   const currentSeries = getSelectedSeries();
   const config = getSeriesConfig(currentSeries);
 
-  // Create series selector dropdown
+  // Fetch available series from API
+  let seriesList = Object.keys(SERIES_CONFIG); // fallback
+  try {
+    const response = await fetch('/api/series');
+    if (response.ok) {
+      const apiSeries = await response.json();
+      seriesList = apiSeries.map(s => s.id);
+      // Update SERIES_CONFIG with any new series from API
+      apiSeries.forEach(s => {
+        if (!SERIES_CONFIG[s.id]) {
+          SERIES_CONFIG[s.id] = {
+            name: s.name,
+            shortName: s.id.split('-').map(w => w[0].toUpperCase()).join(''),
+            color: '#666666'
+          };
+        }
+      });
+    }
+  } catch (e) {
+    console.warn('Could not fetch series from API, using fallback config');
+  }
+
+  // Create series selector dropdown with dynamic options
+  const options = seriesList.map(id => {
+    const cfg = SERIES_CONFIG[id] || { name: id };
+    return `<option value="${id}" ${currentSeries === id ? 'selected' : ''}>${cfg.name}</option>`;
+  }).join('');
+
   const selectorHtml = `
     <div class="series-selector">
       <select id="global-series-select" class="series-select">
-        <option value="court-covenant" ${currentSeries === 'court-covenant' ? 'selected' : ''}>Court & Covenant</option>
-        <option value="torah-titans" ${currentSeries === 'torah-titans' ? 'selected' : ''}>Torah Titans</option>
+        ${options}
       </select>
     </div>
   `;

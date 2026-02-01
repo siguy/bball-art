@@ -1,0 +1,89 @@
+{
+  "id": "washington",
+  "name": "George Washington",
+  "defaultPose": "trenton-commander",
+  "description": "Commander-in-chief, first President, American Cincinnatus. Tall, dignified bearing with military authority. Known for reserved demeanor, controlled temper, and twice voluntarily relinquishing power.",
+  "poses": {
+    "trenton-commander": {
+      "id": "trenton-commander",
+      "name": "Commander at Trenton",
+      "description": "Based on Trumbull's portrait - standing in victory after the Battle of Trenton",
+      "expression": "calm authority, composed after victory",
+      "prompt": "standing in Continental Army uniform - blue coat with buff facings, buff waistcoat and breeches, black boots. Hand resting on cannon barrel, American flags and captured Hessian standards behind him. Military bearing, dignified three-quarter pose. The calm after decisive victory at Trenton.",
+      "energy": "victorious, commanding, restrained triumph",
+      "basisPortrait": true
+    },
+    "crossing-delaware": {
+      "id": "crossing-delaware",
+      "name": "Crossing the Delaware",
+      "description": "Standing in boat, leading troops across icy river",
+      "expression": "determined, forward-looking, heroic",
+      "prompt": "standing boldly in small boat crossing icy river - Continental Army uniform, cloak billowing, one foot braced on bow. Looking forward toward destiny. Ice floes, struggling oarsmen, American flag. Christmas night 1776, the surprise attack that changed everything.",
+      "energy": "determined, heroic, pivotal moment"
+    },
+    "valley-forge": {
+      "id": "valley-forge",
+      "name": "Valley Forge Prayer",
+      "description": "Kneeling in snow, praying for his army",
+      "expression": "humble supplication, faith in darkest hour",
+      "prompt": "kneeling in snow beside his horse - Continental Army cloak wrapped against cold, head bowed in prayer. Bare trees, winter camp in background. The darkest winter of the Revolution. A general on his knees, not commanding but beseeching.",
+      "energy": "humility, faith, endurance through suffering"
+    },
+    "constitutional-chair": {
+      "id": "constitutional-chair",
+      "name": "Constitutional Convention",
+      "description": "Presiding over the Constitutional Convention",
+      "expression": "dignified authority, patient deliberation",
+      "prompt": "seated in the rising sun chair at Constitutional Convention - presiding with quiet authority over the deliberations. Delegates gathered below, summer heat of Philadelphia 1787. The half-sun carved on the chair - rising, not setting, on a new nation.",
+      "energy": "deliberative authority, patient leadership, founding moment"
+    },
+    "inaugural": {
+      "id": "inaugural",
+      "name": "First Inauguration",
+      "description": "Taking the first presidential oath on the Bible",
+      "expression": "solemn responsibility, historic weight",
+      "prompt": "hand on Bible taking the first presidential oath - Federal Hall balcony in New York, crowd below. Adding 'So help me God' to the oath. The precedent-setting moment, every gesture watched for what it would mean for the future.",
+      "energy": "solemn, precedent-setting, historic gravity"
+    },
+    "cincinnatus-returning": {
+      "id": "cincinnatus-returning",
+      "name": "American Cincinnatus",
+      "description": "Surrendering his military commission, returning to farm",
+      "expression": "noble renunciation, duty over power",
+      "prompt": "surrendering military commission to Congress - handing over sword and papers, stepping back from power. Like Cincinnatus returning to his plow. The moment that shocked the world - a victorious general voluntarily becoming a citizen again.",
+      "energy": "noble renunciation, republican virtue, power relinquished"
+    },
+    "mount-vernon": {
+      "id": "mount-vernon",
+      "name": "At Mount Vernon",
+      "description": "The gentleman farmer at his beloved estate",
+      "expression": "contentment, agrarian dignity",
+      "prompt": "standing on Mount Vernon's columned piazza - overlooking the Potomac, gentleman farmer surveying his fields. The estate he loved, the life he wanted - farming, not governing. But duty always called him back.",
+      "energy": "pastoral dignity, earned peace, reluctant retirement"
+    },
+    "surveyor": {
+      "id": "surveyor",
+      "name": "The Surveyor",
+      "description": "Young Washington as frontier surveyor",
+      "expression": "ambitious youth, methodical precision",
+      "prompt": "young Washington with surveyor's tools - theodolite and chain, mapping the Virginia frontier. The precise work that would later help him understand terrain in war. Building his fortune one acre at a time.",
+      "energy": "youthful ambition, precision, frontier spirit"
+    },
+    "farewell-address": {
+      "id": "farewell-address",
+      "name": "Farewell Address",
+      "description": "Delivering his final message to the nation",
+      "expression": "paternal wisdom, final counsel",
+      "prompt": "elder statesman delivering farewell words - seated at desk with written address, or standing to address the public. Warning against factions and foreign entanglements. The father's final counsel to his political children.",
+      "energy": "paternal wisdom, warning, lasting counsel"
+    },
+    "deathbed": {
+      "id": "deathbed",
+      "name": "Final Hours",
+      "description": "'Tis well' - Washington's peaceful death",
+      "expression": "peaceful acceptance, dignity to the end",
+      "prompt": "Washington in his final hours at Mount Vernon - attended by Martha, doctors, and enslaved servants. 'Tis well' his final words. Peaceful, dignified, departing as he lived - with composure.",
+      "energy": "peaceful acceptance, dignified end, legacy secured"
+    }
+  }
+}

@@ -28,6 +28,9 @@ app.use(express.static(join(__dirname, 'public')));
 // Serve card images from output directory
 app.use('/cards', express.static(join(ROOT, 'output/cards')));
 
+// Serve Parasha Pack deck images
+app.use('/decks', express.static(join(ROOT, 'output/decks')));
+
 // Serve logo
 app.use('/brand', express.static(join(ROOT, 'brand')));
 
@@ -64,7 +67,14 @@ const TEMPLATE_ABBREV_REVERSE = {
   'sb': 'spouse-blessing',
   'tc': 'trial-card',
   'pc': 'plague-card',
-  'tw': 'three-way'
+  'tw': 'three-way',
+  'pt': 'portrait-transformation',
+  // Parasha Pack templates
+  'anc': 'anchor-card',
+  'spt': 'spotlight-card',
+  'act': 'action-card',
+  'thk': 'thinker-card',
+  'pwr': 'power-word-card'
 };
 
 // Series abbreviation reverse mapping
@@ -72,7 +82,8 @@ const SERIES_ABBREV_REVERSE = {
   'cc': 'court-covenant',
   'tt': 'torah-titans',
   'st': 'scripture-titans',
-  'ff': 'founding-fathers'
+  'ff': 'founding-fathers',
+  'pp': 'parasha-pack'
 };
 
 /**
@@ -122,6 +133,26 @@ function parseCardFilename(file) {
       pose2,
       timestamp: isoTimestamp,
       isSolo: pairingId.startsWith('solo-')
+    };
+  }
+
+  // Try founder format: {series}_{founder}_{template}_{layer}_{pose}_{YYYY-MM-DDTHHMM}.ext
+  const founderMatch = file.match(/^([a-z]{2})_([a-z0-9-]+)_([a-z]+)_([a-z0-9-]+)_([a-z0-9-]+)_(\d{4}-\d{2}-\d{2}T\d{4})\.(png|jpe?g)$/);
+  if (founderMatch) {
+    const [, seriesAbbr, founderId, templateAbbr, layer, pose, timestamp, ext] = founderMatch;
+    const template = TEMPLATE_ABBREV_REVERSE[templateAbbr] || templateAbbr;
+    const series = SERIES_ABBREV_REVERSE[seriesAbbr] || seriesAbbr;
+    // Convert timestamp to readable format (add seconds as 00)
+    const isoTimestamp = `${timestamp}00`.replace(/T(\d{2})(\d{2})(\d{2})$/, 'T$1-$2-$3');
+    return {
+      format: 'founder',
+      series,
+      pairingId: founderId,
+      template,
+      pose1: layer,
+      pose2: pose,
+      timestamp: isoTimestamp,
+      isSolo: false
     };
   }
 
@@ -224,13 +255,19 @@ function scanCardDirectory(dirPath, series, pairingId, urlBase) {
       card.mode = 'solo';
       card.characterType = characterType;
       card.characterId = characterId;
+    } else if (parsed.format === 'founder' || series === 'founding-fathers') {
+      // Founder cards are treated as solo cards with characterType 'founder'
+      card.mode = 'solo';
+      card.characterType = 'founder';
+      card.characterId = pairingId;  // e.g., 'george-washington'
+      card.layer = parsed.pose1;     // artistic layer (colonial, cubist, etc.)
     } else {
       card.mode = 'pairing';
       card.pairingId = pairingId;
     }
 
-    // Add pose info if available (new format)
-    if (parsed.format === 'new' && parsed.pose1 && parsed.pose2) {
+    // Add pose info if available (new format or founder format)
+    if ((parsed.format === 'new' || parsed.format === 'founder') && parsed.pose1 && parsed.pose2) {
       card.poses = { pose1: parsed.pose1, pose2: parsed.pose2 };
     }
 

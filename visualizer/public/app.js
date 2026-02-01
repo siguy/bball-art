@@ -534,12 +534,17 @@ function renderGallery() {
     const hasIssues = cardFeedback?.rating === 'issues';
     const isLiked = cardFeedback?.rating === 'liked';
 
-    // Handle both pairing cards and solo cards
+    // Handle pairing cards, solo cards, and founder cards
     let title;
     if (card.mode === 'solo') {
       // Solo card - use character info
-      const charType = card.characterType === 'player' ? '🏀' : '📜';
-      title = `${charType} ${formatCharacterName(card.characterId)} (Solo)`;
+      if (card.characterType === 'founder') {
+        const layer = card.layer || card.poses?.pose1 || '';
+        title = `🏛️ ${formatCharacterName(card.characterId)}${layer ? ` - ${layer}` : ''}`;
+      } else {
+        const charType = card.characterType === 'player' ? '🏀' : '📜';
+        title = `${charType} ${formatCharacterName(card.characterId)} (Solo)`;
+      }
     } else {
       // Pairing card
       const pairing = pairingData[card.pairingId];
@@ -595,10 +600,17 @@ async function openModal(index) {
 
   if (card.mode === 'solo') {
     // Solo card
-    const charType = card.characterType === 'player' ? 'Player' : 'Figure';
-    title = `${formatCharacterName(card.characterId)} (Solo)`;
-    pairingLabel = `Solo ${charType}: ${formatCharacterName(card.characterId)}`;
-    interactionLabel = 'Solo Card';
+    if (card.characterType === 'founder') {
+      title = formatCharacterName(card.characterId);
+      pairingLabel = `Founder: ${formatCharacterName(card.characterId)}`;
+      const layer = card.layer || card.poses?.pose1 || 'custom';
+      interactionLabel = `Layer: ${layer}`;
+    } else {
+      const charType = card.characterType === 'player' ? 'Player' : 'Figure';
+      title = `${formatCharacterName(card.characterId)} (Solo)`;
+      pairingLabel = `Solo ${charType}: ${formatCharacterName(card.characterId)}`;
+      interactionLabel = 'Solo Card';
+    }
   } else {
     // Pairing card
     const pairing = pairingData[card.pairingId];
@@ -1383,6 +1395,11 @@ function formatRatingLabel(rating) {
  */
 function generateRegenerateCommand(card) {
   if (card.mode === 'solo') {
+    if (card.characterType === 'founder') {
+      // Founder card - use generate-founder.js with custom prompt
+      return `node scripts/generate-founder.js ${card.characterId} pt --custom "YOUR_PROMPT_HERE"`;
+    }
+    // Player/figure solo card
     const type = card.characterType === 'player' ? 'player' : 'figure';
     let cmd = `node scripts/generate-solo.js ${type} ${card.characterId} ${card.template}`;
     if (card.poses?.pose1) {
@@ -1410,8 +1427,12 @@ function formatFeedbackForClaude(card, cardFeedback, pairing, fullPairing) {
   // Build title
   let title;
   if (card.mode === 'solo') {
-    const charType = card.characterType === 'player' ? 'Player' : 'Figure';
-    title = `Solo ${charType}: ${card.characterId}`;
+    if (card.characterType === 'founder') {
+      title = `Founder: ${card.characterId}`;
+    } else {
+      const charType = card.characterType === 'player' ? 'Player' : 'Figure';
+      title = `Solo ${charType}: ${card.characterId}`;
+    }
   } else {
     title = pairing
       ? `${pairing.playerName} & ${pairing.figureName}`
@@ -1436,9 +1457,16 @@ function formatFeedbackForClaude(card, cardFeedback, pairing, fullPairing) {
   // Parameters section
   lines.push('**Parameters:**');
   if (card.mode === 'solo') {
-    lines.push(`- Mode: Solo`);
-    lines.push(`- Character Type: ${card.characterType}`);
-    lines.push(`- Character: ${card.characterId}`);
+    if (card.characterType === 'founder') {
+      lines.push(`- Mode: Founder Portrait`);
+      lines.push(`- Founder: ${card.characterId}`);
+      const layer = card.layer || card.poses?.pose1;
+      if (layer) lines.push(`- Layer: ${layer}`);
+    } else {
+      lines.push(`- Mode: Solo`);
+      lines.push(`- Character Type: ${card.characterType}`);
+      lines.push(`- Character: ${card.characterId}`);
+    }
   } else {
     lines.push(`- Pairing: ${title}`);
   }

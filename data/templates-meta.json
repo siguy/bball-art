@@ -305,6 +305,199 @@
         "bestFor": ["interconnected opposites", "cosmic rivalries", "tent vs field"],
         "cardModes": ["figure-figure"],
         "pairingDataKey": "seriesSpecificData.siblingDuality"
+      },
+      "freedom-tour": {
+        "id": "freedom-tour",
+        "name": "Freedom Tour",
+        "description": "Stadium rock tour aesthetic for Moses vs Pharaoh. EXODUS: THE FREEDOM TOUR - 10 Plagues as 10 tour stops.",
+        "era": "Biblical meets Stadium Rock",
+        "style": "Concert poster rivalry",
+        "hasDarkMode": false,
+        "colors": {
+          "default": {
+            "primary": "stage gold",
+            "secondary": "spotlight white",
+            "accent": "pyrotechnic orange"
+          }
+        },
+        "bestFor": ["Moses vs Pharaoh main confrontation", "stadium rock energy", "tour poster aesthetic"],
+        "cardModes": ["figure-figure"],
+        "iconographyNote": "Egyptian + Jewish + Rock mashup: ankh becomes Star of David, hieroglyphics morph to Hebrew, staff as mic stand"
+      },
+      "plague-tour-stop": {
+        "id": "plague-tour-stop",
+        "name": "Plague Tour Stop",
+        "description": "Era-hopping plague cards - each of the 10 plagues styled as a different rock sub-genre. Heavy Metal to Arena Rock.",
+        "era": "Biblical meets Rock Eras",
+        "style": "Era-specific rock aesthetics",
+        "hasDarkMode": false,
+        "colors": {
+          "default": {
+            "primary": "era-specific",
+            "secondary": "era-specific",
+            "accent": "era-specific"
+          }
+        },
+        "bestFor": ["individual plagues", "rock era variety", "collectible sub-series"],
+        "cardModes": ["figure-figure"],
+        "eraOptions": ["heavy-metal", "punk", "grunge", "hair-metal", "death-metal", "industrial", "power-metal", "thrash-metal", "goth", "arena-rock"],
+        "plagueOptions": ["blood", "frogs", "lice", "wild-beasts", "pestilence", "boils", "hail", "locusts", "darkness", "firstborn"],
+        "implementedEras": ["heavy-metal", "punk", "goth", "arena-rock"]
+      },
+      "backstage-pass": {
+        "id": "backstage-pass",
+        "name": "Backstage Pass",
+        "description": "Key confrontation moments as collectible concert credentials. Laminate badge aesthetic with holographic security.",
+        "era": "Biblical meets Concert Credential",
+        "style": "VIP pass / laminate",
+        "hasDarkMode": false,
+        "colors": {
+          "default": {
+            "primary": "credential gold",
+            "secondary": "security holographic",
+            "accent": "lanyard red"
+          }
+        },
+        "bestFor": ["key Moses vs Pharaoh moments", "Who Is The Lord", "Let My People Go"],
+        "cardModes": ["figure-figure", "solo-figure"],
+        "momentOptions": ["who-is-the-lord", "let-my-people-go", "hardened-heart", "rise-and-go"]
+      },
+      "tour-finale": {
+        "id": "tour-finale",
+        "name": "Tour Finale",
+        "description": "Red Sea crossing as the ultimate encore. FAREWELL EGYPT - parted waters as stage curtains, Israelites as crowd, arena rock climax.",
+        "era": "Biblical meets Arena Rock Finale",
+        "style": "Panoramic concert finale",
+        "hasDarkMode": false,
+        "colors": {
+          "default": {
+            "primary": "triumphant gold",
+            "secondary": "pure white",
+            "accent": "lighter-flame orange"
+          }
+        },
+        "bestFor": ["Red Sea crossing", "final show", "emotional climax", "SOLD OUT FOREVER"],
+        "cardModes": ["figure-figure", "solo-figure"]
+      }
+    },
+    "founding-fathers": {
+      "portrait-transformation": {
+        "id": "portrait-transformation",
+        "name": "Portrait Transformation",
+        "description": "Transforms canonical Founding Father portraits through 7 artistic layers spanning 250 years of American visual history.",
+        "era": "Multi-era (pre-1776 to Modern)",
+        "style": "Historical layer synthesis",
+        "hasDarkMode": false,
+        "layers": {
+          "colonial": "Colonial Foundation (pre-1776) - Georgian, formal English portraiture",
+          "revolutionary": "Revolutionary Spirit (1776) - Eagles, rattlesnakes, propaganda",
+          "classical": "Classical Republic (Federal) - Roman references, neoclassical",
+          "landscape": "American Landscape (1830s-1870s) - Hudson River School grandeur",
+          "monument": "Industrial Monument (Gilded Age) - Currency, bronze, marble",
+          "mural": "Democratic Mural (WPA) - Social realism, heroic murals",
+          "contemporary": "Contemporary Echo (Modern) - Pop art, remix, reinterpretation"
+        },
+        "generationModes": ["layer", "combined", "synthesis"],
+        "bestFor": ["solo founder portraits", "historical transformations", "multi-era synthesis"],
+        "cardModes": ["solo-founder"]
+      }
+    },
+    "parasha-pack": {
+      "anchor-card": {
+        "id": "anchor-card",
+        "name": "Anchor Card",
+        "description": "Weekly parasha summary - the 'big idea' card. First card in every deck, sets emotional tone.",
+        "era": "Educational",
+        "style": "Vivid cartoon for ages 4-6",
+        "hasDarkMode": false,
+        "colors": {
+          "default": {
+            "primary": "bold primary colors",
+            "secondary": "soft pastels",
+            "accent": "golden highlights"
+          }
+        },
+        "bestFor": ["parasha introduction", "weekly summary", "big idea"],
+        "cardModes": ["deck-anchor"],
+        "cardSize": "5x7",
+        "perDeck": 1
+      },
+      "spotlight-card": {
+        "id": "spotlight-card",
+        "name": "Spotlight Card",
+        "description": "Character introduction with emotion and trait. Child-friendly character design with continuity.",
+        "era": "Educational",
+        "style": "Vivid cartoon for ages 4-6",
+        "hasDarkMode": false,
+        "colors": {
+          "default": {
+            "primary": "bold primary colors",
+            "secondary": "soft pastels",
+            "accent": "orange highlights"
+          }
+        },
+        "bestFor": ["character introduction", "traits", "emotions"],
+        "cardModes": ["deck-spotlight"],
+        "cardSize": "5x7",
+        "perDeck": "2-4"
+      },
+      "action-card": {
+        "id": "action-card",
+        "name": "Action Card",
+        "description": "Key plot moment with emotional reactions. Designed for physical sequencing activities.",
+        "era": "Educational",
+        "style": "Vivid cartoon for ages 4-6",
+        "hasDarkMode": false,
+        "colors": {
+          "default": {
+            "primary": "bold primary colors",
+            "secondary": "soft pastels",
+            "accent": "red highlights"
+          }
+        },
+        "bestFor": ["story moments", "plot events", "sequencing"],
+        "cardModes": ["deck-action"],
+        "cardSize": "5x7",
+        "perDeck": "3-6"
+      },
+      "thinker-card": {
+        "id": "thinker-card",
+        "name": "Thinker Card",
+        "description": "Discussion card with 3 perspective-taking questions. Core emotional literacy framework.",
+        "era": "Educational",
+        "style": "Vivid cartoon for ages 4-6",
+        "hasDarkMode": false,
+        "colors": {
+          "default": {
+            "primary": "bold primary colors",
+            "secondary": "soft pastels",
+            "accent": "purple highlights"
+          }
+        },
+        "bestFor": ["discussion", "emotional literacy", "perspective-taking"],
+        "cardModes": ["deck-thinker"],
+        "cardSize": "5x7",
+        "perDeck": "2-3",
+        "questionTypes": ["emotional-empathy", "cognitive-empathy", "connection"]
+      },
+      "power-word-card": {
+        "id": "power-word-card",
+        "name": "Power Word Card",
+        "description": "Hebrew vocabulary card with visual association. 2 power words per weekly deck.",
+        "era": "Educational",
+        "style": "Vivid cartoon for ages 4-6",
+        "hasDarkMode": false,
+        "colors": {
+          "default": {
+            "primary": "bold primary colors",
+            "secondary": "soft pastels",
+            "accent": "blue highlights"
+          }
+        },
+        "bestFor": ["Hebrew vocabulary", "language learning", "visual association"],
+        "cardModes": ["deck-power-word"],
+        "cardSize": "5x7",
+        "perDeck": 2
       }
     }
   }

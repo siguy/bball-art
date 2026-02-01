@@ -85,6 +85,7 @@ export const CONFIG = {
     'torah-titans': 'tt',
     'scripture-titans': 'st',
     'founding-fathers': 'ff',
+    'parasha-pack': 'pp',
   },
 
   // Template abbreviations for filenames
@@ -111,6 +112,13 @@ export const CONFIG = {
     'trial-card': 'tc',
     'plague-card': 'pc',
     'three-way': 'tw',
+    'portrait-transformation': 'pt',
+    // Parasha Pack templates
+    'anchor-card': 'anc',
+    'spotlight-card': 'spt',
+    'action-card': 'act',
+    'thinker-card': 'thk',
+    'power-word-card': 'pwr',
   },
 };
 
@@ -143,11 +151,18 @@ export function getSubSeriesPath(seriesId) {
 
 /**
  * Get the poses directory for a character type
- * @param {'player'|'figure'} characterType - Type of character
+ * @param {'player'|'figure'|'founder'} characterType - Type of character
  * @returns {string} Full path to poses directory
  */
 export function getPosesPath(characterType) {
-  return join(CONFIG.paths.poses, `${characterType}s`);
+  // Map character types to their pose directories
+  const typeToDir = {
+    'player': 'players',
+    'figure': 'figures',
+    'founder': 'founders',
+  };
+  const dirName = typeToDir[characterType] || `${characterType}s`;
+  return join(CONFIG.paths.poses, dirName);
 }
 
 /**
