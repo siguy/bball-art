@@ -974,7 +974,16 @@ function resetContextSections() {
   document.getElementById('section-scripture').hidden = true;
   document.getElementById('quote-english').textContent = '';
   document.getElementById('quote-hebrew').textContent = '';
-  document.getElementById('quote-source').textContent = '';
+  // Reset source type badge and text
+  const sourceTypeEl = document.getElementById('quote-source-type');
+  const sourceTextEl = document.getElementById('quote-source-text');
+  if (sourceTypeEl) {
+    sourceTypeEl.textContent = '';
+    sourceTypeEl.className = 'badge source-type';
+  }
+  if (sourceTextEl) {
+    sourceTextEl.textContent = '';
+  }
   document.getElementById('quote-context').textContent = '';
   document.getElementById('quote-mood').textContent = '';
 
@@ -1035,7 +1044,7 @@ function renderCardContext(context, card) {
     document.getElementById('section-scripture').hidden = false;
     document.getElementById('quote-english').textContent = ref.english || '';
     document.getElementById('quote-hebrew').textContent = ref.hebrew || '';
-    document.getElementById('quote-source').textContent = ref.source || '';
+    updateSourceTypeBadge(ref.source);
     document.getElementById('quote-context').textContent = ref.context || '';
     document.getElementById('quote-mood').textContent = ref.mood || '';
   }
@@ -1061,7 +1070,7 @@ function renderCardContext(context, card) {
     document.getElementById('section-scripture').hidden = false;
     document.getElementById('quote-english').textContent = context.quote.english || '';
     document.getElementById('quote-hebrew').textContent = context.quote.hebrew || '';
-    document.getElementById('quote-source').textContent = context.quote.source || '';
+    updateSourceTypeBadge(context.quote.source);
     document.getElementById('quote-context').textContent = context.quote.context || '';
     document.getElementById('quote-mood').textContent = context.quote.mood || '';
   }
@@ -1084,6 +1093,40 @@ function renderCardContext(context, card) {
     document.getElementById('player-pose-card').hidden = false;
     document.getElementById('figure-pose-card').hidden = false;
   }
+}
+
+/**
+ * Detect the source type from a scripture reference
+ * Returns: 'tanakh', 'midrash', 'talmud', or 'zohar'
+ */
+function detectSourceType(source) {
+  if (!source) return null;
+  if (/Rabbah|Midrash|Pesikta|Tanchuma|Sifra|Sifrei|Mechilta/i.test(source)) return 'midrash';
+  if (/Bavli|Yerushalmi|Talmud/i.test(source)) return 'talmud';
+  if (/Zohar/i.test(source)) return 'zohar';
+  return 'tanakh';
+}
+
+/**
+ * Update the source type badge in the Scripture section
+ */
+function updateSourceTypeBadge(source) {
+  const typeEl = document.getElementById('quote-source-type');
+  const textEl = document.getElementById('quote-source-text');
+
+  if (!typeEl || !textEl) return;
+
+  const sourceType = detectSourceType(source);
+
+  if (sourceType) {
+    typeEl.textContent = sourceType.toUpperCase();
+    typeEl.className = `badge source-type ${sourceType}`;
+  } else {
+    typeEl.textContent = '';
+    typeEl.className = 'badge source-type';
+  }
+
+  textEl.textContent = source || '';
 }
 
 /**

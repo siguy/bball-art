@@ -272,6 +272,60 @@
         "bestFor": ["love triangles", "sibling dynamics", "three-way conflicts"],
         "cardModes": ["multi-figure"],
         "minCharacters": 3
+      },
+      "sibling-card": {
+        "id": "sibling-card",
+        "name": "Sibling Card",
+        "description": "Double-headed reversible card inspired by 18th-century court cards. Two figures mirrored and rotated 180° - neither sibling is 'above' the other.",
+        "era": "Biblical",
+        "style": "Reversible playing card",
+        "hasDarkMode": false,
+        "colors": {
+          "default": {
+            "primary": "warm parchment/gold",
+            "secondary": "crimson/royal blue",
+            "accent": "gilded flourishes"
+          }
+        },
+        "bestFor": ["sibling rivalries", "twin conflicts", "equals in opposition"],
+        "cardModes": ["figure-figure"],
+        "uniqueStrength": "Rotational symmetry - neither sibling is positioned above the other"
+      },
+      "sibling-icon": {
+        "id": "sibling-icon",
+        "name": "Sibling Icon",
+        "description": "Byzantine diptych style with gold-ground mosaics and religious icon poses. Can show favor through halos on the righteous.",
+        "era": "Biblical",
+        "style": "Byzantine religious art",
+        "hasDarkMode": false,
+        "colors": {
+          "default": {
+            "primary": "burnished gold leaf",
+            "secondary": "deep crimson/royal blue",
+            "accent": "jeweled frame"
+          }
+        },
+        "bestFor": ["divine judgment stories", "righteous vs wicked", "sacred rivalries"],
+        "cardModes": ["figure-figure"],
+        "uniqueStrength": "Religious gravitas - can indicate the righteous with halos"
+      },
+      "sibling-duality": {
+        "id": "sibling-duality",
+        "name": "Sibling Duality",
+        "description": "Yin-yang inspired interlocking circle design. Shows how opposites define each other - each sibling contains a 'seed' of the other.",
+        "era": "Biblical",
+        "style": "Cosmic philosophical",
+        "hasDarkMode": false,
+        "colors": {
+          "default": {
+            "primary": "high contrast (gold/black)",
+            "secondary": "elemental opposites (fire/water)",
+            "accent": "cosmic gradients"
+          }
+        },
+        "bestFor": ["interconnected opposites", "cosmic rivalries", "philosophical depth"],
+        "cardModes": ["figure-figure"],
+        "uniqueStrength": "Philosophical depth - shows siblings as two halves of one whole"
       }
     }
   }

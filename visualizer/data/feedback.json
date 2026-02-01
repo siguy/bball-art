@@ -143,5 +143,50 @@
     "rating": "loved",
     "notes": "",
     "updatedAt": "2026-01-28T04:39:56.580Z"
+  },
+  "abraham-sarah-sb-20260130T100643": {
+    "rating": "issues",
+    "notes": "This card and this template are not cool at all.",
+    "updatedAt": "2026-01-30T17:02:18.531Z"
+  },
+  "abraham-sarah-sb-20260130T100902": {
+    "rating": "issues",
+    "notes": "This card and this template are not cool at all.",
+    "updatedAt": "2026-01-30T17:02:26.342Z"
+  },
+  "abraham-sarah-sb-20260130T101003": {
+    "rating": "issues",
+    "notes": "This card and this template are not cool at all.",
+    "updatedAt": "2026-01-30T17:02:33.843Z"
+  },
+  "abraham-sarah-sb-20260130T120820": {
+    "rating": "issues",
+    "notes": "This card and this template are not cool at all.",
+    "updatedAt": "2026-01-30T17:02:43.448Z"
+  },
+  "abraham-sarah-sb-20260130T121611": {
+    "rating": "issues",
+    "notes": "This card and this template are not cool at all.",
+    "updatedAt": "2026-01-30T17:02:52.328Z"
+  },
+  "barkley-caleb-kb-20260128T141516": {
+    "rating": "loved",
+    "notes": "",
+    "updatedAt": "2026-01-30T17:44:12.094Z"
+  },
+  "iverson-gideon-hots-20260201T002930": {
+    "rating": null,
+    "notes": "This card feels very busy with all the fire behind the basketball player (allen Iverson) and \"gideon\" pose with 300 people with torches behind him. We'd need a way to simply this card AND this template. I dont think allen iverson should be fiery.",
+    "scope": "template",
+    "categories": [
+      "composition",
+      "poses"
+    ],
+    "updatedAt": "2026-02-01T00:38:53.907Z"
+  },
+  "jordan-moses-tl-20260127T022912": {
+    "rating": "loved",
+    "notes": "",
+    "updatedAt": "2026-02-01T00:47:16.741Z"
   }
 }
