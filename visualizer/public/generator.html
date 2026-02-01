@@ -166,8 +166,54 @@
               <span class="icon">&#9888;</span> Has Issues
             </button>
           </div>
+
+          <div class="feedback-scope-row">
+            <label for="result-feedback-scope">Apply to:</label>
+            <select id="result-feedback-scope">
+              <option value="card">This card only</option>
+              <option value="template">All cards with this template</option>
+              <option value="pairing">All cards with this pairing</option>
+              <option value="global">Global (all future cards)</option>
+            </select>
+          </div>
+
+          <div class="feedback-categories">
+            <label>Categories:</label>
+            <div class="category-tags">
+              <label class="category-tag">
+                <input type="checkbox" name="result-category" value="composition">
+                <span>Composition</span>
+              </label>
+              <label class="category-tag">
+                <input type="checkbox" name="result-category" value="colors">
+                <span>Colors</span>
+              </label>
+              <label class="category-tag">
+                <input type="checkbox" name="result-category" value="poses">
+                <span>Poses</span>
+              </label>
+              <label class="category-tag">
+                <input type="checkbox" name="result-category" value="style">
+                <span>Style</span>
+              </label>
+              <label class="category-tag">
+                <input type="checkbox" name="result-category" value="characters">
+                <span>Characters</span>
+              </label>
+              <label class="category-tag">
+                <input type="checkbox" name="result-category" value="text">
+                <span>Text</span>
+              </label>
+            </div>
+          </div>
+
           <textarea id="result-feedback-notes" placeholder="Add feedback notes (what to improve, what worked well...)"></textarea>
-          <button id="save-result-feedback" class="btn btn-small">Save Feedback</button>
+          <div class="feedback-actions">
+            <button id="save-result-feedback" class="btn btn-small">Save Feedback</button>
+            <button id="send-to-claude-gen" class="btn btn-small btn-claude">
+              <span class="icon">&#128203;</span> Send to Claude
+            </button>
+          </div>
         </div>
 
         <div class="result-actions">

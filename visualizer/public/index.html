@@ -80,6 +80,15 @@
             <button class="nav-btn" id="prev-card">&larr; Previous</button>
             <button class="nav-btn" id="next-card">Next &rarr;</button>
           </div>
+          <!-- Version Navigator -->
+          <div class="version-navigator" id="version-navigator" style="display: none;">
+            <button class="version-nav-btn" id="prev-version" disabled>&larr;</button>
+            <span class="version-indicator">
+              <strong id="current-version">v1</strong> of <span id="total-versions">1</span>
+            </span>
+            <button class="version-nav-btn" id="next-version" disabled>&rarr;</button>
+            <button class="version-compare-btn" id="compare-versions">Compare</button>
+          </div>
         </div>
 
         <div class="modal-details">
@@ -210,8 +219,54 @@
                 <span class="icon">&#9888;</span> Has Issues
               </button>
             </div>
+
+            <div class="feedback-scope-row">
+              <label for="feedback-scope">Apply to:</label>
+              <select id="feedback-scope">
+                <option value="card">This card only</option>
+                <option value="template">All cards with this template</option>
+                <option value="pairing">All cards with this pairing</option>
+                <option value="global">Global (all future cards)</option>
+              </select>
+            </div>
+
+            <div class="feedback-categories">
+              <label>Categories:</label>
+              <div class="category-tags">
+                <label class="category-tag">
+                  <input type="checkbox" name="category" value="composition">
+                  <span>Composition</span>
+                </label>
+                <label class="category-tag">
+                  <input type="checkbox" name="category" value="colors">
+                  <span>Colors</span>
+                </label>
+                <label class="category-tag">
+                  <input type="checkbox" name="category" value="poses">
+                  <span>Poses</span>
+                </label>
+                <label class="category-tag">
+                  <input type="checkbox" name="category" value="style">
+                  <span>Style</span>
+                </label>
+                <label class="category-tag">
+                  <input type="checkbox" name="category" value="characters">
+                  <span>Characters</span>
+                </label>
+                <label class="category-tag">
+                  <input type="checkbox" name="category" value="text">
+                  <span>Text</span>
+                </label>
+              </div>
+            </div>
+
             <textarea id="feedback-notes" placeholder="Notes about this card..."></textarea>
-            <button id="save-feedback" class="btn btn-primary">Save Feedback</button>
+            <div class="feedback-actions">
+              <button id="save-feedback" class="btn btn-primary">Save Feedback</button>
+              <button id="send-to-claude" class="btn btn-claude">
+                <span class="icon">&#128203;</span> Send to Claude
+              </button>
+            </div>
           </div>
 
           <div class="detail-section export-section">
@@ -272,6 +327,47 @@
             <div class="prompt-container">
               <pre id="detail-prompt"></pre>
             </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Version Comparison Modal -->
+  <div class="modal" id="compare-modal">
+    <div class="modal-content compare-modal-content">
+      <button class="modal-close" id="compare-modal-close">&times;</button>
+
+      <h2>Version Comparison</h2>
+
+      <div class="compare-grid" id="compare-grid">
+        <div class="compare-card" id="compare-v1">
+          <h4>Version <span id="compare-v1-num">1</span></h4>
+          <img id="compare-v1-image" src="" alt="Version 1">
+          <dl class="compare-meta">
+            <dt>Generated:</dt>
+            <dd id="compare-v1-timestamp"></dd>
+            <dt>Poses:</dt>
+            <dd id="compare-v1-poses"></dd>
+          </dl>
+          <div class="compare-feedback" id="compare-v1-feedback">
+            <div class="compare-feedback-label">Feedback that led to v2:</div>
+            <div class="compare-feedback-text" id="compare-v1-feedback-text"></div>
+          </div>
+        </div>
+
+        <div class="compare-card" id="compare-v2">
+          <h4>Version <span id="compare-v2-num">2</span></h4>
+          <img id="compare-v2-image" src="" alt="Version 2">
+          <dl class="compare-meta">
+            <dt>Generated:</dt>
+            <dd id="compare-v2-timestamp"></dd>
+            <dt>Poses:</dt>
+            <dd id="compare-v2-poses"></dd>
+          </dl>
+          <div class="compare-feedback" id="compare-v2-feedback" style="display: none;">
+            <div class="compare-feedback-label">Feedback:</div>
+            <div class="compare-feedback-text" id="compare-v2-feedback-text"></div>
           </div>
         </div>
       </div>

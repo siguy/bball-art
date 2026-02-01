@@ -17,6 +17,9 @@ let currentPlatformTab = 'instagram';
 let captions = { instagram: '', twitter: '' };
 let currentSeries = 'court-covenant'; // Will be set from SeriesSelector
 
+// Version history state
+let currentVersionInfo = null; // { version, totalVersions, baseId, versions }
+
 // DOM Elements
 const gallery = document.getElementById('gallery');
 const stats = document.getElementById('stats');
@@ -625,6 +628,17 @@ async function openModal(index) {
     }
   });
 
+  // Load scope (default to 'card')
+  const scopeSelect = document.getElementById('feedback-scope');
+  if (scopeSelect) {
+    scopeSelect.value = cardFeedback.scope || 'card';
+  }
+
+  // Load categories
+  document.querySelectorAll('.category-tag input[type="checkbox"]').forEach(cb => {
+    cb.checked = cardFeedback.categories?.includes(cb.value) || false;
+  });
+
   // Reset trim status and check for undo availability
   const trimStatus = document.getElementById('trim-status');
   if (trimStatus) {
@@ -648,6 +662,9 @@ async function openModal(index) {
 
   // Update website selection button
   updateWebsiteSelectionUI(card.id);
+
+  // Load version info
+  await loadVersionInfo(card.id);
 
   modal.classList.add('active');
   document.body.style.overflow = 'hidden';
@@ -717,6 +734,188 @@ async function toggleWebsiteSelection() {
   } catch (err) {
     console.error('Toggle website selection error:', err);
   }
+}
+
+// ========================================
+// VERSION HISTORY
+// ========================================
+
+/**
+ * Load version info for a card
+ */
+async function loadVersionInfo(cardId) {
+  const navigator = document.getElementById('version-navigator');
+  const currentVersionEl = document.getElementById('current-version');
+  const totalVersionsEl = document.getElementById('total-versions');
+  const prevBtn = document.getElementById('prev-version');
+  const nextBtn = document.getElementById('next-version');
+  const compareBtn = document.getElementById('compare-versions');
+
+  try {
+    // First get version info for this card
+    const res = await fetch(`${API_BASE}/api/cards/${encodeURIComponent(cardId)}/version`);
+    const versionInfo = await res.json();
+
+    if (!versionInfo.found || versionInfo.totalVersions <= 1) {
+      // Hide navigator if only one version
+      navigator.style.display = 'none';
+      currentVersionInfo = null;
+      return;
+    }
+
+    // Get all versions
+    const versionsRes = await fetch(`${API_BASE}/api/cards/${encodeURIComponent(cardId)}/versions`);
+    const versionsData = await versionsRes.json();
+
+    currentVersionInfo = {
+      version: versionInfo.version,
+      totalVersions: versionInfo.totalVersions,
+      baseId: versionInfo.baseId,
+      versions: versionsData.versions || []
+    };
+
+    // Show navigator
+    navigator.style.display = 'flex';
+    currentVersionEl.textContent = `v${currentVersionInfo.version}`;
+    totalVersionsEl.textContent = currentVersionInfo.totalVersions;
+
+    // Update button states
+    prevBtn.disabled = currentVersionInfo.version <= 1;
+    nextBtn.disabled = currentVersionInfo.version >= currentVersionInfo.totalVersions;
+    compareBtn.style.display = currentVersionInfo.totalVersions > 1 ? '' : 'none';
+
+  } catch (err) {
+    console.error('Failed to load version info:', err);
+    navigator.style.display = 'none';
+    currentVersionInfo = null;
+  }
+}
+
+/**
+ * Navigate to a different version of the card
+ */
+async function navigateVersion(direction) {
+  if (!currentVersionInfo) return;
+
+  const newVersion = currentVersionInfo.version + direction;
+  if (newVersion < 1 || newVersion > currentVersionInfo.totalVersions) return;
+
+  const targetVersion = currentVersionInfo.versions.find(v => v.version === newVersion);
+  if (!targetVersion) return;
+
+  // Find this card in filteredCards by cardId
+  const targetIndex = filteredCards.findIndex(c => c.id === targetVersion.cardId);
+
+  if (targetIndex !== -1) {
+    // Card is in current view, navigate to it
+    await openModal(targetIndex);
+  } else {
+    // Card might be filtered out - try to open directly
+    // We'll need to update the modal manually with the version data
+    await openVersionDirectly(targetVersion);
+  }
+}
+
+/**
+ * Open a version directly when it's not in the filtered view
+ */
+async function openVersionDirectly(versionEntry) {
+  // Update the modal with this version's data
+  const img = document.getElementById('modal-card-image');
+  img.src = versionEntry.path;
+
+  // Update version navigator
+  const currentVersionEl = document.getElementById('current-version');
+  const prevBtn = document.getElementById('prev-version');
+  const nextBtn = document.getElementById('next-version');
+
+  currentVersionInfo.version = versionEntry.version;
+  currentVersionEl.textContent = `v${versionEntry.version}`;
+  prevBtn.disabled = versionEntry.version <= 1;
+  nextBtn.disabled = versionEntry.version >= currentVersionInfo.totalVersions;
+
+  // Update prompt
+  document.getElementById('detail-prompt').textContent = versionEntry.prompt || 'No prompt saved';
+
+  // Update timestamp
+  if (versionEntry.timestamp) {
+    document.getElementById('detail-timestamp').textContent =
+      versionEntry.timestamp.replace(/-/g, ':').replace('T', ' ').slice(0, 19);
+  }
+}
+
+/**
+ * Open version comparison modal
+ */
+async function openCompareModal() {
+  if (!currentVersionInfo || currentVersionInfo.totalVersions < 2) return;
+
+  const modal = document.getElementById('compare-modal');
+  const v1Num = Math.max(1, currentVersionInfo.version - 1);
+  const v2Num = currentVersionInfo.version;
+
+  try {
+    const res = await fetch(
+      `${API_BASE}/api/cards/compare?baseId=${encodeURIComponent(currentVersionInfo.baseId)}&v1=${v1Num}&v2=${v2Num}`
+    );
+    const comparison = await res.json();
+
+    if (!comparison.version1 || !comparison.version2) {
+      showToast('Could not load version comparison', 'error');
+      return;
+    }
+
+    // Populate comparison modal
+    document.getElementById('compare-v1-num').textContent = v1Num;
+    document.getElementById('compare-v2-num').textContent = v2Num;
+
+    document.getElementById('compare-v1-image').src = comparison.version1.path;
+    document.getElementById('compare-v2-image').src = comparison.version2.path;
+
+    document.getElementById('compare-v1-timestamp').textContent =
+      comparison.version1.timestamp?.replace(/-/g, ':').replace('T', ' ').slice(0, 19) || 'Unknown';
+    document.getElementById('compare-v2-timestamp').textContent =
+      comparison.version2.timestamp?.replace(/-/g, ':').replace('T', ' ').slice(0, 19) || 'Unknown';
+
+    // Format poses
+    const formatPoses = (poses) => {
+      if (!poses) return 'Not specified';
+      const parts = [];
+      if (poses.pose1) parts.push(poses.pose1);
+      if (poses.pose2) parts.push(poses.pose2);
+      return parts.join(', ') || 'Not specified';
+    };
+
+    document.getElementById('compare-v1-poses').textContent = formatPoses(comparison.version1.poses);
+    document.getElementById('compare-v2-poses').textContent = formatPoses(comparison.version2.poses);
+
+    // Show feedback note if present
+    const v1FeedbackSection = document.getElementById('compare-v1-feedback');
+    const v1FeedbackText = document.getElementById('compare-v1-feedback-text');
+
+    if (comparison.version2.feedbackNote) {
+      v1FeedbackSection.style.display = 'block';
+      v1FeedbackText.textContent = comparison.version2.feedbackNote;
+    } else {
+      v1FeedbackSection.style.display = 'none';
+    }
+
+    modal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+
+  } catch (err) {
+    console.error('Failed to load comparison:', err);
+    showToast('Failed to load comparison', 'error');
+  }
+}
+
+/**
+ * Close version comparison modal
+ */
+function closeCompareModal() {
+  const modal = document.getElementById('compare-modal');
+  modal.classList.remove('active');
+  // Don't reset body overflow since card modal is still open
 }
 
 /**
@@ -984,6 +1183,33 @@ function setupEventListeners() {
     addToWebsiteBtn.addEventListener('click', toggleWebsiteSelection);
   }
 
+  // Version navigation
+  const prevVersionBtn = document.getElementById('prev-version');
+  const nextVersionBtn = document.getElementById('next-version');
+  const compareVersionsBtn = document.getElementById('compare-versions');
+
+  if (prevVersionBtn) {
+    prevVersionBtn.addEventListener('click', () => navigateVersion(-1));
+  }
+  if (nextVersionBtn) {
+    nextVersionBtn.addEventListener('click', () => navigateVersion(1));
+  }
+  if (compareVersionsBtn) {
+    compareVersionsBtn.addEventListener('click', openCompareModal);
+  }
+
+  // Compare modal close
+  const compareModalClose = document.getElementById('compare-modal-close');
+  if (compareModalClose) {
+    compareModalClose.addEventListener('click', closeCompareModal);
+  }
+  const compareModal = document.getElementById('compare-modal');
+  if (compareModal) {
+    compareModal.addEventListener('click', (e) => {
+      if (e.target === compareModal) closeCompareModal();
+    });
+  }
+
   // Heart button clicks (quick-love)
   gallery.addEventListener('click', async (e) => {
     const heartBtn = e.target.closest('.heart-btn');
@@ -1059,6 +1285,27 @@ function setupEventListeners() {
   document.getElementById('save-feedback').addEventListener('click', async () => {
     await autoSaveFeedback();
   });
+
+  // Scope dropdown - auto-save on change
+  const scopeSelect = document.getElementById('feedback-scope');
+  if (scopeSelect) {
+    scopeSelect.addEventListener('change', () => {
+      autoSaveFeedback();
+    });
+  }
+
+  // Category checkboxes - auto-save on change
+  document.querySelectorAll('.category-tag input[type="checkbox"]').forEach(cb => {
+    cb.addEventListener('change', () => {
+      autoSaveFeedback();
+    });
+  });
+
+  // Send to Claude button
+  const sendToClaudeBtn = document.getElementById('send-to-claude');
+  if (sendToClaudeBtn) {
+    sendToClaudeBtn.addEventListener('click', handleSendToClaude);
+  }
 }
 
 // Auto-save helper
@@ -1069,6 +1316,13 @@ async function autoSaveFeedback() {
   const activeBtn = document.querySelector('.feedback-btn.active');
   const rating = activeBtn?.dataset.rating || null;
   const notes = document.getElementById('feedback-notes').value;
+  const scope = document.getElementById('feedback-scope')?.value || 'card';
+
+  // Get selected categories
+  const categories = [];
+  document.querySelectorAll('.category-tag input[type="checkbox"]:checked').forEach(cb => {
+    categories.push(cb.value);
+  });
 
   // Only save if there's something to save
   if (!rating && !notes) return;
@@ -1076,7 +1330,7 @@ async function autoSaveFeedback() {
   const saveBtn = document.getElementById('save-feedback');
   saveBtn.textContent = 'Saving...';
 
-  const success = await saveFeedback(card.id, { rating, notes });
+  const success = await saveFeedback(card.id, { rating, notes, scope, categories });
   if (success) {
     renderGallery();
     saveBtn.textContent = 'Auto-saved';
@@ -1084,6 +1338,212 @@ async function autoSaveFeedback() {
   } else {
     saveBtn.textContent = 'Save Failed';
     setTimeout(() => { saveBtn.textContent = 'Save Feedback'; }, 2000);
+  }
+}
+
+// ========================================
+// SEND TO CLAUDE
+// ========================================
+
+/**
+ * Format scope for display
+ */
+function formatScopeLabel(scope) {
+  const scopeLabels = {
+    'card': 'This card only',
+    'template': 'Template-wide',
+    'pairing': 'Pairing-wide',
+    'global': 'Global (all future cards)'
+  };
+  return scopeLabels[scope] || scope;
+}
+
+/**
+ * Format categories for display
+ */
+function formatCategoriesLabel(categories) {
+  if (!categories || categories.length === 0) return 'None specified';
+  return categories.map(c => c.charAt(0).toUpperCase() + c.slice(1)).join(', ');
+}
+
+/**
+ * Format rating for display
+ */
+function formatRatingLabel(rating) {
+  const ratingLabels = {
+    'loved': 'Loved',
+    'liked': 'Liked',
+    'issues': 'Issues'
+  };
+  return ratingLabels[rating] || rating || 'None';
+}
+
+/**
+ * Generate regeneration command
+ */
+function generateRegenerateCommand(card) {
+  if (card.mode === 'solo') {
+    const type = card.characterType === 'player' ? 'player' : 'figure';
+    let cmd = `node scripts/generate-solo.js ${type} ${card.characterId} ${card.template}`;
+    if (card.poses?.pose1) {
+      cmd += ` --pose ${card.poses.pose1}`;
+    }
+    return cmd;
+  }
+
+  // Pairing card
+  let cmd = `node scripts/generate-with-poses.js ${card.pairingId} ${card.template}`;
+
+  // Add pose flags if available
+  if (card.poses) {
+    if (card.poses.pose1) cmd += ` \\\n  --player-pose ${card.poses.pose1}`;
+    if (card.poses.pose2) cmd += ` \\\n  --figure-pose ${card.poses.pose2}`;
+  }
+
+  return cmd;
+}
+
+/**
+ * Format feedback for Claude Code
+ */
+function formatFeedbackForClaude(card, cardFeedback, pairing, fullPairing) {
+  // Build title
+  let title;
+  if (card.mode === 'solo') {
+    const charType = card.characterType === 'player' ? 'Player' : 'Figure';
+    title = `Solo ${charType}: ${card.characterId}`;
+  } else {
+    title = pairing
+      ? `${pairing.playerName} & ${pairing.figureName}`
+      : card.pairingId;
+  }
+
+  // Build the formatted output
+  const lines = [];
+
+  lines.push(`## Card Feedback: ${card.pairingId || card.characterId} (${card.template})`);
+  lines.push('');
+  lines.push(`**Rating:** ${formatRatingLabel(cardFeedback?.rating)}`);
+  lines.push(`**Scope:** ${formatScopeLabel(cardFeedback?.scope)}`);
+  lines.push(`**Categories:** ${formatCategoriesLabel(cardFeedback?.categories)}`);
+  lines.push('');
+
+  if (cardFeedback?.notes) {
+    lines.push(`**Feedback:** "${cardFeedback.notes}"`);
+    lines.push('');
+  }
+
+  // Parameters section
+  lines.push('**Parameters:**');
+  if (card.mode === 'solo') {
+    lines.push(`- Mode: Solo`);
+    lines.push(`- Character Type: ${card.characterType}`);
+    lines.push(`- Character: ${card.characterId}`);
+  } else {
+    lines.push(`- Pairing: ${title}`);
+  }
+  lines.push(`- Template: ${card.template}`);
+
+  if (card.poses) {
+    if (card.poses.pose1) lines.push(`- Player pose: ${card.poses.pose1}`);
+    if (card.poses.pose2) lines.push(`- Figure pose: ${card.poses.pose2}`);
+  }
+
+  if (card.interaction && card.interaction !== 'unknown') {
+    lines.push(`- Interaction: ${card.interaction}`);
+  }
+  lines.push('');
+
+  // Connection context if available
+  if (fullPairing?.connection) {
+    lines.push('**Connection:**');
+    if (fullPairing.connection.thematic) {
+      lines.push(`${fullPairing.connection.thematic}`);
+    } else if (fullPairing.connection.narrative) {
+      lines.push(`${fullPairing.connection.narrative}`);
+    }
+    lines.push('');
+  }
+
+  // Prompt file reference (not full text - Claude can read it)
+  if (card.promptPath) {
+    lines.push(`**Prompt file:** \`output/cards${card.promptPath}\``);
+    lines.push('');
+  }
+
+  // Regenerate command
+  lines.push('**Regenerate:**');
+  lines.push('```bash');
+  lines.push(generateRegenerateCommand(card));
+  lines.push('```');
+
+  return lines.join('\n');
+}
+
+/**
+ * Show a toast notification
+ */
+function showToast(message, type = 'success', duration = 3000) {
+  // Remove existing toast
+  const existing = document.querySelector('.toast');
+  if (existing) existing.remove();
+
+  // Create toast element
+  const toast = document.createElement('div');
+  toast.className = `toast ${type}`;
+  toast.textContent = message;
+  document.body.appendChild(toast);
+
+  // Trigger animation
+  requestAnimationFrame(() => {
+    toast.classList.add('show');
+  });
+
+  // Auto-remove
+  setTimeout(() => {
+    toast.classList.remove('show');
+    setTimeout(() => toast.remove(), 300);
+  }, duration);
+}
+
+/**
+ * Handle Send to Claude button click
+ */
+async function handleSendToClaude() {
+  const card = filteredCards[currentCardIndex];
+  if (!card) {
+    showToast('No card selected - open a card first', 'error');
+    return;
+  }
+
+  // Get current feedback from UI
+  const activeBtn = document.querySelector('.feedback-btn.active');
+  const rating = activeBtn?.dataset.rating || null;
+  const notes = document.getElementById('feedback-notes').value;
+  const scope = document.getElementById('feedback-scope')?.value || 'card';
+
+  // Get selected categories
+  const categories = [];
+  document.querySelectorAll('.category-tag input[type="checkbox"]:checked').forEach(cb => {
+    categories.push(cb.value);
+  });
+
+  const cardFeedback = { rating, notes, scope, categories };
+
+  // Get pairing data
+  const pairing = pairingData[card.pairingId];
+  const fullPairing = pairingsFull[card.pairingId];
+
+  // Format the feedback
+  const formatted = formatFeedbackForClaude(card, cardFeedback, pairing, fullPairing);
+
+  // Copy to clipboard
+  try {
+    await navigator.clipboard.writeText(formatted);
+    showToast('Copied to clipboard - paste into Claude Code', 'success');
+  } catch (err) {
+    console.error('Failed to copy to clipboard:', err);
+    showToast('Failed to copy to clipboard', 'error');
   }
 }
 

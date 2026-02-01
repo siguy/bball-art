@@ -32,10 +32,13 @@ visualizer/
 ├── lib/
 │   ├── image-processor.js    # Sharp-based resize/format
 │   ├── caption-generator.js  # Template-based captions
-│   └── buffer-client.js      # Buffer API wrapper
+│   ├── buffer-client.js      # Buffer API wrapper
+│   ├── feedback-formatter.js # Format feedback for Claude Code
+│   └── history-manager.js    # Version tracking for card iterations
 └── data/
     ├── manifest.json         # Auto-generated card index
     ├── feedback.json         # User feedback (auto-saved)
+    ├── card-history.json     # Version history for iterations
     ├── export-queue.json     # Export queue storage
     ├── export-config.json    # Platform configs
     └── caption-templates.json # Caption templates + hashtags
@@ -83,6 +86,75 @@ All endpoints support `?series=` parameter for filtering.
 - `GET /api/poses/figures/:id` - Get figure poses by poseFileId
 - `GET /api/templates` - List available templates with metadata
 - `POST /api/generate-with-poses` - Full pose-controlled generation
+
+### Version History
+- `GET /api/cards/:cardId/version` - Get version info for a card
+- `GET /api/cards/:cardId/versions` - Get all versions for a card grouping
+- `POST /api/cards/:cardId/versions` - Add a card to version history
+- `GET /api/cards/compare` - Compare two versions (`?baseId=X&v1=1&v2=2`)
+- `POST /api/cards/history/populate` - Populate history from existing manifest
+
+## Real-Time Feedback System
+
+Send feedback directly to Claude Code for prompt adjustments.
+
+### Feedback Fields
+
+| Field | Description |
+|-------|-------------|
+| `rating` | loved, liked, issues |
+| `notes` | Free-text feedback |
+| `scope` | card, template, pairing, global |
+| `categories` | composition, colors, poses, style, characters, text |
+
+### Scope Options
+
+| Scope | Meaning |
+|-------|---------|
+| `card` | This specific card only |
+| `template` | All cards using this template |
+| `pairing` | All cards with this pairing |
+| `global` | All future card generations |
+
+### Send to Claude
+
+Click "Send to Claude" button to copy formatted feedback to clipboard. Paste into Claude Code to get prompt adjustments.
+
+**Output format:**
+```markdown
+## Card Feedback: jordan-moses (thunder-lightning)
+
+**Rating:** Issues
+**Scope:** Template-wide
+**Categories:** Style, Composition
+
+**Feedback:** "Lightning needs to be more dramatic"
+
+**Parameters:**
+- Pairing: Michael Jordan & Moses
+- Template: thunder-lightning
+- Player pose: tongue-out-dunk
+- Figure pose: parting-sea
+
+**Prompt file:** `output/cards/court-covenant/jordan-moses/thunder-lightning-2026-01-30T12-00-00-prompt.txt`
+
+**Regenerate:**
+node scripts/generate-with-poses.js jordan-moses thunder-lightning \
+  --player-pose tongue-out-dunk --figure-pose parting-sea
+```
+
+### Version History
+
+Cards are grouped by pairing+template. When regenerating after feedback:
+1. New card is automatically tracked as next version
+2. Version navigator shows "v2 of 3" with prev/next buttons
+3. Compare button shows side-by-side view of versions
+4. Feedback notes from previous version shown in comparison
+
+**Populating history for existing cards:**
+```bash
+curl -X POST http://localhost:3333/api/cards/history/populate
+```
 
 ## Multi-Platform Export
 

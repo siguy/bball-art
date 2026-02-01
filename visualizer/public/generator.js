@@ -1031,6 +1031,13 @@ function resetFeedbackUI() {
   });
   // Clear notes
   document.getElementById('result-feedback-notes').value = '';
+  // Reset scope to default
+  const scopeSelect = document.getElementById('result-feedback-scope');
+  if (scopeSelect) scopeSelect.value = 'card';
+  // Clear category checkboxes
+  document.querySelectorAll('input[name="result-category"]').forEach(cb => {
+    cb.checked = false;
+  });
 }
 
 function onRatingClick(e) {
@@ -1055,6 +1062,13 @@ async function saveResultFeedback() {
   const activeBtn = document.querySelector('.result-feedback .feedback-btn.active');
   const rating = activeBtn?.dataset.rating || null;
   const notes = document.getElementById('result-feedback-notes').value;
+  const scope = document.getElementById('result-feedback-scope')?.value || 'card';
+
+  // Get selected categories
+  const categories = [];
+  document.querySelectorAll('input[name="result-category"]:checked').forEach(cb => {
+    categories.push(cb.value);
+  });
 
   if (!rating && !notes) return;
 
@@ -1065,7 +1079,7 @@ async function saveResultFeedback() {
     const res = await fetch(`${API_BASE}/api/feedback/${encodeURIComponent(lastGeneratedCard.cardId)}`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ rating, notes })
+      body: JSON.stringify({ rating, notes, scope, categories })
     });
 
     if (res.ok) {
@@ -1175,6 +1189,195 @@ async function regenerateFromPrompt() {
   }
 }
 
+// ========================================
+// SEND TO CLAUDE
+// ========================================
+
+/**
+ * Format scope for display
+ */
+function formatScopeLabel(scope) {
+  const scopeLabels = {
+    'card': 'This card only',
+    'template': 'Template-wide',
+    'pairing': 'Pairing-wide',
+    'global': 'Global (all future cards)'
+  };
+  return scopeLabels[scope] || scope;
+}
+
+/**
+ * Format categories for display
+ */
+function formatCategoriesLabel(categories) {
+  if (!categories || categories.length === 0) return 'None specified';
+  return categories.map(c => c.charAt(0).toUpperCase() + c.slice(1)).join(', ');
+}
+
+/**
+ * Format rating for display
+ */
+function formatRatingLabel(rating) {
+  const ratingLabels = {
+    'loved': 'Loved',
+    'liked': 'Liked',
+    'issues': 'Issues'
+  };
+  return ratingLabels[rating] || rating || 'None';
+}
+
+/**
+ * Generate regeneration command
+ */
+function generateRegenerateCommand(card) {
+  if (card.mode === 'solo') {
+    let cmd = `node scripts/generate-solo.js ${card.characterType} ${card.characterId} ${card.template}`;
+    if (card.pose && card.pose !== 'default') {
+      cmd += ` --pose ${card.pose}`;
+    }
+    return cmd;
+  }
+
+  // Pairing card
+  let cmd = `node scripts/generate-with-poses.js ${card.pairingId} ${card.template}`;
+
+  if (card.playerPose && card.playerPose !== 'default') {
+    cmd += ` \\\n  --player-pose ${card.playerPose}`;
+  }
+  if (card.figurePose && card.figurePose !== 'default') {
+    cmd += ` \\\n  --figure-pose ${card.figurePose}`;
+  }
+
+  return cmd;
+}
+
+/**
+ * Show a toast notification
+ */
+function showToast(message, type = 'success', duration = 3000) {
+  // Remove existing toast
+  const existing = document.querySelector('.toast');
+  if (existing) existing.remove();
+
+  // Create toast element
+  const toast = document.createElement('div');
+  toast.className = `toast ${type}`;
+  toast.textContent = message;
+  document.body.appendChild(toast);
+
+  // Trigger animation
+  requestAnimationFrame(() => {
+    toast.classList.add('show');
+  });
+
+  // Auto-remove
+  setTimeout(() => {
+    toast.classList.remove('show');
+    setTimeout(() => toast.remove(), 300);
+  }, duration);
+}
+
+/**
+ * Handle Send to Claude button click
+ */
+async function handleSendToClaudeGenerator() {
+  if (!lastGeneratedCard || !lastGeneratedCard.cardId) {
+    showToast('No card generated yet', 'error');
+    return;
+  }
+
+  // Get current feedback from UI
+  const activeBtn = document.querySelector('.result-feedback .feedback-btn.active');
+  const rating = activeBtn?.dataset.rating || null;
+  const notes = document.getElementById('result-feedback-notes').value;
+  const scope = document.getElementById('result-feedback-scope')?.value || 'card';
+
+  // Get selected categories
+  const categories = [];
+  document.querySelectorAll('input[name="result-category"]:checked').forEach(cb => {
+    categories.push(cb.value);
+  });
+
+  // Build title
+  let title;
+  if (lastGeneratedCard.mode === 'solo') {
+    title = `Solo ${lastGeneratedCard.characterType}: ${lastGeneratedCard.characterId}`;
+  } else {
+    const pairing = pairingsFull[lastGeneratedCard.pairingId];
+    title = pairing
+      ? `${pairing.player.name} & ${pairing.figure.name}`
+      : lastGeneratedCard.pairingId;
+  }
+
+  // Build the formatted output
+  const lines = [];
+
+  const cardIdentifier = lastGeneratedCard.mode === 'solo'
+    ? `solo-${lastGeneratedCard.characterType}-${lastGeneratedCard.characterId}`
+    : lastGeneratedCard.pairingId;
+
+  lines.push(`## Card Feedback: ${cardIdentifier} (${lastGeneratedCard.template})`);
+  lines.push('');
+  lines.push(`**Rating:** ${formatRatingLabel(rating)}`);
+  lines.push(`**Scope:** ${formatScopeLabel(scope)}`);
+  lines.push(`**Categories:** ${formatCategoriesLabel(categories)}`);
+  lines.push('');
+
+  if (notes) {
+    lines.push(`**Feedback:** "${notes}"`);
+    lines.push('');
+  }
+
+  // Parameters section
+  lines.push('**Parameters:**');
+  if (lastGeneratedCard.mode === 'solo') {
+    lines.push(`- Mode: Solo`);
+    lines.push(`- Character Type: ${lastGeneratedCard.characterType}`);
+    lines.push(`- Character: ${lastGeneratedCard.characterId}`);
+  } else {
+    lines.push(`- Pairing: ${title}`);
+  }
+  lines.push(`- Template: ${lastGeneratedCard.template}`);
+
+  if (lastGeneratedCard.mode === 'pairing') {
+    if (lastGeneratedCard.playerPose) lines.push(`- Player pose: ${lastGeneratedCard.playerPose}`);
+    if (lastGeneratedCard.figurePose) lines.push(`- Figure pose: ${lastGeneratedCard.figurePose}`);
+  } else if (lastGeneratedCard.pose) {
+    lines.push(`- Pose: ${lastGeneratedCard.pose}`);
+  }
+  lines.push('');
+
+  // Prompt file reference (not full text - Claude can read it)
+  if (lastGeneratedCard.filename) {
+    const promptFilename = lastGeneratedCard.filename.replace(/\.(png|jpe?g)$/, '-prompt.txt');
+    let promptPath;
+    if (lastGeneratedCard.mode === 'solo') {
+      promptPath = `output/cards/${lastGeneratedCard.series}/solo-${lastGeneratedCard.characterType}-${lastGeneratedCard.characterId}/${promptFilename}`;
+    } else {
+      promptPath = `output/cards/${lastGeneratedCard.series}/${lastGeneratedCard.pairingId}/${promptFilename}`;
+    }
+    lines.push(`**Prompt file:** \`${promptPath}\``);
+    lines.push('');
+  }
+
+  // Regenerate command
+  lines.push('**Regenerate:**');
+  lines.push('```bash');
+  lines.push(generateRegenerateCommand(lastGeneratedCard));
+  lines.push('```');
+
+  const formatted = lines.join('\n');
+
+  // Copy to clipboard
+  try {
+    await navigator.clipboard.writeText(formatted);
+    showToast('Copied to clipboard - paste into Claude Code', 'success');
+  } catch (err) {
+    console.error('Failed to copy to clipboard:', err);
+    showToast('Failed to copy to clipboard', 'error');
+  }
+}
+
 // Event Listeners Setup
 function setupEventListeners() {
   // Mode toggle
@@ -1211,6 +1414,12 @@ function setupEventListeners() {
     btn.addEventListener('click', onRatingClick);
   });
   document.getElementById('save-result-feedback').addEventListener('click', saveResultFeedback);
+
+  // Send to Claude button
+  const sendToClaudeBtn = document.getElementById('send-to-claude-gen');
+  if (sendToClaudeBtn) {
+    sendToClaudeBtn.addEventListener('click', handleSendToClaudeGenerator);
+  }
 
   // Prompt display and edit
   document.getElementById('toggle-prompt').addEventListener('click', togglePromptDisplay);

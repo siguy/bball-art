@@ -14,6 +14,7 @@ import pairingAssistant, { callGemini, generatePlayerPoseFile, generateFigurePos
 import { researchBiblicalFigure } from './lib/sefaria-client.js';
 import feedbackEnricher from './lib/feedback-enricher.js';
 import feedbackAnalyzer from './lib/feedback-analyzer.js';
+import historyManager from './lib/history-manager.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -625,6 +626,143 @@ app.post('/api/generation-hints/regenerate', (req, res) => {
     feedbackAnalyzer.saveHints(hints);
 
     res.json({ success: true, hints });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// ========================================
+// VERSION HISTORY ENDPOINTS
+// ========================================
+
+/**
+ * Get version info for a specific card
+ * Returns which version this card is and total versions
+ * GET /api/cards/:cardId/version
+ */
+app.get('/api/cards/:cardId/version', (req, res) => {
+  try {
+    const { cardId } = req.params;
+    const versionInfo = historyManager.findVersionByCardId(cardId);
+
+    if (!versionInfo) {
+      // Card not in history yet - return as v1 of 1
+      return res.json({
+        found: false,
+        version: 1,
+        totalVersions: 1,
+        baseId: null
+      });
+    }
+
+    res.json({
+      found: true,
+      version: versionInfo.version,
+      totalVersions: versionInfo.totalVersions,
+      baseId: versionInfo.baseId,
+      entry: versionInfo.entry
+    });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+/**
+ * Get all versions for a card grouping (by baseId or cardId)
+ * GET /api/cards/:cardId/versions
+ */
+app.get('/api/cards/:cardId/versions', (req, res) => {
+  try {
+    const { cardId } = req.params;
+
+    // First try to find by cardId
+    const versionInfo = historyManager.findVersionByCardId(cardId);
+    if (versionInfo) {
+      return res.json({
+        baseId: versionInfo.baseId,
+        ...versionInfo.history
+      });
+    }
+
+    // Maybe it's a baseId directly
+    const history = historyManager.getVersions(cardId);
+    if (history) {
+      return res.json(history);
+    }
+
+    res.json({ versions: [] });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+/**
+ * Add a card to version history
+ * POST /api/cards/:cardId/versions
+ */
+app.post('/api/cards/:cardId/versions', (req, res) => {
+  try {
+    const { cardId } = req.params;
+    const { feedbackNote } = req.body;
+
+    // Find the card in manifest
+    const manifest = buildManifest();
+    const card = manifest.cards.find(c => c.id === cardId);
+
+    if (!card) {
+      return res.status(404).json({ error: 'Card not found' });
+    }
+
+    // Add to history
+    const entry = historyManager.addVersion(card, { feedbackNote });
+
+    res.json({
+      success: true,
+      version: entry.version,
+      entry
+    });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+/**
+ * Compare two versions
+ * GET /api/cards/compare?baseId=X&v1=1&v2=2
+ */
+app.get('/api/cards/compare', (req, res) => {
+  try {
+    const { baseId, v1, v2 } = req.query;
+
+    if (!baseId || !v1 || !v2) {
+      return res.status(400).json({ error: 'Missing baseId, v1, or v2 parameters' });
+    }
+
+    const comparison = historyManager.compareVersions(baseId, parseInt(v1), parseInt(v2));
+
+    if (!comparison) {
+      return res.status(404).json({ error: 'Versions not found' });
+    }
+
+    res.json(comparison);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+/**
+ * Populate history from existing manifest
+ * POST /api/cards/history/populate
+ */
+app.post('/api/cards/history/populate', (req, res) => {
+  try {
+    const manifest = buildManifest();
+    const stats = historyManager.populateHistoryFromManifest(manifest.cards);
+
+    res.json({
+      success: true,
+      ...stats
+    });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
