@@ -103,6 +103,17 @@ See `visualizer/CLAUDE.md` for full documentation.
 
 **New Template:** See `docs/template-creation.md` (creative process) and `prompts/CLAUDE.md` (technical)
 
+## Design Before Building
+
+For new templates, series, or significant features:
+
+1. **Explore first** - Review similar existing work
+2. **2-3 approaches** - Consider alternatives before settling
+3. **Simplest version** - What's the minimum that captures the idea?
+4. **Test early** - One card/feature before batch work
+
+Skip this for small fixes or iterations on existing work.
+
 ## What NOT to Do
 
 - Don't add NBA logos or team names
@@ -110,3 +121,21 @@ See `visualizer/CLAUDE.md` for full documentation.
 - Don't over-engineer (keep it simple until needed)
 - Don't batch generate before style testing
 - Don't skip the rating/validation phase
+
+## When You're Stuck
+
+### Red Flags (Stop and Reconsider)
+- **3+ attempts didn't help** → Step back, understand WHY before trying again
+- **Copying code/prompts without understanding** → Read it first
+- **Feature creep** → Is this needed now? YAGNI.
+- **Changing patterns without searching** → Discovery Before Modification
+
+### For Art (Prompts/Templates)
+- Read the prompt file that was actually sent
+- Compare to a working card - what's different?
+- Make ONE change at a time
+
+### For Software (Bugs/Features)
+- Reproduce it consistently before fixing
+- Form a hypothesis, test minimally
+- If fix doesn't work, re-investigate (don't stack fixes)

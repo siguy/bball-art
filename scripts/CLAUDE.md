@@ -159,3 +159,13 @@ const outputDir = getOutputPath(series, pairingId);
 const pairing = loadPairing(pairingId); // Auto-finds series
 const series = pairing._series;
 ```
+
+## For Larger Features
+
+When building something that touches multiple files:
+
+1. **Write a brief plan** - List files to change and rough order
+2. **Work in small commits** - One logical change per commit
+3. **Test as you go** - Run `validate-data.js`, check visualizer
+
+For multi-step work, I can use subagents to keep context fresh per task.
