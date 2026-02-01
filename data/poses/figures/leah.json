@@ -1,0 +1,40 @@
+{
+  "id": "leah",
+  "name": "Leah",
+  "defaultPose": "mother-of-israel",
+  "description": "Elder daughter of Laban, first wife of Jacob through deception. The unloved wife who became mother of six tribes of Israel including Judah (Messiah's line). Her 'tender eyes' saw what beauty could not.",
+  "poses": {
+    "mother-of-israel": {
+      "id": "mother-of-israel",
+      "name": "Mother of Israel",
+      "description": "Surrounded by her children, the fruitful but unloved wife",
+      "expression": "quiet dignity, maternal love, hidden sorrow",
+      "prompt": "mature woman surrounded by children - infants in arms, young children at her feet. Tender eyes that have known sorrow but also blessing. Dressed in modest earth-toned robes. Maternal, grounded, the quiet strength of a mother who built half of Israel.",
+      "energy": "Fertile, maternal, dignified sorrow, quiet triumph"
+    },
+    "veiled-bride": {
+      "id": "veiled-bride",
+      "name": "The Veiled Bride",
+      "description": "Under the wedding veil, the night of the deception",
+      "expression": "hidden, nervous, complicit in her father's scheme",
+      "prompt": "young woman heavily veiled in bridal garments - face obscured by thick veil, only tender eyes visible through the fabric. Wedding night setting, oil lamps casting shadows. The hidden bride, taking her sister's place.",
+      "energy": "Hidden, nervous, desperate hope, the unseen one"
+    },
+    "naming-judah": {
+      "id": "naming-judah",
+      "name": "Naming Judah",
+      "description": "The moment she finally stops seeking Jacob's love and simply gives thanks",
+      "expression": "peaceful acceptance, gratitude, spiritual breakthrough",
+      "prompt": "woman holding newborn infant - face showing peace and gratitude rather than desperate hope for love. 'This time I will praise the Lord' - the moment she stopped competing and found contentment. Warm light, tender scene.",
+      "energy": "Gratitude, acceptance, spiritual maturity, praise"
+    },
+    "rivalry-fertility": {
+      "id": "rivalry-fertility",
+      "name": "Rivalry: Fertility",
+      "description": "Leah in sibling rivalry scene - the fertile but unloved wife",
+      "prompt": "Leah surrounded by the symbols of her fertility - cradle, swaddling clothes, children's toys. Modest earth-toned robes, hair covered. Her tender eyes hold both triumph (she has children) and sorrow (she lacks love). Warm browns and olive tones. Maternal, grounded.",
+      "energy": "Fertile, maternal, bittersweet triumph",
+      "isRivalryPose": true
+    }
+  }
+}

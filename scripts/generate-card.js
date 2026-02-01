@@ -16,6 +16,7 @@
  *   --custom-figure-action <a>  Custom figure action description
  *   --player-pose <id>          Player pose ID (for filename tracking)
  *   --figure-pose <id>          Figure pose ID (for filename tracking)
+ *   --act <1|2|3>               Act number for triptych cards (progression)
  *   --model <model>             Override model
  *   --dry-run                   Generate prompt only, don't call API
  */
@@ -31,7 +32,7 @@ import { loadTemplate, getAvailableTemplatesHelp } from './lib/template-loader.j
 
 // Parse command line arguments
 const args = minimist(process.argv.slice(2), {
-  string: ['series', 'interaction', 'custom-player-action', 'custom-figure-action', 'player-pose', 'figure-pose', 'model'],
+  string: ['series', 'interaction', 'custom-player-action', 'custom-figure-action', 'player-pose', 'figure-pose', 'model', 'act'],
   boolean: ['dry-run', 'help'],
   alias: { h: 'help' },
 });
@@ -101,6 +102,9 @@ async function generateCard() {
   if (args['custom-figure-action']) {
     options.customFigureAction = args['custom-figure-action'];
   }
+  if (args.act) {
+    options.act = args.act;
+  }
 
   const prompt = template.generate(pairing, options);
 
@@ -108,13 +112,17 @@ async function generateCard() {
   const char1Name = pairing.player?.name || pairing.characters?.[0]?.name || 'Character 1';
   const char2Name = pairing.figure?.name || pairing.characters?.[1]?.name || 'Character 2';
 
+  // Get act info for display
+  const actInfo = args.act ? ` (Act ${args.act})` : '';
+
   console.log('='.repeat(60));
   console.log('CARD GENERATION');
   console.log('='.repeat(60));
   console.log(`Series: ${series}${subSeries ? ` (${subSeries})` : ''}`);
-  console.log(`Pairing: ${char1Name} & ${char2Name}`);
+  console.log(`Pairing: ${char1Name} & ${char2Name}${actInfo}`);
   console.log(`Style: ${cardType}`);
   console.log(`Interaction: ${args.interaction || pairing.defaultInteraction || 'default'}`);
+  if (args.act) console.log(`Act: ${args.act} of 3 (Triptych)`);
   console.log('='.repeat(60));
 
   if (args['dry-run']) {

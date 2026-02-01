@@ -272,6 +272,39 @@
         "bestFor": ["love triangles", "sibling dynamics", "three-way conflicts"],
         "cardModes": ["multi-figure"],
         "minCharacters": 3
+      },
+      "sibling-card": {
+        "id": "sibling-card",
+        "name": "Sibling Card",
+        "description": "Double-headed reversible card inspired by 18th-century court cards. Rotational symmetry - neither sibling above the other.",
+        "era": "Biblical",
+        "style": "Reversible playing card",
+        "hasDarkMode": false,
+        "bestFor": ["sibling rivalries", "twin conflicts", "equals in opposition"],
+        "cardModes": ["figure-figure"],
+        "pairingDataKey": "seriesSpecificData.siblingCard"
+      },
+      "sibling-icon": {
+        "id": "sibling-icon",
+        "name": "Sibling Icon",
+        "description": "Byzantine diptych with gold-ground mosaics and icon poses. Can indicate the righteous with halos.",
+        "era": "Biblical",
+        "style": "Byzantine religious art",
+        "hasDarkMode": false,
+        "bestFor": ["divine judgment stories", "righteous vs wicked", "sacred rivalries"],
+        "cardModes": ["figure-figure"],
+        "pairingDataKey": "seriesSpecificData.siblingIcon"
+      },
+      "sibling-duality": {
+        "id": "sibling-duality",
+        "name": "Sibling Duality",
+        "description": "Yin-yang composition with gold ring border containing embossed scripture. Shows opposites as two halves of one whole.",
+        "era": "Biblical",
+        "style": "Cosmic philosophical",
+        "hasDarkMode": false,
+        "bestFor": ["interconnected opposites", "cosmic rivalries", "tent vs field"],
+        "cardModes": ["figure-figure"],
+        "pairingDataKey": "seriesSpecificData.siblingDuality"
       }
     }
   }

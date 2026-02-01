@@ -1,0 +1,180 @@
+{
+  "id": "leah-rachel",
+  "series": "torah-titans",
+  "type": "rivalry",
+  "cardMode": "rivalry-figure-figure",
+  "rivalryConfig": {
+    "heroCharacterType": "figure",
+    "villainCharacterType": "figure"
+  },
+  "seriesSpecificData": {
+    "siblingDuality": {
+      "isTriptych": true,
+      "progressionSymbol": {
+        "name": "mandrakes",
+        "description": "The mandrake flower - the fertility plant at the center of their bargain",
+        "placement": "Outside the gold ring, in the corner or margin of the card"
+      },
+      "acts": {
+        "1": {
+          "chapterMarker": "א",
+          "title": "The Deception",
+          "scripture": {
+            "hebrew": "וְעֵינֵי לֵאָה רַכּוֹת וְרָחֵל הָיְתָה יְפַת־תֹּאַר וִיפַת מַרְאֶה",
+            "english": "Leah's eyes were tender; Rachel was beautiful of form and appearance",
+            "source": "Genesis 29:17"
+          },
+          "yinYangRatio": "70/30 - Rachel dominant, Leah hidden",
+          "colorTemperature": "Muted, cool, night tones - lamplight and shadow, wedding night mystery",
+          "ringState": "Incomplete arc - the ring is not yet closed, story just beginning",
+          "mandrakeState": "Seed or small bud - potential, not yet grown",
+          "figureState": "Young women (17-20). Leah veiled/hidden, Rachel visible but looking away. One sacrificing for the other.",
+          "char1Pose": "Young Leah heavily veiled in bridal garments, face obscured, only tender eyes visible through fabric. Nervous, hidden, the unseen bride.",
+          "char2Pose": "Young Rachel in shadows outside the bridal tent, giving away her wedding night. Heartbreak and love on her beautiful face. Sacrificial.",
+          "mood": "Sacrifice, hiddenness, the night of deception, sisterly love amid betrayal"
+        },
+        "2": {
+          "chapterMarker": "ב",
+          "title": "The Rivalry",
+          "scripture": {
+            "hebrew": "הָבָה־לִּי בָנִים וְאִם־אַיִן מֵתָה אָנֹכִי",
+            "english": "Give me children, or I shall die!",
+            "source": "Genesis 30:1"
+          },
+          "yinYangRatio": "50/50 - Equal conflict, peak tension",
+          "colorTemperature": "Vivid, high contrast - the heat of rivalry, stark opposition",
+          "ringState": "Full ring but with visible crack or tension line down the center",
+          "mandrakeState": "In full bloom - the fertility flower at the peak of the bargain",
+          "figureState": "Adult women (25-35). Facing each other across the S-curve, direct eye contact, tension visible.",
+          "char1Pose": "Leah surrounded by children, triumphant in fertility but sorrow in her tender eyes - she has children but not love. Holding a child, others at her feet.",
+          "char2Pose": "Rachel beautiful but with empty arms, desperate longing. Perhaps reaching toward Leah's children or pressing hands to her barren womb. Anguished beauty.",
+          "mood": "Tension, competition, desperation, the bitter bargain"
+        },
+        "3": {
+          "chapterMarker": "ג",
+          "title": "The Legacy",
+          "scripture": {
+            "hebrew": "כְּרָחֵל וּכְלֵאָה אֲשֶׁר בָּנוּ שְׁתֵּיהֶם אֶת־בֵּית יִשְׂרָאֵל",
+            "english": "Like Rachel and Leah, who together built the house of Israel",
+            "source": "Ruth 4:11"
+          },
+          "yinYangRatio": "Softening, merging - the S-curve gentler, boundaries dissolving",
+          "colorTemperature": "Warm, golden, harmonious - sunset years, legacy glow, reconciliation",
+          "ringState": "Complete, glowing, unified - the circle is whole and radiant",
+          "mandrakeState": "Fruit or harvest - the plant has borne its fruit, the story complete",
+          "figureState": "Mature matriarchs (40+). Side by side, looking outward together. Wisdom lines, dignity, unity.",
+          "char1Pose": "Mature Leah with quiet dignity, no longer competing for love. Surrounded by the symbols of her legacy - perhaps small figures representing the tribes she bore.",
+          "char2Pose": "Mature Rachel, finally at peace. Joseph at her side or in her memory. The beauty matured into wisdom. Standing united with her sister.",
+          "mood": "Reconciliation, unity, legacy, together they built Israel"
+        }
+      },
+      "char1": {
+        "color": "warm earth tones - browns, olive, amber",
+        "element": "earth and hearth",
+        "traits": "tender eyes, maternal, grounded, fertile, the unseen one who built Israel",
+        "seedSymbol": "a shepherd's crook or mirror (Rachel's beauty)"
+      },
+      "char2": {
+        "color": "cool celestial tones - silver, pale blue, moonlight",
+        "element": "sky and stars",
+        "traits": "stunning beauty, beloved, graceful, longing, barren for years",
+        "seedSymbol": "a cradle or infant (Leah's fertility)"
+      },
+      "connection": "Sisters who shared one husband. One had love, one had children. Each desperately wanted what the other possessed. Together they built the house of Israel."
+    }
+  },
+  "rivalryResearch": {
+    "relationship": "The most intimate sibling rivalry - two sisters married to the same man, living side by side for twenty years. Leah was unloved but fertile; Rachel was beloved but barren. Each had what the other desperately wanted. Yet Rachel sacrificed her own wedding night to spare Leah humiliation, giving her the secret signs.",
+    "keyMoments": [
+      {
+        "title": "The Wedding Night Deception",
+        "description": "Laban substituted Leah for Rachel on the wedding night. The Midrash says Rachel knew in advance and gave Leah the secret signs so her sister wouldn't be shamed - sacrificing her own wedding to spare Leah humiliation."
+      },
+      {
+        "title": "The Naming of Sons",
+        "description": "Leah named each son hoping to win Jacob's love: Reuben ('see, a son'), Simeon ('God heard I am unloved'), Levi ('now my husband will be with me'). Only with Judah did she stop competing: 'This time I will praise the Lord.'"
+      },
+      {
+        "title": "Give Me Children Or I Die",
+        "description": "Rachel's desperate cry to Jacob reveals her anguish at barrenness while her sister bore child after child. Jacob's angry response: 'Am I in God's place, who has withheld from you the fruit of the womb?'"
+      },
+      {
+        "title": "The Mandrakes Bargain",
+        "description": "The climax of their rivalry: Rachel traded a night with Jacob for Leah's mandrakes (fertility plants). Love bartered for fertility - each giving up what she had for what she lacked."
+      },
+      {
+        "title": "Together They Built Israel",
+        "description": "Despite their rivalry, the blessing in Ruth declares: 'Like Rachel and Leah, who together built the house of Israel.' Their twelve sons became the twelve tribes."
+      }
+    ],
+    "scriptureReferences": [
+      {
+        "source": "Genesis 29:17",
+        "context": "The defining contrast between the sisters",
+        "hebrew": "וְעֵינֵי לֵאָה רַכּוֹת וְרָחֵל הָיְתָה יְפַת־תֹּאַר וִיפַת מַרְאֶה",
+        "english": "Leah's eyes were tender; but Rachel was beautiful of form and beautiful of appearance",
+        "mood": "Defining, Contrasting",
+        "usageHint": "sibling-duality-circle"
+      },
+      {
+        "source": "Genesis 29:31",
+        "context": "God's compensation for Leah being unloved",
+        "hebrew": "וַיַּרְא יְהוָה כִּי־שְׂנוּאָה לֵאָה וַיִּפְתַּח אֶת־רַחְמָהּ וְרָחֵל עֲקָרָה",
+        "english": "The Lord saw that Leah was unloved, and opened her womb; but Rachel was barren",
+        "mood": "Divine Justice, Bittersweet"
+      },
+      {
+        "source": "Genesis 30:1",
+        "context": "Rachel's desperate cry",
+        "hebrew": "הָבָה־לִּי בָנִים וְאִם־אַיִן מֵתָה אָנֹכִי",
+        "english": "Give me children, or I shall die!",
+        "mood": "Desperate, Anguished"
+      },
+      {
+        "source": "Ruth 4:11",
+        "context": "The legacy blessing - sisters who built Israel",
+        "hebrew": "כְּרָחֵל וּכְלֵאָה אֲשֶׁר בָּנוּ שְׁתֵּיהֶם אֶת־בֵּית יִשְׂרָאֵל",
+        "english": "Like Rachel and Leah, who together built the house of Israel",
+        "mood": "Reconciliation, Legacy, Honor"
+      }
+    ]
+  },
+  "player": {
+    "name": "Leah",
+    "displayName": "Leah",
+    "hebrewName": "לֵאָה",
+    "poseFileId": "leah",
+    "characterType": "figure",
+    "era": "Biblical",
+    "attribute": "children and motherhood",
+    "attributeDescription": "surrounded by her children, the mother of six tribes of Israel",
+    "visualStyle": "the unloved but fertile wife, tender eyes that see beyond beauty",
+    "clothing": "modest earth-toned robes in browns and olives, hair covered as a married woman, simple but dignified garments",
+    "physicalDescription": "mature woman with tender, soulful eyes - not conventionally beautiful but with depth and warmth. Maternal figure, showing the weariness and dignity of bearing many children. Olive skin, dark hair covered.",
+    "anatomyNote": "two arms only",
+    "archetype": "The Unseen One - unloved but blessed, mother of Judah and the Messianic line"
+  },
+  "figure": {
+    "name": "Rachel",
+    "displayName": "Rachel",
+    "hebrewName": "רָחֵל",
+    "poseFileId": "rachel",
+    "characterType": "figure",
+    "era": "Biblical",
+    "attribute": "beauty and shepherd's crook",
+    "attributeDescription": "stunning beauty, shepherd's crook from her days tending Laban's flocks",
+    "visualStyle": "the beloved wife, beautiful shepherdess, tragic longing",
+    "clothing": "flowing robes in cool silvers and pale blues, more elegant and graceful garments befitting the beloved wife",
+    "physicalDescription": "stunningly beautiful young woman - 'beautiful of form and beautiful of appearance.' Graceful, radiant, the kind of beauty that makes a man work fourteen years. Flowing dark hair, luminous eyes, perfect features.",
+    "anatomyNote": "two arms only",
+    "archetype": "The Beloved One - beautiful but barren, mother of Joseph and Benjamin, died in childbirth"
+  },
+  "connection": "Sisters who shared one husband, each possessing what the other lacked",
+  "cardVariants": [
+    "sibling-duality",
+    "sibling-card",
+    "sibling-icon"
+  ],
+  "priority": 85,
+  "status": "active"
+}
