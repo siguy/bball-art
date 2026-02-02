@@ -833,6 +833,91 @@ app.get('/api/series/:seriesId', (req, res) => {
   res.json(config);
 });
 
+// ============================================
+// PARASHA PACK API ENDPOINTS
+// ============================================
+
+// List available Parasha Pack decks
+app.get('/api/parasha-pack/decks', (req, res) => {
+  const decksDir = join(ROOT, 'data/series/parasha-pack/decks');
+  if (!existsSync(decksDir)) {
+    return res.json([]);
+  }
+
+  const decks = readdirSync(decksDir)
+    .filter(f => f.endsWith('.json'))
+    .map(f => {
+      try {
+        const data = JSON.parse(readFileSync(join(decksDir, f), 'utf-8'));
+        return {
+          id: data.id,
+          parasha: data.parasha,
+          parashaHebrew: data.parashaHebrew,
+          book: data.book,
+          chapters: data.chapters,
+          cardCount: data.cards?.length || 0
+        };
+      } catch (e) {
+        return null;
+      }
+    })
+    .filter(Boolean);
+
+  res.json(decks);
+});
+
+// Get specific deck data
+app.get('/api/parasha-pack/decks/:deckId', (req, res) => {
+  const { deckId } = req.params;
+  const deckPath = join(ROOT, 'data/series/parasha-pack/decks', `${deckId}.json`);
+
+  if (!existsSync(deckPath)) {
+    return res.status(404).json({ error: 'Deck not found' });
+  }
+
+  const deck = JSON.parse(readFileSync(deckPath, 'utf-8'));
+  res.json(deck);
+});
+
+// List generated card images for a deck
+app.get('/api/parasha-pack/cards/:deckId', (req, res) => {
+  const { deckId } = req.params;
+  const cardsDir = join(ROOT, 'output/decks/parasha-pack', deckId);
+
+  if (!existsSync(cardsDir)) {
+    return res.json([]);
+  }
+
+  const typeNames = {
+    'anc': 'anchor',
+    'spt': 'spotlight',
+    'act': 'action',
+    'thk': 'thinker',
+    'pwr': 'power-word'
+  };
+
+  const cards = readdirSync(cardsDir)
+    .filter(f => f.endsWith('.jpeg') || f.endsWith('.png'))
+    .map(filename => {
+      // Parse: pp_yitro_spt_yitro-spotlight-yitro_timestamp.jpeg
+      const parts = filename.replace(/\.(jpeg|png)$/, '').split('_');
+      const typeAbbrev = parts[2] || '';
+      const cardId = parts[3] || '';
+
+      return {
+        filename,
+        url: `/decks/parasha-pack/${deckId}/${filename}`,
+        type: typeNames[typeAbbrev] || typeAbbrev,
+        cardId,
+        title: cardId.split('-').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ')
+      };
+    });
+
+  res.json(cards);
+});
+
+// ============================================
+
 // Get pairing data (summary) - supports ?series=court-covenant filter
 app.get('/api/pairings', (req, res) => {
   const { series: seriesFilter } = req.query;
@@ -3314,31 +3399,50 @@ app.put('/api/selects/reorder', (req, res) => {
 
 /**
  * POST /api/selects/export
- * Export selected cards to web/js/data.js
+ * Export selected cards to web/js/data.js and copy images to web/cards/
  */
 app.post('/api/selects/export', (req, res) => {
   try {
     const selects = loadWebsiteSelects();
     const manifest = buildManifest();
-    const feedback = loadFeedback();
 
     if (selects.cards.length === 0) {
       return res.status(400).json({ error: 'No cards selected for export' });
     }
 
-    // Build card data for website
+    // Build card data for website (format expected by deck.js)
     const pairingData = loadPairingDataForExport();
-    const exportCards = [];
+    const curatedCards = [];
+    const pairingsExport = {};
+    const webCardsDir = join(ROOT, 'web/cards');
+
+    // Clear web/cards directory before copying new files
+    if (existsSync(webCardsDir)) {
+      const existingFiles = readdirSync(webCardsDir);
+      for (const file of existingFiles) {
+        // Only delete image files, preserve any config/metadata files
+        if (file.match(/\.(jpeg|jpg|png|gif|webp)$/i)) {
+          unlinkSync(join(webCardsDir, file));
+        }
+      }
+    } else {
+      mkdirSync(webCardsDir, { recursive: true });
+    }
+
+    let position = 1;
     for (const select of selects.cards) {
       const card = manifest.cards.find(c => c.id === select.cardId);
       if (!card) continue;
 
       // Get pairing data
-      let playerName, figureName, connection, type;
+      let playerName, figureName, connection, type, narrative;
+      const pairingId = card.pairingId || card.id;
+
       if (card.mode === 'solo') {
         playerName = card.characterType === 'player' ? formatCharacterNameForExport(card.characterId) : null;
         figureName = card.characterType === 'figure' ? formatCharacterNameForExport(card.characterId) : null;
         connection = 'Solo card';
+        narrative = playerName || figureName;
         type = 'solo';
       } else {
         const pairing = pairingData[card.pairingId];
@@ -3346,34 +3450,69 @@ app.post('/api/selects/export', (req, res) => {
           playerName = pairing.playerName;
           figureName = pairing.figureName;
           connection = pairing.connection || '';
+          narrative = connection;
           type = pairing.type || 'hero';
         }
       }
 
-      exportCards.push({
+      // Copy image to web/cards with numbered filename
+      // card.path is URL path like "/cards/...", actual files are in "output/cards/..."
+      const ext = card.path.split('.').pop();
+      const webFilename = `card-${String(position).padStart(2, '0')}.${ext}`;
+      const sourcePath = join(ROOT, 'output' + card.path);
+      const destPath = join(webCardsDir, webFilename);
+
+      if (existsSync(sourcePath)) {
+        copyFileSync(sourcePath, destPath);
+
+        // First 3 cards also become homepage preview images
+        if (position <= 3) {
+          const homepageFilename = `homepage-${position}.jpeg`;
+          copyFileSync(sourcePath, join(webCardsDir, homepageFilename));
+        }
+      } else {
+        console.warn(`Source not found: ${sourcePath}`);
+      }
+
+      // Format template name nicely
+      const templateName = card.template
+        .split('-')
+        .map(w => w.charAt(0).toUpperCase() + w.slice(1))
+        .join(' ');
+
+      // Build curatedCard entry (format deck.js expects)
+      curatedCards.push({
         id: card.id,
-        position: select.position,
-        imagePath: card.path,
-        template: card.template,
-        playerName,
-        figureName,
-        connection,
-        type,
-        notes: select.notes
+        image: `cards/${webFilename}`,
+        player: playerName || '',
+        figure: figureName || '',
+        narrative: narrative || '',
+        connection: connection || '',
+        template: templateName,
+        pairingId: pairingId
       });
+
+      // Build pairings entry
+      pairingsExport[pairingId] = {
+        player: playerName || '',
+        figure: figureName || '',
+        connection: connection || '',
+        type: type
+      };
+
+      position++;
     }
 
-    // Sort by position
-    exportCards.sort((a, b) => a.position - b.position);
-
-    // Generate data.js content
+    // Generate data.js content (format deck.js expects)
     const dataJs = `// Court & Covenant - Card Data
 // Auto-generated ${new Date().toISOString()}
 // Do not edit manually
 
-const CARDS = ${JSON.stringify(exportCards, null, 2)};
+const curatedCards = ${JSON.stringify(curatedCards, null, 2)};
 
-export { CARDS };
+const pairings = ${JSON.stringify(pairingsExport, null, 2)};
+
+export { curatedCards, pairings };
 `;
 
     // Ensure web/js directory exists
@@ -3390,7 +3529,7 @@ export { CARDS };
     history.exports.push({
       id: `export-${Date.now()}`,
       type: 'website',
-      cardCount: exportCards.length,
+      cardCount: curatedCards.length,
       exportedAt: new Date().toISOString(),
       success: true
     });
@@ -3398,8 +3537,9 @@ export { CARDS };
 
     res.json({
       success: true,
-      cardCount: exportCards.length,
-      outputPath: WEB_DATA_PATH
+      cardCount: curatedCards.length,
+      outputPath: WEB_DATA_PATH,
+      imagesDir: webCardsDir
     });
   } catch (err) {
     console.error('Export selects error:', err);

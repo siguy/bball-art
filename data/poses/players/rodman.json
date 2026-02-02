@@ -2,41 +2,43 @@
   "id": "rodman",
   "name": "Dennis Rodman",
   "defaultPose": "diving-loose-ball",
+  "defaultHairColor": "pink",
+  "expressionNote": "Rodman should look CRAZY and intense, but NOT psychotic. Eyes should show mischief and wildness without being unnaturally wide open or deranged. Think 'unpredictable troublemaker' not 'horror movie villain'.",
   "poses": {
     "diving-loose-ball": {
       "id": "diving-loose-ball",
       "name": "Diving for Loose Ball",
       "description": "Horizontal dive for loose ball - body completely parallel to ground, arms fully stretched reaching for ball",
-      "hairColor": "bright red",
-      "expression": "intense wild eyes, maniacal grin",
-      "prompt": "horizontal dive for loose ball - body completely parallel to ground, arms fully stretched reaching for ball, wild hair flowing, intense wild eyes, maniacal grin",
+      "hairColor": "hot pink",
+      "expression": "intense focused eyes, mischievous grin",
+      "prompt": "horizontal dive for loose ball - body completely parallel to ground, arms fully stretched reaching for ball, wild pink hair flowing, intense focused eyes with mischievous grin - crazy but not psychotic",
       "energy": "chaos incarnate, hustle personified"
     },
     "tipping-rebound": {
       "id": "tipping-rebound",
       "name": "Tipping Rebound",
       "description": "Tipping a rebound at the apex - fingertips touching ball at highest point, body fully extended vertically",
-      "hairColor": "neon green",
+      "hairColor": "hot pink",
       "expression": "fierce determination",
-      "prompt": "tipping a rebound at the apex - fingertips touching ball at highest point, body fully extended vertically, wild hair spiked up, fierce determination on face",
+      "prompt": "tipping a rebound at the apex - fingertips touching ball at highest point, body fully extended vertically, wild pink hair spiked up, fierce determination on face",
       "energy": "classic hustle, relentless effort"
     },
     "defensive-stance-laughing": {
       "id": "defensive-stance-laughing",
       "name": "Defensive Stance Laughing",
-      "description": "Deep defensive stance, knees bent, arms wide, maniacal laugh on face",
-      "hairColor": "leopard print blonde with black spots",
-      "expression": "maniacal cackling laugh, wild eyes",
-      "prompt": "deep defensive stance - knees bent low, arms spread wide for lockdown defense, maniacal cackling laugh on face, wild eyes full of chaos, intimidating yet amused",
+      "description": "Deep defensive stance, knees bent, arms wide, laughing on face",
+      "hairColor": "hot pink",
+      "expression": "laughing with mischief, eyes showing amusement not madness",
+      "prompt": "deep defensive stance - knees bent low, arms spread wide for lockdown defense, laughing with pure mischief on face, eyes showing amusement and troublemaker energy - crazy but NOT psychotic, no wide-open deranged eyes",
       "energy": "villain energy, psychological warfare"
     },
     "screaming-celebration": {
       "id": "screaming-celebration",
       "name": "Screaming Celebration",
       "description": "Screaming celebration after ripping down a contested rebound",
-      "hairColor": "electric blue",
-      "expression": "primal scream, veins popping",
-      "prompt": "screaming celebration after contested rebound - ball clutched to chest, head thrown back in primal scream, veins visible, pure raw emotion unleashed",
+      "hairColor": "hot pink",
+      "expression": "primal scream of triumph, intense but not deranged",
+      "prompt": "screaming celebration after contested rebound - ball clutched to chest, head thrown back in primal scream of triumph, pure raw emotion, eyes intense but not unnaturally wide - wild celebration not psychotic",
       "energy": "wild triumph, primal victory"
     },
     "laying-floor-smirking": {
@@ -45,7 +47,7 @@
       "description": "Laying on the court floor casually, ball tucked under arm, smirking",
       "hairColor": "hot pink",
       "expression": "knowing smirk, unbothered",
-      "prompt": "laying casually on court floor - ball tucked under one arm, head propped on other hand, knowing smirk on face, completely unbothered and in control",
+      "prompt": "laying casually on court floor - ball tucked under one arm, head propped on other hand, knowing smirk on face, wild pink hair, completely unbothered and in control",
       "energy": "I don't care attitude, cool chaos"
     }
   },

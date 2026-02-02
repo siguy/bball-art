@@ -319,15 +319,28 @@ async function reorderSelects(cardIds) {
 }
 
 async function exportToWebsite() {
+  console.log('Export to Website clicked');
   exportBtn.disabled = true;
   exportBtn.textContent = 'Exporting...';
 
   try {
+    console.log('Sending export request...');
     const res = await fetch(`${API_BASE}/api/selects/export`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' }
     });
+
+    console.log('Export response status:', res.status);
+
+    if (!res.ok) {
+      const errorText = await res.text();
+      console.error('Export failed with status:', res.status, errorText);
+      alert(`Export failed: ${res.status} - ${errorText}`);
+      return;
+    }
+
     const result = await res.json();
+    console.log('Export result:', result);
 
     if (result.success) {
       showExportSuccess(result.cardCount);
@@ -337,10 +350,10 @@ async function exportToWebsite() {
   } catch (err) {
     console.error('Export error:', err);
     alert('Export failed: ' + err.message);
+  } finally {
+    exportBtn.disabled = selects.cards.length === 0;
+    exportBtn.textContent = 'Export to Website';
   }
-
-  exportBtn.disabled = selects.cards.length === 0;
-  exportBtn.textContent = 'Export to Website';
 }
 
 function showExportSuccess(cardCount) {

@@ -72,13 +72,18 @@
       "description": "Panini Donruss Optic insert style. Urban nightscape with neon city skyline.",
       "era": "2010s",
       "style": "Urban neon",
-      "hasDarkMode": false,
-      "darkVariantId": null,
+      "hasDarkMode": true,
+      "darkVariantId": "downtown-dark",
       "colors": {
         "hero": {
           "primary": "neon pink/blue",
           "secondary": "dark city skyline",
           "accent": "glowing lights"
+        },
+        "villain": {
+          "primary": "neon green/purple",
+          "secondary": "dark city skyline",
+          "accent": "smoky haze"
         }
       },
       "bestFor": ["modern players", "city legends", "scorers"]
@@ -194,6 +199,12 @@
       "name": "Metal Universe: Dark Forge",
       "baseTemplate": "metal-universe",
       "description": "Villain variant with black chrome, rust, and industrial hellscape."
+    },
+    "downtown-dark": {
+      "id": "downtown-dark",
+      "name": "Downtown Dark",
+      "baseTemplate": "downtown",
+      "description": "Villain variant with neon green/purple palette, subtle smoke haze, and chrome text."
     }
   },
   "defaultByType": {

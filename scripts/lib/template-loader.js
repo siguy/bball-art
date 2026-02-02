@@ -292,7 +292,7 @@ export async function supportssoloMode(templateId, seriesHint = null) {
  */
 export function getAvailableTemplatesHelp() {
   const shared = ['thunder-lightning', 'beam-team', 'metal-universe', 'downtown', 'kaboom', 'prizm-silver'];
-  const dark = ['thunder-lightning-dark', 'beam-team-shadow', 'metal-universe-dark'];
+  const dark = ['thunder-lightning-dark', 'beam-team-shadow', 'metal-universe-dark', 'downtown-dark'];
   const torahTitans = ['spouse-blessing', 'trial-card', 'plague-card', 'three-way'];
 
   return [
