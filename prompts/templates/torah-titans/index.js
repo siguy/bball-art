@@ -22,7 +22,6 @@ export const torahTitansTemplates = {
   'trial-card': () => import('./trial-card.js').then(m => m.trialCardTemplate),
   'plague-card': () => import('./plague-card.js').then(m => m.plagueCardTemplate),
   'three-way': () => import('./three-way.js').then(m => m.threeWayTemplate),
-  // Sibling Rivalry Templates
   'sibling-card': () => import('./sibling-card.js').then(m => m.siblingCardTemplate),
   'sibling-icon': () => import('./sibling-icon.js').then(m => m.siblingIconTemplate),
   'sibling-duality': () => import('./sibling-duality.js').then(m => m.siblingDualityTemplate)

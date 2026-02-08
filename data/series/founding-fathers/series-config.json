@@ -1,0 +1,160 @@
+{
+  "id": "founding-fathers",
+  "name": "Founding Fathers",
+  "tagline": "250 Years of American Legacy",
+  "description": "Collectible portrait cards transforming canonical Founding Father portraits through seven artistic layers spanning 250 years of American visual history",
+  "theme": "historical-american",
+  "cardModes": ["solo-founder", "founder-figure"],
+  "logoStyle": "federal-gold",
+  "defaultLogoPosition": "top-center",
+  "cardRatio": "2.5x3.5",
+
+  "cardTypes": {
+    "portrait": {
+      "name": "Portrait Transformation",
+      "description": "Solo founder transformed through artistic layers",
+      "characterCount": 1,
+      "templates": ["portrait-transformation"]
+    },
+    "pairing": {
+      "name": "Founder Pairing",
+      "description": "Founder paired with biblical/historical figure",
+      "characterCount": 2,
+      "templates": ["thunder-lightning", "beam-team", "metal-universe", "prizm-silver"]
+    }
+  },
+
+  "layers": {
+    "colonial": {
+      "id": "colonial",
+      "name": "Colonial Foundation",
+      "era": "pre-1776",
+      "description": "The visual world they actually inhabited",
+      "themes": ["Georgian architecture", "formal English portraiture", "colonial craftsmanship"],
+      "visualElements": ["powdered wigs", "silver tankards", "Chippendale furniture", "brick townhouses"],
+      "mood": "constrained, formal, aspirational to English taste"
+    },
+    "revolutionary": {
+      "id": "revolutionary",
+      "name": "Revolutionary Spirit",
+      "era": "1776",
+      "description": "The iconography of independence they helped create",
+      "themes": ["Liberty", "propaganda", "defiance"],
+      "visualElements": ["eagles", "Gadsden rattlesnakes", "liberty caps", "Sons of Liberty imagery", "broadsides"],
+      "mood": "bold, defiant, symbolic, propagandistic"
+    },
+    "classical": {
+      "id": "classical",
+      "name": "Classical Republic",
+      "era": "Federal period",
+      "description": "How the new nation styled itself after ancient republics",
+      "themes": ["Democracy", "Roman references", "civic virtue"],
+      "visualElements": ["Great Seal", "early coinage", "Federal architecture", "neoclassical columns", "Latin mottos"],
+      "mood": "dignified, aspirational, deliberately referencing antiquity"
+    },
+    "landscape": {
+      "id": "landscape",
+      "name": "American Landscape",
+      "era": "1830s-1870s",
+      "description": "Their vision of what the nation could become",
+      "themes": ["Land", "Expansion", "Manifest Destiny"],
+      "visualElements": ["Hudson River School grandeur", "westward vistas", "natural sublimity", "frontier imagery"],
+      "mood": "expansive, romantic, nature as destiny"
+    },
+    "monument": {
+      "id": "monument",
+      "name": "Industrial Monument",
+      "era": "Gilded Age",
+      "description": "How the industrial age memorialized them",
+      "themes": ["Memory", "permanence", "authority"],
+      "visualElements": ["currency portraits", "bronze statues", "civic monuments", "Beaux-arts grandeur", "marble halls"],
+      "mood": "monumental, permanent, authoritative"
+    },
+    "mural": {
+      "id": "mural",
+      "name": "Democratic Mural",
+      "era": "WPA/Depression",
+      "description": "How the New Deal reinterpreted them for a struggling nation",
+      "themes": ["Unity", "populism", "democratic ideals"],
+      "visualElements": ["social realism", "Thomas Hart Benton style", "post office murals", "heroic narratives"],
+      "mood": "heroic, populist, accessible, narrative"
+    },
+    "contemporary": {
+      "id": "contemporary",
+      "name": "Contemporary Echo",
+      "era": "Modern",
+      "description": "How we see them now - celebrated, questioned, remixed",
+      "themes": ["Reinterpretation", "irony", "remix"],
+      "visualElements": ["pop art", "Warhol-style", "street art", "digital remix", "monument debates"],
+      "mood": "ironic, questioning, layered, self-aware"
+    }
+  },
+
+  "roster": {
+    "big6": ["george-washington", "thomas-jefferson", "benjamin-franklin", "john-adams", "alexander-hamilton", "james-madison"],
+    "priority": ["george-washington"],
+    "expansion": {
+      "phase1": ["george-washington"],
+      "phase2": ["thomas-jefferson", "benjamin-franklin"],
+      "phase3": ["john-adams", "alexander-hamilton", "james-madison"]
+    }
+  },
+
+  "basisPortraits": {
+    "george-washington": {
+      "title": "General Washington at Trenton",
+      "artist": "John Trumbull",
+      "year": 1792,
+      "source": "https://commons.wikimedia.org/wiki/Category:General_George_Washington_at_Trenton_by_John_Trumbull"
+    },
+    "thomas-jefferson": {
+      "title": "Official Presidential Portrait",
+      "artist": "Rembrandt Peale",
+      "year": 1800,
+      "source": "https://commons.wikimedia.org/wiki/File:Official_Presidential_portrait_of_Thomas_Jefferson_(by_Rembrandt_Peale,_1800).jpg"
+    },
+    "benjamin-franklin": {
+      "title": "Fur Collar Portrait",
+      "artist": "Joseph Duplessis",
+      "year": 1778,
+      "source": "https://www.metmuseum.org/art/collection/search/436238"
+    },
+    "john-adams": {
+      "title": "Presidential Portrait",
+      "artist": "Gilbert Stuart",
+      "year": "1800-1826",
+      "source": "https://www.nga.gov/artworks/42933-john-adams"
+    },
+    "alexander-hamilton": {
+      "title": "Full-Length Portrait",
+      "artist": "John Trumbull",
+      "year": 1792,
+      "source": "https://www.nga.gov/artworks/567-alexander-hamilton"
+    },
+    "james-madison": {
+      "title": "Secretary Portrait",
+      "artist": "Gilbert Stuart",
+      "year": 1804,
+      "source": "https://www.nga.gov/artworks/56914-james-madison"
+    }
+  },
+
+  "availableTemplates": [
+    "portrait-transformation",
+    "thunder-lightning",
+    "beam-team",
+    "metal-universe",
+    "prizm-silver"
+  ],
+
+  "seriesSpecificTemplates": [
+    "portrait-transformation"
+  ],
+
+  "socialPlatforms": ["instagram"],
+  "launchDate": "2026-07-04",
+  "tone": {
+    "style": "reverent-transformative",
+    "doNot": ["disrespectful", "anachronistic without purpose", "partisan"]
+  }
+}

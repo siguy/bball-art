@@ -1,0 +1,40 @@
+{
+  "id": "rachel",
+  "name": "Rachel",
+  "defaultPose": "beloved-shepherdess",
+  "description": "Younger daughter of Laban, beloved wife of Jacob. Beautiful of form and appearance, she waited seven years for Jacob, then seven more. Barren for years, she finally bore Joseph and died giving birth to Benjamin.",
+  "poses": {
+    "beloved-shepherdess": {
+      "id": "beloved-shepherdess",
+      "name": "Beloved Shepherdess",
+      "description": "The beautiful shepherdess at the well where Jacob first saw her",
+      "expression": "radiant beauty, grace, the one who captured Jacob's heart",
+      "prompt": "stunningly beautiful young woman with shepherd's crook - standing by a stone well, sheep nearby. Radiant, graceful, the beauty that made Jacob work fourteen years. Flowing robes in cool blues and silvers, hair uncovered and flowing. The beloved one.",
+      "energy": "Beautiful, beloved, radiant, graceful"
+    },
+    "weeping-for-children": {
+      "id": "weeping-for-children",
+      "name": "Weeping for Children",
+      "description": "Rachel weeping - the barren years, or the prophetic weeping for Israel",
+      "expression": "anguished longing, desperate sorrow",
+      "prompt": "beautiful woman weeping - hands pressed to empty womb or reaching toward heaven. 'Give me children or I shall die!' The anguish of barrenness while her sister bears child after child. Beautiful but broken, desperate longing.",
+      "energy": "Anguished, desperate, longing, prophetic sorrow"
+    },
+    "giving-signs": {
+      "id": "giving-signs",
+      "name": "Giving the Signs",
+      "description": "The moment Rachel gave Leah the secret signs to spare her humiliation",
+      "expression": "sacrificial love, sisterly compassion despite personal cost",
+      "prompt": "young woman in shadows outside a bridal tent - gesturing or whispering the secret signs to her veiled sister. Sacrificing her own wedding night so Leah won't be shamed. Heartbreak and love mingled on her beautiful face.",
+      "energy": "Sacrificial, compassionate, heartbroken, noble"
+    },
+    "rivalry-beauty": {
+      "id": "rivalry-beauty",
+      "name": "Rivalry: Beauty",
+      "description": "Rachel in sibling rivalry scene - beautiful but barren",
+      "prompt": "Rachel in her stunning beauty - flowing silver and pale blue robes, graceful pose. But her arms are empty. Perhaps a mirror reflecting her beauty, or a shepherd's crook. Alone despite being beloved. Cool celestial tones. The tragedy of having love but not children.",
+      "energy": "Beautiful, beloved, lonely, longing",
+      "isRivalryPose": true
+    }
+  }
+}

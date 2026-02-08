@@ -10,6 +10,30 @@
     "heroCharacterType": "figure",
     "villainCharacterType": "figure"
   },
+  "seriesSpecificData": {
+    "siblingDuality": {
+      "scripture": {
+        "hebrew": "וַיְהִי עֵשָׂו אִישׁ יֹדֵעַ צַיִד אִישׁ שָׂדֶה וְיַעֲקֹב אִישׁ תָּם יֹשֵׁב אֹהָלִים",
+        "english": "Esau was a skillful hunter, a man of the field; Jacob was a quiet man, dwelling in tents",
+        "source": "Genesis 25:27"
+      },
+      "char1": {
+        "color": "warm gold and amber",
+        "element": "tent and hearth",
+        "imagery": "Tent silhouettes - the dwelling of the quiet scholar. Stars visible through tent opening suggesting the promise of descendants.",
+        "traits": "smooth skin, voice of wisdom, quiet contemplation, dwells in tents",
+        "seedSymbol": "a tent or Torah scroll"
+      },
+      "char2": {
+        "color": "deep crimson and black",
+        "element": "wild field",
+        "imagery": "Open field stretching to horizon - the wild hunting grounds. Silhouettes of prey animals, bow and arrows, untamed wilderness.",
+        "traits": "covered in red hair, man of action, hunter's instinct, roams the field",
+        "seedSymbol": "a hunting bow or wild game"
+      },
+      "connection": "Born together, destined to struggle - one cannot exist without the other. Tent and field, voice and hands, smooth and hairy."
+    }
+  },
   "rivalryResearch": {
     "relationship": "The archetypal sibling rivalry. The Midrash (Genesis Rabbah 63:6) says they fought even in the womb \u2014 'this one ran to kill that one.' When Rebekah passed synagogues, Jacob convulsed to emerge; near idol worship, Esau struggled out. Jacob is 'chalak' (smooth) = God's portion; Esau is 'sa'ir' (hairy) = connected to demons (Gen. Rabbah 65:15). Their conflict became a cosmic principle: 'The voice is the voice of Jacob, the hands are the hands of Esau' \u2014 when Jacob's voice fills the study halls, Esau's hands have no power (Gen. Rabbah 65:20). The prophet Obadiah sealed their fate: 'The House of Jacob shall be fire, the House of Esau shall be straw.'",
     "keyMoments": [

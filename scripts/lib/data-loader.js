@@ -310,7 +310,7 @@ function searchPairingsForCharacter(pairingsDir, characterType, characterId, ser
 /**
  * Load pose data for a character
  *
- * @param {'player'|'figure'} characterType - Type of character
+ * @param {'player'|'figure'|'founder'} characterType - Type of character
  * @param {string} poseFileId - Pose file ID
  * @returns {Object|null} Pose data object or null
  */
@@ -322,6 +322,48 @@ export function loadPoseFile(characterType, poseFileId) {
   }
 
   return JSON.parse(readFileSync(posePath, 'utf-8'));
+}
+
+/**
+ * Load founder data from the founding-fathers series
+ *
+ * @param {string} founderId - Founder ID (e.g., 'george-washington')
+ * @returns {Object|null} Founder data object or null
+ */
+export function loadFounder(founderId) {
+  const founderPath = join(CONFIG.paths.series, 'founding-fathers', 'founders', `${founderId}.json`);
+
+  if (!existsSync(founderPath)) {
+    return null;
+  }
+
+  const founder = JSON.parse(readFileSync(founderPath, 'utf-8'));
+
+  // Also load the pose file and attach poses
+  const poseFile = loadPoseFile('founder', founder.poseFileId || founderId);
+  if (poseFile) {
+    founder.poses = poseFile.poses;
+    founder.defaultPose = poseFile.defaultPose;
+  }
+
+  return founder;
+}
+
+/**
+ * List all founders in the founding-fathers series
+ *
+ * @returns {string[]} Array of founder IDs
+ */
+export function listFounders() {
+  const foundersDir = join(CONFIG.paths.series, 'founding-fathers', 'founders');
+
+  if (!existsSync(foundersDir)) {
+    return [];
+  }
+
+  return readdirSync(foundersDir)
+    .filter(f => f.endsWith('.json'))
+    .map(f => f.replace('.json', ''));
 }
 
 /**
@@ -389,4 +431,6 @@ export default {
   loadQuotesFile,
   listPoseFiles,
   listAvailablePairings,
+  loadFounder,
+  listFounders,
 };

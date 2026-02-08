@@ -1,0 +1,206 @@
+{
+  "id": "george-washington",
+  "name": "George Washington",
+  "displayName": "Washington",
+  "title": "Father of His Country",
+  "lifespan": "1732-1799",
+  "role": "Commander-in-Chief, First President",
+  "poseFileId": "washington",
+  "characterType": "founder",
+  "era": "Founding",
+
+  "basisPortrait": {
+    "title": "General Washington at Trenton",
+    "artist": "John Trumbull",
+    "year": 1792,
+    "description": "Full-length standing portrait, Washington in Continental Army uniform with hand resting on cannon, American and captured Hessian flags behind him. Painted to commemorate the victory at Trenton, December 26, 1776.",
+    "keyFeatures": {
+      "pose": "Standing, three-quarter view, dignified military bearing",
+      "attire": "Continental Army uniform - blue coat with buff facings, buff waistcoat and breeches, black boots",
+      "expression": "Calm authority, composed after victory",
+      "setting": "Battlefield aftermath, captured standards, winter sky"
+    },
+    "publicDomain": true,
+    "source": "https://commons.wikimedia.org/wiki/Category:General_George_Washington_at_Trenton_by_John_Trumbull"
+  },
+
+  "physicalDescription": "Tall, imposing figure with aristocratic bearing. Strong jaw, prominent nose, powdered hair tied back. Military posture, dignified presence. Age approximately 60 in most canonical portraits.",
+
+  "biography": {
+    "summary": "Virginia planter, surveyor, and military commander who led the Continental Army to victory in the Revolutionary War. Presided over the Constitutional Convention and served as first President. Voluntarily relinquished power twice - after the war and after two terms as President.",
+    "achievements": [
+      "Commander-in-Chief of Continental Army (1775-1783)",
+      "Presiding officer of Constitutional Convention (1787)",
+      "First President of the United States (1789-1797)",
+      "Established precedent of peaceful transfer of power"
+    ],
+    "mythology": [
+      "Cherry tree story ('I cannot tell a lie')",
+      "Crossing the Delaware",
+      "American Cincinnatus - surrendering power",
+      "Father of His Country"
+    ],
+    "personalTraits": [
+      "Reserved, dignified bearing",
+      "Fierce temper (carefully controlled)",
+      "Meticulous about reputation and honor",
+      "Natural leader, commanding presence"
+    ]
+  },
+
+  "layerConnections": {
+    "colonial": {
+      "connection": "Virginia plantation life, Mount Vernon, English country gentleman aspirations",
+      "visualHook": "Georgian architecture, surveyor's tools, colonial Virginia landscape"
+    },
+    "revolutionary": {
+      "connection": "Commander-in-Chief, crossing the Delaware, Valley Forge",
+      "visualHook": "Continental Army uniform, battle standards, revolutionary iconography"
+    },
+    "classical": {
+      "connection": "American Cincinnatus, surrendering power to return to farm",
+      "visualHook": "Roman references, neoclassical imagery, toga and sword, ploughshare"
+    },
+    "landscape": {
+      "connection": "Potomac vision, surveyor of western lands, national expansion",
+      "visualHook": "Hudson River School treatment of Potomac, Mount Vernon overlooking river"
+    },
+    "monument": {
+      "connection": "Washington Monument, $1 bill, presidential memorials",
+      "visualHook": "Obelisk, currency portrait, marble grandeur, Beaux-arts treatment"
+    },
+    "mural": {
+      "connection": "Father of country, unifying symbol during Depression",
+      "visualHook": "WPA mural style, heroic worker-adjacent, democratic leader"
+    },
+    "contemporary": {
+      "connection": "Hamilton musical reference, founding myths questioned, legacy debated",
+      "visualHook": "Pop art remix, Mount Rushmore, meme culture, monument debates"
+    }
+  },
+
+  "selectedLayers": {
+    "colonial": {
+      "approach": "B1: The Gorget Portrait",
+      "concept": "The silver gorget with British royal coat of arms becomes the visual and symbolic centerpiece - the emblem of Crown loyalty resting against the chest of the man who would defeat it.",
+      "direction": "Tight framing from chest up. The silver gorget dominates the lower third, British royal coat of arms (lion, unicorn, crown) rendered in exquisite detail. Washington's face above it, composed but unreadable - the 'sullen mood' he described to Peale. Dark background, single candle source creating dramatic chiaroscuro. The gorget catches and reflects the light like a mirror. Virginia Regiment uniform (blue with red facings), powdered hair tied back. Georgian portrait style but intimate, almost uncomfortably close.",
+      "visualElements": [
+        "Silver gorget with British royal coat of arms as centerpiece",
+        "Tight chest-up framing",
+        "Single candle chiaroscuro lighting",
+        "Virginia Regiment uniform (blue coat, red facings)",
+        "Powdered hair tied back",
+        "Composed but unreadable expression",
+        "Dark, atmospheric background"
+      ],
+      "finish": "Oil painting with visible brushwork, candlelit warmth, Peale/Copley colonial portrait style",
+      "tension": "The symbol of allegiance to the Crown dominates the portrait of the man who would reject it"
+    },
+    "revolutionary": {
+      "approach": "D2: Rising From the Coils",
+      "concept": "Washington emerges from the rattlesnake as if born from revolutionary spirit itself - man and symbol literally merge.",
+      "direction": "Washington's figure from waist up, rising dramatically from massive rattlesnake coils below. The snake's body becomes almost a pedestal or throne of defiance. Snake scales transitioning into Continental Army uniform fabric at the boundary. Dramatic upward composition - Washington ascending, fierce and defiant. Rattlesnake's head visible beside or behind him, facing the viewer with warning. Deep golden/amber Gadsden Flag background, propaganda poster intensity. 'DON'T TREAD ON ME' integrated into design.",
+      "visualElements": [
+        "Washington rising from rattlesnake coils",
+        "Snake as pedestal/throne of revolutionary spirit",
+        "Scale-to-uniform transition at boundary",
+        "Continental Army uniform (blue with buff facings)",
+        "Rattlesnake head visible, facing viewer",
+        "Gadsden yellow-gold background",
+        "DON'T TREAD ON ME text integration",
+        "Fierce, defiant expression"
+      ],
+      "finish": "Bold propaganda poster style, hand-colored engraving effect, revolutionary broadside intensity",
+      "tension": "Man and symbol merge - Washington IS the rattlesnake, American defiance made flesh"
+    },
+    "classical": {
+      "approach": "C4: Worn and Circulated",
+      "concept": "A Federal coin that has passed through 250 years of American history - worn smooth by countless hands, the passage of time made physical.",
+      "direction": "Washington's profile in classical Roman coin style, but WORN by time. The relief slightly softened, edges smoothed by handling. Scratches, patina, the verdigris green of aged bronze. Edge text (E PLURIBUS UNUM, Latin mottos) partially illegible from circulation. Essential features still recognizable - strong jaw, noble profile. '1776' visible but faded; '2026' subtly emerging or implied. The coin floats against deep Federal blue or displayed on dark velvet. 250 years of hands, pockets, transactions made physical in the wear.",
+      "visualElements": [
+        "Classical profile portrait in coin/medal style",
+        "Worn relief - softened by time and handling",
+        "Patina, verdigris, aged bronze coloring",
+        "Scratches and wear marks telling history",
+        "Partially legible Latin text around edge",
+        "1776 faded, 2026 emerging",
+        "Deep Federal blue or velvet background",
+        "Museum/precious object lighting"
+      ],
+      "finish": "Metallic relief with aged patina, numismatic quality, the weight of history",
+      "tension": "Classical permanence vs. the wear of time - enduring but marked by every hand that held it"
+    },
+    "landscape": {
+      "approach": "C4: Landscape Flesh",
+      "concept": "Washington's face IS American terrain - mountains as brow, river as vein, treeline as hair. Man literally made of American earth.",
+      "direction": "Washington's face rendered large, perhaps in profile or three-quarter view. His skin texture IS landscape: forested hills form his cheekbone, a river valley traces his neck, mountain ridges shape his brow. His eye reflects golden Hudson River School light like a mountain lake. Hair becomes treeline or dramatic clouds. Not metaphor but transformation - man made of American earth. Unsettling but beautiful, Arcimboldo meets Bierstadt. The sublime landscape IS his flesh.",
+      "visualElements": [
+        "Washington's face large in frame",
+        "Skin texture as landscape terrain",
+        "Mountains forming brow/cheekbone",
+        "River as vein or neck contour",
+        "Eye as reflective mountain lake",
+        "Hair as treeline or clouds",
+        "Hudson River School golden light",
+        "Surreal but beautiful transformation"
+      ],
+      "finish": "Hudson River School luminism meets surrealist portrait - ethereal golden light, painterly landscape detail, dreamlike transformation",
+      "tension": "The man who surveyed the land becomes the land itself - America's body made literal"
+    },
+    "monument": {
+      "approach": "D2: Shattering the Frame",
+      "concept": "Washington's apotheosis breaking OUT of a gilded Beaux-Arts frame - the deification exceeding its vessel, unable to be contained by mere memorialization.",
+      "direction": "An ornate gold Beaux-Arts picture frame visible on the card - the kind that holds Gilded Age civic portraits. But Washington BURSTS THROUGH it, ascending beyond the frame's boundaries. Robed in classical purple/white, rising among clouds and allegorical figures. Liberty, Victory, Fame spilling out of the edges. The gilded frame cracking, fragmenting, gold leaf peeling away. Dramatic upward motion. The monument cannot contain the man it honors. Peak Gilded Age grandeur, but breaking free.",
+      "visualElements": [
+        "Ornate Beaux-Arts gilded frame, cracking",
+        "Washington bursting through/ascending beyond frame",
+        "Classical robes (purple, white)",
+        "Allegorical figures: Liberty, Victory, Fame",
+        "Clouds and divine golden light",
+        "Frame fragments and gold leaf peeling",
+        "Dramatic upward ascending motion",
+        "Capitol dome/Brumidi fresco palette"
+      ],
+      "finish": "Gilded Age civic mural meets dynamic action - gold leaf, classical grandeur, explosive movement",
+      "tension": "The monument cannot contain what it commemorates - deification exceeds its frame"
+    },
+    "mural": {
+      "approach": "D1: Detroit Industry Style",
+      "concept": "Washington surrounded by the machinery of nation-building - Rivera's Detroit Industry murals as template. The founding as LABOR, as industry, as collective revolutionary effort.",
+      "direction": "Washington as central monumental figure in Diego Rivera's bold mural style. Surrounded not by Ford's assembly line but by the MACHINERY OF REVOLUTION: printing presses producing the Constitution and Declaration, forges making weapons and tools, looms weaving flags. Workers around him - printers, blacksmiths, soldiers, farmers - all laboring together. Gears, wheels, hands working in concert. Rivera's steel blues, rust oranges, flesh tones of labor. Muscular, heroic, collective. The founding rendered as industrial effort, nation-building as factory production.",
+      "visualElements": [
+        "Washington as monumental central figure",
+        "Diego Rivera Detroit Industry mural style",
+        "Revolutionary machinery: printing presses, forges, looms",
+        "Workers surrounding: printers, blacksmiths, farmers",
+        "Gears, wheels, industrial elements",
+        "Constitution/Declaration emerging from presses",
+        "Flags being woven on looms",
+        "Bold outlines, saturated earth tones"
+      ],
+      "finish": "Rivera fresco style - bold forms, social realist palette, the weight and texture of true fresco",
+      "tension": "The aristocratic founder reimagined as leader of collective labor - revolution as industry"
+    },
+    "contemporary": {
+      "approach": "A4: Neon Washington",
+      "concept": "Washington as neon sign - the founder as late-night advertisement, the 24-hour always-on commercialized myth glowing in the American night.",
+      "direction": "Washington's silhouette or portrait rendered as NEON TUBING against a dark background. The recognizable profile formed by glowing glass tubes - hot pink, electric blue, Vegas gold. Perhaps one tube flickering or burnt out. 'WASHINGTON' in neon script below or integrated. The aesthetic of diners, motels, bars - America's commercial glow applied to its founding father. Pop art meets advertising. The myth that never closes, the brand that's always on.",
+      "visualElements": [
+        "Washington portrait/silhouette as neon tubing",
+        "Hot pink, electric blue, Vegas gold colors",
+        "Dark background (night sky or dark wall)",
+        "Neon glow and reflection effects",
+        "Perhaps one tube flickering/burnt out",
+        "WASHINGTON in neon script",
+        "The aesthetic of American commercial signage",
+        "Slight buzz and hum implied"
+      ],
+      "finish": "Neon sign photography aesthetic - glowing tubes against dark, color spill, the specific quality of gas-lit glass",
+      "tension": "The sacred founder as 24-hour advertisement - mythology commodified, always on, never closing"
+    }
+  },
+
+  "cardVariants": ["portrait-transformation"],
+  "priority": 1,
+  "status": "active"
+}

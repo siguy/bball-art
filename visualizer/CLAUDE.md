@@ -208,8 +208,71 @@ Full documentation: `docs/generator-ui.md`
 ## Series Selector
 
 Global series selector in header:
-- Stored in localStorage
-- Persists across sessions
+- **Dynamically populated** from `/api/series` endpoint
+- Falls back to hardcoded `SERIES_CONFIG` if API unavailable
+- Stored in localStorage, persists across sessions
 - All pages filter by selected series
 
 Series are auto-discovered from `data/series/` on startup.
+
+**Adding a new series:** Just create the series in `data/series/`. The dropdown will automatically include it on next page load.
+
+## Card Modes
+
+The visualizer supports three card modes, determined by `card.mode`:
+
+| Mode | `characterType` | Description | Regenerate Script |
+|------|-----------------|-------------|-------------------|
+| `pairing` | N/A | Two characters (player+figure or figure+figure) | `generate-with-poses.js` |
+| `solo` | `player` | Single NBA player | `generate-solo.js` |
+| `solo` | `figure` | Single biblical figure | `generate-solo.js` |
+| `solo` | `founder` | Single founding father portrait | `generate-founder.js` |
+
+### Founder Cards (Founding Fathers Series)
+
+Founder cards are treated as solo cards with `characterType: 'founder'`:
+- Detected by `series === 'founding-fathers'` or `parsed.format === 'founder'`
+- Display shows: 🏛️ icon, founder name, artistic layer
+- Feedback shows: "Mode: Founder Portrait", "Layer: colonial", etc.
+- Regenerate command uses `generate-founder.js` with `--custom` flag
+
+**Filename format:** `ff_george-washington_pt_colonial_default_2026-02-01T0533.jpeg`
+- `ff` = series (founding-fathers)
+- `george-washington` = founder ID
+- `pt` = template (portrait-transformation)
+- `colonial` = layer (artistic style)
+- `default` = pose
+
+## Development Guidelines
+
+### Dynamic Over Hardcoded
+
+**Rule:** When building UI components that display enumerated options (series, templates, card types), always fetch dynamically from the API rather than hardcoding.
+
+**Why:** Hardcoded lists cause "I added X to the backend but it doesn't show in the UI" bugs. The series selector was originally hardcoded with just Court & Covenant and Torah Titans - adding Founding Fathers to the backend didn't make it appear until we made the dropdown dynamic.
+
+**Pattern:**
+```javascript
+// BAD: Hardcoded options
+const options = ['court-covenant', 'torah-titans'];
+
+// GOOD: Fetch from API with fallback
+let options = FALLBACK_CONFIG;
+try {
+  const response = await fetch('/api/series');
+  if (response.ok) options = await response.json();
+} catch (e) {
+  console.warn('Using fallback config');
+}
+```
+
+### Adding New Card Types
+
+When adding a new card type (like founders), check these locations:
+1. `server.js` → `parseCardFilename()` - filename pattern
+2. `server.js` → `scanCardDirectory()` - mode/type detection
+3. `app.js` → `renderGallery()` - display title/icon
+4. `app.js` → `openModal()` - modal labels
+5. `app.js` → `generateRegenerateCommand()` - correct CLI command
+6. `app.js` → `formatFeedbackForClaude()` - feedback parameters
+7. `lib/feedback-formatter.js` - server-side feedback (same changes)
