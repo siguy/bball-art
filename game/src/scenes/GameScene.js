@@ -36,6 +36,9 @@ export default class GameScene extends Phaser.Scene {
     this.qKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.Q);
     this.shiftKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SHIFT);
 
+    // Debug toggle key (I)
+    this.debugKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.I);
+
     // Simple state
     this.isDunking = false;
     this.wasInAir = false; // Track if player has left the ground during dunk
@@ -85,13 +88,13 @@ export default class GameScene extends Phaser.Scene {
     this.physics.add.collider(this.ball, this.rimLeft);
     this.physics.add.collider(this.ball, this.rimRight);
 
-    // Two-zone scoring system - 40px zones
+    // Two-zone scoring system - 40px zones (invisible)
     // Entry zone: above the rim (ball enters from above)
-    this.scoreEntry = this.add.rectangle(1070, 325, 40, 20, 0x90ee90, 0.3);
+    this.scoreEntry = this.add.rectangle(1070, 325, 40, 20, 0x90ee90, 0);
     this.physics.add.existing(this.scoreEntry, true);
 
     // Exit zone: below the rim (ball exits downward)
-    this.scoreExit = this.add.rectangle(1070, 360, 40, 20, 0x90ee90, 0.3);
+    this.scoreExit = this.add.rectangle(1070, 360, 40, 20, 0x90ee90, 0);
     this.physics.add.existing(this.scoreExit, true);
 
     // Entry zone overlap - mark that ball entered from above
@@ -126,7 +129,7 @@ export default class GameScene extends Phaser.Scene {
     });
 
     // Controls hint
-    this.add.text(640, 600, 'WASD = Move | SPACE = Jump/Shoot | Q/DOWN = Steal | SHIFT = Shove', {
+    this.add.text(640, 600, 'WASD = Move | SPACE = Jump/Shoot | DOWN = Steal | SHIFT+DOWN = Shove', {
       fontSize: '16px',
       fontFamily: 'Arial',
       color: '#ffff00',
@@ -134,12 +137,14 @@ export default class GameScene extends Phaser.Scene {
       strokeThickness: 2
     }).setOrigin(0.5);
 
-    // Debug
+    // Debug (hidden by default, toggle with backtick key)
+    this.debugMode = false;
     this.debugText = this.add.text(20, 60, '', {
       fontSize: '14px',
       fontFamily: 'Arial',
       color: '#aaaaaa'
     });
+    this.debugText.setVisible(false);
   }
 
   onBallPickup() {
@@ -196,6 +201,15 @@ export default class GameScene extends Phaser.Scene {
   }
 
   update() {
+    // Debug toggle (backtick key)
+    if (Phaser.Input.Keyboard.JustDown(this.debugKey)) {
+      this.debugMode = !this.debugMode;
+      this.debugText.setVisible(this.debugMode);
+      // Also show/hide scoring zones for debugging
+      this.scoreEntry.setAlpha(this.debugMode ? 0.3 : 0);
+      this.scoreExit.setAlpha(this.debugMode ? 0.3 : 0);
+    }
+
     const onGround = this.player.body.blocked.down;
     const speed = 250;
 
@@ -220,17 +234,17 @@ export default class GameScene extends Phaser.Scene {
     if (this.stealCooldown > 0) this.stealCooldown--;
     if (this.shoveCooldown > 0) this.shoveCooldown--;
 
-    // Steal/Shove key: Q or Down Arrow (only trigger once per press)
-    const stealKeyDown = this.qKey.isDown || this.cursors.down.isDown;
+    // Steal/Shove key: Down Arrow (only trigger once per press)
+    const stealKeyDown = this.cursors.down.isDown;
     if (stealKeyDown && !this.stealKeyPressed) {
       this.stealKeyPressed = true;
 
       if (closeToOpponent && this.opponentHasBall) {
         if (this.shiftKey.isDown && this.shoveCooldown <= 0) {
-          // SHOVE: Shift+Q or Shift+Down - always works, knocks opponent back
+          // SHOVE: Shift+Down - always works, knocks opponent back
           this.performShove();
         } else if (!this.shiftKey.isDown && this.stealCooldown <= 0) {
-          // STEAL: Q or Down alone - 30% chance
+          // STEAL: Down alone - 30% chance
           this.performSteal();
         }
       }

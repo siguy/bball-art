@@ -4,11 +4,11 @@ Part of **Court & Covenant** - NBA Jam-style basketball game pairing NBA legends
 
 ## Progress Tracking
 
-**Active plan:** `~/.claude/plans/holy-hoops-game.md` (45% complete)
+**Active plan:** `~/.claude/plans/holy-hoops-game.md` (55% complete)
 
 | Build | Status |
 |-------|--------|
-| BUILD 1: One Player Scores | ✅ Steps 1-5 done, Step 6 (polish) remaining |
+| BUILD 1: One Player Scores | ✅ Steps 1-8 complete (ready for family playtest) |
 | BUILD 2: Full 2v2 Game | 🔲 Not started |
 | BUILD 3: Polish & iPad | 🔲 Not started |
 
@@ -56,6 +56,9 @@ src/
 | Space (tap) | Jump |
 | Space (hold + release) | Shoot at apex for accuracy |
 | Space (in dunk range) | Auto-dunk |
+| Down | Steal (30% chance) |
+| Shift+Down | Shove (always works) |
+| I | Toggle debug mode |
 
 ## Game Mechanics
 
@@ -75,7 +78,7 @@ src/
 - **Gold player**: In dunk range, ready to dunk
 - **Red player**: Has ball, normal
 - **Dark red player**: No ball
-- Debug text shows: Ground, Dunking, Ball, VelX, key states
+- **Debug mode (` key)**: Shows ground state, ball ownership, distances, cooldowns; also reveals scoring zones
 
 ### Ball Pickup
 - Ball returns after scoring
@@ -85,7 +88,7 @@ src/
 ### Rim Physics
 - **Backboard**: Ball bounces off (static physics body at x=1100)
 - **Rim edges**: Two 8x8 colliders at x=1045/1095 (50px opening)
-- **Scoring zones**: 40px wide, entry at y=325, exit at y=360 (visible light green for testing)
+- **Scoring zones**: 40px wide, entry at y=325, exit at y=360 (hidden by default, visible in debug mode)
 - **Two-zone detection**: Ball must pass through entry zone, then exit zone with downward velocity
 - Shot trajectory targets entry zone (y=325) so ball arcs down through both zones
 - Shots can bank off backboard and go in
@@ -98,9 +101,9 @@ src/
 - Stops bouncing when jumping, stationary, or dunking
 
 ### Defense
-- **Opponent**: Purple rectangle at x=700, stationary, starts with ball
-- **Steal (Q or Down)**: 30% chance when close (<70px), 80-frame cooldown on fail
-- **Shove (Shift+Q or Shift+Down)**: 100% success, knocks opponent back 100px, 60-frame cooldown
+- **Opponent**: Purple rectangle at x=700, stationary dummy (AI in BUILD 2), starts with ball
+- **Steal (Down)**: 30% chance when close (<70px), 80-frame cooldown on fail
+- **Shove (Shift+Down)**: 100% success, knocks opponent back 100px, 60-frame cooldown
 - **Loose ball**: Drops with gravity, first to touch picks up
 
 ## Key Files
