@@ -9,7 +9,7 @@ Part of **Court & Covenant** - NBA Jam-style basketball game pairing NBA legends
 | Build | Status |
 |-------|--------|
 | BUILD 1: One Player Scores | ✅ Steps 1-8 complete |
-| BUILD 2: Full 2v2 Game | 🟡 Step 10.1 complete (camera scrolling) |
+| BUILD 2: Full 2v2 Game | 🟡 Step 10.2 complete (left hoop + scoring) |
 | BUILD 3: Polish & iPad | 🔲 Not started |
 
 **Reference docs:**
@@ -34,11 +34,19 @@ Two-player team mechanics working:
 - Both players can shoot/dunk when carrying ball
 
 Camera scrolling (Step 10.1):
-- World 1270px wide (viewport 1280, 200px past right basket)
+- World 1470px wide (extended court for two hoops)
 - Camera follows ball carrier → loose ball → active player
 - Smooth lerp (0.08) for natural panning
 - Inactive teammate auto-moves to stay visible
 - UI elements fixed to screen (scrollFactor 0)
+
+Two hoops with scoring (Step 10.2):
+- Right hoop at x=1270 (RED scores here)
+- Left hoop at x=210 (PURPLE scores here)
+- Both hoops have backboard, rim, rim edges, and white mesh nets
+- Scoreboard: "RED: X" (left) and "PURPLE: X" (right)
+- 0.5s delay after scoring shows ball falling through net
+- Scored-on team takes ball out behind their basket
 
 ## Architecture
 
@@ -88,17 +96,18 @@ src/
 - **Gold player**: In dunk range, ready to dunk
 - **Red player**: Has ball, normal
 - **Dark red player**: No ball
-- **Debug mode (` key)**: Shows ground state, ball ownership, distances, cooldowns; also reveals scoring zones
+- **Debug mode (I key)**: Shows ground state, ball ownership, distances, cooldowns; also reveals scoring zones
 
 ### Ball Pickup
 - Ball returns after scoring
 - 30-frame cooldown after shots
 - 60-frame cooldown after dunks
 
-### Rim Physics
-- **Backboard**: Ball bounces off (static physics body at x=1100)
-- **Rim edges**: Two 8x8 colliders at x=1045/1095 (50px opening)
-- **Scoring zones**: 40px wide, entry at y=325, exit at y=360 (hidden by default, visible in debug mode)
+### Rim Physics (Both Hoops)
+- **Right hoop**: Backboard x=1300, rim x=1270, rim edges x=1245/1295
+- **Left hoop**: Backboard x=180, rim x=210, rim edges x=185/235
+- **Nets**: White mesh graphics below each rim
+- **Scoring zones**: 40px wide, entry at y=325, exit at y=360 (visible in debug mode)
 - **Two-zone detection**: Ball must pass through entry zone, then exit zone with downward velocity
 - Shot trajectory targets entry zone (y=325) so ball arcs down through both zones
 - Shots can bank off backboard and go in
@@ -123,7 +132,8 @@ src/
 - `performDunk()` - Calculate trajectory to rim
 - `completeDunk()` - Score + "SLAM DUNK!" text
 - `shootBall()` - Release with accuracy-based trajectory
-- `onScore()` - Regular shot scoring
+- `onScore()` - Player scores at right hoop
+- `onOpponentScore()` - Opponent scores at left hoop
 - `onBallPickup()` - Ball collection with cooldown
 
 ## Testing
@@ -141,12 +151,12 @@ Tests verify:
 
 ## BUILD 2 (Next)
 
-- [ ] Second player (teammate)
+- [x] Second player (teammate)
 - [ ] Two opponents (purple team with AI)
-- [ ] Passing (E key)
-- [ ] Player switching (Tab)
-- [ ] Second hoop on left
-- [ ] Scoreboard: RED vs PURPLE
+- [x] Passing (E key)
+- [x] Player switching (Tab)
+- [x] Second hoop on left
+- [x] Scoreboard: RED vs PURPLE
 - [ ] 2-minute timer
 
 ## BUILD 3 (After)
@@ -167,14 +177,18 @@ dunkRange = 200;          // Distance to trigger dunk
 ballPickupCooldown = 30;  // Frames after shot
 dunkPickupCooldown = 60;  // Frames after dunk
 
-// In GameScene.js - Rim/Scoring (adjust difficulty)
-rimLeft.x = 1045;         // Left rim edge (decrease = harder)
-rimRight.x = 1095;        // Right rim edge (increase = harder)
-scoreZoneWidth = 40;      // Scoring zone width (decrease = harder)
-shotTargetY = 325;        // Where shots aim (matches entry zone)
+// In GameScene.js - Right Hoop (player scores here)
+rightBackboard.x = 1300;  // Backboard position
+rightRim.x = 1270;        // Rim center
+rightRimEdges = 1245/1295;// 50px opening
+
+// In GameScene.js - Left Hoop (opponent scores here)
+leftBackboard.x = 180;    // Backboard position
+leftRim.x = 210;          // Rim center
+leftRimEdges = 185/235;   // 50px opening
 
 // In GameScene.js - Camera
-worldWidth = 1270;        // Court width (200px past right basket)
+worldWidth = 1470;        // Court width (extended for two hoops)
 cameraLerp = 0.08;        // Follow smoothness (lower = smoother)
 screenMargin = 60;        // Min distance from camera edge for entities
 ```

@@ -8,8 +8,8 @@ export default class GameScene extends Phaser.Scene {
   create() {
     // === WORLD + CAMERA SETUP ===
     // World is wider than viewport, camera scrolls to follow action
-    // Right basket at x=1070, allow 200px behind it
-    const worldWidth = 1270;
+    // Right basket at x=1270, allow 200px behind it
+    const worldWidth = 1470;
     const worldHeight = 720;
 
     this.physics.world.setBounds(0, 0, worldWidth, worldHeight);
@@ -73,7 +73,9 @@ export default class GameScene extends Phaser.Scene {
     this.wasInAir = false; // Track if player has left the ground during dunk
     this.jumpedThisPress = true; // Start true to ignore space held from menu
     this.ballPickupCooldown = 0; // Frames before ball can be picked up
-    this.ballEnteredHoop = false; // Track two-zone scoring
+    this.ballEnteredHoop = false; // Track two-zone scoring (right hoop)
+    this.ballEnteredLeftHoop = false; // Track two-zone scoring (left hoop)
+    this.scoringInProgress = false; // Prevents camera from following ball during net animation
 
     // Defense state
     this.opponentHasBall = true; // Opponent starts with ball
@@ -101,31 +103,52 @@ export default class GameScene extends Phaser.Scene {
 
     this.physics.add.collider(this.ball, this.floor);
 
-    // === HOOP WITH PHYSICS ===
+    // === RIGHT HOOP WITH PHYSICS ===
 
     // Backboard - physics body, ball bounces off
-    this.backboard = this.add.rectangle(1100, 300, 10, 80, 0x8b4513);
+    this.backboard = this.add.rectangle(1300, 300, 10, 80, 0x8b4513);
     this.physics.add.existing(this.backboard, true);
     this.physics.add.collider(this.ball, this.backboard);
 
     // Rim visual (center bar)
-    this.rim = this.add.rectangle(1070, 340, 50, 8, 0xff6600);
+    this.rim = this.add.rectangle(1270, 340, 50, 8, 0xff6600);
 
     // Rim edges - 50px opening
-    this.rimLeft = this.add.rectangle(1045, 340, 8, 8, 0xff6600);
-    this.rimRight = this.add.rectangle(1095, 340, 8, 8, 0xff6600);
+    this.rimLeft = this.add.rectangle(1245, 340, 8, 8, 0xff6600);
+    this.rimRight = this.add.rectangle(1295, 340, 8, 8, 0xff6600);
     this.physics.add.existing(this.rimLeft, true);
     this.physics.add.existing(this.rimRight, true);
     this.physics.add.collider(this.ball, this.rimLeft);
     this.physics.add.collider(this.ball, this.rimRight);
 
+    // Net (right hoop) - white mesh below rim
+    this.rightNet = this.add.graphics();
+    this.rightNet.lineStyle(2, 0xffffff, 0.8);
+    // Trapezoid outline
+    this.rightNet.beginPath();
+    this.rightNet.moveTo(1245, 344);  // Top left
+    this.rightNet.lineTo(1255, 384);  // Bottom left
+    this.rightNet.lineTo(1285, 384);  // Bottom right
+    this.rightNet.lineTo(1295, 344);  // Top right
+    this.rightNet.strokePath();
+    // Vertical net lines
+    for (let i = 1; i <= 4; i++) {
+      const topX = 1245 + i * 10;
+      const bottomX = 1255 + i * 6;
+      this.rightNet.lineBetween(topX, 344, bottomX, 384);
+    }
+    // Horizontal net lines
+    this.rightNet.lineBetween(1248, 358, 1292, 358);
+    this.rightNet.lineBetween(1252, 372, 1288, 372);
+
+    // === RIGHT HOOP (player scores here) ===
     // Two-zone scoring system - 40px zones (invisible)
     // Entry zone: above the rim (ball enters from above)
-    this.scoreEntry = this.add.rectangle(1070, 325, 40, 20, 0x90ee90, 0);
+    this.scoreEntry = this.add.rectangle(1270, 325, 40, 20, 0x90ee90, 0);
     this.physics.add.existing(this.scoreEntry, true);
 
     // Exit zone: below the rim (ball exits downward)
-    this.scoreExit = this.add.rectangle(1070, 360, 40, 20, 0x90ee90, 0);
+    this.scoreExit = this.add.rectangle(1270, 360, 40, 20, 0x90ee90, 0);
     this.physics.add.existing(this.scoreExit, true);
 
     // Entry zone overlap - mark that ball entered from above
@@ -143,6 +166,65 @@ export default class GameScene extends Phaser.Scene {
       }
     });
 
+    // === LEFT HOOP (opponent scores here) ===
+    // Backboard - physics body, ball bounces off
+    this.leftBackboard = this.add.rectangle(180, 300, 10, 80, 0x8b4513);
+    this.physics.add.existing(this.leftBackboard, true);
+    this.physics.add.collider(this.ball, this.leftBackboard);
+
+    // Rim visual (center bar)
+    this.leftRim = this.add.rectangle(210, 340, 50, 8, 0xff6600);
+
+    // Rim edges - 50px opening
+    this.leftRimLeft = this.add.rectangle(185, 340, 8, 8, 0xff6600);
+    this.leftRimRight = this.add.rectangle(235, 340, 8, 8, 0xff6600);
+    this.physics.add.existing(this.leftRimLeft, true);
+    this.physics.add.existing(this.leftRimRight, true);
+    this.physics.add.collider(this.ball, this.leftRimLeft);
+    this.physics.add.collider(this.ball, this.leftRimRight);
+
+    // Net (left hoop) - white mesh below rim
+    this.leftNet = this.add.graphics();
+    this.leftNet.lineStyle(2, 0xffffff, 0.8);
+    // Trapezoid outline
+    this.leftNet.beginPath();
+    this.leftNet.moveTo(185, 344);   // Top left
+    this.leftNet.lineTo(195, 384);   // Bottom left
+    this.leftNet.lineTo(225, 384);   // Bottom right
+    this.leftNet.lineTo(235, 344);   // Top right
+    this.leftNet.strokePath();
+    // Vertical net lines
+    for (let i = 1; i <= 4; i++) {
+      const topX = 185 + i * 10;
+      const bottomX = 195 + i * 6;
+      this.leftNet.lineBetween(topX, 344, bottomX, 384);
+    }
+    // Horizontal net lines
+    this.leftNet.lineBetween(188, 358, 232, 358);
+    this.leftNet.lineBetween(192, 372, 228, 372);
+
+    // Two-zone scoring system for left hoop (invisible)
+    this.leftScoreEntry = this.add.rectangle(210, 325, 40, 20, 0xee90ee, 0);
+    this.physics.add.existing(this.leftScoreEntry, true);
+
+    this.leftScoreExit = this.add.rectangle(210, 360, 40, 20, 0xee90ee, 0);
+    this.physics.add.existing(this.leftScoreExit, true);
+
+    // Entry zone overlap for left hoop
+    this.physics.add.overlap(this.ball, this.leftScoreEntry, () => {
+      if (this.ball.body.velocity.y > 0 && !this.opponentHasBall && !this.isDunking) {
+        this.ballEnteredLeftHoop = true;
+      }
+    });
+
+    // Exit zone overlap for left hoop - opponent scores
+    this.physics.add.overlap(this.ball, this.leftScoreExit, () => {
+      if (this.ballEnteredLeftHoop && this.ball.body.velocity.y > 0) {
+        this.onOpponentScore();
+        this.ballEnteredLeftHoop = false;
+      }
+    });
+
     // Ball pickup - player 1
     this.physics.add.overlap(this.player, this.ball, () => this.onBallPickup(this.player), null, this);
 
@@ -154,13 +236,22 @@ export default class GameScene extends Phaser.Scene {
 
     // Score (fixed to screen)
     this.score = 0;
-    this.scoreText = this.add.text(20, 20, 'SCORE: 0', {
+    this.opponentScore = 0;
+    this.scoreText = this.add.text(20, 20, 'RED: 0', {
       fontSize: '32px',
       fontFamily: 'Arial',
-      color: '#ffffff',
+      color: '#ff4444',
       stroke: '#000000',
       strokeThickness: 4
     }).setScrollFactor(0);
+
+    this.opponentScoreText = this.add.text(1260, 20, 'PURPLE: 0', {
+      fontSize: '32px',
+      fontFamily: 'Arial',
+      color: '#cc66ff',
+      stroke: '#000000',
+      strokeThickness: 4
+    }).setOrigin(1, 0).setScrollFactor(0);
 
     // Controls hint (fixed to screen, centered on viewport)
     this.add.text(640, 600, 'WASD = Move | SPACE = Jump/Shoot | TAB = Switch | E = Pass | DOWN = Steal', {
@@ -213,7 +304,7 @@ export default class GameScene extends Phaser.Scene {
     if (this.ballCarrier || this.isDunking) return;
 
     this.score += 2;
-    this.scoreText.setText('SCORE: ' + this.score);
+    this.scoreText.setText('RED: ' + this.score);
 
     const scorePopup = this.add.text(640, 300, 'SCORE!', {
       fontSize: '72px',
@@ -234,10 +325,61 @@ export default class GameScene extends Phaser.Scene {
     // Reset ball entry state
     this.ballEnteredHoop = false;
 
-    // Ball returns to active player
-    this.ballCarrier = this.players[this.activePlayerIndex];
-    this.ball.body.setVelocity(0, 0);
-    this.ball.body.setAllowGravity(false);
+    // Let ball fall through net for 0.5s, then give possession
+    this.ball.body.setAllowGravity(true);
+    this.ballPickupCooldown = 60; // Prevent pickup during net animation
+    this.scoringInProgress = true; // Prevent camera from chasing ball
+
+    this.time.delayedCall(500, () => {
+      // Opponent takes ball out behind the basket where they were scored on (right side)
+      this.opponent.x = 1380;
+      this.opponentHasBall = true;
+      this.ball.body.setVelocity(0, 0);
+      this.ball.body.setAllowGravity(false);
+      this.scoringInProgress = false;
+    });
+  }
+
+  onOpponentScore() {
+    // Prevent double-scoring
+    if (this.opponentHasBall || this.isDunking) return;
+
+    this.opponentScore += 2;
+    this.opponentScoreText.setText('PURPLE: ' + this.opponentScore);
+
+    const scorePopup = this.add.text(640, 300, 'OPPONENT SCORES!', {
+      fontSize: '56px',
+      fontFamily: 'Arial',
+      color: '#cc66ff',
+      stroke: '#000000',
+      strokeThickness: 6
+    }).setOrigin(0.5).setScrollFactor(0);
+
+    this.tweens.add({
+      targets: scorePopup,
+      alpha: 0,
+      y: 250,
+      duration: 1000,
+      onComplete: () => scorePopup.destroy()
+    });
+
+    // Reset ball entry state
+    this.ballEnteredLeftHoop = false;
+
+    // Let ball fall through net for 0.5s, then give possession
+    this.ball.body.setAllowGravity(true);
+    this.ballPickupCooldown = 60; // Prevent pickup during net animation
+    this.scoringInProgress = true; // Prevent camera from chasing ball
+
+    this.time.delayedCall(500, () => {
+      // Active player takes ball out behind the basket where they were scored on (left side)
+      const activePlayer = this.players[this.activePlayerIndex];
+      activePlayer.x = 100;
+      this.ballCarrier = activePlayer;
+      this.ball.body.setVelocity(0, 0);
+      this.ball.body.setAllowGravity(false);
+      this.scoringInProgress = false;
+    });
   }
 
   update() {
@@ -245,9 +387,11 @@ export default class GameScene extends Phaser.Scene {
     if (Phaser.Input.Keyboard.JustDown(this.debugKey)) {
       this.debugMode = !this.debugMode;
       this.debugText.setVisible(this.debugMode);
-      // Also show/hide scoring zones for debugging
+      // Also show/hide scoring zones for debugging (both hoops)
       this.scoreEntry.setAlpha(this.debugMode ? 0.3 : 0);
       this.scoreExit.setAlpha(this.debugMode ? 0.3 : 0);
+      this.leftScoreEntry.setAlpha(this.debugMode ? 0.3 : 0);
+      this.leftScoreExit.setAlpha(this.debugMode ? 0.3 : 0);
     }
 
     // Tab key switches active player
@@ -266,7 +410,7 @@ export default class GameScene extends Phaser.Scene {
     const speed = 250;
 
     // Check dunk range (can dunk from 200px before hoop to 50px past it)
-    const distToHoop = 1070 - activePlayer.x;
+    const distToHoop = 1270 - activePlayer.x;
     const inDunkRange = distToHoop > -50 && distToHoop < 200;
 
     // Helper: does this player have the ball?
@@ -275,7 +419,7 @@ export default class GameScene extends Phaser.Scene {
     // Visual feedback for BOTH players
     for (const p of this.players) {
       const playerHasBall = this.ballCarrier === p;
-      const pDistToHoop = 1070 - p.x;
+      const pDistToHoop = 1270 - p.x;
       const pInDunkRange = pDistToHoop > -50 && pDistToHoop < 200;
       const pOnGround = p.body.blocked.down;
 
@@ -302,8 +446,8 @@ export default class GameScene extends Phaser.Scene {
     let newTarget;
     if (this.ballCarrier) {
       newTarget = this.ballCarrier;
-    } else if (!this.opponentHasBall && this.ball.body.allowGravity) {
-      // Ball is loose - follow the ball
+    } else if (!this.opponentHasBall && this.ball.body.allowGravity && !this.scoringInProgress) {
+      // Ball is loose - follow the ball (but not during scoring animation)
       newTarget = this.ball;
     } else {
       newTarget = activePlayer;
@@ -463,7 +607,7 @@ export default class GameScene extends Phaser.Scene {
     // Check if dunking player reached the hoop during a dunk
     if (this.isDunking && this.ballCarrier && this.dunkingPlayer) {
       // Dunking player is near the rim horizontally (within 50px) and at/above rim height
-      const distFromRim = Math.abs(this.dunkingPlayer.x - 1050);
+      const distFromRim = Math.abs(this.dunkingPlayer.x - 1250);
       const nearRimX = distFromRim < 50;
       const atRimHeight = this.dunkingPlayer.y < 400;
 
@@ -495,7 +639,7 @@ export default class GameScene extends Phaser.Scene {
     // Player will carry ball to the hoop
 
     // Calculate velocity to reach the rim from current position
-    const targetX = 1050; // Center of rim area
+    const targetX = 1250; // Center of rim area
     const distToRim = targetX - player.x;
 
     if (Math.abs(distToRim) < 30) {
@@ -519,17 +663,28 @@ export default class GameScene extends Phaser.Scene {
   // Called when player reaches the rim during a dunk
   completeDunk() {
     this.ballCarrier = null;
-    this.ballPickupCooldown = 60;
 
-    // Ball drops through hoop
-    this.ball.x = 1070;
+    // Ball drops through hoop and net
+    this.ball.x = 1270;
     this.ball.y = 355;
-    this.ball.body.setVelocity(0, 250);
+    this.ball.body.setVelocity(0, 300);
     this.ball.body.setAllowGravity(true);
+    this.ballPickupCooldown = 60; // Prevent pickup during net animation
+    this.scoringInProgress = true; // Prevent camera from chasing ball
 
     // Score NOW when ball is slammed through
     this.score += 2;
-    this.scoreText.setText('SCORE: ' + this.score);
+    this.scoreText.setText('RED: ' + this.score);
+
+    // Delay 0.5s to show ball through net, then give possession
+    this.time.delayedCall(500, () => {
+      // Opponent takes ball out behind the basket where they were scored on (right side)
+      this.opponent.x = 1380;
+      this.opponentHasBall = true;
+      this.ball.body.setVelocity(0, 0);
+      this.ball.body.setAllowGravity(false);
+      this.scoringInProgress = false;
+    });
 
     // SLAM DUNK text - triggered at the rim!
     const slamText = this.add.text(640, 280, 'SLAM DUNK!', {
@@ -555,7 +710,7 @@ export default class GameScene extends Phaser.Scene {
     this.ballPickupCooldown = 30; // Prevent immediate pickup after shot
     this.ball.body.setAllowGravity(true);
 
-    const hoopX = 1070;
+    const hoopX = 1270;
     const hoopY = 325; // Target entry zone, ball arcs down through it
     const distX = hoopX - this.ball.x;
     const distance = Math.abs(distX);
@@ -667,7 +822,7 @@ export default class GameScene extends Phaser.Scene {
     const newOpponentX = Phaser.Math.Clamp(
       this.opponent.x + (pushDirection * 100),
       40, // Left bound (half opponent width)
-      1230 // Right bound (1270 - 40)
+      1430 // Right bound (1570 - 40)
     );
     this.opponent.x = newOpponentX;
 
