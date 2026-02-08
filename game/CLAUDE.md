@@ -9,7 +9,7 @@ Part of **Court & Covenant** - NBA Jam-style basketball game pairing NBA legends
 | Build | Status |
 |-------|--------|
 | BUILD 1: One Player Scores | ✅ Steps 1-8 complete |
-| BUILD 2: Full 2v2 Game | 🟡 Step 9 complete (teammate + controls) |
+| BUILD 2: Full 2v2 Game | 🟡 Step 10.1 complete (camera scrolling) |
 | BUILD 3: Polish & iPad | 🔲 Not started |
 
 **Reference docs:**
@@ -32,6 +32,13 @@ Two-player team mechanics working:
 - Yellow outline shows active player
 - E to pass ball to teammate
 - Both players can shoot/dunk when carrying ball
+
+Camera scrolling (Step 10.1):
+- World 1270px wide (viewport 1280, 200px past right basket)
+- Camera follows ball carrier → loose ball → active player
+- Smooth lerp (0.08) for natural panning
+- Inactive teammate auto-moves to stay visible
+- UI elements fixed to screen (scrollFactor 0)
 
 ## Architecture
 
@@ -165,4 +172,9 @@ rimLeft.x = 1045;         // Left rim edge (decrease = harder)
 rimRight.x = 1095;        // Right rim edge (increase = harder)
 scoreZoneWidth = 40;      // Scoring zone width (decrease = harder)
 shotTargetY = 325;        // Where shots aim (matches entry zone)
+
+// In GameScene.js - Camera
+worldWidth = 1270;        // Court width (200px past right basket)
+cameraLerp = 0.08;        // Follow smoothness (lower = smoother)
+screenMargin = 60;        // Min distance from camera edge for entities
 ```

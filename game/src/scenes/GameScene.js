@@ -6,8 +6,17 @@ export default class GameScene extends Phaser.Scene {
   }
 
   create() {
-    // Court floor
-    this.floor = this.add.rectangle(640, 670, 1280, 100, 0x8B4513);
+    // === WORLD + CAMERA SETUP ===
+    // World is wider than viewport, camera scrolls to follow action
+    // Right basket at x=1070, allow 200px behind it
+    const worldWidth = 1270;
+    const worldHeight = 720;
+
+    this.physics.world.setBounds(0, 0, worldWidth, worldHeight);
+    this.cameras.main.setBounds(0, 0, worldWidth, worldHeight);
+
+    // Court floor (full world width)
+    this.floor = this.add.rectangle(worldWidth / 2, 670, worldWidth, 100, 0x8B4513);
     this.physics.add.existing(this.floor, true);
 
     // Player 1 (red)
@@ -143,7 +152,7 @@ export default class GameScene extends Phaser.Scene {
     // Ball pickup - opponent
     this.physics.add.overlap(this.opponent, this.ball, this.onOpponentBallPickup, null, this);
 
-    // Score
+    // Score (fixed to screen)
     this.score = 0;
     this.scoreText = this.add.text(20, 20, 'SCORE: 0', {
       fontSize: '32px',
@@ -151,16 +160,16 @@ export default class GameScene extends Phaser.Scene {
       color: '#ffffff',
       stroke: '#000000',
       strokeThickness: 4
-    });
+    }).setScrollFactor(0);
 
-    // Controls hint
+    // Controls hint (fixed to screen, centered on viewport)
     this.add.text(640, 600, 'WASD = Move | SPACE = Jump/Shoot | TAB = Switch | E = Pass | DOWN = Steal', {
       fontSize: '16px',
       fontFamily: 'Arial',
       color: '#ffff00',
       stroke: '#000000',
       strokeThickness: 2
-    }).setOrigin(0.5);
+    }).setOrigin(0.5).setScrollFactor(0);
 
     // Debug (hidden by default, toggle with backtick key)
     this.debugMode = false;
@@ -170,6 +179,12 @@ export default class GameScene extends Phaser.Scene {
       color: '#aaaaaa'
     });
     this.debugText.setVisible(false);
+    this.debugText.setScrollFactor(0); // Keep debug text fixed on screen
+
+    // === CAMERA FOLLOW SETUP ===
+    // Start following the active player with smooth lerp
+    this.cameraTarget = this.players[this.activePlayerIndex];
+    this.cameras.main.startFollow(this.cameraTarget, true, 0.08, 0.08);
   }
 
   onBallPickup(player) {
@@ -206,7 +221,7 @@ export default class GameScene extends Phaser.Scene {
       color: '#00ff00',
       stroke: '#000000',
       strokeThickness: 6
-    }).setOrigin(0.5);
+    }).setOrigin(0.5).setScrollFactor(0);
 
     this.tweens.add({
       targets: scorePopup,
@@ -282,6 +297,45 @@ export default class GameScene extends Phaser.Scene {
       44,
       64
     );
+
+    // === CAMERA TARGET: follow ball carrier, or active player if no one has ball ===
+    let newTarget;
+    if (this.ballCarrier) {
+      newTarget = this.ballCarrier;
+    } else if (!this.opponentHasBall && this.ball.body.allowGravity) {
+      // Ball is loose - follow the ball
+      newTarget = this.ball;
+    } else {
+      newTarget = activePlayer;
+    }
+
+    if (newTarget !== this.cameraTarget) {
+      this.cameraTarget = newTarget;
+      this.cameras.main.startFollow(this.cameraTarget, true, 0.08, 0.08);
+    }
+
+    // === KEEP ENTITIES ON SCREEN ===
+    const camera = this.cameras.main;
+    const camLeft = camera.scrollX;
+    const camRight = camera.scrollX + camera.width;
+    const margin = 60; // Keep entities at least 60px from camera edge
+
+    // Inactive teammate: stop if on screen, move if off screen
+    const inactivePlayer = this.players[(this.activePlayerIndex + 1) % 2];
+    const inactiveOnGround = inactivePlayer.body.blocked.down;
+    if (inactiveOnGround && (!this.isDunking || this.dunkingPlayer !== inactivePlayer)) {
+      if (inactivePlayer.x < camLeft + margin) {
+        inactivePlayer.body.setVelocityX(200); // Run right to stay on screen
+      } else if (inactivePlayer.x > camRight - margin) {
+        inactivePlayer.body.setVelocityX(-200); // Run left to stay on screen
+      } else {
+        // On screen - stop moving
+        inactivePlayer.body.setVelocityX(0);
+      }
+    }
+
+    // Opponent stays on screen (clamp position for now, AI movement in later step)
+    this.opponent.x = Phaser.Math.Clamp(this.opponent.x, camLeft + margin, camRight - margin);
 
     // === DEFENSE (steal and shove) ===
     const distToOpponent = Math.abs(activePlayer.x - this.opponent.x);
@@ -484,7 +538,7 @@ export default class GameScene extends Phaser.Scene {
       color: '#ff4500',
       stroke: '#000000',
       strokeThickness: 8
-    }).setOrigin(0.5);
+    }).setOrigin(0.5).setScrollFactor(0);
 
     this.tweens.add({
       targets: slamText,
@@ -585,7 +639,7 @@ export default class GameScene extends Phaser.Scene {
         color: '#00ff00',
         stroke: '#000000',
         strokeThickness: 6
-      }).setOrigin(0.5);
+      }).setOrigin(0.5).setScrollFactor(0);
 
       this.tweens.add({
         targets: stealText,
@@ -607,12 +661,13 @@ export default class GameScene extends Phaser.Scene {
     this.opponentHasBall = false;
     this.shoveCooldown = 60;
 
-    // Knock opponent back 100px (away from player)
-    const pushDirection = this.player.x < this.opponent.x ? 1 : -1;
+    // Knock opponent back 100px (away from active player)
+    const activePlayer = this.players[this.activePlayerIndex];
+    const pushDirection = activePlayer.x < this.opponent.x ? 1 : -1;
     const newOpponentX = Phaser.Math.Clamp(
       this.opponent.x + (pushDirection * 100),
       40, // Left bound (half opponent width)
-      1240 // Right bound
+      1230 // Right bound (1270 - 40)
     );
     this.opponent.x = newOpponentX;
 
@@ -626,7 +681,7 @@ export default class GameScene extends Phaser.Scene {
       color: '#ff8800',
       stroke: '#000000',
       strokeThickness: 6
-    }).setOrigin(0.5);
+    }).setOrigin(0.5).setScrollFactor(0);
 
     this.tweens.add({
       targets: shoveText,
@@ -648,7 +703,8 @@ export default class GameScene extends Phaser.Scene {
   }
 
   showFeedback(text, color) {
-    const popup = this.add.text(this.player.x, this.player.y - 60, text, {
+    const activePlayer = this.players[this.activePlayerIndex];
+    const popup = this.add.text(activePlayer.x, activePlayer.y - 60, text, {
       fontSize: '28px',
       fontFamily: 'Arial',
       color: color,
