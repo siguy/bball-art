@@ -1,0 +1,45 @@
+{
+  "id": "absalom",
+  "name": "Absalom",
+  "aliases": [
+    "Avshalom",
+    "Son of David"
+  ],
+  "quotes": {
+    "stole-hearts-israel": {
+      "source": "2 Samuel 15:6",
+      "context": "Absalom winning over the people",
+      "hebrew": "וַיִּגְנֹב אַבְשָׁלוֹם אֶת־לֵב אַנְשֵׁי יִשְׂרָאֵל",
+      "english": "So Absalom stole the hearts of the men of Israel.",
+      "mood": "deceptive charm, betrayal"
+    },
+    "wished-judge-land": {
+      "source": "2 Samuel 15:4",
+      "context": "Absalom's lament to win over the people",
+      "hebrew": "מִי יְשִׂמֵנִי שֹׁפֵט בָּאָרֶץ",
+      "english": "Oh that I were made judge in the land!",
+      "mood": "ambitious yearning, false humility"
+    },
+    "no-man-hear-thee": {
+      "source": "2 Samuel 16:11",
+      "context": "David fleeing from Absalom",
+      "hebrew": "הִנֵּה בְנִי אֲשֶׁר יָצָא מִמֵּעַי מְבַקֵּשׁ אֶת־נַפְשִׁי",
+      "english": "Behold, my son seeketh my life",
+      "mood": "bitter betrayal, parental grief"
+    },
+    "hung-oak-tree": {
+      "source": "2 Samuel 18:9",
+      "context": "Absalom's death",
+      "hebrew": "וַיִּקָּרֵא אַבְשָׁלוֹם לִפְנֵי עַבְדֵי דָוִד",
+      "english": "And Absalom met the servants of David.",
+      "mood": "tragic irony, fatal entanglement"
+    },
+    "my-son-absalom": {
+      "source": "2 Samuel 18:33",
+      "context": "David's mourning for Absalom",
+      "hebrew": "בְּנִי אַבְשָׁלוֹם בְּנִי בְנִי אַבְשָׁלוֹם",
+      "english": "O my son Absalom, my son, my son Absalom!",
+      "mood": "profound grief, parental love"
+    }
+  }
+}

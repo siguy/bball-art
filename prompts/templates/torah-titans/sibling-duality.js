@@ -93,7 +93,8 @@ YIN-YANG SYMBOL and COSMIC DUALITY: Two interlocking forces that define each oth
 4. GOLD RING border with EMBOSSED scripture text${actData ? ` - ${actData.ringState}` : ''}
 5. Each figure must have exactly TWO ARMS
 6. This is STYLIZED ART for a collectible card, not a photograph
-${actData ? `7. YIN-YANG RATIO: ${actData.yinYangRatio}` : ''}
+7. ALL TEXT IN GOLD - Hebrew names, scripture, everything in burnished gold
+${actData ? `8. YIN-YANG RATIO: ${actData.yinYangRatio}` : ''}
 ${progressionSymbol && actData ? `
 === PROGRESSION SYMBOL: ${progressionSymbol.name.toUpperCase()} ===
 ${progressionSymbol.placement}
@@ -166,14 +167,14 @@ EMBOSSED SCRIPTURE TEXT on the gold ring:
 UPPER ARC (curving along top half of ring, from 9 o'clock to 3 o'clock):
 Hebrew text EMBOSSED into the gold: "${scripture.hebrew}"
 - Text is raised/embossed into the gold ring
-- DARK BRONZE or DEEP BROWN colored text for readability against gold
-- Elegant Hebrew typography with full vowel marks (nikud)
-- Text follows the curve of the ring
+- BURNISHED GOLD text with slight shadow for depth and readability
+- Elegant Hebrew typography with FULL VOWEL MARKS (nikud/נִקּוּד) - CRITICAL
+- Text follows the curve of the ring, reading right to left
 
 LOWER ARC (curving along bottom half of ring, from 3 o'clock to 9 o'clock):
 English text EMBOSSED into the gold: "${scripture.english}"
 - Matching embossed treatment
-- DARK BRONZE or DEEP BROWN colored text for readability
+- BURNISHED GOLD text with slight shadow for depth
 - Clean serif typography following the curve
 
 SOURCE CITATION (outside the ring, below at 6 o'clock position):
@@ -197,12 +198,19 @@ SUBTLE FOIL ACCENT: A gentle golden semi-circular glow or soft holographic arc s
 - Like a gentle halo of light beneath the citation
 - Premium but understated - enhances without dominating
 
-=== TEXT ELEMENTS ===
-TOP (above the gold ring): "TORAH TITANS" in clean, modern serif font with metallic sheen
+=== TEXT ELEMENTS (ALL GOLD) ===
+TOP (above the gold ring): "TORAH TITANS" in clean, modern serif font in BURNISHED GOLD
 
-SUBTITLE: "Sibling Duality" in elegant script below the title
+SUBTITLE: "Sibling Duality" in elegant GOLD script below the title
 
-BOTTOM (below the source citation): "${char1.displayName || char1.name} & ${char2.displayName || char2.name}"
+=== HEBREW NAMES IN GOLD ===
+Within each domain of the yin-yang, the character's HEBREW NAME appears:
+${char1.hebrewName ? `- In ${char1.name}'s domain: "${char1.hebrewName}" in elegant GOLD Hebrew lettering` : ''}
+${char2.hebrewName ? `- In ${char2.name}'s domain: "${char2.hebrewName}" in elegant GOLD Hebrew lettering` : ''}
+- Names positioned near each figure, integrated into the composition
+- Large enough to be prominent, GOLD with subtle glow
+
+BOTTOM (below the source citation): "${char1.hebrewName || char1.displayName || char1.name} & ${char2.hebrewName || char2.displayName || char2.name}" in GOLD
 
 === FINISH ===
 - Smooth cosmic gradients in the yin-yang interior

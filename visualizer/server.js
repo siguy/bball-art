@@ -1974,6 +1974,91 @@ app.post('/api/generate-from-prompt', async (req, res) => {
   }
 });
 
+/**
+ * Generate card from raw prompt (new cards, not edits)
+ *
+ * POST /api/generate-raw
+ * Body: {
+ *   prompt: string (required) - The full prompt text
+ *   series: string (default: 'torah-titans') - Series ID
+ *   cardName: string (required) - Name for the card (used in filename as "template")
+ *   groupId: string (optional) - Folder grouping (defaults to cardName)
+ * }
+ *
+ * Creates: output/cards/{series}/{groupId}/{cardName}-{timestamp}.jpeg
+ */
+app.post('/api/generate-raw', async (req, res) => {
+  const { prompt, series = 'torah-titans', cardName, groupId } = req.body;
+
+  if (!prompt) {
+    return res.status(400).json({ success: false, error: 'Missing prompt' });
+  }
+  if (!cardName) {
+    return res.status(400).json({ success: false, error: 'Missing cardName' });
+  }
+
+  // Sanitize names for filesystem
+  const sanitize = (str) => str.toLowerCase().replace(/[^a-z0-9-]/g, '-').replace(/-+/g, '-');
+  const safeCardName = sanitize(cardName);
+  const safeGroupId = sanitize(groupId || cardName);
+
+  const timestamp = new Date().toISOString().replace(/[:.]/g, '-').slice(0, 19);
+  const outputDir = join(ROOT, 'output/cards', series, safeGroupId);
+  const outputFilename = `${safeCardName}-${timestamp}`;
+  const outputPath = join(outputDir, outputFilename);
+  const promptPath = join(outputDir, `${outputFilename}-prompt.txt`);
+
+  console.log(`Generating raw prompt card:`);
+  console.log(`  Series: ${series}`);
+  console.log(`  Card name: ${safeCardName}`);
+  console.log(`  Group: ${safeGroupId}`);
+  console.log(`  Output: ${outputPath}`);
+
+  try {
+    // Dynamically import the nano-banana client
+    const { generateImage } = await import(join(ROOT, 'scripts/nano-banana-client.js'));
+
+    // Ensure output directory exists
+    if (!existsSync(outputDir)) {
+      mkdirSync(outputDir, { recursive: true });
+    }
+
+    // Save the prompt first
+    writeFileSync(promptPath, prompt);
+
+    // Generate the image
+    const result = await generateImage(prompt, {
+      outputPath: outputPath,
+      aspectRatio: '3:4'
+    });
+
+    if (result.success) {
+      const filename = result.path.split('/').pop();
+      const cardId = `${safeGroupId}-${safeCardName}-${timestamp}`;
+
+      res.json({
+        success: true,
+        filename,
+        cardId,
+        series,
+        groupId: safeGroupId,
+        cardName: safeCardName,
+        path: `/cards/${series}/${safeGroupId}/${filename}`,
+        promptPath: `/cards/${series}/${safeGroupId}/${outputFilename}-prompt.txt`
+      });
+    } else {
+      res.json({
+        success: false,
+        error: result.error || 'Generation failed',
+        message: result.message
+      });
+    }
+  } catch (err) {
+    console.error('Generate raw error:', err);
+    res.status(500).json({ success: false, error: err.message });
+  }
+});
+
 // ========================================
 // SOLO MODE API ENDPOINTS
 // ========================================

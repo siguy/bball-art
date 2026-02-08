@@ -17,6 +17,13 @@
       "english": "Lift up your staff and stretch out your hand over the sea and divide it",
       "mood": "miraculous power, divine command"
     },
+    "song-at-sea": {
+      "source": "Exodus 15:1",
+      "context": "Moses leads Israel in song after crossing",
+      "hebrew": "אָשִׁירָה לַיהוָה כִּי־גָאֹה גָּאָה",
+      "english": "I will sing to the LORD, for He has triumphed gloriously",
+      "mood": "triumphant praise, communal worship"
+    },
     "burning-bush": {
       "source": "Exodus 3:4",
       "context": "God calls to Moses from the burning bush",
@@ -38,6 +45,20 @@
       "english": "I am the LORD your God... You shall have no other gods before Me",
       "mood": "divine law, covenant foundation"
     },
+    "most-humble-man": {
+      "source": "Numbers 12:3",
+      "context": "The Torah's description of Moses's character",
+      "hebrew": "וְהָאִישׁ מֹשֶׁה עָנָו מְאֹד מִכֹּל הָאָדָם אֲשֶׁר עַל־פְּנֵי הָאֲדָמָה",
+      "english": "Now the man Moses was very humble, more than any person on the face of the earth",
+      "mood": "defining characteristic, humble strength"
+    },
+    "heal-her-please": {
+      "source": "Numbers 12:13",
+      "context": "Moses's desperate prayer for Miriam",
+      "hebrew": "אֵל נָא רְפָא נָא לָהּ",
+      "english": "Please God, heal her please",
+      "mood": "desperate intercession, brotherly love"
+    },
     "not-enter-land": {
       "source": "Deuteronomy 34:4",
       "context": "Moses sees but cannot enter the Promised Land",
@@ -58,6 +79,13 @@
       "hebrew": "וּבָחַרְתָּ בַּחַיִּים",
       "english": "Choose life!",
       "mood": "urgent exhortation, legacy charge"
+    },
+    "three-leaders": {
+      "source": "Micah 6:4",
+      "context": "God remembers the three siblings' leadership",
+      "hebrew": "וָאֶשְׁלַח לְפָנֶיךָ אֶת־מֹשֶׁה אַהֲרֹן וּמִרְיָם",
+      "english": "I sent before you Moses, Aaron, and Miriam",
+      "mood": "shared leadership, divine appointment"
     }
   }
 }

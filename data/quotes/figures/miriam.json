@@ -1,0 +1,70 @@
+{
+  "id": "miriam",
+  "name": "Miriam",
+  "aliases": ["The Prophetess", "Sister of Moses"],
+  "quotes": {
+    "stood-at-distance": {
+      "source": "Exodus 2:4",
+      "context": "Young Miriam watches over baby Moses in the basket",
+      "hebrew": "וַתֵּתַצַּב אֲחֹתוֹ מֵרָחֹק לְדֵעָה מַה־יֵּעָשֶׂה לוֹ",
+      "english": "His sister stood at a distance to know what would be done to him",
+      "mood": "protective vigilance, clever watching"
+    },
+    "shall-i-call-nurse": {
+      "source": "Exodus 2:7",
+      "context": "Miriam boldly approaches Pharaoh's daughter",
+      "hebrew": "הַאֵלֵךְ וְקָרָאתִי לָךְ אִשָּׁה מֵינֶקֶת מִן הָעִבְרִיֹּת",
+      "english": "Shall I go and call a Hebrew nursing woman for you?",
+      "mood": "bold cleverness, saving her brother"
+    },
+    "the-prophetess": {
+      "source": "Exodus 15:20",
+      "context": "Miriam's title and role",
+      "hebrew": "וַתִּקַּח מִרְיָם הַנְּבִיאָה אֲחוֹת אַהֲרֹן אֶת־הַתֹּף בְּיָדָהּ",
+      "english": "Miriam the prophetess, the sister of Aaron, took a timbrel in her hand",
+      "mood": "prophetic authority, leading the women"
+    },
+    "sing-to-the-lord": {
+      "source": "Exodus 15:21",
+      "context": "Miriam leads the women in song at the sea",
+      "hebrew": "שִׁירוּ לַיהוָה כִּי־גָאֹה גָּאָה סוּס וְרֹכְבוֹ רָמָה בַיָּם",
+      "english": "Sing to the LORD, for He has triumphed gloriously; the horse and his rider He has thrown into the sea",
+      "mood": "triumphant celebration, leading worship"
+    },
+    "spoke-against-moses": {
+      "source": "Numbers 12:1",
+      "context": "Miriam and Aaron challenge Moses",
+      "hebrew": "וַתְּדַבֵּר מִרְיָם וְאַהֲרֹן בְּמֹשֶׁה עַל־אֹדוֹת הָאִשָּׁה הַכֻּשִׁית",
+      "english": "Miriam and Aaron spoke against Moses because of the Cushite woman he had married",
+      "mood": "challenge, jealousy rising"
+    },
+    "only-through-moses": {
+      "source": "Numbers 12:2",
+      "context": "The challenge to Moses's unique authority",
+      "hebrew": "הֲרַק אַךְ־בְּמֹשֶׁה דִּבֶּר יְהוָה הֲלֹא גַּם־בָּנוּ דִבֵּר",
+      "english": "Has the LORD spoken only through Moses? Has He not spoken through us also?",
+      "mood": "questioning authority, prophetic jealousy"
+    },
+    "struck-with-leprosy": {
+      "source": "Numbers 12:10",
+      "context": "Divine judgment on Miriam",
+      "hebrew": "וְהִנֵּה מִרְיָם מְצֹרַעַת כַּשָּׁלֶג",
+      "english": "And behold, Miriam was leprous, white as snow",
+      "mood": "divine judgment, humbling"
+    },
+    "three-leaders": {
+      "source": "Micah 6:4",
+      "context": "God remembers the three siblings' leadership",
+      "hebrew": "וָאֶשְׁלַח לְפָנֶיךָ אֶת־מֹשֶׁה אַהֲרֹן וּמִרְיָם",
+      "english": "I sent before you Moses, Aaron, and Miriam",
+      "mood": "shared leadership, divine appointment"
+    },
+    "well-of-miriam": {
+      "source": "Talmud Ta'anit 9a",
+      "context": "Midrash - the miraculous well followed Israel for Miriam's merit",
+      "hebrew": "הַבְּאֵר בִּזְכוּת מִרְיָם",
+      "english": "The well was in the merit of Miriam",
+      "mood": "hidden merit, life-giving legacy"
+    }
+  }
+}

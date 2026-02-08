@@ -1,0 +1,49 @@
+{
+  "id": "abel",
+  "name": "Abel",
+  "aliases": ["Hevel"],
+  "quotes": {
+    "keeper-of-sheep": {
+      "source": "Genesis 4:2",
+      "context": "Abel's vocation as shepherd",
+      "hebrew": "וַיְהִי־הֶבֶל רֹעֵה צֹאן",
+      "english": "Abel was a keeper of sheep",
+      "mood": "pastoral, gentle calling"
+    },
+    "firstborn-flock": {
+      "source": "Genesis 4:4",
+      "context": "Abel's offering to God",
+      "hebrew": "וְהֶבֶל הֵבִיא גַם־הוּא מִבְּכֹרוֹת צֹאנוֹ וּמֵחֶלְבֵהֶן",
+      "english": "Abel also brought of the firstborn of his flock and of their fat portions",
+      "mood": "generous offering, the best given"
+    },
+    "god-looked-with-favor": {
+      "source": "Genesis 4:4",
+      "context": "God accepts Abel's offering",
+      "hebrew": "וַיִּשַׁע יְהוָה אֶל־הֶבֶל וְאֶל־מִנְחָתוֹ",
+      "english": "The LORD looked with favor on Abel and his offering",
+      "mood": "divine acceptance, righteous worship"
+    },
+    "blood-cries-out": {
+      "source": "Genesis 4:10",
+      "context": "God confronts Cain after the murder",
+      "hebrew": "קוֹל דְּמֵי אָחִיךָ צֹעֲקִים אֵלַי מִן־הָאֲדָמָה",
+      "english": "The voice of your brother's blood cries out to Me from the ground",
+      "mood": "accusation, witness beyond death"
+    },
+    "righteous-abel": {
+      "source": "Matthew 23:35",
+      "context": "Later tradition calls him righteous",
+      "hebrew": "הֶבֶל הַצַּדִּיק",
+      "english": "Righteous Abel",
+      "mood": "vindicated, remembered as righteous"
+    },
+    "more-excellent-sacrifice": {
+      "source": "Hebrews 11:4",
+      "context": "Abel's offering remembered",
+      "hebrew": "מִנְחָה טוֹבָה מִקַּיִן",
+      "english": "A more excellent sacrifice than Cain",
+      "mood": "faith demonstrated through offering"
+    }
+  }
+}

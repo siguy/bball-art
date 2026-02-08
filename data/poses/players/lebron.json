@@ -7,9 +7,9 @@
     "chalk-toss": {
       "id": "chalk-toss",
       "name": "Chalk Toss",
-      "description": "Pre-game ritual - tossing chalk into the air",
+      "description": "Pre-game ritual - clapping chalk into the air with hands",
       "expression": "intense focus, ritual preparation",
-      "prompt": "standing at scorer's table tossing chalk powder into air - head tilted back, arms raised releasing chalk cloud, eyes closed in moment of preparation, pre-game ritual that signals dominance is coming",
+      "prompt": "standing at scorer's table clapping chalk powder from HANDS into air - HANDS covered in chalk dust clapping together and releasing white powder cloud upward, arms raised above head, looking up at chalk cloud rising, pre-game ritual that signals dominance is coming. NOT blowing chalk - throwing it from HANDS.",
       "energy": "ritual power, the king preparing for battle"
     },
     "tomahawk-dunk": {

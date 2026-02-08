@@ -11,11 +11,12 @@
  * - Side-by-side diptych panels
  * - Byzantine icon aesthetic
  * - Gold leaf backgrounds
- * - Jeweled frame border
+ * - Jeweled frame border with Hebrew scripture
  *
  * PAIRING DATA provides CONTENT (via seriesSpecificData.siblingIcon):
  * - Which figure gets a halo
  * - Panel-specific imagery
+ * - Scripture for the border
  */
 
 export const siblingIconTemplate = {
@@ -43,6 +44,13 @@ export const siblingIconTemplate = {
     const char1Halo = iconConfig.char1Halo ?? (char1.righteous !== false);
     const char2Halo = iconConfig.char2Halo ?? false;
 
+    // Get scripture from iconConfig or fallback
+    const scripture = iconConfig.scripture || null;
+
+    // Hebrew names with vowels
+    const char1Hebrew = char1.hebrewName || null;
+    const char2Hebrew = char2.hebrewName || null;
+
     const prompt = `
 A vertical premium collectible card in 3:4 aspect ratio, styled as a "SIBLING ICON" for the Torah Titans series.
 
@@ -55,6 +63,7 @@ BYZANTINE RELIGIOUS ART: Gold-ground mosaics, illuminated manuscripts, hinged al
 3. Classical religious icon style - formal, frontal or three-quarter poses
 4. Each figure must have exactly TWO ARMS
 5. This is STYLIZED ART for a collectible card, not a photograph
+6. ALL TEXT IS GOLD - names, scripture, everything in burnished gold
 
 === RIVALRY CONTEXT ===
 ${rivalryContext}
@@ -66,13 +75,13 @@ LEFT PANEL: ${char1.name.toUpperCase()}
 - Standing or seated in formal Byzantine icon pose
 - Facing slightly toward center or directly at viewer
 - ${char1Attribute ? `Holding: ${char1Attribute} as a sacred symbol` : 'Hands in blessing or characteristic gesture'}
-${char1Halo ? '- GOLDEN HALO behind head (circular, Byzantine style)' : '- No halo'}
+${char1Halo ? '- GOLDEN HALO behind head (circular, Byzantine style with rays or concentric circles)' : '- No halo'}
 
 RIGHT PANEL: ${char2.name.toUpperCase()}
 - Standing or seated in formal Byzantine icon pose
 - Facing slightly toward center or directly at viewer
 - ${char2Attribute ? `Holding: ${char2Attribute} as a sacred symbol` : 'Hands in gesture or at sides'}
-${char2Halo ? '- GOLDEN HALO behind head (circular, Byzantine style)' : '- No halo'}
+${char2Halo ? '- GOLDEN HALO behind head (circular, Byzantine style with rays or concentric circles)' : '- No halo'}
 
 === FIGURE DESCRIPTIONS ===
 
@@ -91,8 +100,9 @@ ${char2.name.toUpperCase()} (RIGHT PANEL):
 === CENTER DIVIDER (HINGE) ===
 An ornate vertical border between the two panels:
 - Style: Jeweled metalwork like an icon frame
-- Features: Geometric patterns, gemstones
+- Features: Geometric patterns, gemstones in deep blue and crimson
 - Suggests the hinge of a real diptych
+- GOLD filigree patterns throughout
 
 === BACKGROUND ===
 Byzantine GOLD LEAF background for both panels:
@@ -100,21 +110,61 @@ Byzantine GOLD LEAF background for both panels:
 - Subtle MOSAIC TESSERAE TEXTURE (small tile pattern)
 - NO realistic landscape - pure gold icon background
 
-=== BORDER & FRAME ===
-Ornate JEWELED ICON FRAME:
-- Deep blue, crimson, or purple base
-- Gold filigree patterns
+=== BORDER & FRAME WITH HEBREW SCRIPTURE ===
+Ornate JEWELED ICON FRAME with HEBREW SCRIPTURE:
+- Deep blue, crimson, or purple base for the frame
+- GOLD filigree patterns throughout
 - Corner medallions with gemstones
+${scripture ? `
+SCRIPTURE IN GOLD around the frame border:
 
-=== TEXT ELEMENTS ===
-TOP: "TORAH TITANS" in Byzantine-style lettering
-SUBTITLE: "Sibling Icon" below
-LEFT PANEL BOTTOM: "${char1.hebrewName || char1.displayName || char1.name}" in elegant Hebrew/Byzantine lettering
-RIGHT PANEL BOTTOM: "${char2.hebrewName || char2.displayName || char2.name}" in elegant Hebrew/Byzantine lettering
-${char1.hebrewName ? `(Hebrew names: ${char1.hebrewName} and ${char2.hebrewName})` : ''}
+TOP BORDER (horizontal, reading right to left):
+Hebrew text in BURNISHED GOLD: "${scripture.hebrew}"
+- Must include all vowel marks (nikud/נִקּוּד)
+- Elegant Hebrew typography, gold embossed into the frame
+- Text runs along the top edge of the jeweled border
+
+BOTTOM BORDER:
+English translation in GOLD: "${scripture.english}"
+- Clean serif typography in gold
+- Below the main panels
+
+SOURCE CITATION:
+"${scripture.source}" in small gold text at the very bottom
+` : `
+The frame may contain subtle Hebrew letterforms or decorative patterns in gold.
+`}
+=== CHARACTER NAMES IN HEBREW (GOLD) ===
+${char1Hebrew ? `
+LEFT PANEL - HEBREW NAME above or beside the figure:
+"${char1Hebrew}" in elegant GOLD Hebrew lettering
+- Positioned near the top of the left panel or beside the figure
+- Large enough to be prominent
+- Byzantine-style Hebrew letterforms in burnished gold
+` : ''}
+${char2Hebrew ? `
+RIGHT PANEL - HEBREW NAME above or beside the figure:
+"${char2Hebrew}" in elegant GOLD Hebrew lettering
+- Positioned near the top of the right panel or beside the figure
+- Large enough to be prominent
+- Byzantine-style Hebrew letterforms in burnished gold
+` : ''}
+
+=== TEXT ELEMENTS (ALL GOLD) ===
+TOP: "TORAH TITANS" in GOLD Byzantine-style lettering
+SUBTITLE: "Sibling Icon" in gold below
+${char1Hebrew && char2Hebrew ? `
+HEBREW NAMES prominently displayed:
+- "${char1Hebrew}" on left panel in GOLD
+- "${char2Hebrew}" on right panel in GOLD
+` : `
+LEFT PANEL BOTTOM: "${char1.displayName || char1.name}" in gold
+RIGHT PANEL BOTTOM: "${char2.displayName || char2.name}" in gold
+`}
 
 === FINISH ===
 Aged gold leaf with mosaic texture, subtle craquelure, jewel-toned accents.
+All text elements in burnished, luminous GOLD.
 Mood: "Divine judgment rendered", "Sacred, timeless, eternal"
 `.trim();
 
@@ -125,12 +175,14 @@ Mood: "Divine judgment rendered", "Sacred, timeless, eternal"
     const clothing = character.clothing || `${character.visualStyle || 'ancient'} robes and garments`;
     const attribute = character.attributeDescription || character.attribute || "";
     const hasHalo = character.righteous !== false;
+    const hebrewName = character.hebrewName || null;
 
     const prompt = `
 A vertical premium collectible card in 3:4 aspect ratio, styled as a "SIBLING ICON" solo variant.
 
 === DESIGN ===
 Byzantine religious icon - single saint/prophet in gold-ground mosaic style.
+ALL TEXT IN GOLD.
 
 === CHARACTER ===
 ${character.name.toUpperCase()}:
@@ -147,9 +199,10 @@ Rich GOLD LEAF with mosaic tesserae texture.
 === BORDER ===
 Ornate jeweled icon frame in deep blue or crimson with gold filigree.
 
-=== TEXT ===
-TOP: "TORAH TITANS" in Byzantine lettering
-BOTTOM: "${character.displayName || character.name}"
+=== TEXT (ALL GOLD) ===
+TOP: "TORAH TITANS" in gold Byzantine lettering
+${hebrewName ? `HEBREW NAME: "${hebrewName}" prominently in GOLD` : ''}
+BOTTOM: "${character.displayName || character.name}" in gold
 `.trim();
 
     return prompt;

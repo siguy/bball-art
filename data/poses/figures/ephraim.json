@@ -1,0 +1,69 @@
+{
+  "id": "ephraim",
+  "name": "Ephraim",
+  "defaultPose": "receiving-right-hand",
+  "description": "Second son of Joseph, named 'fruitful' because God made Joseph fruitful in affliction. Received Jacob's right-hand blessing though he was younger. 'His younger brother shall be greater.' The blessing given to Jewish sons every Friday night begins with Ephraim.",
+  "poses": {
+    "receiving-right-hand": {
+      "id": "receiving-right-hand",
+      "name": "Receiving the Right Hand",
+      "description": "Jacob's right hand on Ephraim's head - the greater blessing",
+      "expression": "innocent reception, blessed unknowing",
+      "prompt": "young boy kneeling or standing before elderly Jacob - the patriarch's right hand (the hand of greater blessing) placed on his head. Face showing innocent acceptance, not understanding the significance. Light perhaps radiating from the blessing. The younger receiving the greater.",
+      "energy": "divine choice, blessed beyond expectation",
+      "quoteId": "right-hand-blessing"
+    },
+    "with-grandfather": {
+      "id": "with-grandfather",
+      "name": "Before Grandfather Jacob",
+      "description": "Ephraim presented to Jacob for blessing",
+      "expression": "youthful reverence, meeting the patriarch",
+      "prompt": "young boy approaching elderly patriarch Jacob - Egyptian-Hebrew clothing, reverent posture. Joseph nearby, having brought his sons for blessing. Meeting the grandfather who was Israel, receiving blessing from the one who wrestled God.",
+      "energy": "generational blessing, family continuity",
+      "quoteId": null
+    },
+    "crossed-hands-blessing": {
+      "id": "crossed-hands-blessing",
+      "name": "The Crossed Hands",
+      "description": "The moment of Jacob's deliberate crossing - Ephraim's perspective",
+      "expression": "receiving destiny, chosen younger",
+      "prompt": "view from Ephraim's position - Jacob's arms visibly crossed, right hand reaching across to rest on his head. Perhaps slight confusion on young face, or simple trust. The visual of the X-crossing clear. Manasseh beside him receiving the left hand.",
+      "energy": "deliberate reversal, divine choice",
+      "quoteId": "younger-shall-be-greater"
+    },
+    "standing-with-manasseh": {
+      "id": "standing-with-manasseh",
+      "name": "Standing with Brother",
+      "description": "Ephraim and Manasseh together, both blessed",
+      "expression": "brotherly bond, shared blessing",
+      "prompt": "two young brothers standing together after blessing - Ephraim slightly forward or highlighted but Manasseh included with dignity. Both blessed, both loved, both becoming tribes. 'He also shall be great.' Unity despite the distinction.",
+      "energy": "brothers blessed together, unity in difference",
+      "quoteId": "blessing-of-israel"
+    },
+    "fruitful-symbol": {
+      "id": "fruitful-symbol",
+      "name": "Fruitful in Affliction",
+      "description": "Ephraim representing his name's meaning",
+      "expression": "abundant blessing, fruitfulness",
+      "prompt": "young man or symbolic representation with imagery of fruitfulness - grain, vines, abundance. His name means 'God made me fruitful in the land of my affliction.' From Egypt's suffering came Israel's blessing. Perhaps Egypt visible in background, fruitfulness in foreground.",
+      "energy": "fruitfulness from suffering, redemptive abundance",
+      "quoteId": "fruitful-in-affliction"
+    },
+    "rivalry-receiving-blessing": {
+      "id": "rivalry-receiving-blessing",
+      "name": "Rivalry: Receiving the Greater Blessing",
+      "description": "Ephraim receiving Jacob's right hand",
+      "prompt": "Young Ephraim receiving Jacob's right hand on his head, looking up at his grandfather with innocent acceptance. He doesn't understand the significance, but receives the greater blessing. Light radiates from the patriarch's hand. Manasseh visible beside him.",
+      "energy": "Blessing, divine choice, innocent reception",
+      "isRivalryPose": true
+    },
+    "rivalry-set-before": {
+      "id": "rivalry-set-before",
+      "name": "Rivalry: Set Before Manasseh",
+      "description": "Ephraim positioned first in the blessing order",
+      "prompt": "Ephraim standing or positioned slightly before Manasseh — 'He set Ephraim before Manasseh.' Both boys blessed, but the order established. Young faces, perhaps confusion at being rearranged from their natural birth order. Jacob's prophetic knowledge overriding nature.",
+      "energy": "Divine order, younger first, both blessed",
+      "isRivalryPose": true
+    }
+  }
+}

@@ -1,0 +1,86 @@
+{
+  "id": "abel",
+  "name": "Abel",
+  "defaultPose": "offering-firstborn",
+  "description": "First shepherd, first martyr. Keeper of sheep whose offering found favor with God. His blood cried from the ground — the voice that could not be silenced. Gentle where Cain was harsh, giving his best while Cain gave leftovers.",
+  "poses": {
+    "shepherd-with-flock": {
+      "id": "shepherd-with-flock",
+      "name": "Keeper of Sheep",
+      "description": "Abel tending his flock in pastoral peace",
+      "expression": "gentle contentment, at peace with his calling",
+      "prompt": "young shepherd sitting among his flock - gentle face, staff across lap, lambs resting near him, pastoral hillside in soft light. The original shepherd, before the violence. Peace before the storm.",
+      "energy": "pastoral peace, gentle vocation",
+      "quoteId": "keeper-of-sheep"
+    },
+    "offering-firstborn": {
+      "id": "offering-firstborn",
+      "name": "The Accepted Offering",
+      "description": "Abel presenting the firstborn of his flock to God",
+      "expression": "humble reverence, sincere worship",
+      "prompt": "kneeling before rough stone altar - presenting a perfect firstborn lamb, the fat portions visible, smoke rising straight up toward heaven in divine acceptance. Face showing genuine devotion, not performance. The Midrash says he gave his best while Cain gave leftovers.",
+      "energy": "accepted worship, sincere offering",
+      "quoteId": "firstborn-flock"
+    },
+    "smoke-ascending": {
+      "id": "smoke-ascending",
+      "name": "Smoke Rising to Heaven",
+      "description": "The moment of divine acceptance - Abel's smoke rises",
+      "expression": "wonder, divine favor received",
+      "prompt": "standing before altar watching smoke rise straight up - column of white smoke ascending to heaven, divine light touching it from above. Abel's face shows quiet awe. In background or beside him, Cain's smoke disperses and descends. The visual verdict.",
+      "energy": "divine favor, accepted sacrifice",
+      "quoteId": "god-looked-with-favor"
+    },
+    "confronted-by-cain": {
+      "id": "confronted-by-cain",
+      "name": "Confronted in the Field",
+      "description": "Cain leads Abel into the field - the moment before",
+      "expression": "trusting, unaware of danger",
+      "prompt": "walking into an open field with brother - innocent trust on face, following Cain without suspicion. Perhaps looking at the sky or the horizon, not seeing the murder in his brother's eyes. The lamb following the wolf.",
+      "energy": "tragic innocence, trust betrayed",
+      "quoteId": null
+    },
+    "fallen-martyr": {
+      "id": "fallen-martyr",
+      "name": "The First Martyr",
+      "description": "Abel fallen in the field, the first murder victim",
+      "expression": "peaceful in death, or final moment of shock",
+      "prompt": "lying in the field - either the moment of falling with look of shock and betrayal, or already still with peaceful face. Blood beginning to seep into the ground. The first death by violence, the first innocent blood. His shepherd's crook broken nearby.",
+      "energy": "tragic, innocent blood spilled",
+      "quoteId": "blood-cries-out"
+    },
+    "blood-crying-ground": {
+      "id": "blood-crying-ground",
+      "name": "Voice from the Ground",
+      "description": "Abel's blood crying out from the earth - spiritual representation",
+      "expression": "transcendent accusation, witness beyond death",
+      "prompt": "spectral or spiritual form rising from blood-soaked earth - ethereal figure of Abel emerging from the ground, mouth open in cry that reaches heaven. The earth itself red with his blood. Or just the ground pulsing with light, blood pooling and seeming to cry. Voice that cannot be silenced.",
+      "energy": "supernatural witness, accusation from beyond",
+      "quoteId": "blood-cries-out"
+    },
+    "rivalry-offerings": {
+      "id": "rivalry-offerings",
+      "name": "Rivalry: The Offerings",
+      "description": "Abel at his altar, smoke ascending, in contrast to Cain",
+      "prompt": "Abel kneels reverently before a simple stone altar, presenting a perfect firstborn lamb. His face is humble and sincere. Smoke rises straight up from the offering, caught in a beam of divine light. Sheep graze peacefully on pastoral hills behind him. The accepted sacrifice.",
+      "energy": "Sacred, favored, righteous worship",
+      "isRivalryPose": true
+    },
+    "rivalry-murder": {
+      "id": "rivalry-murder",
+      "name": "Rivalry: The Murder",
+      "description": "Abel fallen or defending against Cain's attack",
+      "prompt": "Abel lies fallen in the field, or raises his hands in defense. His shepherd's crook broken beside him. Innocent blood about to soak into the ground. The moment of the first victim. Perhaps looking at Cain with confusion and betrayal rather than anger.",
+      "energy": "Tragic, innocent, first blood",
+      "isRivalryPose": true
+    },
+    "rivalry-crying-ground": {
+      "id": "rivalry-crying-ground",
+      "name": "Rivalry: Blood Crying Out",
+      "description": "Abel represented by blood crying from the earth",
+      "prompt": "Abel is absent physically — represented only by blood seeping into the earth, or by a spectral presence rising from the ground. His voice cries from the earth. The first martyr's blood becomes eternal witness. Red glow from the ground, perhaps ethereal form.",
+      "energy": "Haunting, witnessing, immortal accusation",
+      "isRivalryPose": true
+    }
+  }
+}

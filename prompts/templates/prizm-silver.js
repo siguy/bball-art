@@ -88,11 +88,16 @@ Clean geometric Prizm pattern with:
 - The signature Prizm "shattered glass" light effect
 
 === TEXT ELEMENTS (render exactly as specified) ===
-TOP: Write "PRIZM" in clean modern sans-serif font - silver/chrome with prismatic rainbow edge effect. Centered at top.
+TOP: Write "COURT & COVENANT" in elegant serif font - silver/chrome with prismatic rainbow edge effect. Centered at top. The title should feel like premium trading card branding.
 
-LOGO: Below the title, render the provided "Court & Covenant" logo image in silver with subtle prismatic shimmer. Smaller than the title.
+LOGO: Below the title, render the provided "Court & Covenant" logo image in silver with subtle prismatic shimmer. The logo features a basketball with a Star of David - render it clearly.
 
-BOTTOM: Write "${player.name} & ${figure.displayName}" in clean silver text with subtle prismatic effect. Modern minimalist typography.
+BOTTOM CHARACTER NAMES: Write "${player.name}" and "${figure.displayName}" in STYLIZED DISPLAY TYPOGRAPHY:
+- Names should be in an elegant, bold serif or decorative font
+- Each name in a decorative frame or banner element
+- Silver metallic text with prismatic rainbow shimmer on edges
+- Player name on left side, Biblical figure name on right side (matching their positions)
+- Names should feel like prestigious trading card typography - premium and collectible
 
 === FINISH ===
 Silver prizm finish with rainbow light refraction. Clean, modern, premium parallel card aesthetic. The card should shimmer like a real Prizm Silver parallel.
@@ -164,11 +169,16 @@ Clean geometric Prizm pattern with:
 - The signature Prizm "shattered glass" light effect
 
 === TEXT ELEMENTS (render exactly as specified) ===
-TOP: Write "PRIZM" in clean modern sans-serif font - silver/chrome with prismatic rainbow edge effect. Centered at top.
+TOP: Write "COURT & COVENANT" in elegant serif font - silver/chrome with prismatic rainbow edge effect. Centered at top. The title should feel like premium trading card branding.
 
-LOGO: Below the title, render the provided "Court & Covenant" logo image in silver with subtle prismatic shimmer.
+LOGO: Below the title, render the provided "Court & Covenant" logo image in silver with subtle prismatic shimmer. The logo features a basketball with a Star of David - render it clearly.
 
-BOTTOM: Write "${character.displayName || character.name}" in clean silver text with subtle prismatic effect. Centered at bottom.
+BOTTOM CHARACTER NAME: Write "${character.displayName || character.name}" in STYLIZED DISPLAY TYPOGRAPHY:
+- Name should be in an elegant, bold serif or decorative font
+- Framed in a decorative banner element
+- Silver metallic text with prismatic rainbow shimmer on edges
+- Centered at bottom
+- Should feel like prestigious trading card typography - premium and collectible
 
 === FINISH ===
 Silver prizm finish with rainbow light refraction. Clean, modern, premium parallel card aesthetic. The card should shimmer like a real Prizm Silver parallel.

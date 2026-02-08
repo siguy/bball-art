@@ -2,61 +2,183 @@
   "id": "moses",
   "name": "Moses",
   "defaultPose": "parting-sea",
-  "description": "Greatest prophet, led Israel from Egypt. Received the Torah at Sinai, spoke with God face to face. Staff-wielder, lawgiver, reluctant hero.",
+  "description": "Greatest prophet, led Israel from Egypt. Received the Torah at Sinai, spoke with God face to face. Staff-wielder, lawgiver, reluctant hero. Most humble man on earth, yet wielded divine power. His sister saved him; he prayed for her healing.",
   "poses": {
-    "parting-sea": {
-      "id": "parting-sea",
-      "name": "Parting the Red Sea",
-      "description": "Staff raised, waters dividing before him",
-      "expression": "divine authority, miraculous command",
-      "prompt": "standing with staff raised high - waters of the sea dividing into massive walls on either side, robes and beard blowing in wind, face showing divine authority, the moment of greatest miracle",
-      "energy": "miraculous power, divine authority",
-      "quoteId": "parting-the-sea"
+    "baby-in-basket": {
+      "id": "baby-in-basket",
+      "name": "Baby in the Basket",
+      "description": "Infant Moses floating in the ark of bulrushes",
+      "expression": "innocent, protected, destined",
+      "prompt": "infant in small basket woven of reeds - floating among papyrus reeds at the Nile's edge, calm despite the danger. The ark his mother made, waterproofed with pitch. Perhaps Miriam visible watching from distance, or Pharaoh's daughter approaching. The future deliverer as helpless baby.",
+      "energy": "vulnerable, protected, destined",
+      "quoteId": null
     },
     "burning-bush": {
       "id": "burning-bush",
       "name": "At the Burning Bush",
       "description": "Kneeling before the bush that burns but isn't consumed",
       "expression": "awe, reverence, calling received",
-      "prompt": "kneeling or standing reverently before burning bush - sandals removed, face showing awe and reverence, hand perhaps shielding eyes, the moment of divine calling",
+      "prompt": "kneeling or standing reverently before burning bush - sandals removed on holy ground, face showing awe and reverence, hand perhaps shielding eyes from divine light. The bush burns but is not consumed. 'Moses, Moses... Here I am.' The moment of divine calling.",
       "energy": "divine encounter, humble awe",
       "quoteId": "burning-bush"
+    },
+    "who-am-i": {
+      "id": "who-am-i",
+      "name": "Who Am I",
+      "description": "Moses' humble protest at being called",
+      "expression": "humble reluctance, unlikely hero",
+      "prompt": "gesturing with hands spread in protest - face showing genuine humility and reluctance. 'Who am I that I should go to Pharaoh?' The shepherd who didn't want to be a prophet. Burning bush still visible behind him.",
+      "energy": "humble reluctance, divine calling resisted",
+      "quoteId": "who-am-i"
+    },
+    "staff-to-serpent": {
+      "id": "staff-to-serpent",
+      "name": "Staff Becoming Serpent",
+      "description": "Moses' staff transformed into a serpent",
+      "expression": "demonstration of power, first sign",
+      "prompt": "throwing down staff or watching it transform - the wooden staff becoming a living serpent on the ground. Face perhaps showing initial fear (he fled from it) or later confidence before Pharaoh. The first sign that would convince Israel.",
+      "energy": "miraculous transformation, divine power channeled",
+      "quoteId": null
     },
     "confronting-pharaoh": {
       "id": "confronting-pharaoh",
       "name": "Confronting Pharaoh",
       "description": "Standing before Pharaoh, demanding freedom",
       "expression": "bold authority, prophetic demand",
-      "prompt": "standing boldly before throne - staff in hand, pointing or gesturing commandingly, 'Let my people go' on his lips, the shepherd who became prophet confronting the most powerful king",
+      "prompt": "standing boldly before throne - staff in hand, pointing or gesturing commandingly, 'Let my people go' on his lips. The shepherd who became prophet confronting the most powerful king on earth. Aaron perhaps beside him. Egyptian court visible.",
       "energy": "prophetic boldness, speaking truth to power",
       "quoteId": "let-my-people-go"
+    },
+    "parting-sea": {
+      "id": "parting-sea",
+      "name": "Parting the Red Sea",
+      "description": "Staff raised, waters dividing before him",
+      "expression": "divine authority, miraculous command",
+      "prompt": "standing with staff raised high - waters of the sea dividing into massive walls on either side, robes and beard blowing in fierce wind, face showing divine authority. The moment of Israel's greatest deliverance. Egypt behind, freedom ahead.",
+      "energy": "miraculous power, divine authority",
+      "quoteId": "parting-the-sea"
+    },
+    "song-at-sea": {
+      "id": "song-at-sea",
+      "name": "Song at the Sea",
+      "description": "Moses leading Israel in song after the crossing",
+      "expression": "triumphant worship, praise",
+      "prompt": "leading the people in song - arms raised, mouth open in praise, the drowned army of Egypt visible in the distance. 'I will sing to the LORD, for He has triumphed gloriously!' The men singing while Miriam leads the women with timbrel.",
+      "energy": "triumphant praise, communal worship",
+      "quoteId": null
+    },
+    "hands-at-amalek": {
+      "id": "hands-at-amalek",
+      "name": "Hands Raised at Amalek",
+      "description": "Moses with hands raised during battle, Aaron and Hur supporting",
+      "expression": "intercession through exhaustion",
+      "prompt": "sitting on stone with hands raised toward heaven - Aaron and Hur supporting his tired arms on either side. When his hands were up, Israel prevailed; when down, Amalek. Face showing holy exhaustion, battle raging below.",
+      "energy": "intercession, communal support, warfare through prayer",
+      "quoteId": null
     },
     "tablets-raised": {
       "id": "tablets-raised",
       "name": "Holding the Tablets",
       "description": "Descending Sinai with the tablets of the Law",
       "expression": "radiant face, carrying covenant",
-      "prompt": "descending mountain carrying two stone tablets - face perhaps glowing, tablets showing Hebrew text, bringing the covenant to the people, the weight of divine law",
+      "prompt": "descending mountain carrying two stone tablets - face glowing with divine radiance (karan or panim), tablets showing Hebrew text. Bringing the covenant to the people. The weight of God's Law in human hands.",
       "energy": "covenant carrier, divine radiance",
       "quoteId": "ten-commandments"
+    },
+    "breaking-tablets": {
+      "id": "breaking-tablets",
+      "name": "Breaking the Tablets",
+      "description": "Smashing the tablets at the sight of the golden calf",
+      "expression": "righteous fury, covenant shattered",
+      "prompt": "throwing down stone tablets - tablets shattering on rocks, face contorted with fury and grief at the sight of the golden calf. Israel dancing around idol below. The covenant broken before it was delivered.",
+      "energy": "righteous rage, covenant violation",
+      "quoteId": null
+    },
+    "face-veiled": {
+      "id": "face-veiled",
+      "name": "Radiant Face Veiled",
+      "description": "Moses wearing veil because his face was too radiant",
+      "expression": "humble concealment, divine residue",
+      "prompt": "wearing veil over face - the radiance from speaking with God too intense for people to bear. Perhaps removing or replacing the veil. The mark of intimacy with God that had to be hidden.",
+      "energy": "divine intimacy, reflected glory",
+      "quoteId": "face-to-face"
+    },
+    "most-humble-man": {
+      "id": "most-humble-man",
+      "name": "The Most Humble Man",
+      "description": "Moses embodying his defining characteristic",
+      "expression": "profound humility, not defending himself",
+      "prompt": "posture of humility - perhaps head bowed, hands open rather than clenched. 'Now the man Moses was very humble, more than any person on the face of the earth.' Not weak but choosing not to self-defend. Strength in lowliness.",
+      "energy": "profound humility, strength in meekness",
+      "quoteId": null
     },
     "striking-rock": {
       "id": "striking-rock",
       "name": "Striking the Rock",
       "description": "Staff striking rock for water in the wilderness",
       "expression": "frustrated power, water flowing",
-      "prompt": "striking rock with staff - water gushing forth, face showing mix of frustration and power, the miracle that cost him the Promised Land, provision with consequences",
+      "prompt": "striking rock with staff in frustration - water gushing forth, face showing anger at the people's complaints. 'Hear now, you rebels!' The miracle that cost him the Promised Land. Power misused in frustration.",
       "energy": "frustrated provision, costly miracle",
       "quoteId": "not-enter-land"
+    },
+    "praying-for-miriam": {
+      "id": "praying-for-miriam",
+      "name": "Praying for Miriam",
+      "description": "Moses' desperate prayer for his stricken sister",
+      "expression": "anguished intercession, brotherly love",
+      "prompt": "hands raised toward heaven, face anguished - crying out the shortest, most powerful prayer: 'אֵל נָא רְפָא נָא לָהּ - Please God, heal her please!' Just five Hebrew words. Miriam stricken in background. The brother praying for the sister who once saved him.",
+      "energy": "desperate intercession, love overcoming offense",
+      "quoteId": null
     },
     "overlooking-promised-land": {
       "id": "overlooking-promised-land",
       "name": "Viewing the Promised Land",
       "description": "On Mount Nebo, seeing the land he cannot enter",
       "expression": "bittersweet completion, satisfied longing",
-      "prompt": "standing on mountaintop gazing at distant land - elderly but strong, staff in hand, seeing the fulfillment of the journey he cannot complete, satisfied yet longing",
+      "prompt": "standing on mountaintop gazing at distant land - elderly but strong, staff in hand, seeing the fulfillment of the journey he cannot complete. 'I have let you see it with your eyes, but you shall not cross over there.' Satisfied yet longing.",
       "energy": "bittersweet completion, faithful finish",
       "quoteId": "not-enter-land"
+    },
+    "death-by-kiss": {
+      "id": "death-by-kiss",
+      "name": "Death by Divine Kiss",
+      "description": "Moses' death - by God's kiss, tradition says",
+      "expression": "peaceful surrender, unique death",
+      "prompt": "lying at peace or kneeling in final surrender - the tradition says Moses died by a divine kiss, 'על פי ה - by the mouth of the LORD.' Alone on Nebo, no one buried him but God. Face utterly peaceful. 120 years old, eye not dim.",
+      "energy": "peaceful death, divine intimacy to the end",
+      "quoteId": "face-to-face"
+    },
+    "rivalry-baby-basket": {
+      "id": "rivalry-baby-basket",
+      "name": "Rivalry: Baby in the Basket",
+      "description": "Infant Moses in the Nile, Miriam watching",
+      "prompt": "Baby Moses floating in a basket among the reeds, or being lifted out by Pharaoh's daughter. Miriam visible watching from the papyrus, or boldly approaching to offer help. The future deliverer as helpless infant, saved by his sister's vigilance and quick thinking.",
+      "energy": "Origin of their bond, sister saving brother",
+      "isRivalryPose": true
+    },
+    "rivalry-song-at-sea": {
+      "id": "rivalry-song-at-sea",
+      "name": "Rivalry: Song at the Sea",
+      "description": "Moses leading men's song parallel to Miriam's women's song",
+      "prompt": "Moses with arms raised leading Israel in song, mouth open in praise. In parallel or visible nearby, Miriam leads the women with her timbrel. Two siblings, two songs, one deliverance. 'I will sing to the LORD!' and 'Sing to the LORD!' Echo and response.",
+      "energy": "Parallel leadership, shared triumph, siblings celebrating",
+      "isRivalryPose": true
+    },
+    "rivalry-not-defending": {
+      "id": "rivalry-not-defending",
+      "name": "Rivalry: Not Defending Himself",
+      "description": "Moses silent as Miriam challenges his authority",
+      "prompt": "Moses standing silent, humble, not defending himself against Miriam and Aaron's challenge. 'Has the LORD spoken only through Moses?' He does not respond — the most humble man lets God answer. Dignified restraint, strength in silence.",
+      "energy": "Humility, not self-defending, letting God vindicate",
+      "isRivalryPose": true
+    },
+    "rivalry-praying-healing": {
+      "id": "rivalry-praying-healing",
+      "name": "Rivalry: Praying for Healing",
+      "description": "Moses interceding for stricken Miriam",
+      "prompt": "Moses with hands raised in prayer, face anguished for his sister. Crying out: 'Please God, heal her please!' The shortest prayer, the deepest love. Miriam visible, stricken white, waiting outside the camp. The brother she saved now saves her through intercession.",
+      "energy": "Intercessory love, healing, full circle",
+      "isRivalryPose": true
     }
   }
 }

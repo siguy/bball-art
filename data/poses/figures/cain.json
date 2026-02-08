@@ -2,7 +2,7 @@
   "id": "cain",
   "name": "Cain",
   "defaultPose": "offering-ground",
-  "description": "A muscular, rugged man with weathered skin and a determined, somewhat resentful gaze. Clothed in rough-hewn garments of animal hide. His hands are calloused and strong from working the land.",
+  "description": "First son born to humanity, first murderer. Tiller of the ground whose offering was rejected while Abel's was accepted. Killed his brother in the field, cried 'Am I my brother's keeper?', and was marked by God to wander but not be killed. Built the first city.",
   "attribute": "Agricultural Tools",
   "attributeDescription": "A simple hoe or sickle, representative of his work as a farmer, often stained with earth.",
   "visualStyle": "Realist painting style with earthy tones and strong chiaroscuro.",
@@ -11,56 +11,133 @@
     "offering-ground": {
       "id": "offering-ground",
       "name": "Offering from the Ground",
-      "description": "Presenting his offering of produce to God.",
-      "expression": "Resentful, a hint of defiance.",
-      "prompt": "Kneeling before an altar of rough stones, offering a selection of fruits and vegetables. Face showing resentment and barely concealed anger. The altar is plain, the offering appearing less impressive than Abel's offering of livestock in the background.",
-      "energy": "Jealousy, resentment, unaccepted",
+      "description": "Presenting his offering of produce to God",
+      "expression": "resentful, a hint of defiance",
+      "prompt": "kneeling before altar of rough stones - offering selection of fruits and vegetables. Face showing resentment and barely concealed anger at the knowledge that Abel's offering will be preferred. The Midrash says Cain offered leftovers while Abel offered firstborn. Smoke dispersing, not rising.",
+      "energy": "jealousy, resentment, unaccepted",
       "quoteId": "unaccepted-offering"
+    },
+    "smoke-descending": {
+      "id": "smoke-descending",
+      "name": "Smoke Descending",
+      "description": "The moment of rejection - Cain's smoke disperses",
+      "expression": "dawning fury, rejection hitting",
+      "prompt": "standing before altar watching smoke disperse and descend - while in background or beside him, Abel's smoke rises straight to heaven. Face falling, fury beginning to build. 'The LORD looked with favor on Abel and his offering, but on Cain and his offering He did not look.'",
+      "energy": "rejection, jealousy igniting",
+      "quoteId": null
     },
     "brooding-anger": {
       "id": "brooding-anger",
       "name": "Brooding Anger",
-      "description": "Consumed by anger after his offering is rejected.",
-      "expression": "Dark rage, simmering jealousy.",
-      "prompt": "Standing in a field, head bowed, fists clenched, a dark storm brewing overhead. Eyes cast downwards, radiating barely-contained fury. The field appears dry and barren.",
+      "description": "Consumed by anger after his offering is rejected",
+      "expression": "dark rage, simmering jealousy",
+      "prompt": "standing in field with head bowed - fists clenched, dark clouds gathering overhead echoing his mood. Eyes cast down, radiating barely-contained fury. 'Why are you angry? Why has your countenance fallen?' But Cain does not master sin crouching at the door.",
       "energy": "simmering rage, intense jealousy",
       "quoteId": "face-fallen"
+    },
+    "sin-at-door": {
+      "id": "sin-at-door",
+      "name": "Sin Crouching at the Door",
+      "description": "The moment of God's warning to Cain",
+      "expression": "hearing the warning, not heeding it",
+      "prompt": "perhaps seeing a demon-like shadow crouching at a doorway or at his feet - 'sin crouches at the door; its desire is for you, but you must rule over it.' Face showing he hears but will not listen. The last warning before murder.",
+      "energy": "divine warning unheeded, choice point",
+      "quoteId": null
     },
     "fratricide": {
       "id": "fratricide",
       "name": "The First Murder",
-      "description": "Standing over his fallen brother, Abel.",
-      "expression": "Shock, horror, dawning realization.",
-      "prompt": "Standing over Abel's lifeless body in a field, holding a rock or crude club. Face showing shock and a dawning horror at the consequences of his actions. The sky is a bruised purple, reflecting the violence.",
-      "energy": "Guilt, devastation, irreversible action",
+      "description": "Standing over his fallen brother Abel",
+      "expression": "shock, horror, dawning realization",
+      "prompt": "standing over Abel's lifeless body in field - holding rock or crude weapon, face showing shock and dawning horror at consequences. 'Cain rose up against Abel his brother and killed him.' The first blood spilled by human hand. Sky bruised purple reflecting violence.",
+      "energy": "guilt, devastation, irreversible action",
+      "quoteId": "am-i-my-brothers-keeper"
+    },
+    "brothers-keeper": {
+      "id": "brothers-keeper",
+      "name": "Am I My Brother's Keeper",
+      "description": "Cain's defiant answer to God",
+      "expression": "defiant evasion, lying to God",
+      "prompt": "standing with arms spread in denial or accusation - 'Where is Abel your brother?' 'I do not know; am I my brother's keeper?' Face showing defiance rather than repentance. Trying to hide from the One who sees all.",
+      "energy": "defiant, evasive, the first lie about murder",
       "quoteId": "am-i-my-brothers-keeper"
     },
     "cursed-earth": {
       "id": "cursed-earth",
       "name": "Cursed from the Earth",
-      "description": "Receiving God's curse after killing Abel.",
-      "expression": "Despair, anguish, understanding the weight of his sin.",
-      "prompt": "Kneeling before a divine light emanating from the heavens, hands raised in supplication. Face etched with despair and the understanding of the enormity of his sin. The ground beneath him appears barren and cracked.",
-      "energy": "Divine judgment, utter despair",
+      "description": "Receiving God's curse after killing Abel",
+      "expression": "despair, anguish, understanding the weight of sin",
+      "prompt": "kneeling or cowering before divine presence - hands raised in supplication, face etched with despair. 'The voice of your brother's blood cries out to Me from the ground.' The ground beneath cracked and barren. Cursed to be unable to farm.",
+      "energy": "divine judgment, utter despair",
       "quoteId": "cursed-from-the-earth"
+    },
+    "my-punishment-too-great": {
+      "id": "my-punishment-too-great",
+      "name": "My Punishment Is Too Great",
+      "description": "Cain's cry of despair at his sentence",
+      "expression": "overwhelming despair, fear of death",
+      "prompt": "face raised to heaven in anguish - 'My punishment is too great to bear! Anyone who finds me will kill me!' Fear of being killed mixed with the weight of exile. The murderer fears being murdered.",
+      "energy": "despair, fear, ironic plea",
+      "quoteId": null
+    },
+    "marked-by-god": {
+      "id": "marked-by-god",
+      "name": "The Mark of Cain",
+      "description": "Receiving the divine mark of protection",
+      "expression": "marked, protected despite guilt",
+      "prompt": "standing with visible mark on forehead or body - divine light touching him, marking him. 'The LORD set a mark upon Cain, lest anyone finding him should kill him.' Protected from vengeance, yet branded forever. The strange mercy to a murderer.",
+      "energy": "divine mercy to the guilty, marked forever",
+      "quoteId": null
     },
     "wandering-nomad": {
       "id": "wandering-nomad",
       "name": "Wandering Nomad",
-      "description": "Wandering the earth as a fugitive.",
-      "expression": "Weariness, isolation, a haunted look.",
-      "prompt": "Walking alone across a desolate landscape, carrying a meager bundle on his back. Face weathered and etched with weariness and a haunted look. The landscape stretches endlessly behind him, conveying a sense of unending exile.",
-      "energy": "Exile, loneliness, perpetual wandering",
+      "description": "Wandering the earth as a fugitive",
+      "expression": "weariness, isolation, haunted look",
+      "prompt": "walking alone across desolate landscape - carrying meager bundle, face weathered and haunted. 'A fugitive and a wanderer you shall be on the earth.' Endless horizon behind him, no home. The land of Nod — the land of wandering.",
+      "energy": "exile, loneliness, perpetual wandering",
       "quoteId": "restless-wanderer"
     },
     "building-city": {
       "id": "building-city",
       "name": "Builder of Enoch",
-      "description": "Overseeing the construction of the city Enoch.",
-      "expression": "Stoic, hardened, a mixture of pride and regret.",
-      "prompt": "Standing amidst the early construction of a walled city, overseeing the laborers. Face stoic and hardened, a hint of pride mixed with deep regret evident in his eyes. He looks like someone trying to start over, burdened by the past.",
-      "energy": "Endeavor, burdened, conflicted",
+      "description": "Overseeing the construction of the city Enoch",
+      "expression": "stoic, hardened, mixture of pride and regret",
+      "prompt": "standing amidst early construction of walled city - overseeing laborers, face stoic and hardened. Named it after his son Enoch. Pride mixed with regret — the wanderer trying to build permanence, the murderer trying to create civilization.",
+      "energy": "endeavor, burdened, conflicted legacy",
       "quoteId": "city-enoch"
+    },
+    "rivalry-offerings": {
+      "id": "rivalry-offerings",
+      "name": "Rivalry: The Offerings",
+      "description": "Cain at his altar, smoke descending, rejected",
+      "prompt": "Cain stands stiffly before his altar, presenting grain and fruit. His face shows resentment and barely concealed anger. Smoke disperses and descends, rejected. The cultivated field stretches behind him. In contrast to Abel's ascending smoke visible nearby.",
+      "energy": "Rejected, jealous, the offering not accepted",
+      "isRivalryPose": true
+    },
+    "rivalry-murder": {
+      "id": "rivalry-murder",
+      "name": "Rivalry: The Murder",
+      "description": "Cain raising weapon against Abel",
+      "prompt": "Cain raises a rock or weapon above his head, face contorted with jealous rage. The culmination of his festering resentment. About to commit the first murder. Abel perhaps visible, defending or already fallen. The field, the moment, the irreversible act.",
+      "energy": "Violent, tragic, first blood",
+      "isRivalryPose": true
+    },
+    "rivalry-blood-ground": {
+      "id": "rivalry-blood-ground",
+      "name": "Rivalry: Blood from the Ground",
+      "description": "Cain confronted by Abel's blood crying from earth",
+      "prompt": "Cain stands alone, looking at his bloodied hands with dawning horror. The earth beneath his feet seems to pulse or glow red. He cannot escape what he has done. 'The voice of your brother's blood cries out to Me from the ground.' The witness that won't be silenced.",
+      "energy": "Haunting, guilt, divine witness",
+      "isRivalryPose": true
+    },
+    "rivalry-the-mark": {
+      "id": "rivalry-the-mark",
+      "name": "Rivalry: The Mark",
+      "description": "Cain marked by God, departing into exile",
+      "prompt": "Cain walking away into the wilderness, the mark visible on him. The land of Nod ahead — the land of wandering. Protected from death but exiled from presence. Abel's memory behind him, the ground that won't yield for him beneath his feet.",
+      "energy": "Exile, marked, protected yet cursed",
+      "isRivalryPose": true
     }
   }
 }

@@ -1,0 +1,56 @@
+{
+  "id": "manasseh",
+  "name": "Manasseh",
+  "aliases": ["Menashe", "First Son of Joseph"],
+  "quotes": {
+    "made-me-forget": {
+      "source": "Genesis 41:51",
+      "context": "Joseph names his firstborn",
+      "hebrew": "וַיִּקְרָא יוֹסֵף אֶת־שֵׁם הַבְּכוֹר מְנַשֶּׁה כִּי־נַשַּׁנִי אֱלֹהִים אֶת־כָּל־עֲמָלִי וְאֵת כָּל־בֵּית אָבִי",
+      "english": "Joseph named the firstborn Manasseh: 'For God has made me forget all my hardship and all my father's house'",
+      "mood": "healing from trauma, new beginning"
+    },
+    "the-firstborn": {
+      "source": "Genesis 48:14",
+      "context": "Manasseh's status as firstborn",
+      "hebrew": "שִׂכֵּל אֶת־יָדָיו כִּי מְנַשֶּׁה הַבְּכוֹר",
+      "english": "He crossed his hands, for Manasseh was the firstborn",
+      "mood": "birthright acknowledged yet bypassed"
+    },
+    "left-hand-blessing": {
+      "source": "Genesis 48:14",
+      "context": "Jacob's left hand on Manasseh",
+      "hebrew": "וְאֶת־שְׂמֹאלוֹ עַל־רֹאשׁ מְנַשֶּׁה",
+      "english": "And his left hand on Manasseh's head",
+      "mood": "lesser blessing, still blessed"
+    },
+    "not-so-father": {
+      "source": "Genesis 48:18",
+      "context": "Joseph tries to correct Jacob",
+      "hebrew": "לֹא־כֵן אָבִי כִּי־זֶה הַבְּכֹר שִׂים יְמִינְךָ עַל־רֹאשׁוֹ",
+      "english": "Not so, my father, for this one is the firstborn; put your right hand on his head",
+      "mood": "natural order defended"
+    },
+    "he-also-shall-be-great": {
+      "source": "Genesis 48:19",
+      "context": "Jacob's promise to Manasseh",
+      "hebrew": "גַּם־הוּא יִהְיֶה־לְּעָם וְגַם־הוּא יִגְדָּל",
+      "english": "He also shall become a people, and he also shall be great",
+      "mood": "consolation, still blessed though second"
+    },
+    "i-know-my-son": {
+      "source": "Genesis 48:19",
+      "context": "Jacob's response to Joseph's protest",
+      "hebrew": "יָדַעְתִּי בְנִי יָדַעְתִּי",
+      "english": "I know, my son, I know",
+      "mood": "prophetic certainty, deliberate choice"
+    },
+    "tribe-of-manasseh": {
+      "source": "Numbers 1:35",
+      "context": "Manasseh's descendants numbered",
+      "hebrew": "לְמַטֵּה מְנַשֶּׁה",
+      "english": "Of the tribe of Manasseh",
+      "mood": "fulfilled promise, great tribe"
+    }
+  }
+}

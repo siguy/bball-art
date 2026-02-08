@@ -1,0 +1,49 @@
+{
+  "id": "ephraim",
+  "name": "Ephraim",
+  "aliases": ["Efrayim", "Second Son of Joseph"],
+  "quotes": {
+    "fruitful-in-affliction": {
+      "source": "Genesis 41:52",
+      "context": "Joseph names his second son",
+      "hebrew": "וְאֵת שֵׁם הַשֵּׁנִי קָרָא אֶפְרָיִם כִּי־הִפְרַנִי אֱלֹהִים בְּאֶרֶץ עָנְיִי",
+      "english": "The second he named Ephraim: 'For God has made me fruitful in the land of my affliction'",
+      "mood": "fruitfulness from suffering, redemption"
+    },
+    "right-hand-blessing": {
+      "source": "Genesis 48:14",
+      "context": "Jacob places his right hand on Ephraim",
+      "hebrew": "וַיִּשְׁלַח יִשְׂרָאֵל אֶת־יְמִינוֹ וַיָּשֶׁת עַל־רֹאשׁ אֶפְרַיִם וְהוּא הַצָּעִיר",
+      "english": "Israel stretched out his right hand and laid it on Ephraim's head, though he was the younger",
+      "mood": "divine choice, younger elevated"
+    },
+    "younger-shall-be-greater": {
+      "source": "Genesis 48:19",
+      "context": "Jacob's prophecy about Ephraim",
+      "hebrew": "וְאוּלָם אָחִיו הַקָּטֹן יִגְדַּל מִמֶּנּוּ וְזַרְעוֹ יִהְיֶה מְלֹא־הַגּוֹיִם",
+      "english": "But truly his younger brother shall be greater than he, and his offspring shall become a multitude of nations",
+      "mood": "prophetic destiny, greater from lesser"
+    },
+    "blessing-of-israel": {
+      "source": "Genesis 48:20",
+      "context": "The blessing that became tradition",
+      "hebrew": "בְּךָ יְבָרֵךְ יִשְׂרָאֵל לֵאמֹר יְשִׂמְךָ אֱלֹהִים כְּאֶפְרַיִם וְכִמְנַשֶּׁה",
+      "english": "By you Israel will pronounce blessings, saying: 'God make you like Ephraim and Manasseh'",
+      "mood": "eternal blessing, Friday night tradition"
+    },
+    "ephraim-before-manasseh": {
+      "source": "Genesis 48:20",
+      "context": "The order established",
+      "hebrew": "וַיָּשֶׂם אֶת־אֶפְרַיִם לִפְנֵי מְנַשֶּׁה",
+      "english": "Thus he set Ephraim before Manasseh",
+      "mood": "divine order, younger first"
+    },
+    "ephraim-my-firstborn": {
+      "source": "Jeremiah 31:9",
+      "context": "God calls Ephraim His firstborn (prophetically)",
+      "hebrew": "כִּי־הָיִיתִי לְיִשְׂרָאֵל לְאָב וְאֶפְרַיִם בְּכֹרִי הוּא",
+      "english": "For I am a father to Israel, and Ephraim is My firstborn",
+      "mood": "divine adoption, spiritual primacy"
+    }
+  }
+}

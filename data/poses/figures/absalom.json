@@ -1,0 +1,66 @@
+{
+  "id": "absalom",
+  "name": "Absalom",
+  "defaultPose": "hanging-by-hair",
+  "description": "Remarkably handsome prince, known for his flowing hair. Driven by ambition and resentment, he orchestrates a rebellion against his father, King David. Ultimately defeated and killed in a tragic end.",
+  "attribute": "His Hair",
+  "attributeDescription": "Thick, long, and beautiful hair, so heavy it had to be cut annually and weighed over 200 shekels. A symbol of his vanity and, ironically, the instrument of his downfall.",
+  "visualStyle": "Renaissance painting, dramatic lighting, emphasis on beauty and tragedy.",
+  "clothing": "Royal garments befitting a prince, including fine linen robes, a gold belt, and possibly armor reflecting his role as a military leader.",
+  "poses": {
+    "plotting-rebellion": {
+      "id": "plotting-rebellion",
+      "name": "Plotting Rebellion",
+      "description": "Absalom conspiring with advisors to undermine King David's authority.",
+      "expression": "calculating, ambitious, resentful",
+      "prompt": "Absalom seated at a table with advisors, whispering conspiratorially. Candles illuminating the scene, casting shadows on his face. Maps of Israel spread out before them. A sense of intrigue and impending betrayal fills the air.",
+      "energy": "scheming, power-hungry, treacherous",
+      "quoteId": "steal-hearts"
+    },
+    "judging-at-gate": {
+      "id": "judging-at-gate",
+      "name": "Judging at the Gate",
+      "description": "Absalom offering judgment and false promises at the city gate, stealing the hearts of the people.",
+      "expression": "charismatic, deceptive, charming",
+      "prompt": "Absalom standing at the city gate, surrounded by people seeking justice. He smiles and offers them flattering words and promises of a better future. His hand outstretched, greeting a citizen. David’s loyal subjects looking suspicious in the background.",
+      "energy": "seductive, manipulative, populist",
+      "quoteId": "no-justice"
+    },
+    "raising-standard": {
+      "id": "raising-standard",
+      "name": "Raising the Standard",
+      "description": "Absalom declaring himself king in Hebron and beginning his revolt.",
+      "expression": "triumphant, defiant, rebellious",
+      "prompt": "Absalom standing on a platform in Hebron, raising a banner with his emblem. Soldiers and supporters cheering him on. Trumpets blaring. The city in a state of excitement and anticipation. A sense of impending civil war.",
+      "energy": "rebellious, defiant, audacious",
+      "quoteId": "king-in-hebron"
+    },
+    "battle-ephraim-wood": {
+      "id": "battle-ephraim-wood",
+      "name": "Battle in Ephraim Wood",
+      "description": "Absalom leading his forces in battle against David's army in the forest of Ephraim.",
+      "expression": "determined, desperate, fearful",
+      "prompt": "Absalom riding a mule through a dense forest, leading his troops into battle. Arrows flying and swords clashing. His face shows a mixture of determination and fear as he realizes the tide is turning against him.",
+      "energy": "frantic, desperate, chaotic",
+      "quoteId": null
+    },
+    "hanging-by-hair": {
+      "id": "hanging-by-hair",
+      "name": "Hanging by His Hair",
+      "description": "Absalom caught by his hair in a tree during the battle, suspended between heaven and earth.",
+      "expression": "helpless, vulnerable, ironic",
+      "prompt": "Absalom's long, flowing hair tangled in the branches of a large oak tree. He hangs suspended in mid-air, his body limp and defeated. The mule he was riding has run off. Sunlight dappling through the leaves, highlighting the tragic irony of his situation.",
+      "energy": "stuck, vulnerable, tragic",
+      "quoteId": "hair-curse"
+    },
+    "joab-killing-absalom": {
+      "id": "joab-killing-absalom",
+      "name": "Joab Killing Absalom",
+      "description": "Joab thrusting spears into Absalom while he is hanging helpless in the tree.",
+      "expression": "shocked, betrayed, dying",
+      "prompt": "Absalom hanging from the tree, his eyes wide with shock and betrayal. Joab standing below him, thrusting spears into his heart. The scene is brutal and swift. The life fading from Absalom's face.",
+      "energy": "violent, decisive, fatal",
+      "quoteId": null
+    }
+  }
+}

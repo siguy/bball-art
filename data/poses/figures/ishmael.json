@@ -1,0 +1,95 @@
+{
+  "id": "ishmael",
+  "name": "Ishmael",
+  "defaultPose": "archer-wilderness",
+  "description": "Firstborn of Abraham through Hagar, cast out but blessed. 'God hears' — his name fulfilled when God saved him in the wilderness. Wild donkey of a man, hand against all, yet father of twelve princes. Reconciled with Isaac at Abraham's grave.",
+  "poses": {
+    "archer-wilderness": {
+      "id": "archer-wilderness",
+      "name": "Archer in the Wilderness",
+      "description": "Ishmael as skilled archer in the desert of Paran",
+      "expression": "fierce independence, wilderness mastery",
+      "prompt": "powerful archer in desert landscape - bow drawn, arrow nocked, eyes scanning the horizon. Muscular build from wilderness life, wearing rough desert garments. The wild donkey of a man in his element. Master of the bow, lord of the desert.",
+      "energy": "wild freedom, deadly skill",
+      "quoteId": "became-archer"
+    },
+    "wild-donkey-man": {
+      "id": "wild-donkey-man",
+      "name": "Wild Donkey of a Man",
+      "description": "Ishmael embodying the angel's prophecy - untamed, free",
+      "expression": "fierce independence, unbowed spirit",
+      "prompt": "standing on desert ridge with wind in hair - wild, untamed appearance, defiant posture. Perhaps wild donkeys visible in background. 'His hand against everyone, everyone's hand against him' — but unbowed. The prophecy made flesh.",
+      "energy": "wild, untamed, perpetual outsider",
+      "quoteId": "wild-donkey-of-man"
+    },
+    "crying-under-bush": {
+      "id": "crying-under-bush",
+      "name": "Crying Under the Bush",
+      "description": "Young Ishmael dying of thirst, cast under the shrub",
+      "expression": "desperation, abandoned, crying out",
+      "prompt": "young boy lying under desert shrub - parched, weak from thirst, crying. Hagar visible in distance with hands over her face, unable to watch him die. The water gone, hope gone. But God hears.",
+      "energy": "desperate, abandoned, but heard by God",
+      "quoteId": "god-heard-the-boy"
+    },
+    "well-appearing": {
+      "id": "well-appearing",
+      "name": "The Well Appears",
+      "description": "The moment of salvation - God opens their eyes to see water",
+      "expression": "shocked hope, salvation dawning",
+      "prompt": "young Ishmael or Hagar seeing the well appear - eyes wide with sudden hope, reaching toward water. Desert well revealed by divine providence. 'God opened her eyes and she saw a well of water.' Salvation in the wilderness.",
+      "energy": "miraculous provision, life from death",
+      "quoteId": "god-heard-the-boy"
+    },
+    "banished-walking": {
+      "id": "banished-walking",
+      "name": "Walking into Exile",
+      "description": "Young Ishmael leaving Abraham's camp with Hagar",
+      "expression": "confusion, hurt, looking back",
+      "prompt": "young boy walking into wilderness with mother - carrying a waterskin, looking back at the tents of Abraham's camp. Hagar beside him, face set toward the unknown. The firstborn cast out. Morning light, long shadows.",
+      "energy": "exile, painful departure, uncertain future",
+      "quoteId": null
+    },
+    "father-of-princes": {
+      "id": "father-of-princes",
+      "name": "Father of Twelve Princes",
+      "description": "Ishmael as patriarch of a great nation",
+      "expression": "fulfilled destiny, dignified authority",
+      "prompt": "mature patriarch surrounded by symbols of his twelve sons - tribal banners, a great encampment stretching behind him. The promise fulfilled: 'I will make him a great nation.' Desert king, father of princes.",
+      "energy": "fulfilled promise, desert royalty",
+      "quoteId": "twelve-princes"
+    },
+    "burying-abraham": {
+      "id": "burying-abraham",
+      "name": "Burying Abraham",
+      "description": "Ishmael and Isaac together at their father's grave",
+      "expression": "grief, reconciliation, shared duty",
+      "prompt": "standing beside Isaac at the cave of Machpelah - both carrying their father Abraham to burial. Years of separation dissolved in shared grief. The wild son returned for this sacred duty. Perhaps their eyes meeting in understanding.",
+      "energy": "reconciliation, filial duty, brothers reunited",
+      "quoteId": "buried-abraham"
+    },
+    "rivalry-banishment": {
+      "id": "rivalry-banishment",
+      "name": "Rivalry: The Banishment",
+      "description": "Ishmael walking into exile while Isaac remains",
+      "prompt": "Young Ishmael walks away with Hagar into the wilderness, a waterskin over his shoulder. Looking back at the tents of his father's camp. Cast out but not forgotten by God. Dawn light, the vast desert ahead.",
+      "energy": "Bittersweet, fateful separation, exile",
+      "isRivalryPose": true
+    },
+    "rivalry-at-well": {
+      "id": "rivalry-at-well",
+      "name": "Rivalry: At the Wilderness Well",
+      "description": "Ishmael at the well where God saved him",
+      "prompt": "Ishmael at the wilderness well where the angel saved him and Hagar. His bow at his side, the desert stretching around him. Survivor, blessed in a different way than Isaac. Wild and free, master of the wilderness.",
+      "energy": "Parallel blessings, different paths",
+      "isRivalryPose": true
+    },
+    "rivalry-burial": {
+      "id": "rivalry-burial",
+      "name": "Rivalry: Burying Their Father",
+      "description": "Ishmael beside Isaac burying Abraham together",
+      "prompt": "Ishmael beside Isaac, helping to bury their father. Years of separation dissolved. The wild man of the wilderness returned for this sacred duty. Dressed as a desert chieftain, bow at his side, but working alongside his brother in peace.",
+      "energy": "Reconciliation, unity in grief, honoring the father",
+      "isRivalryPose": true
+    }
+  }
+}

@@ -46,9 +46,43 @@ We have three sibling rivalry templates:
   3. The Legacy (together built Israel)
 - **Location:** `data/series/torah-titans/pairings/leah-rachel.json`
 
+### Cain & Abel
+- **Status:** Complete with siblingIcon data
+- **Template:** sibling-icon (Byzantine diptych)
+- **Scripture:** Genesis 4:4-5 (offerings accepted/rejected)
+- **Location:** `data/series/torah-titans/pairings/cain-abel.json`
+- **Notes:** Abel gets halo (righteous), Cain does not
+
+### Isaac & Ishmael
+- **Status:** Complete with siblingDuality data
+- **Template:** sibling-duality (yin-yang)
+- **Scripture:** Genesis 21:13 (both blessed)
+- **Location:** `data/series/torah-titans/pairings/isaac-ishmael.json`
+
+### Joseph & His Brothers
+- **Status:** Complete with siblingCard data
+- **Template:** sibling-card (double-headed reversible)
+- **Scripture:** Genesis 50:20 (you intended evil, God intended good)
+- **Location:** `data/series/torah-titans/pairings/joseph-brothers.json`
+- **Notes:** Coat of many colors as center divider symbol
+
+### Moses & Miriam
+- **Status:** Complete with siblingIcon data
+- **Template:** sibling-icon (Byzantine diptych)
+- **Scripture:** Micah 6:4 (three leaders sent)
+- **Location:** `data/series/torah-titans/pairings/moses-miriam.json`
+- **Notes:** Both get halos (shared leadership)
+
+### Ephraim & Manasseh
+- **Status:** Complete with siblingDuality data
+- **Template:** sibling-duality (yin-yang)
+- **Scripture:** Genesis 48:20 (the Friday night blessing)
+- **Location:** `data/series/torah-titans/pairings/ephraim-manasseh.json`
+- **Notes:** Crossed hands visual, subtle distinction
+
 ---
 
-## Proposed Pairings
+## Additional Proposed Pairings
 
 ### 1. Cain & Abel
 

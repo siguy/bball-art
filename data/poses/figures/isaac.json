@@ -2,15 +2,24 @@
   "id": "isaac",
   "name": "Isaac",
   "defaultPose": "bound-on-altar",
-  "description": "Child of promise, nearly sacrificed. Dug wells, blessed Jacob. Patient patriarch who received rather than seized. The quiet one between Abraham and Jacob.",
+  "description": "Child of promise, nearly sacrificed. Dug wells, blessed Jacob. Patient patriarch who received rather than seized. The quiet one between Abraham and Jacob. His half-brother Ishmael was cast out, but they reunited to bury their father.",
   "poses": {
     "bound-on-altar": {
       "id": "bound-on-altar",
       "name": "The Binding",
       "description": "Bound on altar at Moriah, willing sacrifice",
       "expression": "willing submission, faith unto death",
-      "prompt": "young man bound on stone altar - wood beneath, father's knife raised, willing sacrifice, the Akedah that echoed through history",
+      "prompt": "young man bound on stone altar - wood beneath, father's knife raised, willing sacrifice. Eyes perhaps looking at Abraham or at heaven. The Akedah that echoed through all of Jewish history. Isaac carried the wood, not knowing he was the offering.",
       "energy": "ultimate submission, faith tested",
+      "quoteId": "where-is-lamb"
+    },
+    "carrying-wood": {
+      "id": "carrying-wood",
+      "name": "Carrying the Wood",
+      "description": "Isaac carrying the wood for his own sacrifice",
+      "expression": "innocent obedience, unknowing victim",
+      "prompt": "young man carrying bundle of wood on his back - walking up Mount Moriah beside father Abraham. 'Here is the fire and the wood, but where is the lamb for the burnt offering?' Walking toward his own altar, carrying his own pyre.",
+      "energy": "innocent trust, foreshadowing",
       "quoteId": "where-is-lamb"
     },
     "digging-wells": {
@@ -18,25 +27,34 @@
       "name": "Digging the Wells",
       "description": "Re-digging Abraham's wells",
       "expression": "patient persistence, quiet faithfulness",
-      "prompt": "digging well in desert - reclaiming father's inheritance, Philistines filled them but he digs again, patient persistence over confrontation",
+      "prompt": "digging well in desert soil - sweat on brow, reclaiming father's inheritance. Philistines filled the wells but Isaac digs again. Named them 'Contention' and 'Enmity' until finally 'Room Enough.' Patient persistence over confrontation.",
       "energy": "patient reclamation, quiet strength",
       "quoteId": "room-for-us"
+    },
+    "at-beer-lahai-roi": {
+      "id": "at-beer-lahai-roi",
+      "name": "At the Well of the Living One",
+      "description": "Isaac dwelling at Beer-lahai-roi",
+      "expression": "contemplative connection, sacred space",
+      "prompt": "standing or meditating near the well of Beer-lahai-roi - 'the well of the Living One who sees me.' The same well where Hagar met the angel. Isaac chose to dwell here, connecting to his half-brother's story. Contemplative patriarch at a place of divine encounter.",
+      "energy": "sacred dwelling, connection to Ishmael's story",
+      "quoteId": null
     },
     "blessing-jacob": {
       "id": "blessing-jacob",
       "name": "The Mistaken Blessing",
-      "description": "Old and blind, blessing Jacob",
+      "description": "Old and blind, blessing Jacob thinking he is Esau",
       "expression": "aged wisdom, deceived yet sovereign",
-      "prompt": "elderly blind patriarch touching son's hands - goatskin on smooth hands, giving blessing that cannot be taken back, divine purposes in human deception",
+      "prompt": "elderly blind patriarch reaching to touch son's hands - feeling goatskin on smooth hands, about to give blessing that cannot be taken back. 'The voice is the voice of Jacob, but the hands are the hands of Esau.' Divine purposes working through human deception.",
       "energy": "irrevocable blessing, sovereign purposes",
       "quoteId": "voice-is-jacob"
     },
     "meeting-rebekah": {
       "id": "meeting-rebekah",
       "name": "Finding Rebekah",
-      "description": "First seeing Rebekah at the well",
+      "description": "First seeing Rebekah approaching",
       "expression": "love at first sight, divine appointment",
-      "prompt": "looking up from meditation in field - seeing camels approach, Rebekah dismounting, love that was destined, comfort after mother's death",
+      "prompt": "looking up from meditation in field at evening - seeing camels approach, Rebekah dismounting. Love at first sight, divinely arranged. 'Isaac brought her into his mother Sarah's tent... and he loved her.' Comfort after mother's death.",
       "energy": "destined love, divine matchmaking",
       "quoteId": "loved-her"
     },
@@ -45,18 +63,51 @@
       "name": "Meditating in the Field",
       "description": "Evening meditation, contemplative patriarch",
       "expression": "quiet contemplation, inner life",
-      "prompt": "walking alone in field at evening - deep in thought and prayer, the contemplative patriarch, quiet strength over dramatic action",
+      "prompt": "walking alone in field at evening - deep in thought and prayer, the contemplative patriarch. Sunset colors. 'Isaac went out to meditate in the field toward evening.' The quiet one, inner strength over dramatic action.",
       "energy": "contemplative peace, inner depth",
       "quoteId": null
     },
     "reconciling-esau": {
       "id": "reconciling-esau",
       "name": "Father of Two Nations",
-      "description": "Between his conflicting sons",
+      "description": "Between his conflicting sons Jacob and Esau",
       "expression": "fatherly concern, divided heart",
-      "prompt": "elderly patriarch between two very different sons - Esau wild and hairy, Jacob smooth and cunning, loving both but purposes differ",
+      "prompt": "elderly patriarch between two very different sons - Esau wild and hairy to one side, Jacob smooth and cunning to the other. Loving both but unable to unite them. The father whose blessing divided his family.",
       "energy": "divided love, prophetic fatherhood",
       "quoteId": "two-nations"
+    },
+    "burying-abraham": {
+      "id": "burying-abraham",
+      "name": "Burying Abraham with Ishmael",
+      "description": "Isaac and Ishmael together burying their father",
+      "expression": "grief, reconciliation, shared duty",
+      "prompt": "standing beside Ishmael at the cave of Machpelah - both carrying Abraham to burial. Half-brothers reunited in grief. 'His sons Isaac and Ishmael buried him.' The promised son and the cast-out son, together for their father.",
+      "energy": "reconciliation, filial duty, brothers reunited",
+      "quoteId": null
+    },
+    "rivalry-at-camp": {
+      "id": "rivalry-at-camp",
+      "name": "Rivalry: At Father's Camp",
+      "description": "Young Isaac watching Ishmael depart",
+      "prompt": "Young Isaac at Sarah's side, safe within the tent's doorway. He watches as his half-brother Ishmael departs into the wilderness with Hagar. Perhaps confused, perhaps sad. The heir who stayed, watching the firstborn go.",
+      "energy": "Bittersweet separation, the one who stayed",
+      "isRivalryPose": true
+    },
+    "rivalry-at-well": {
+      "id": "rivalry-at-well",
+      "name": "Rivalry: At Beer-lahai-roi",
+      "description": "Isaac at the well connected to Hagar and Ishmael's story",
+      "prompt": "Isaac at the well of Beer-lahai-roi, the 'Well of the Living One Who Sees Me' — where he first encountered Rebekah, but also where the angel had appeared to Hagar. Meditative, connected to water and life. Isaac chose to dwell here, at a place sacred to his half-brother's history.",
+      "energy": "Parallel blessings, connection to Ishmael",
+      "isRivalryPose": true
+    },
+    "rivalry-burying-father": {
+      "id": "rivalry-burying-father",
+      "name": "Rivalry: Burying Their Father",
+      "description": "Isaac and Ishmael together at Abraham's grave",
+      "prompt": "Isaac and Ishmael together, carrying Abraham's body to the cave of Machpelah. Brothers reunited in grief. Years of separation dissolved in shared loss. Isaac's face solemn, perhaps reaching toward Ishmael in the shared work. Reconciliation at their father's grave.",
+      "energy": "Reconciliation, unity in grief, honoring the father",
+      "isRivalryPose": true
     }
   }
 }

@@ -177,7 +177,7 @@ DARK LIGHT REFRACTION: Sinister purple and red prismatic rays extend from the co
 === TEXT ELEMENTS (render exactly as specified) ===
 TOP: Write "BEAM TEAM" in BRIGHT CHROME font - highly reflective silver/white chrome that POPS against the dark background, with purple and red prismatic reflections. Very bright and eye-catching. Add "SHADOW SPECTRUM" in smaller crimson text below. Centered at top.
 
-LOGO: Below the title, render the provided "Court & Covenant" logo image in BRIGHT SHINY GOLD with subtle glow effect. Smaller than the title.
+LOGO: Below the title, render the "COURT & COVENANT" logo in BRIGHT SHINY GOLD with subtle glow effect. The logo features a basketball integrated with a Star of David - this is CRITICAL to include. The logo should be clearly visible against the dark background with a golden metallic finish.
 
 BOTTOM: Write "${player.name} & ${figure.displayName}" in BRIGHT CHROME text - highly reflective silver/white that stands out boldly. Premium villain typography with strong visibility.
 
@@ -269,7 +269,7 @@ LIGHT PURPLE SPOTLIGHT: The figure is illuminated by a bright LIGHT PURPLE/LAVEN
 === TEXT ELEMENTS (render exactly as specified) ===
 TOP: Write "BEAM TEAM" in BRIGHT CHROME font with purple and red prismatic reflections. Add "SHADOW SPECTRUM" in smaller crimson text below. Centered at top.
 
-LOGO: Below the title, render the provided "Court & Covenant" logo image in BRIGHT SHINY GOLD with subtle glow effect.
+LOGO: Below the title, render the "COURT & COVENANT" logo in BRIGHT SHINY GOLD with subtle glow effect. The logo features a basketball integrated with a Star of David - this is CRITICAL to include.
 
 BOTTOM: Write "${character.displayName || character.name}" in BRIGHT CHROME text. Centered at bottom.
 

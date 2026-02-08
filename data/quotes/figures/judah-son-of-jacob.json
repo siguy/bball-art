@@ -1,0 +1,70 @@
+{
+  "id": "judah-son-of-jacob",
+  "name": "Judah",
+  "aliases": ["Yehudah", "Fourth Son of Jacob"],
+  "quotes": {
+    "what-profit": {
+      "source": "Genesis 37:26",
+      "context": "Judah suggests selling Joseph instead of killing him",
+      "hebrew": "מַה־בֶּצַע כִּי נַהֲרֹג אֶת־אָחִינוּ וְכִסִּינוּ אֶת־דָּמוֹ",
+      "english": "What profit is it if we kill our brother and cover his blood?",
+      "mood": "pragmatic mercy, preventing murder"
+    },
+    "sell-him": {
+      "source": "Genesis 37:27",
+      "context": "Judah's proposal to sell Joseph",
+      "hebrew": "לְכוּ וְנִמְכְּרֶנּוּ לַיִּשְׁמְעֵאלִים וְיָדֵנוּ אַל־תְּהִי־בוֹ",
+      "english": "Come, let us sell him to the Ishmaelites, and let not our hand be upon him",
+      "mood": "compromise, hands not bloodied"
+    },
+    "i-will-be-surety": {
+      "source": "Genesis 43:9",
+      "context": "Judah pledges himself for Benjamin",
+      "hebrew": "אָנֹכִי אֶעֶרְבֶנּוּ מִיָּדִי תְּבַקְשֶׁנּוּ",
+      "english": "I will be surety for him; from my hand you shall require him",
+      "mood": "transformation, taking responsibility"
+    },
+    "sin-against-father": {
+      "source": "Genesis 43:9",
+      "context": "Judah's oath about Benjamin",
+      "hebrew": "אִם־לֹא הֲבִיאֹתִיו אֵלֶיךָ וְחָטָאתִי לְךָ כָּל־הַיָּמִים",
+      "english": "If I do not bring him back to you, I shall bear the blame before you forever",
+      "mood": "solemn oath, personal stakes"
+    },
+    "let-me-remain": {
+      "source": "Genesis 44:33",
+      "context": "Judah offers himself as slave instead of Benjamin",
+      "hebrew": "יֵשֶׁב־נָא עַבְדְּךָ תַּחַת הַנַּעַר עֶבֶד לַאדֹנִי",
+      "english": "Please let your servant remain instead of the boy as a servant to my lord",
+      "mood": "complete transformation, self-sacrifice"
+    },
+    "how-go-up": {
+      "source": "Genesis 44:34",
+      "context": "Judah's anguish about his father",
+      "hebrew": "כִּי אֵיךְ אֶעֱלֶה אֶל־אָבִי וְהַנַּעַר אֵינֶנּוּ אִתִּי",
+      "english": "For how can I go up to my father if the boy is not with me?",
+      "mood": "desperate love, cannot face Jacob's grief"
+    },
+    "lions-whelp": {
+      "source": "Genesis 49:9",
+      "context": "Jacob's blessing - Judah as lion",
+      "hebrew": "גּוּר אַרְיֵה יְהוּדָה מִטֶּרֶף בְּנִי עָלִיתָ",
+      "english": "Judah is a lion's whelp; from the prey, my son, you have gone up",
+      "mood": "royal destiny, predator's power"
+    },
+    "scepter-not-depart": {
+      "source": "Genesis 49:10",
+      "context": "The promise of kingship to Judah's line",
+      "hebrew": "לֹא־יָסוּר שֵׁבֶט מִיהוּדָה",
+      "english": "The scepter shall not depart from Judah",
+      "mood": "eternal kingship, messianic promise"
+    },
+    "praised-by-brothers": {
+      "source": "Genesis 49:8",
+      "context": "Jacob blesses Judah",
+      "hebrew": "יְהוּדָה אַתָּה יוֹדוּךָ אַחֶיךָ",
+      "english": "Judah, your brothers shall praise you",
+      "mood": "leadership, name's meaning fulfilled"
+    }
+  }
+}

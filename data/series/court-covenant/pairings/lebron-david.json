@@ -23,15 +23,15 @@
       "tomahawk dunk",
       "no-look pass"
     ],
-    "physicalDescription": "powerful muscular build, receding hairline, intense determined expression",
+    "physicalDescription": "powerful muscular build, receding hairline, intense determined expression, wearing a golden basketball crown",
     "archetype": "The King, versatile greatness, longevity personified"
   },
   "figure": {
     "name": "King David",
-    "displayName": "David",
+    "displayName": "King David",
     "poseFileId": "david",
-    "attribute": "golden crown and sling",
-    "attributeDescription": "simple golden crown of ancient Israel, leather shepherd's sling with smooth river stones",
+    "attribute": "golden crown (worn) and sling",
+    "attributeDescription": "wearing simple golden crown of ancient Israel on his head, leather shepherd's sling with smooth river stones",
     "visualStyle": "biblical warrior-king, ancient Israelite royalty",
     "clothing": "royal robes in purple and blue over simple tunic, ancient Israelite style NOT medieval",
     "physicalDescription": "young and handsome, RUDDY complexion with reddish hair (as described in 1 Samuel 16:12), beautiful eyes, strong shepherd's build",

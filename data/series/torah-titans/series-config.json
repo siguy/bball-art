@@ -39,6 +39,37 @@
       "description": "Moses vs Pharaoh + specific plague",
       "characterCount": 2,
       "templates": ["plague-card", "thunder-lightning-dark", "metal-universe-dark"]
+    },
+    "freedom-tour": {
+      "name": "Freedom Tour",
+      "description": "Stadium rock tour aesthetic - Moses vs Pharaoh as headliner vs venue",
+      "characterCount": 2,
+      "templates": ["freedom-tour"]
+    },
+    "plague-tour-stop": {
+      "name": "Plague Tour Stop",
+      "description": "Era-hopping plagues - each plague styled as different rock sub-genre",
+      "characterCount": 2,
+      "templates": ["plague-tour-stop"],
+      "subOptions": {
+        "eras": ["heavy-metal", "punk", "grunge", "hair-metal", "death-metal", "industrial", "power-metal", "thrash-metal", "goth", "arena-rock"],
+        "plagues": ["blood", "frogs", "lice", "wild-beasts", "pestilence", "boils", "hail", "locusts", "darkness", "firstborn"]
+      }
+    },
+    "backstage-pass": {
+      "name": "Backstage Pass",
+      "description": "Key confrontation moments as collectible concert credentials",
+      "characterCount": 2,
+      "templates": ["backstage-pass"],
+      "subOptions": {
+        "moments": ["who-is-the-lord", "let-my-people-go", "hardened-heart", "rise-and-go"]
+      }
+    },
+    "tour-finale": {
+      "name": "Tour Finale",
+      "description": "Red Sea crossing as ultimate arena rock encore - FAREWELL EGYPT",
+      "characterCount": 2,
+      "templates": ["tour-finale"]
     }
   },
 
@@ -57,6 +88,12 @@
       "name": "The 10 Plagues",
       "description": "Moses vs Pharaoh through each plague",
       "cardType": "plague"
+    },
+    "freedom-tour": {
+      "name": "Egypt Freedom Tour",
+      "description": "EXODUS: THE FREEDOM TOUR - Stadium rock meets ancient Egypt. 10 plagues as 10 tour stops with era-hopping rock aesthetics.",
+      "cardTypes": ["freedom-tour", "plague-tour-stop", "backstage-pass", "tour-finale"],
+      "tone": "playfully-irreverent"
     },
     "triangles": {
       "name": "Love Triangles",
@@ -78,14 +115,22 @@
     "spouse-blessing",
     "trial-card",
     "plague-card",
-    "three-way"
+    "three-way",
+    "freedom-tour",
+    "plague-tour-stop",
+    "backstage-pass",
+    "tour-finale"
   ],
 
   "seriesSpecificTemplates": [
     "spouse-blessing",
     "trial-card",
     "plague-card",
-    "three-way"
+    "three-way",
+    "freedom-tour",
+    "plague-tour-stop",
+    "backstage-pass",
+    "tour-finale"
   ],
 
   "priorityPairings": [

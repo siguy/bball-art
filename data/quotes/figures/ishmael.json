@@ -1,0 +1,63 @@
+{
+  "id": "ishmael",
+  "name": "Ishmael",
+  "aliases": ["Yishmael"],
+  "quotes": {
+    "god-has-heard": {
+      "source": "Genesis 16:11",
+      "context": "The angel names Ishmael before his birth",
+      "hebrew": "וְקָרָאת שְׁמוֹ יִשְׁמָעֵאל כִּי־שָׁמַע יְהוָה אֶל־עָנְיֵךְ",
+      "english": "You shall call his name Ishmael, for the LORD has heard your affliction",
+      "mood": "divine compassion, heard by God"
+    },
+    "wild-donkey-of-man": {
+      "source": "Genesis 16:12",
+      "context": "The angel's prophecy about Ishmael's nature",
+      "hebrew": "וְהוּא יִהְיֶה פֶּרֶא אָדָם יָדוֹ בַכֹּל וְיַד כֹּל בּוֹ",
+      "english": "He shall be a wild donkey of a man; his hand against everyone and everyone's hand against him",
+      "mood": "wild freedom, perpetual conflict"
+    },
+    "dwelling-among-brothers": {
+      "source": "Genesis 16:12",
+      "context": "Ishmael's destiny among his kin",
+      "hebrew": "וְעַל־פְּנֵי כָל־אֶחָיו יִשְׁכֹּן",
+      "english": "He shall dwell over against all his kinsmen",
+      "mood": "independence, separate but near"
+    },
+    "god-heard-the-boy": {
+      "source": "Genesis 21:17",
+      "context": "God saves Ishmael in the wilderness",
+      "hebrew": "וַיִּשְׁמַע אֱלֹהִים אֶת־קוֹל הַנַּעַר",
+      "english": "God heard the voice of the boy",
+      "mood": "salvation, name fulfilled"
+    },
+    "great-nation": {
+      "source": "Genesis 21:18",
+      "context": "God's promise to Hagar about Ishmael",
+      "hebrew": "כִּי־לְגוֹי גָּדוֹל אֲשִׂימֶנּוּ",
+      "english": "For I will make him a great nation",
+      "mood": "blessed destiny, parallel promise"
+    },
+    "became-archer": {
+      "source": "Genesis 21:20",
+      "context": "Ishmael's life in the wilderness",
+      "hebrew": "וַיְהִי רֹבֶה קַשָּׁת",
+      "english": "He became an archer",
+      "mood": "wilderness mastery, hunter's skill"
+    },
+    "twelve-princes": {
+      "source": "Genesis 25:16",
+      "context": "Ishmael's descendants",
+      "hebrew": "שְׁנֵים־עָשָׂר נְשִׂיאִם לְאֻמֹּתָם",
+      "english": "Twelve princes according to their nations",
+      "mood": "fulfilled promise, great nation"
+    },
+    "buried-abraham": {
+      "source": "Genesis 25:9",
+      "context": "Isaac and Ishmael reunite to bury their father",
+      "hebrew": "וַיִּקְבְּרוּ אֹתוֹ יִצְחָק וְיִשְׁמָעֵאל בָּנָיו",
+      "english": "His sons Isaac and Ishmael buried him",
+      "mood": "reconciliation, filial duty"
+    }
+  }
+}

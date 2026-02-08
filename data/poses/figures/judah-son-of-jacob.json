@@ -1,0 +1,104 @@
+{
+  "id": "judah-son-of-jacob",
+  "name": "Judah",
+  "defaultPose": "offering-himself",
+  "description": "Fourth son of Jacob, ancestor of kings. Suggested selling Joseph instead of killing him — mercy mixed with cruelty. Later transformed: offered himself as slave to save Benjamin. 'Judah, your brothers shall praise you.' The lion's whelp, the scepter that shall not depart.",
+  "poses": {
+    "suggesting-sale": {
+      "id": "suggesting-sale",
+      "name": "What Profit to Kill Him",
+      "description": "Judah proposing to sell Joseph to the Ishmaelites",
+      "expression": "pragmatic calculation, preventing murder",
+      "prompt": "standing among brothers at the pit - gesturing toward approaching caravan of Ishmaelites. Face showing calculation rather than pure malice. 'What profit if we kill our brother?' Preventing murder, but enabling slavery. The first glimpse of leadership.",
+      "energy": "pragmatic mercy, preventing worse",
+      "quoteId": "what-profit"
+    },
+    "at-the-pit": {
+      "id": "at-the-pit",
+      "name": "Standing Over the Pit",
+      "description": "Judah with brothers, Joseph in the pit below",
+      "expression": "conflicted, participating in betrayal",
+      "prompt": "standing at edge of dry cistern - Joseph visible below or recently thrown in. Judah's face shows conflict rather than pure hatred. The coat of many colors discarded nearby. Brothers around him. Before the sale, after the stripping.",
+      "energy": "betrayal, fraternal violence",
+      "quoteId": null
+    },
+    "receiving-silver": {
+      "id": "receiving-silver",
+      "name": "Twenty Pieces of Silver",
+      "description": "Judah accepting payment for Joseph",
+      "expression": "the price of a brother, guilt beginning",
+      "prompt": "hand outstretched receiving silver coins from Ishmaelite merchant - Joseph being led away in background. The moment of transaction, brother sold for twenty pieces. Face perhaps beginning to show the weight of what they've done.",
+      "energy": "transaction of betrayal, blood money",
+      "quoteId": "sell-him"
+    },
+    "pledging-for-benjamin": {
+      "id": "pledging-for-benjamin",
+      "name": "I Will Be Surety",
+      "description": "Judah pledging himself as guarantee for Benjamin",
+      "expression": "solemn determination, transformation",
+      "prompt": "standing before aged Jacob - hand on heart or raised in oath, face showing complete resolve. 'I will be surety for him; from my hand you shall require him.' The man who sold one brother now stakes everything for another.",
+      "energy": "transformation, taking responsibility",
+      "quoteId": "i-will-be-surety"
+    },
+    "offering-himself": {
+      "id": "offering-himself",
+      "name": "Let Me Remain as Slave",
+      "description": "Judah's great speech - offering himself instead of Benjamin",
+      "expression": "complete self-sacrifice, desperate love",
+      "prompt": "kneeling or standing before Egyptian vizier (Joseph unrecognized) - arms outstretched in supplication, face showing total commitment. 'Let your servant remain instead of the boy as a slave.' The ultimate transformation from one who sold a brother to one who offers himself.",
+      "energy": "self-sacrifice, transformation complete",
+      "quoteId": "let-me-remain"
+    },
+    "how-face-father": {
+      "id": "how-face-father",
+      "name": "How Can I Face My Father",
+      "description": "Judah's anguished plea about Jacob's grief",
+      "expression": "desperate anguish, father's heart breaking",
+      "prompt": "face contorted with anguish - describing what would happen if Benjamin doesn't return. 'How can I go up to my father if the boy is not with me, lest I see the evil that would find my father?' Love for father overwhelming.",
+      "energy": "desperate love, cannot cause more grief",
+      "quoteId": "how-go-up"
+    },
+    "lions-whelp": {
+      "id": "lions-whelp",
+      "name": "Lion's Whelp",
+      "description": "Judah receiving Jacob's blessing - lion imagery",
+      "expression": "royal destiny, predator's power",
+      "prompt": "kneeling before dying Jacob receiving blessing - or standing with lion imagery around him. 'Judah is a lion's whelp; from the prey, my son, you have gone up.' Regal bearing, fierce and noble. The tribe of kings.",
+      "energy": "royal destiny, lion's strength",
+      "quoteId": "lions-whelp"
+    },
+    "embracing-joseph": {
+      "id": "embracing-joseph",
+      "name": "Embracing Joseph",
+      "description": "Judah embracing the brother he once sold",
+      "expression": "weeping, guilt transformed to joy",
+      "prompt": "embracing Joseph with tears streaming - the brother he sold now forgiven, the vizier revealed as family. Face showing relief, joy, perhaps residual guilt transformed. 'God meant it for good.' Full circle.",
+      "energy": "reconciliation, guilt released",
+      "quoteId": null
+    },
+    "rivalry-at-pit": {
+      "id": "rivalry-at-pit",
+      "name": "Rivalry: At the Pit",
+      "description": "Judah among brothers deciding Joseph's fate",
+      "prompt": "Judah stands with the brothers above the pit, gesturing toward approaching Ishmaelite caravan. 'What profit if we kill him?' Face showing pragmatic calculation. Joseph's coat of many colors held or discarded. Preventing murder by enabling slavery.",
+      "energy": "Betrayal, pragmatic cruelty, beginning of guilt",
+      "isRivalryPose": true
+    },
+    "rivalry-offering-self": {
+      "id": "rivalry-offering-self",
+      "name": "Rivalry: Offering Himself",
+      "description": "Judah offering himself as slave for Benjamin",
+      "prompt": "Judah kneeling before Egyptian vizier in desperate supplication - arms outstretched, face showing complete surrender. 'Let me remain instead of the boy as slave to my lord.' The transformation complete — from selling a brother to offering himself.",
+      "energy": "Transformation, self-sacrifice, redemption",
+      "isRivalryPose": true
+    },
+    "rivalry-reconciliation": {
+      "id": "rivalry-reconciliation",
+      "name": "Rivalry: Embracing Joseph",
+      "description": "Judah in the moment of reconciliation with Joseph",
+      "prompt": "Judah embracing Joseph, or falling before him weeping. The brother he sold, now revealed as their savior. Tears of relief and joy mixing with years of guilt finally released. Family restored, sin forgiven.",
+      "energy": "Forgiveness, family restored, transformation vindicated",
+      "isRivalryPose": true
+    }
+  }
+}

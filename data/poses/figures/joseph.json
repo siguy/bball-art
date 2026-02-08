@@ -2,32 +2,77 @@
   "id": "joseph",
   "name": "Joseph",
   "defaultPose": "revealing-identity",
-  "description": "Dreamer sold by brothers, rose to rule Egypt. Coat of many colors, interpreter of dreams, saved his family. From pit to palace.",
+  "description": "Dreamer sold by brothers, rose to rule Egypt. Coat of many colors, interpreter of dreams, saved his family and Egypt from famine. From pit to palace. 'You intended evil against me, but God intended it for good.'",
   "poses": {
-    "revealing-identity": {
-      "id": "revealing-identity",
-      "name": "I Am Joseph",
-      "description": "The dramatic reveal to his brothers",
-      "expression": "emotional intensity, family reunion",
-      "prompt": "standing with arms open in emotional revelation - 'I am Joseph!', tears visible, brothers shocked before him, the moment of reunion after years of separation",
-      "energy": "dramatic reveal, emotional reunion",
-      "quoteId": "reveal-to-brothers"
+    "dreaming-sheaves": {
+      "id": "dreaming-sheaves",
+      "name": "The Dream of Sheaves",
+      "description": "Young Joseph dreaming of sheaves bowing",
+      "expression": "visionary, prophetic sleep",
+      "prompt": "young man sleeping with dream vision above - sheaves of wheat visible, his sheaf standing upright while brothers' sheaves bow down. 'Behold, your sheaves gathered around it and bowed down to my sheaf.' The dream that fueled their hatred.",
+      "energy": "prophetic vision, destiny revealed",
+      "quoteId": null
     },
     "coat-of-colors": {
       "id": "coat-of-colors",
       "name": "Wearing the Coat",
       "description": "Young Joseph in his colorful coat",
       "expression": "favored youth, innocent confidence",
-      "prompt": "young man wearing beautiful multi-colored coat - proud but innocent, father's favorite, unaware of brothers' jealousy growing, dreamer in his glory",
+      "prompt": "young man wearing beautiful multi-colored coat (ketonet passim) - proud but innocent, radiant in his father's gift. Unaware of brothers' jealousy growing in background. The dreamer in his glory, before the pit.",
       "energy": "favored son, innocent pride",
       "quoteId": "coat-of-colors"
+    },
+    "stripped-of-coat": {
+      "id": "stripped-of-coat",
+      "name": "Stripped of the Coat",
+      "description": "Brothers tearing off Joseph's coat",
+      "expression": "shock, betrayal, vulnerability",
+      "prompt": "young man having his colorful coat torn from him - brothers' hands grasping, his face showing shock and betrayal. The visible symbol of favor being violently removed. 'They stripped Joseph of his coat.'",
+      "energy": "betrayal, stripping of identity",
+      "quoteId": null
+    },
+    "in-the-pit": {
+      "id": "in-the-pit",
+      "name": "In the Pit",
+      "description": "Joseph thrown into the empty cistern",
+      "expression": "desperation, looking up at betrayers",
+      "prompt": "young man at bottom of dry cistern looking up - hands reaching toward the light above where brothers' faces peer down. 'They took him and threw him into the pit.' The dreamer cast down, awaiting his fate.",
+      "energy": "helpless, betrayed, low point",
+      "quoteId": null
+    },
+    "sold-to-ishmaelites": {
+      "id": "sold-to-ishmaelites",
+      "name": "Sold to the Caravan",
+      "description": "Joseph being sold to Ishmaelite traders",
+      "expression": "transition, uncertain fate",
+      "prompt": "young man being led away by merchants - hands perhaps bound, looking back at brothers. Camels and caravan visible. 'They sold Joseph to the Ishmaelites for twenty pieces of silver.' The brother becoming merchandise.",
+      "energy": "sold, uncertain journey beginning",
+      "quoteId": null
+    },
+    "resisting-temptation": {
+      "id": "resisting-temptation",
+      "name": "Fleeing Temptation",
+      "description": "Running from Potiphar's wife",
+      "expression": "moral strength, integrity in crisis",
+      "prompt": "turning away or running from reaching hands - leaving garment behind, choosing prison over sin. 'How can I do this great wickedness and sin against God?' Integrity that cost him but defined him.",
+      "energy": "moral courage, integrity tested",
+      "quoteId": "resist-temptation"
+    },
+    "in-prison": {
+      "id": "in-prison",
+      "name": "In the Prison",
+      "description": "Joseph in Egyptian prison, interpreting dreams",
+      "expression": "patience in adversity, using gifts",
+      "prompt": "in prison cell with other prisoners - perhaps interpreting butler's or baker's dream. Still using his gift even in the dungeon. 'Do not interpretations belong to God? Tell me your dreams.'",
+      "energy": "patience, gifts used in adversity",
+      "quoteId": null
     },
     "interpreting-pharaoh": {
       "id": "interpreting-pharaoh",
       "name": "Before Pharaoh",
       "description": "Interpreting Pharaoh's dreams",
       "expression": "confident wisdom, divine insight",
-      "prompt": "standing before Pharaoh explaining dreams - gesturing as he interprets, confident bearing, prisoner becoming advisor, seven years of plenty and famine revealed",
+      "prompt": "standing before Pharaoh explaining dreams - gesturing as he interprets, confident bearing. Prisoner becoming advisor. 'Seven years of plenty and seven years of famine.' The moment everything changed.",
       "energy": "divine wisdom, unlikely rise",
       "quoteId": "interpreting-dreams"
     },
@@ -36,27 +81,77 @@
       "name": "Second in Command",
       "description": "Joseph as vizier of Egypt",
       "expression": "administrative authority, elevated power",
-      "prompt": "standing in Egyptian royal garments and gold chain - signet ring, second only to Pharaoh, the slave who became ruler, overseeing grain distribution",
+      "prompt": "standing in Egyptian royal garments and gold chain - signet ring, second only to Pharaoh. The slave who became ruler, overseeing grain distribution. 'Only in the throne will I be greater than you.'",
       "energy": "exalted authority, slave to ruler",
       "quoteId": "second-in-egypt"
     },
-    "resisting-temptation": {
-      "id": "resisting-temptation",
-      "name": "Fleeing Temptation",
-      "description": "Running from Potiphar's wife",
-      "expression": "moral strength, integrity in crisis",
-      "prompt": "turning away or running from reaching hands - leaving garment behind, choosing prison over sin, integrity that cost him but defined him",
-      "energy": "moral courage, integrity tested",
-      "quoteId": "resist-temptation"
+    "testing-brothers": {
+      "id": "testing-brothers",
+      "name": "Testing the Brothers",
+      "description": "Joseph testing his brothers in Egypt",
+      "expression": "hidden identity, testing their character",
+      "prompt": "as Egyptian vizier, face stern, questioning the brothers who don't recognize him - 'You are spies!' Testing whether they've changed, whether they'll protect Benjamin as they didn't protect him. The silver cup test coming.",
+      "energy": "hidden identity, testing repentance",
+      "quoteId": null
+    },
+    "revealing-identity": {
+      "id": "revealing-identity",
+      "name": "I Am Joseph",
+      "description": "The dramatic reveal to his brothers",
+      "expression": "emotional intensity, family reunion",
+      "prompt": "standing with arms open in emotional revelation - 'I am Joseph! Is my father still alive?' Tears streaming, brothers shocked and terrified before him. The moment of truth after years of hidden testing.",
+      "energy": "dramatic reveal, emotional reunion",
+      "quoteId": "reveal-to-brothers"
     },
     "forgiving-brothers": {
       "id": "forgiving-brothers",
       "name": "Forgiving His Brothers",
       "description": "Embracing brothers who sold him",
       "expression": "compassionate forgiveness, redemption",
-      "prompt": "embracing weeping brothers - 'God meant it for good', forgiving those who tried to destroy him, redemptive love conquering betrayal",
+      "prompt": "embracing weeping brothers - 'You intended evil against me, but God intended it for good.' Forgiving those who tried to destroy him. Weeping on Benjamin's neck, then on all his brothers.",
       "energy": "redemptive forgiveness, divine perspective",
       "quoteId": "god-meant-for-good"
+    },
+    "reuniting-with-jacob": {
+      "id": "reuniting-with-jacob",
+      "name": "Reuniting with Father",
+      "description": "Joseph meeting Jacob after years of separation",
+      "expression": "overwhelming joy, father and son",
+      "prompt": "embracing elderly Jacob in Egypt - both weeping, years of separation dissolved. 'Israel said to Joseph, Now let me die, since I have seen your face and know that you are still alive.' The dreamer returning to his father.",
+      "energy": "family restored, overwhelming reunion",
+      "quoteId": null
+    },
+    "rivalry-in-coat": {
+      "id": "rivalry-in-coat",
+      "name": "Rivalry: In the Coat",
+      "description": "Joseph wearing the coat, brothers watching",
+      "prompt": "Young Joseph wearing the magnificent coat of many colors, standing proud. His face shows innocent confidence, perhaps describing a dream. The beloved son, not yet aware of the danger. In background or nearby, brothers (especially Judah) watching with dark expressions.",
+      "energy": "Favoritism, gathering storm, innocent pride",
+      "isRivalryPose": true
+    },
+    "rivalry-in-pit": {
+      "id": "rivalry-in-pit",
+      "name": "Rivalry: In the Pit",
+      "description": "Joseph in the pit, Judah deciding his fate",
+      "prompt": "Joseph in the pit, looking up at his brothers above. His coat stripped away, vulnerable and betrayed. Hands reaching up, pleading. The dreamer cast down. Above, Judah and brothers deciding — 'What profit if we kill him? Let us sell him.'",
+      "energy": "Betrayal, helplessness, the low point",
+      "isRivalryPose": true
+    },
+    "rivalry-as-vizier": {
+      "id": "rivalry-as-vizier",
+      "name": "Rivalry: As Vizier Revealed",
+      "description": "Joseph revealing himself to the brothers",
+      "prompt": "Joseph as Egyptian vizier, royal garments and jewelry, revealing his identity. Tears streaming down his face, arms perhaps outstretched. 'I am Joseph your brother, whom you sold into Egypt.' Judah and brothers cowering or frozen in shock before him.",
+      "energy": "Revelation, power reversed, confrontation",
+      "isRivalryPose": true
+    },
+    "rivalry-forgiving-judah": {
+      "id": "rivalry-forgiving-judah",
+      "name": "Rivalry: Forgiving Judah",
+      "description": "Joseph embracing Judah specifically",
+      "prompt": "Joseph embracing Judah, the brother who suggested selling him but then offered himself for Benjamin. Both weeping. The transformation complete — Judah proved himself, Joseph forgives. 'God meant it for good.' Full circle from sale to embrace.",
+      "energy": "Forgiveness, transformation acknowledged, brothers restored",
+      "isRivalryPose": true
     }
   }
 }

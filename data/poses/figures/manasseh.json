@@ -1,0 +1,87 @@
+{
+  "id": "manasseh",
+  "name": "Manasseh",
+  "defaultPose": "receiving-left-hand",
+  "description": "Firstborn son of Joseph, named 'causing to forget' because God made Joseph forget his hardship. Received Jacob's left-hand blessing though he was firstborn. 'He also shall be great' — blessed but second. The pattern of biblical reversals: firstborn displaced, yet still honored.",
+  "poses": {
+    "receiving-left-hand": {
+      "id": "receiving-left-hand",
+      "name": "Receiving the Left Hand",
+      "description": "Jacob's left hand on Manasseh's head - the lesser blessing",
+      "expression": "accepting with dignity, blessed though second",
+      "prompt": "young boy kneeling or standing before elderly Jacob - the patriarch's left hand placed on his head, right hand crossed over to Ephraim. Face perhaps showing slight confusion or dignified acceptance. The firstborn receiving the lesser portion. 'He also shall be great.'",
+      "energy": "blessed though second, dignity in displacement",
+      "quoteId": "left-hand-blessing"
+    },
+    "with-grandfather": {
+      "id": "with-grandfather",
+      "name": "Before Grandfather Jacob",
+      "description": "Manasseh presented to Jacob for blessing",
+      "expression": "firstborn dignity, expecting precedence",
+      "prompt": "young boy approaching elderly patriarch Jacob - firstborn bearing, expecting to be first. Egyptian-Hebrew clothing, positioned at Jacob's right (expecting the right-hand blessing). Joseph nearby, about to see his father's surprising choice.",
+      "energy": "firstborn expectation, precedence anticipated",
+      "quoteId": "the-firstborn"
+    },
+    "crossed-hands-moment": {
+      "id": "crossed-hands-moment",
+      "name": "The Crossing of Hands",
+      "description": "Manasseh's perspective on Jacob's deliberate crossing",
+      "expression": "confusion, accepting the reversal",
+      "prompt": "view from Manasseh's position - Jacob's arms visibly crossed, left hand on his head though he stands at the right. Perhaps confusion on young face as expectations are overturned. Ephraim beside him receiving the right hand. The moment of displacement.",
+      "energy": "reversal, birthright subverted",
+      "quoteId": "not-so-father"
+    },
+    "father-protests": {
+      "id": "father-protests",
+      "name": "Joseph's Protest",
+      "description": "The moment Joseph tries to correct Jacob's hands",
+      "expression": "watching father advocate, birthright defended",
+      "prompt": "Manasseh watching as Joseph reaches to move Jacob's hands - 'Not so, my father, for this one is the firstborn.' Natural order being defended, but Jacob refuses to change. The boy watching his father fight for his precedence, but providence overrules.",
+      "energy": "natural order defended, prophetic override",
+      "quoteId": "not-so-father"
+    },
+    "he-also-great": {
+      "id": "he-also-great",
+      "name": "He Also Shall Be Great",
+      "description": "Manasseh receiving his own blessing and promise",
+      "expression": "consoled, blessed differently",
+      "prompt": "young Manasseh receiving Jacob's promise - 'He also shall become a people, and he also shall be great.' Face showing acceptance, perhaps comfort. Second but not forgotten. The firstborn who became second but was still blessed.",
+      "energy": "consolation, different but real blessing",
+      "quoteId": "he-also-shall-be-great"
+    },
+    "standing-with-ephraim": {
+      "id": "standing-with-ephraim",
+      "name": "Standing with Brother",
+      "description": "Manasseh and Ephraim together, both blessed",
+      "expression": "brotherly bond, shared heritage",
+      "prompt": "two young brothers standing together after blessing - Manasseh beside Ephraim with dignity intact. Both blessed, both loved, both becoming tribes. United despite the distinction in their blessings. 'God make you like Ephraim and Manasseh.'",
+      "energy": "brothers together, both blessed, unity",
+      "quoteId": "he-also-shall-be-great"
+    },
+    "forgetting-hardship": {
+      "id": "forgetting-hardship",
+      "name": "Causing to Forget",
+      "description": "Manasseh representing his name's meaning",
+      "expression": "healing, new beginning",
+      "prompt": "young man or symbolic representation - his name means 'God made me forget all my hardship and all my father's house.' Perhaps showing transition from Egyptian imagery to new identity. Healing from Joseph's trauma, new family beginning.",
+      "energy": "healing from past, new beginning",
+      "quoteId": "made-me-forget"
+    },
+    "rivalry-receiving-blessing": {
+      "id": "rivalry-receiving-blessing",
+      "name": "Rivalry: Receiving the Left Hand",
+      "description": "Manasseh receiving Jacob's left hand",
+      "prompt": "Young Manasseh receiving Jacob's left hand on his head, perhaps looking confused at the crossing. He stood at the right, expecting the right-hand blessing. The firstborn receiving the lesser portion, but blessed nonetheless. 'He also shall be great.'",
+      "energy": "Displacement, still blessed, birthright subverted",
+      "isRivalryPose": true
+    },
+    "rivalry-both-blessed": {
+      "id": "rivalry-both-blessed",
+      "name": "Rivalry: Both Blessed",
+      "description": "Manasseh beside Ephraim, both receiving blessing",
+      "prompt": "Manasseh beside Ephraim, both touched by Jacob's hands. Both blessed, both loved, both part of Israel. Not rejected but different. The dignified firstborn standing with the chosen younger, united despite the distinction.",
+      "energy": "Unity in difference, both blessed, no bitterness",
+      "isRivalryPose": true
+    }
+  }
+}

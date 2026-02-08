@@ -1,0 +1,121 @@
+{
+  "id": "miriam",
+  "name": "Miriam",
+  "defaultPose": "timbrel-song",
+  "description": "Prophetess, sister of Moses and Aaron. As a child, watched over Moses in his basket and boldly secured their mother as his nurse. Led the women in song at the Sea. Challenged Moses and was struck with leprosy, healed by his prayer. The well followed Israel for her merit.",
+  "poses": {
+    "watching-basket": {
+      "id": "watching-basket",
+      "name": "Watching the Basket",
+      "description": "Young Miriam hidden among reeds, watching baby Moses",
+      "expression": "anxious vigilance, protective love",
+      "prompt": "young girl crouched among papyrus reeds at the Nile - eyes fixed on a basket floating in the water, face showing protective anxiety and clever watchfulness. 'His sister stood at a distance to know what would be done to him.' The first act of saving Moses.",
+      "energy": "protective vigilance, brave child",
+      "quoteId": "stood-at-distance"
+    },
+    "approaching-princess": {
+      "id": "approaching-princess",
+      "name": "Approaching Pharaoh's Daughter",
+      "description": "Young Miriam boldly offers to find a Hebrew nurse",
+      "expression": "bold cleverness, thinking fast",
+      "prompt": "young girl approaching Egyptian princess - bold and clever, offering help. 'Shall I go and call a Hebrew nursing woman for you?' The quick-thinking that brought Moses back to his own mother. Bare feet, simple Hebrew garment, facing Egyptian royalty without fear.",
+      "energy": "bold cleverness, saving her brother",
+      "quoteId": "shall-i-call-nurse"
+    },
+    "timbrel-song": {
+      "id": "timbrel-song",
+      "name": "Timbrel and Song",
+      "description": "Miriam leading the women in dance at the Red Sea",
+      "expression": "triumphant joy, prophetic ecstasy",
+      "prompt": "prophetess with timbrel raised high - leading women in dance and song, face radiant with triumph. 'Sing to the LORD, for He has triumphed gloriously!' The sea behind them, Pharaoh's army destroyed, freedom realized. Hair perhaps wild with dancing, women with timbrels following.",
+      "energy": "triumphant celebration, prophetic worship",
+      "quoteId": "sing-to-the-lord"
+    },
+    "prophetess-leading": {
+      "id": "prophetess-leading",
+      "name": "The Prophetess",
+      "description": "Miriam in her role as prophetess and leader",
+      "expression": "prophetic authority, dignified leadership",
+      "prompt": "standing in prophetic dignity - mature woman with presence and authority. Timbrel perhaps at her side, garments of a prophetess. One of the three leaders God sent before Israel. 'Miriam the prophetess, sister of Aaron.'",
+      "energy": "prophetic authority, co-leader of Israel",
+      "quoteId": "the-prophetess"
+    },
+    "challenging-moses": {
+      "id": "challenging-moses",
+      "name": "Speaking Against Moses",
+      "description": "Miriam and Aaron questioning Moses's unique status",
+      "expression": "questioning, jealous challenge",
+      "prompt": "speaking with Aaron, perhaps gesturing toward Moses - face showing challenge and wounded pride. 'Has the LORD spoken only through Moses? Has He not spoken through us also?' The moment before divine judgment. Near the Tent of Meeting, cloud present.",
+      "energy": "challenging authority, prophetic jealousy",
+      "quoteId": "only-through-moses"
+    },
+    "struck-with-leprosy": {
+      "id": "struck-with-leprosy",
+      "name": "White as Snow",
+      "description": "Miriam struck with leprosy, humbled by God",
+      "expression": "shock, humility, accepting judgment",
+      "prompt": "standing or falling - skin turned white as snow with leprosy. Face showing shock transforming to acceptance. Aaron turning to see her, Moses preparing to pray. The prophetess humbled. 'And behold, Miriam was leprous, white as snow.'",
+      "energy": "divine judgment, humbling",
+      "quoteId": "struck-with-leprosy"
+    },
+    "outside-camp": {
+      "id": "outside-camp",
+      "name": "Seven Days Outside",
+      "description": "Miriam waiting outside the camp during her healing",
+      "expression": "penitent, patient, being restored",
+      "prompt": "sitting or standing outside the camp - waiting in exile for seven days. The camp visible in background, but she separated. Face showing quiet acceptance, perhaps hope of restoration. The prophetess humbled but not destroyed.",
+      "energy": "penitent waiting, restoration coming",
+      "quoteId": null
+    },
+    "restored-prophetess": {
+      "id": "restored-prophetess",
+      "name": "Restored to the Camp",
+      "description": "Miriam healed and returning to Israel",
+      "expression": "humble gratitude, restored dignity",
+      "prompt": "walking back into the camp - healed, restored, humbled but dignified. Israel waited for her: 'The people did not journey until Miriam was brought back.' Honored despite her error, essential to the nation.",
+      "energy": "restoration, humbled leader",
+      "quoteId": null
+    },
+    "well-of-miriam": {
+      "id": "well-of-miriam",
+      "name": "The Well of Miriam",
+      "description": "Miriam associated with the miraculous well",
+      "expression": "life-giving presence, hidden merit",
+      "prompt": "standing near a miraculous well in the wilderness - water flowing, the source that followed Israel for her merit. Perhaps hands raised in blessing over the water, or drawing water for others. The Midrash: 'The well was in the merit of Miriam.'",
+      "energy": "life-giving, hidden merit",
+      "quoteId": "well-of-miriam"
+    },
+    "rivalry-watching-basket": {
+      "id": "rivalry-watching-basket",
+      "name": "Rivalry: Watching the Basket",
+      "description": "Young Miriam protecting baby Moses in the Nile",
+      "prompt": "Young Miriam hiding among the reeds, watching over the basket containing baby Moses. Brave and clever, protective love on her young face. Pharaoh's daughter and her attendants visible approaching. The sister who saved the deliverer.",
+      "energy": "Protective love, clever vigilance, origin of their bond",
+      "isRivalryPose": true
+    },
+    "rivalry-song-at-sea": {
+      "id": "rivalry-song-at-sea",
+      "name": "Rivalry: Song at the Sea",
+      "description": "Miriam leading the women parallel to Moses leading the men",
+      "prompt": "Miriam with timbrel raised, leading the women in dance and song. 'Sing to the LORD!' The sea behind her, celebrating deliverance. Parallel leadership with Moses — he led the men in song, she leads the women. Prophetic ecstasy, triumphant joy.",
+      "energy": "Triumph, parallel leadership, celebrating together",
+      "isRivalryPose": true
+    },
+    "rivalry-struck-leprous": {
+      "id": "rivalry-struck-leprous",
+      "name": "Rivalry: Struck with Leprosy",
+      "description": "Miriam stricken, Moses preparing to pray",
+      "prompt": "Miriam stricken white with leprosy, outside the camp or being led out. Humbled, penitent. In the distance or approaching, Moses with hands raised beginning to pray for her healing. The challenge met with judgment, but mercy coming.",
+      "energy": "Judgment and mercy, humbling and healing",
+      "isRivalryPose": true
+    },
+    "rivalry-healed-by-prayer": {
+      "id": "rivalry-healed-by-prayer",
+      "name": "Rivalry: Healed by His Prayer",
+      "description": "Moses praying for Miriam's healing",
+      "prompt": "Moses with hands raised in prayer, face anguished for his sister. Crying out the shortest, most powerful prayer: 'Please God, heal her please!' Miriam visible, waiting, the leprosy beginning to fade. The brother she saved now saves her through intercession.",
+      "energy": "Intercessory love, healing, siblings restored",
+      "isRivalryPose": true
+    }
+  }
+}

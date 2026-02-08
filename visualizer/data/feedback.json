@@ -144,49 +144,190 @@
     "notes": "",
     "updatedAt": "2026-01-28T04:39:56.580Z"
   },
-  "abraham-sarah-sb-20260130T100643": {
-    "rating": "issues",
-    "notes": "This card and this template are not cool at all.",
-    "updatedAt": "2026-01-30T17:02:18.531Z"
-  },
-  "abraham-sarah-sb-20260130T100902": {
-    "rating": "issues",
-    "notes": "This card and this template are not cool at all.",
-    "updatedAt": "2026-01-30T17:02:26.342Z"
-  },
-  "abraham-sarah-sb-20260130T101003": {
-    "rating": "issues",
-    "notes": "This card and this template are not cool at all.",
-    "updatedAt": "2026-01-30T17:02:33.843Z"
-  },
-  "abraham-sarah-sb-20260130T120820": {
-    "rating": "issues",
-    "notes": "This card and this template are not cool at all.",
-    "updatedAt": "2026-01-30T17:02:43.448Z"
-  },
-  "abraham-sarah-sb-20260130T121611": {
-    "rating": "issues",
-    "notes": "This card and this template are not cool at all.",
-    "updatedAt": "2026-01-30T17:02:52.328Z"
-  },
-  "barkley-caleb-kb-20260128T141516": {
+  "jordan-moses-tl-20260127T022912": {
     "rating": "loved",
     "notes": "",
-    "updatedAt": "2026-01-30T17:44:12.094Z"
+    "updatedAt": "2026-02-02T00:28:20.908Z"
   },
-  "iverson-gideon-hots-20260201T002930": {
+  "curry-elijah-tl-20260127T023818": {
     "rating": null,
-    "notes": "This card feels very busy with all the fire behind the basketball player (allen Iverson) and \"gideon\" pose with 300 people with torches behind him. We'd need a way to simply this card AND this template. I dont think allen iverson should be fiery.",
+    "notes": "",
+    "updatedAt": "2026-02-02T00:28:37.580Z"
+  },
+  "curry-elijah-dt-20260127T024737": {
+    "rating": "loved",
+    "notes": "",
+    "updatedAt": "2026-02-02T00:28:45.374Z"
+  },
+  "kobe-joshua-mu-20260127T025030": {
+    "rating": "loved",
+    "notes": "",
+    "updatedAt": "2026-02-02T00:28:48.865Z"
+  },
+  "pippen-aaron-dt-20260127T025036": {
+    "rating": "loved",
+    "notes": "",
+    "updatedAt": "2026-02-02T00:28:58.035Z"
+  },
+  "jordan-moses-tl-20260127T033125": {
+    "rating": "loved",
+    "notes": "",
+    "updatedAt": "2026-02-02T00:29:03.854Z"
+  },
+  "lebron-david-tl-20260127T033142": {
+    "rating": null,
+    "notes": "both characters should be wearing a crown. And david's name on the card should be King David",
+    "updatedAt": "2026-02-02T00:31:12.977Z",
+    "scope": "card",
+    "categories": [
+      "characters"
+    ]
+  },
+  "jordan-moses-dt-20260127T033313": {
+    "rating": "loved",
+    "notes": "",
+    "updatedAt": "2026-02-02T00:31:42.543Z"
+  },
+  "rodman-esau-tl-20260127T035327": {
+    "rating": "loved",
+    "notes": "",
+    "updatedAt": "2026-02-02T00:32:00.360Z"
+  },
+  "draymond-joab-dt-20260127T035834": {
+    "rating": "loved",
+    "notes": "",
+    "updatedAt": "2026-02-02T00:32:26.193Z"
+  },
+  "shaq-goliath-btcd-20260127T040838": {
+    "rating": "loved",
+    "notes": "",
+    "updatedAt": "2026-02-02T00:32:36.710Z"
+  },
+  "pippen-aaron-tl-20260127T042932": {
+    "rating": null,
+    "notes": "Aaron is giving the priestly blessing and his hands should reflect that. Look online to see the hand positioning of the priestly blessing and give that guidance to aaron's pose. He should always have that handposition with this pose.",
+    "scope": "card",
+    "categories": [
+      "poses"
+    ],
+    "updatedAt": "2026-02-02T00:34:05.375Z"
+  },
+  "bird-jacob-tl-20260127T043034": {
+    "rating": "loved",
+    "notes": "",
+    "updatedAt": "2026-02-02T00:34:37.272Z"
+  },
+  "shaq-goliath-muda-20260127T134744": {
+    "rating": "loved",
+    "notes": "",
+    "updatedAt": "2026-02-02T00:34:40.703Z"
+  },
+  "rodman-esau-bts-20260127T140623": {
+    "rating": "loved",
+    "notes": "",
+    "updatedAt": "2026-02-02T00:34:45.377Z"
+  },
+  "isiah-pharaoh-mud-20260127T200101": {
+    "rating": "loved",
+    "notes": "",
+    "updatedAt": "2026-02-02T00:34:54.197Z"
+  },
+  "wilt-samson-tl-20260127T205806": {
+    "rating": null,
+    "notes": "",
+    "updatedAt": "2026-02-02T00:47:20.515Z"
+  },
+  "draymond-joab-mu-20260127T200240": {
+    "rating": "loved",
+    "notes": "",
+    "updatedAt": "2026-02-02T00:35:12.338Z"
+  },
+  "jokic-isaac-bt-20260128T042648": {
+    "rating": null,
+    "notes": "",
+    "updatedAt": "2026-02-02T00:41:50.855Z"
+  },
+  "duncan-bezalel-mu-20260128T125930": {
+    "rating": "loved",
+    "notes": "",
+    "updatedAt": "2026-02-02T00:35:26.803Z"
+  },
+  "isiah-pharaoh-bts-20260128T043836": {
+    "rating": "loved",
+    "notes": "",
+    "updatedAt": "2026-02-02T00:35:32.776Z"
+  },
+  "malone-balaam-mu-20260128T132207": {
+    "rating": "loved",
+    "notes": "",
+    "updatedAt": "2026-02-02T00:35:57.379Z"
+  },
+  "ewing-saul-bt-20260128T132814": {
+    "rating": null,
+    "notes": "these characters should be more centered in the card. they are too far in the background. ",
+    "scope": "card",
+    "categories": [],
+    "updatedAt": "2026-02-02T00:37:18.806Z"
+  },
+  "ewing-saul-bts-20260128T132834": {
+    "rating": "loved",
+    "notes": "",
+    "scope": "card",
+    "categories": [],
+    "updatedAt": "2026-02-02T00:37:26.185Z"
+  },
+  "russell-westbrook-absalom-bts-20260201T174640": {
+    "rating": null,
+    "notes": "this card did not use the court and covenant logo. that is a must. explore why and fix.",
+    "scope": "card",
+    "categories": [],
+    "updatedAt": "2026-02-02T00:38:49.606Z"
+  },
+  "russell-westbrook-absalom-ps-20260201T174549": {
+    "rating": null,
+    "notes": "We need to remove the prizm logo from this template and replace it with the court and covenant logo globally. then the template should frame the character's names in a stylized way",
     "scope": "template",
+    "categories": [],
+    "updatedAt": "2026-02-02T00:40:43.519Z"
+  },
+  "lebron-david-tl-20260202T003423": {
+    "rating": null,
+    "notes": "lebron should not be blowing chalk out of his mouth! He should be throwing up the chalk like in the pose details. King david needs a crown as well. ",
+    "scope": "card",
     "categories": [
       "composition",
       "poses"
     ],
-    "updatedAt": "2026-02-01T00:38:53.907Z"
+    "updatedAt": "2026-02-02T00:45:01.218Z"
   },
-  "jordan-moses-tl-20260127T022912": {
+  "barkley-caleb-kb-20260128T141516": {
     "rating": "loved",
     "notes": "",
-    "updatedAt": "2026-02-01T00:47:16.741Z"
+    "updatedAt": "2026-02-02T00:47:40.605Z"
+  },
+  "wilt-samson-bt-20260128T045040": {
+    "rating": "loved",
+    "notes": "",
+    "updatedAt": "2026-02-02T00:48:10.109Z"
+  },
+  "ewing-saul-down-20260202T010021": {
+    "rating": null,
+    "notes": "this template is a good start, but still needs some changes. first, the downtown text is too metallic, and should not say \"chrome'. the dark symbol should be bright purple, not not bright green. in the background, try adding a green, cresent moon to add sinsterness.",
+    "scope": "template",
+    "categories": [
+      "colors",
+      "style",
+      "text"
+    ],
+    "updatedAt": "2026-02-02T01:05:54.691Z"
+  },
+  "rodman-esau-down-20260202T010809": {
+    "rating": null,
+    "notes": "this is good, but i have a few changes. rodman global changes: his hair should be pink when applied. when screaming laughing at all, he should not look so psycotic. he should look crazy, but his eyes should not be so wide open.",
+    "scope": "card",
+    "categories": [
+      "characters"
+    ],
+    "updatedAt": "2026-02-02T01:12:07.199Z"
   }
 }

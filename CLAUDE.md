@@ -30,6 +30,7 @@ A **contemporary art project** creating collectible basketball cards that pair N
 ```
 data/           # Pairings, poses, quotes, schemas (see data/CLAUDE.md)
 docs/           # Detailed guides (generator-ui.md, solo-characters.md, etc.)
+game/           # Holy Hoops - NBA Jam-style game (see game/CLAUDE.md)
 prompts/        # Template system, components (see prompts/CLAUDE.md)
 scripts/        # CLI commands, shared libs (see scripts/CLAUDE.md)
 visualizer/     # Card review & feedback app (see visualizer/CLAUDE.md)
@@ -41,6 +42,9 @@ output/         # Generated images (organized by series)
 ```bash
 # Start the visualizer
 cd visualizer && npm start
+
+# Start the game
+cd game && npm run dev
 
 # Generate a card
 node scripts/generate-card.js jordan-moses thunder-lightning
@@ -70,6 +74,7 @@ Context-specific docs load automatically when working in subdirectories:
 
 | Location | CLAUDE.md covers |
 |----------|------------------|
+| `game/` | Holy Hoops game: controls, mechanics, testing, build phases |
 | `visualizer/` | API endpoints, export system, Generator UI, feedback system |
 | `data/` | Data formats, multi-series, validation, schemas |
 | `scripts/` | CLI reference, shared libraries, environment vars |
