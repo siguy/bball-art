@@ -10,10 +10,23 @@ export default class GameScene extends Phaser.Scene {
     this.floor = this.add.rectangle(640, 670, 1280, 100, 0x8B4513);
     this.physics.add.existing(this.floor, true);
 
-    // Player
+    // Player 1 (red)
     this.player = this.add.rectangle(200, 500, 40, 60, 0xff0000);
     this.physics.add.existing(this.player);
     this.player.body.setCollideWorldBounds(true);
+
+    // Player 2 / Teammate (red, at x=350)
+    this.teammate = this.add.rectangle(350, 500, 40, 60, 0xff0000);
+    this.physics.add.existing(this.teammate);
+    this.teammate.body.setCollideWorldBounds(true);
+
+    // Players array and active player tracking
+    this.players = [this.player, this.teammate];
+    this.activePlayerIndex = 0;
+
+    // Yellow outline graphics for active player
+    this.activeOutline = this.add.graphics();
+    this.activeOutline.lineStyle(3, 0xffff00, 1);
 
     // Opponent (purple, stationary for now)
     this.opponent = this.add.rectangle(700, 590, 40, 60, 0x800080);
@@ -29,6 +42,12 @@ export default class GameScene extends Phaser.Scene {
       right: Phaser.Input.Keyboard.KeyCodes.D
     });
 
+    // Tab key for switching players
+    this.tabKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.TAB);
+
+    // E key for passing
+    this.passKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.E);
+
     // Space key
     this.spaceKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
 
@@ -41,6 +60,7 @@ export default class GameScene extends Phaser.Scene {
 
     // Simple state
     this.isDunking = false;
+    this.dunkingPlayer = null; // Which player is currently dunking
     this.wasInAir = false; // Track if player has left the ground during dunk
     this.jumpedThisPress = true; // Start true to ignore space held from menu
     this.ballPickupCooldown = 0; // Frames before ball can be picked up
@@ -54,9 +74,11 @@ export default class GameScene extends Phaser.Scene {
 
     // Dribbling state
     this.dribbleTime = 0; // Counter for dribble animation
+    this.lastBallSide = 25; // Track which side ball was on (25 = right, -25 = left)
 
     // Collisions
     this.physics.add.collider(this.player, this.floor);
+    this.physics.add.collider(this.teammate, this.floor);
     this.physics.add.collider(this.opponent, this.floor);
 
     // Ball
@@ -66,7 +88,7 @@ export default class GameScene extends Phaser.Scene {
     this.ball.body.setBounce(0.6);
     this.ball.body.setCollideWorldBounds(true);
     this.ball.body.setAllowGravity(false);
-    this.hasBall = false; // Player does NOT start with ball
+    this.ballCarrier = null; // Which player has the ball (null = no one on red team)
 
     this.physics.add.collider(this.ball, this.floor);
 
@@ -112,8 +134,11 @@ export default class GameScene extends Phaser.Scene {
       }
     });
 
-    // Ball pickup - player
-    this.physics.add.overlap(this.player, this.ball, this.onBallPickup, null, this);
+    // Ball pickup - player 1
+    this.physics.add.overlap(this.player, this.ball, () => this.onBallPickup(this.player), null, this);
+
+    // Ball pickup - teammate (player 2)
+    this.physics.add.overlap(this.teammate, this.ball, () => this.onBallPickup(this.teammate), null, this);
 
     // Ball pickup - opponent
     this.physics.add.overlap(this.opponent, this.ball, this.onOpponentBallPickup, null, this);
@@ -129,7 +154,7 @@ export default class GameScene extends Phaser.Scene {
     });
 
     // Controls hint
-    this.add.text(640, 600, 'WASD = Move | SPACE = Jump/Shoot | DOWN = Steal | SHIFT+DOWN = Shove', {
+    this.add.text(640, 600, 'WASD = Move | SPACE = Jump/Shoot | TAB = Switch | E = Pass | DOWN = Steal', {
       fontSize: '16px',
       fontFamily: 'Arial',
       color: '#ffff00',
@@ -147,20 +172,20 @@ export default class GameScene extends Phaser.Scene {
     this.debugText.setVisible(false);
   }
 
-  onBallPickup() {
-    // Don't pick up if: already have ball, opponent has ball, dunking, or cooldown active
-    if (this.hasBall || this.opponentHasBall || this.isDunking || this.ballPickupCooldown > 0) {
+  onBallPickup(player) {
+    // Don't pick up if: someone already has ball, opponent has ball, dunking, or cooldown active
+    if (this.ballCarrier || this.opponentHasBall || this.isDunking || this.ballPickupCooldown > 0) {
       return;
     }
-    this.hasBall = true;
+    this.ballCarrier = player;
     this.ball.body.setVelocity(0, 0);
     this.ball.body.setAllowGravity(false);
     this.ballEnteredHoop = false; // Reset scoring state
   }
 
   onOpponentBallPickup() {
-    // Don't pick up if: player has ball, opponent already has ball, or cooldown active
-    if (this.hasBall || this.opponentHasBall || this.ballPickupCooldown > 0) {
+    // Don't pick up if: a red team player has ball, opponent already has ball, or cooldown active
+    if (this.ballCarrier || this.opponentHasBall || this.ballPickupCooldown > 0) {
       return;
     }
     this.opponentHasBall = true;
@@ -170,7 +195,7 @@ export default class GameScene extends Phaser.Scene {
 
   onScore() {
     // Prevent double-scoring (called from exit zone overlap)
-    if (this.hasBall || this.isDunking) return;
+    if (this.ballCarrier || this.isDunking) return;
 
     this.score += 2;
     this.scoreText.setText('SCORE: ' + this.score);
@@ -194,14 +219,14 @@ export default class GameScene extends Phaser.Scene {
     // Reset ball entry state
     this.ballEnteredHoop = false;
 
-    // Ball returns to player
-    this.hasBall = true;
+    // Ball returns to active player
+    this.ballCarrier = this.players[this.activePlayerIndex];
     this.ball.body.setVelocity(0, 0);
     this.ball.body.setAllowGravity(false);
   }
 
   update() {
-    // Debug toggle (backtick key)
+    // Debug toggle (I key)
     if (Phaser.Input.Keyboard.JustDown(this.debugKey)) {
       this.debugMode = !this.debugMode;
       this.debugText.setVisible(this.debugMode);
@@ -210,24 +235,56 @@ export default class GameScene extends Phaser.Scene {
       this.scoreExit.setAlpha(this.debugMode ? 0.3 : 0);
     }
 
-    const onGround = this.player.body.blocked.down;
+    // Tab key switches active player
+    if (Phaser.Input.Keyboard.JustDown(this.tabKey)) {
+      // Stop the current player before switching
+      const currentPlayer = this.players[this.activePlayerIndex];
+      if (currentPlayer.body.blocked.down) {
+        currentPlayer.body.setVelocityX(0);
+      }
+      this.activePlayerIndex = (this.activePlayerIndex + 1) % 2;
+    }
+
+    // Get active player
+    const activePlayer = this.players[this.activePlayerIndex];
+    const onGround = activePlayer.body.blocked.down;
     const speed = 250;
 
     // Check dunk range (can dunk from 200px before hoop to 50px past it)
-    const distToHoop = 1070 - this.player.x;
+    const distToHoop = 1070 - activePlayer.x;
     const inDunkRange = distToHoop > -50 && distToHoop < 200;
 
-    // Visual feedback: player turns gold when in dunk range with ball
-    if (inDunkRange && this.hasBall && onGround) {
-      this.player.setFillStyle(0xffd700); // Gold = ready to dunk!
-    } else if (this.hasBall) {
-      this.player.setFillStyle(0xff0000); // Red = normal
-    } else {
-      this.player.setFillStyle(0x880000); // Dark red = no ball
+    // Helper: does this player have the ball?
+    const activeHasBall = this.ballCarrier === activePlayer;
+
+    // Visual feedback for BOTH players
+    for (const p of this.players) {
+      const playerHasBall = this.ballCarrier === p;
+      const pDistToHoop = 1070 - p.x;
+      const pInDunkRange = pDistToHoop > -50 && pDistToHoop < 200;
+      const pOnGround = p.body.blocked.down;
+
+      if (pInDunkRange && playerHasBall && pOnGround) {
+        p.setFillStyle(0xffd700); // Gold = ready to dunk!
+      } else if (playerHasBall) {
+        p.setFillStyle(0xff0000); // Red = has ball
+      } else {
+        p.setFillStyle(0x880000); // Dark red = no ball
+      }
     }
 
+    // Draw yellow outline on active player
+    this.activeOutline.clear();
+    this.activeOutline.lineStyle(3, 0xffff00, 1);
+    this.activeOutline.strokeRect(
+      activePlayer.x - 22,
+      activePlayer.y - 32,
+      44,
+      64
+    );
+
     // === DEFENSE (steal and shove) ===
-    const distToOpponent = Math.abs(this.player.x - this.opponent.x);
+    const distToOpponent = Math.abs(activePlayer.x - this.opponent.x);
     const closeToOpponent = distToOpponent < 70;
 
     // Decrement cooldowns
@@ -256,21 +313,27 @@ export default class GameScene extends Phaser.Scene {
     }
 
     // Debug display - show all relevant state
+    const ballStatus = this.ballCarrier ? (this.ballCarrier === this.player ? 'P1' : 'P2') : (this.opponentHasBall ? 'O' : 'L');
     this.debugText.setText(
-      `Ground: ${onGround} | Ball: ${this.hasBall ? 'P' : this.opponentHasBall ? 'O' : 'L'} | ` +
+      `Ground: ${onGround} | Ball: ${ballStatus} | Active: P${this.activePlayerIndex + 1} | ` +
       `DistOpp: ${Math.round(distToOpponent)} | StealCD: ${this.stealCooldown} | ShoveCD: ${this.shoveCooldown}`
     );
+
+    // === PASS (E key) ===
+    if (Phaser.Input.Keyboard.JustDown(this.passKey) && activeHasBall) {
+      this.passBall(activePlayer);
+    }
 
     // === JUMP (only when on ground, only once per press) ===
     if (this.spaceKey.isDown && onGround && !this.jumpedThisPress) {
       this.jumpedThisPress = true; // Prevent multiple jumps
-      if (inDunkRange && this.hasBall) {
+      if (inDunkRange && activeHasBall) {
         // DUNK - boosted jump toward hoop
-        this.player.body.setVelocityY(-700);
-        this.performDunk();
+        activePlayer.body.setVelocityY(-700);
+        this.performDunk(activePlayer);
       } else {
         // Normal jump
-        this.player.body.setVelocityY(-550);
+        activePlayer.body.setVelocityY(-550);
         this.isDunking = false;
       }
     }
@@ -281,28 +344,28 @@ export default class GameScene extends Phaser.Scene {
     }
 
     // === SHOOT (release in air, not dunking) ===
-    if (Phaser.Input.Keyboard.JustUp(this.spaceKey) && !onGround && this.hasBall && !this.isDunking) {
-      this.shootBall();
+    if (Phaser.Input.Keyboard.JustUp(this.spaceKey) && !onGround && activeHasBall && !this.isDunking) {
+      this.shootBall(activePlayer);
     }
 
     // === MOVEMENT ===
-    if (this.isDunking) {
+    if (this.isDunking && this.dunkingPlayer === activePlayer) {
       // During dunk: allow slight adjustments but don't fully override
-      const currentVelX = this.player.body.velocity.x;
+      const currentVelX = activePlayer.body.velocity.x;
       if (this.cursors.left.isDown || this.wasd.left.isDown) {
-        this.player.body.setVelocityX(currentVelX - 5); // Slight left adjustment
+        activePlayer.body.setVelocityX(currentVelX - 5); // Slight left adjustment
       } else if (this.cursors.right.isDown || this.wasd.right.isDown) {
-        this.player.body.setVelocityX(currentVelX + 5); // Slight right adjustment
+        activePlayer.body.setVelocityX(currentVelX + 5); // Slight right adjustment
       }
-    } else {
-      // Normal movement
+    } else if (!this.isDunking || this.dunkingPlayer !== activePlayer) {
+      // Normal movement (only if active player is not dunking)
       if (this.cursors.left.isDown || this.wasd.left.isDown) {
-        this.player.body.setVelocityX(-speed);
+        activePlayer.body.setVelocityX(-speed);
       } else if (this.cursors.right.isDown || this.wasd.right.isDown) {
-        this.player.body.setVelocityX(speed);
+        activePlayer.body.setVelocityX(speed);
       } else if (onGround) {
         // Only stop when on ground (preserve air momentum)
-        this.player.body.setVelocityX(0);
+        activePlayer.body.setVelocityX(0);
       }
     }
 
@@ -312,23 +375,27 @@ export default class GameScene extends Phaser.Scene {
       this.ball.y = this.opponent.y - 20;
     }
 
-    // Ball follows player with dribble animation
-    if (this.hasBall) {
-      const isMoving = Math.abs(this.player.body.velocity.x) > 10;
-      // Ball on the side player is moving toward
-      const ballSide = this.player.body.velocity.x >= 0 ? 25 : -25;
-      const targetX = this.player.x + ballSide;
+    // Ball follows the carrier with dribble animation
+    if (this.ballCarrier) {
+      const carrier = this.ballCarrier;
+      const carrierOnGround = carrier.body.blocked.down;
+      const isMoving = Math.abs(carrier.body.velocity.x) > 10;
+      // Ball on the side player is moving toward (only update when moving)
+      if (isMoving) {
+        this.lastBallSide = carrier.body.velocity.x > 0 ? 25 : -25;
+      }
+      const targetX = carrier.x + this.lastBallSide;
 
-      if (onGround && isMoving && !this.isDunking) {
+      if (carrierOnGround && isMoving && !this.isDunking) {
         // Dribbling: ball bounces to floor and back (1 bounce/sec at 60fps)
         this.dribbleTime += 0.105; // 1 cycle per second
         const dribbleBounce = Math.abs(Math.sin(this.dribbleTime)) * 40; // 0-40px amplitude
         this.ball.x = this.ball.x + (targetX - this.ball.x) * 0.8; // Slight trail effect
-        this.ball.y = this.player.y - 5 + dribbleBounce; // Start lower (-5), bounce to floor (+35)
+        this.ball.y = carrier.y - 5 + dribbleBounce; // Start lower (-5), bounce to floor (+35)
       } else {
         // Not dribbling: ball follows player directly (jumping, stationary, or dunking)
         this.ball.x = this.ball.x + (targetX - this.ball.x) * 0.3; // Smooth transition when stopping
-        this.ball.y = this.player.y - 20;
+        this.ball.y = carrier.y - 20;
         // Reset dribble time when not dribbling so bounce starts from consistent position
         this.dribbleTime = 0;
       }
@@ -339,42 +406,47 @@ export default class GameScene extends Phaser.Scene {
       this.ballPickupCooldown--;
     }
 
-    // Check if player reached the hoop during a dunk
-    if (this.isDunking && this.hasBall) {
-      // Player is near the rim horizontally (within 50px) and at/above rim height
-      const distFromRim = Math.abs(this.player.x - 1050);
+    // Check if dunking player reached the hoop during a dunk
+    if (this.isDunking && this.ballCarrier && this.dunkingPlayer) {
+      // Dunking player is near the rim horizontally (within 50px) and at/above rim height
+      const distFromRim = Math.abs(this.dunkingPlayer.x - 1050);
       const nearRimX = distFromRim < 50;
-      const atRimHeight = this.player.y < 400;
+      const atRimHeight = this.dunkingPlayer.y < 400;
 
       if (nearRimX && atRimHeight) {
         this.completeDunk();
       }
     }
 
-    // Track if player has been in the air (only during a dunk)
-    if (!onGround && this.isDunking && !this.wasInAir) {
-      this.wasInAir = true;
-    }
+    // Track if dunking player has been in the air (only during a dunk)
+    if (this.isDunking && this.dunkingPlayer) {
+      const dunkingOnGround = this.dunkingPlayer.body.blocked.down;
+      if (!dunkingOnGround && !this.wasInAir) {
+        this.wasInAir = true;
+      }
 
-    // Reset dunking flag when landing (only if player was actually in the air during THIS dunk)
-    if (onGround && this.isDunking && this.wasInAir) {
-      this.isDunking = false;
-      this.wasInAir = false;
+      // Reset dunking flag when landing (only if player was actually in the air during THIS dunk)
+      if (dunkingOnGround && this.wasInAir) {
+        this.isDunking = false;
+        this.wasInAir = false;
+        this.dunkingPlayer = null;
+      }
     }
   }
 
-  performDunk() {
+  performDunk(player) {
     this.isDunking = true;
+    this.dunkingPlayer = player;
     // Ball stays with player - don't release yet!
     // Player will carry ball to the hoop
 
     // Calculate velocity to reach the rim from current position
     const targetX = 1050; // Center of rim area
-    const distToRim = targetX - this.player.x;
+    const distToRim = targetX - player.x;
 
     if (Math.abs(distToRim) < 30) {
       // Already at the rim - just jump straight up
-      this.player.body.setVelocityX(0);
+      player.body.setVelocityX(0);
     } else {
       // Calculate time to reach apex: velocityY / gravity = 700 / 800 ≈ 0.875 seconds
       const timeToApex = 0.7; // Slightly less to arrive before apex
@@ -386,13 +458,13 @@ export default class GameScene extends Phaser.Scene {
       const sign = velocityX >= 0 ? 1 : -1;
       velocityX = sign * Math.max(100, Math.min(400, Math.abs(velocityX)));
 
-      this.player.body.setVelocityX(velocityX);
+      player.body.setVelocityX(velocityX);
     }
   }
 
   // Called when player reaches the rim during a dunk
   completeDunk() {
-    this.hasBall = false;
+    this.ballCarrier = null;
     this.ballPickupCooldown = 60;
 
     // Ball drops through hoop
@@ -424,8 +496,8 @@ export default class GameScene extends Phaser.Scene {
     });
   }
 
-  shootBall() {
-    this.hasBall = false;
+  shootBall(player) {
+    this.ballCarrier = null;
     this.ballPickupCooldown = 30; // Prevent immediate pickup after shot
     this.ball.body.setAllowGravity(true);
 
@@ -435,7 +507,7 @@ export default class GameScene extends Phaser.Scene {
     const distance = Math.abs(distX);
 
     // Accuracy based on apex timing
-    const velocityY = Math.abs(this.player.body.velocity.y);
+    const velocityY = Math.abs(player.body.velocity.y);
     const isLongRange = distance >= 400;
 
     let jumpAccuracy, feedbackText, feedbackColor;
@@ -473,6 +545,30 @@ export default class GameScene extends Phaser.Scene {
     vy *= (1 + (Math.random() - 0.5) * randomness);
 
     this.ball.body.setVelocity(vx, vy);
+  }
+
+  passBall(fromPlayer) {
+    // Find the teammate (the other player)
+    const teammate = this.players.find(p => p !== fromPlayer);
+    if (!teammate) return;
+
+    this.ballCarrier = null;
+    this.ball.body.setAllowGravity(true);
+
+    // Calculate pass trajectory to teammate
+    const distX = teammate.x - this.ball.x;
+    const distY = (teammate.y - 20) - this.ball.y; // Aim at chest height
+
+    // Fast, direct pass with slight arc
+    const passTime = 0.4; // Quick pass
+    const vx = distX / passTime;
+    const gravity = 800;
+    const vy = (distY - 0.5 * gravity * passTime * passTime) / passTime;
+
+    this.ball.body.setVelocity(vx, vy);
+
+    // Short cooldown so teammate can catch
+    this.ballPickupCooldown = 5;
   }
 
   performSteal() {

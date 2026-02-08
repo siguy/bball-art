@@ -37,12 +37,14 @@ async function injectTestHelpers(page) {
         if (!scene) return null;
         const onGround = scene.player?.body?.blocked?.down;
         if (scene.isDunking) return 'DUNKING';
-        if (!scene.hasBall && !scene.opponentHasBall) return 'SHOT_FIRED';
+        // ballCarrier is null when no red team player has ball
+        if (!scene.ballCarrier && !scene.opponentHasBall) return 'SHOT_FIRED';
         if (!onGround) return 'JUMPING';
         return 'GROUNDED';
       },
       getScore: () => window.__gameTest.getActiveScene()?.score ?? null,
-      hasBall: () => window.__gameTest.getActiveScene()?.hasBall ?? null,
+      // Return boolean for backwards compatibility (true if any red player has ball)
+      hasBall: () => window.__gameTest.getActiveScene()?.ballCarrier != null,
       opponentHasBall: () => window.__gameTest.getActiveScene()?.opponentHasBall ?? null,
       getPlayerPosition: () => {
         const scene = window.__gameTest.getActiveScene();
@@ -58,7 +60,8 @@ async function injectTestHelpers(page) {
         const scene = window.__gameTest.getActiveScene();
         if (!scene) return false;
         scene.opponentHasBall = false;
-        scene.hasBall = true;
+        // Give ball to the active player (or player 1 by default)
+        scene.ballCarrier = scene.players ? scene.players[scene.activePlayerIndex] : scene.player;
         scene.ball.body.setVelocity(0, 0);
         scene.ball.body.setAllowGravity(false);
         return true;

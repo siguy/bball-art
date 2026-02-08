@@ -18,16 +18,18 @@ async function injectHelpers(page) {
       getState: () => {
         const scene = window.__test.getScene();
         if (!scene) return null;
+        // Use active player position (defaults to player 1)
+        const activePlayer = scene.players ? scene.players[scene.activePlayerIndex] : scene.player;
         return {
-          playerX: scene.player?.x,
-          playerY: scene.player?.y,
-          hasBall: scene.hasBall,
+          playerX: activePlayer?.x,
+          playerY: activePlayer?.y,
+          hasBall: scene.ballCarrier != null, // true if any red player has ball
           opponentHasBall: scene.opponentHasBall,
           isDunking: scene.isDunking,
           score: scene.score,
-          onGround: scene.player?.body?.blocked?.down,
-          distToHoop: 1070 - (scene.player?.x || 0),
-          inDunkRange: (1070 - (scene.player?.x || 0)) > 0 && (1070 - (scene.player?.x || 0)) < 200,
+          onGround: activePlayer?.body?.blocked?.down,
+          distToHoop: 1070 - (activePlayer?.x || 0),
+          inDunkRange: (1070 - (activePlayer?.x || 0)) > 0 && (1070 - (activePlayer?.x || 0)) < 200,
           jumpedThisPress: scene.jumpedThisPress
         };
       },
@@ -36,7 +38,9 @@ async function injectHelpers(page) {
         const scene = window.__test.getScene();
         if (!scene) return false;
         scene.opponentHasBall = false;
-        scene.hasBall = true;
+        // Give ball to active player
+        const activePlayer = scene.players ? scene.players[scene.activePlayerIndex] : scene.player;
+        scene.ballCarrier = activePlayer;
         scene.ball.body.setVelocity(0, 0);
         scene.ball.body.setAllowGravity(false);
         return true;

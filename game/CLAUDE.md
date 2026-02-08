@@ -4,12 +4,12 @@ Part of **Court & Covenant** - NBA Jam-style basketball game pairing NBA legends
 
 ## Progress Tracking
 
-**Active plan:** `~/.claude/plans/holy-hoops-game.md` (55% complete)
+**Active plan:** `~/.claude/plans/holy-hoops-game.md` (65% complete)
 
 | Build | Status |
 |-------|--------|
-| BUILD 1: One Player Scores | ✅ Steps 1-8 complete (ready for family playtest) |
-| BUILD 2: Full 2v2 Game | 🔲 Not started |
+| BUILD 1: One Player Scores | ✅ Steps 1-8 complete |
+| BUILD 2: Full 2v2 Game | 🟡 Step 9 complete (teammate + controls) |
 | BUILD 3: Polish & iPad | 🔲 Not started |
 
 **Reference docs:**
@@ -25,12 +25,13 @@ npm run preview      # Production preview (use for iPad testing)
 npm test             # Run Playwright tests
 ```
 
-## Current State: BUILD 1 Complete
+## Current State: BUILD 2 In Progress
 
-Single player scoring mechanics are working:
-- Movement, jumping, shooting, dunking
-- Score tracking with visual feedback
-- Ball physics with gravity
+Two-player team mechanics working:
+- Teammate at x=350, Tab to switch control
+- Yellow outline shows active player
+- E to pass ball to teammate
+- Both players can shoot/dunk when carrying ball
 
 ## Architecture
 
@@ -56,6 +57,8 @@ src/
 | Space (tap) | Jump |
 | Space (hold + release) | Shoot at apex for accuracy |
 | Space (in dunk range) | Auto-dunk |
+| Tab | Switch active player |
+| E | Pass to teammate |
 | Down | Steal (30% chance) |
 | Shift+Down | Shove (always works) |
 | I | Toggle debug mode |

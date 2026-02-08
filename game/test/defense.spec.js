@@ -22,7 +22,7 @@ async function injectHelpers(page) {
           playerX: scene.player?.x,
           playerY: scene.player?.y,
           opponentX: scene.opponent?.x,
-          hasBall: scene.hasBall,
+          hasBall: scene.ballCarrier != null, // true if any red player has ball
           opponentHasBall: scene.opponentHasBall,
           stealCooldown: scene.stealCooldown,
           shoveCooldown: scene.shoveCooldown,
