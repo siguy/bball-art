@@ -1,0 +1,289 @@
+{
+  "id": "tour-eras",
+  "name": "Freedom Tour Era Styles",
+  "description": "Rock era configurations for the Plague Tour Stop cards. Each plague gets its own rock sub-genre aesthetic.",
+  "eras": {
+    "heavy-metal": {
+      "id": "heavy-metal",
+      "name": "Heavy Metal",
+      "decade": "1980s",
+      "associatedPlague": "blood",
+      "plagueNumber": 1,
+      "inspiration": "Iron Maiden, Judas Priest, Black Sabbath album art",
+      "colors": {
+        "primary": "deep blood red",
+        "secondary": "jet black",
+        "accent": "chrome silver",
+        "gradient": "red-to-black vertical drip"
+      },
+      "typography": {
+        "style": "aggressive angular metal font with sharp serifs",
+        "treatment": "chrome or blood-dripping letters",
+        "hebrew": "Hebrew letters styled as metal band logo - angular, imposing"
+      },
+      "borderTreatment": {
+        "style": "studded leather border with chrome spikes",
+        "corners": "pentagram-inspired geometric shapes (using Star of David instead)",
+        "edge": "riveted metal plates with blood drips"
+      },
+      "finishEffect": "chrome reflection with wet blood sheen",
+      "visualLanguage": "Aggressive, dripping logos, Nile River turning to blood as a metal album cover",
+      "tagline": "THE RIVER RUNS RED",
+      "puns": ["Blood on the Tracks", "Crimson Tide", "Red Alert"]
+    },
+    "punk": {
+      "id": "punk",
+      "name": "Punk Rock",
+      "decade": "1970s-80s",
+      "associatedPlague": "frogs",
+      "plagueNumber": 2,
+      "inspiration": "Sex Pistols, Ramones, DIY zine aesthetic, xerox art",
+      "colors": {
+        "primary": "slime green",
+        "secondary": "anarchist black",
+        "accent": "safety-pin silver",
+        "gradient": "none - harsh color blocks"
+      },
+      "typography": {
+        "style": "ransom note cut-out letters, uneven sizing",
+        "treatment": "hand-drawn, spray-painted, or cut from newspaper",
+        "hebrew": "Hebrew letters as chaotic cut-outs, deliberately messy"
+      },
+      "borderTreatment": {
+        "style": "torn paper edges, safety pins holding it together",
+        "corners": "anarchist-A symbols replaced with Hebrew letters",
+        "edge": "xerox noise, photocopier artifacts"
+      },
+      "finishEffect": "matte with photocopier grain texture",
+      "visualLanguage": "Chaotic, DIY, frogs as punk rebellion against the establishment",
+      "tagline": "LEAP OF CHAOS",
+      "puns": ["Froggy Mountain Breakdown", "Toadal Destruction", "Hop to It"]
+    },
+    "grunge": {
+      "id": "grunge",
+      "name": "Grunge",
+      "decade": "1990s",
+      "associatedPlague": "lice",
+      "plagueNumber": 3,
+      "inspiration": "Nirvana, Pearl Jam, Soundgarden, Seattle scene",
+      "colors": {
+        "primary": "dirty brown",
+        "secondary": "washed-out grey",
+        "accent": "sickly yellow",
+        "gradient": "muddy, desaturated blend"
+      },
+      "typography": {
+        "style": "hand-scrawled, reluctant, lowercase preferred",
+        "treatment": "scratched into surface, faded",
+        "hebrew": "Hebrew letters looking scratched or carved, imperfect"
+      },
+      "borderTreatment": {
+        "style": "flannel fabric texture border",
+        "corners": "coffee-stained, worn",
+        "edge": "deliberately imperfect, torn"
+      },
+      "finishEffect": "matte, aged, deliberately unpolished",
+      "visualLanguage": "Uncomfortable, itchy, the plague you can't escape from",
+      "tagline": "UNDER YOUR SKIN",
+      "puns": ["Lousy Situation", "Nit Picking", "Get Out of My Head"]
+    },
+    "hair-metal": {
+      "id": "hair-metal",
+      "name": "Hair Metal / Glam",
+      "decade": "1980s",
+      "associatedPlague": "wild-beasts",
+      "plagueNumber": 4,
+      "inspiration": "Motley Crue, Poison, Def Leppard, big hair excess",
+      "colors": {
+        "primary": "leopard print gold/tan",
+        "secondary": "hot pink",
+        "accent": "electric blue",
+        "gradient": "sunset colors - pink to orange"
+      },
+      "typography": {
+        "style": "big, bold, excessive 80s styling",
+        "treatment": "neon glow, chrome highlights",
+        "hebrew": "Hebrew letters with big hair, glam styling"
+      },
+      "borderTreatment": {
+        "style": "leopard print or animal print border",
+        "corners": "lightning bolt accents",
+        "edge": "feathered, hairspray texture"
+      },
+      "finishEffect": "glossy with neon glow, hairspray shine",
+      "visualLanguage": "Excess, wild party, beasts as the ultimate 80s chaos",
+      "tagline": "WILD WILD NIGHT",
+      "puns": ["Party Animals", "Beasts of Burden", "Safari of Destruction"]
+    },
+    "death-metal": {
+      "id": "death-metal",
+      "name": "Death Metal",
+      "decade": "1990s",
+      "associatedPlague": "pestilence",
+      "plagueNumber": 5,
+      "inspiration": "Cannibal Corpse, Morbid Angel, Death - extreme imagery",
+      "colors": {
+        "primary": "decay green",
+        "secondary": "corpse grey",
+        "accent": "bile yellow",
+        "gradient": "sickly green fading to black"
+      },
+      "typography": {
+        "style": "illegible death metal logo style, thorny and twisted",
+        "treatment": "overgrown with decay, rotting edges",
+        "hebrew": "Hebrew letters as thorny, twisted death metal typography"
+      },
+      "borderTreatment": {
+        "style": "bone and sinew border",
+        "corners": "skull imagery",
+        "edge": "rotting, decaying edges"
+      },
+      "finishEffect": "matte with sickly sheen, like diseased skin",
+      "visualLanguage": "Decay, disease, livestock falling dead",
+      "tagline": "DEATH COMES TO THE HERDS",
+      "puns": ["Sick and Tired", "Plague Inc.", "Terminal Condition"]
+    },
+    "industrial": {
+      "id": "industrial",
+      "name": "Industrial",
+      "decade": "1990s",
+      "associatedPlague": "boils",
+      "plagueNumber": 6,
+      "inspiration": "Nine Inch Nails, Ministry, Rammstein - mechanical, clinical",
+      "colors": {
+        "primary": "cold grey",
+        "secondary": "rust red",
+        "accent": "sickly flesh pink",
+        "gradient": "metallic grey to oxidized rust"
+      },
+      "typography": {
+        "style": "stencil, military, cold and clinical",
+        "treatment": "stamped in metal, warning labels",
+        "hebrew": "Hebrew letters as industrial stencils or warning text"
+      },
+      "borderTreatment": {
+        "style": "corroded metal plates with rivets",
+        "corners": "hazmat symbols, warning triangles",
+        "edge": "rusted, industrial decay"
+      },
+      "finishEffect": "brushed metal with rust spots and oxidation",
+      "visualLanguage": "Mechanical suffering, boils as industrial malfunction of the body",
+      "tagline": "SYSTEM MALFUNCTION",
+      "puns": ["Breaking Out", "Under Pressure", "Skin Deep"]
+    },
+    "power-metal": {
+      "id": "power-metal",
+      "name": "Power Metal",
+      "decade": "1990s-2000s",
+      "associatedPlague": "hail",
+      "plagueNumber": 7,
+      "inspiration": "Helloween, Blind Guardian, DragonForce - epic fantasy",
+      "colors": {
+        "primary": "ice blue",
+        "secondary": "fire orange",
+        "accent": "lightning gold",
+        "gradient": "ice blue to fire orange - fire and ice"
+      },
+      "typography": {
+        "style": "epic fantasy font, heroic, Tolkien-esque",
+        "treatment": "embossed, metallic, majestic",
+        "hebrew": "Hebrew letters as ancient runes, epic and heroic"
+      },
+      "borderTreatment": {
+        "style": "fantasy castle architecture",
+        "corners": "dragon or eagle motifs",
+        "edge": "frost crystals meeting flames"
+      },
+      "finishEffect": "holographic shimmer, ice crystals with fire glow within",
+      "visualLanguage": "Epic fantasy, fire within ice, supernatural spectacle",
+      "tagline": "FIRE AND ICE FROM HEAVEN",
+      "puns": ["Hail to the King", "Cold Burn", "Storm's Coming"]
+    },
+    "thrash-metal": {
+      "id": "thrash-metal",
+      "name": "Thrash Metal",
+      "decade": "1980s",
+      "associatedPlague": "locusts",
+      "plagueNumber": 8,
+      "inspiration": "Metallica, Slayer, Megadeth, Anthrax - speed and aggression",
+      "colors": {
+        "primary": "speed green",
+        "secondary": "thrash black",
+        "accent": "warning yellow",
+        "gradient": "rapid, aggressive color clash"
+      },
+      "typography": {
+        "style": "speed lines, aggressive angles, motion blur",
+        "treatment": "whipping, fast, barely contained",
+        "hebrew": "Hebrew letters with speed lines, aggressive motion"
+      },
+      "borderTreatment": {
+        "style": "swarm patterns, endless motion",
+        "corners": "locust silhouettes",
+        "edge": "devoured, eaten away"
+      },
+      "finishEffect": "matte with aggressive texture, like locust wings",
+      "visualLanguage": "Relentless, consuming, unstoppable swarm",
+      "tagline": "DEVOUR EVERYTHING",
+      "puns": ["Swarm Warning", "Stripped Bare", "Plague of Speed"]
+    },
+    "goth": {
+      "id": "goth",
+      "name": "Gothic Rock",
+      "decade": "1980s",
+      "associatedPlague": "darkness",
+      "plagueNumber": 9,
+      "inspiration": "The Cure, Bauhaus, Siouxsie and the Banshees - ethereal darkness",
+      "colors": {
+        "primary": "absolute black",
+        "secondary": "midnight purple",
+        "accent": "silver moonlight",
+        "gradient": "void black to deep purple"
+      },
+      "typography": {
+        "style": "elegant, ornate, Victorian gothic",
+        "treatment": "silver on black, moonlit, barely visible",
+        "hebrew": "Hebrew letters in elegant gothic script, silver on darkness"
+      },
+      "borderTreatment": {
+        "style": "ornate Victorian frames, barely visible",
+        "corners": "crescent moons",
+        "edge": "fading into darkness, undefined"
+      },
+      "finishEffect": "deep matte black with subtle silver shimmer, like starlight",
+      "visualLanguage": "Ethereal, poetic darkness, the tangible black that can be felt",
+      "tagline": "THREE DAYS OF NIGHT",
+      "puns": ["Dark Side of Egypt", "Lights Out", "Shadow Kingdom"]
+    },
+    "arena-rock": {
+      "id": "arena-rock",
+      "name": "Arena Rock / Classic Rock",
+      "decade": "1970s-80s",
+      "associatedPlague": "firstborn",
+      "plagueNumber": 10,
+      "inspiration": "Queen, Journey, Foreigner - emotional, lighters in the air",
+      "colors": {
+        "primary": "gold",
+        "secondary": "pure white",
+        "accent": "flame orange (lighter flames)",
+        "gradient": "golden sunrise, dawn after the long night"
+      },
+      "typography": {
+        "style": "big, emotional, classic rock grandeur",
+        "treatment": "embossed gold, stadium lights illuminating",
+        "hebrew": "Hebrew letters as grand, emotionally weighted typography"
+      },
+      "borderTreatment": {
+        "style": "stadium architecture, crowd silhouettes",
+        "corners": "lighter flames, raised hands",
+        "edge": "crowd fading into light"
+      },
+      "finishEffect": "gold foil with warm glow, stadium light effect",
+      "visualLanguage": "Emotional climax, the final show, devastating and cathartic",
+      "tagline": "FINAL ENCORE",
+      "puns": ["Night to Remember", "Exit Egypt", "Goodbye Tour"]
+    }
+  },
+  "implementedEras": ["heavy-metal", "punk", "goth", "arena-rock"],
+  "plannedEras": ["grunge", "hair-metal", "death-metal", "industrial", "power-metal", "thrash-metal"]
+}

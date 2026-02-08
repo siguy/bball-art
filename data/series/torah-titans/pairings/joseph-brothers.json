@@ -1,0 +1,156 @@
+{
+  "id": "joseph-brothers",
+  "series": "torah-titans",
+  "type": "rivalry",
+  "cardMode": "rivalry-figure-figure",
+  "rivalryConfig": {
+    "heroCharacterType": "figure",
+    "villainCharacterType": "figure"
+  },
+  "seriesSpecificData": {
+    "siblingCard": {
+      "centerSymbol": "The coat of many colors (ketonet passim) as the central dividing element, torn and reassembled, representing the garment that sparked the hatred and would later be dipped in blood",
+      "scripture": {
+        "hebrew": "אַתֶּם חֲשַׁבְתֶּם עָלַי רָעָה אֱלֹהִים חֲשָׁבָהּ לְטֹבָה",
+        "english": "You intended evil against me, but God intended it for good",
+        "source": "Genesis 50:20"
+      },
+      "char1Palette": "royal Egyptian gold, lapis lazuli blue, multicolored coat elements",
+      "char2Palette": "shepherd earth tones, browns and grays, guilty reds"
+    }
+  },
+  "rivalryResearch": {
+    "relationship": "Joseph, the favored son of Jacob and Rachel, was hated by his brothers for his dreams and his special coat. They sold him into slavery in Egypt, where he rose to become Pharaoh's vizier. Years later, during famine, the brothers came to Egypt for grain — and bowed before the brother they had betrayed, not recognizing him. Joseph eventually revealed himself and forgave them.",
+    "keyMoments": [
+      {
+        "title": "The Coat of Many Colors",
+        "description": "Jacob made Joseph a 'ketonet passim' — a special coat. His brothers saw that their father loved Joseph more than all of them, and they hated him and could not speak peaceably to him."
+      },
+      {
+        "title": "The Dreams",
+        "description": "Joseph dreamed that his brothers' sheaves bowed to his sheaf, and that the sun, moon, and eleven stars bowed to him. The dreams increased their hatred — 'Shall you indeed reign over us?'"
+      },
+      {
+        "title": "The Pit",
+        "description": "The brothers stripped Joseph of his coat and threw him into an empty pit. Judah suggested selling him to passing Ishmaelites rather than killing him. They sold Joseph for twenty pieces of silver."
+      },
+      {
+        "title": "The Bloody Coat",
+        "description": "They dipped Joseph's coat in goat's blood and brought it to Jacob. 'This we found — recognize now whether it is your son's coat or not.' Jacob mourned, 'A wild beast has devoured him.'"
+      },
+      {
+        "title": "The Revelation",
+        "description": "Years later, Joseph revealed himself to his brothers in Egypt: 'I am Joseph your brother, whom you sold into Egypt.' He wept so loudly that the Egyptians heard, and Pharaoh's household heard."
+      },
+      {
+        "title": "Reconciliation",
+        "description": "Joseph told them: 'Do not be grieved or angry with yourselves that you sold me here, for God sent me before you to preserve life.' What they intended for evil, God intended for good."
+      }
+    ],
+    "rivalryScenes": [
+      {
+        "id": "the-coat",
+        "heroAction": "Young Joseph wearing the magnificent coat of many colors, standing proud. His face shows innocent confidence, perhaps describing a dream. The beloved son, not yet aware of the danger.",
+        "villainAction": "The brothers clustered together, dark expressions of jealousy and hatred. They look at Joseph with murder in their hearts. Shepherd's clothing, tools of their trade, plotting.",
+        "scene": "Jacob's camp. Joseph resplendent in his coat, the brothers seething in the background. The garment that would be soaked in blood.",
+        "energy": "Jealousy, favoritism, gathering storm"
+      },
+      {
+        "id": "the-pit",
+        "heroAction": "Joseph in the pit, looking up at his brothers above. His coat stripped away, vulnerable and betrayed. Hands reaching up, pleading. The dreamer cast down.",
+        "villainAction": "The brothers standing above the pit, holding Joseph's coat. Some looking down with hard faces, Judah perhaps gesturing toward approaching merchants. Deciding his fate.",
+        "scene": "A dry cistern in the wilderness. The moment between betrayal and sale. The vertical composition of power and powerlessness.",
+        "energy": "Betrayal, helplessness, brothers become enemies"
+      },
+      {
+        "id": "the-revelation",
+        "heroAction": "Joseph as Egyptian vizier, royal garments and jewelry, revealing his identity. Tears streaming down his face, arms perhaps outstretched. 'I am Joseph — is my father still alive?'",
+        "villainAction": "The brothers cowering or frozen in shock, recognizing the brother they sold. The reversal of the dream — now they stand before HIM. Fear and guilt on their faces.",
+        "scene": "Egyptian palace hall. Joseph on his throne or standing in power, the brothers before him in shepherd's clothes. The dream fulfilled.",
+        "energy": "Reversal, revelation, power inverted"
+      },
+      {
+        "id": "reconciliation",
+        "heroAction": "Joseph embracing Benjamin, then Judah, then all the brothers. Weeping with joy, the coat perhaps symbolically present or referenced. Forgiveness incarnate.",
+        "villainAction": "The brothers weeping, embracing Joseph. Guilt transformed to relief and love. The family reunited, the wound healed.",
+        "scene": "Egyptian palace or private chamber. A family embrace after decades of separation. What was meant for evil, turned to good.",
+        "energy": "Forgiveness, healing, family restored"
+      }
+    ],
+    "scriptureReferences": [
+      {
+        "source": "Genesis 37:3",
+        "context": "The coat and Jacob's favoritism",
+        "hebrew": "וְיִשְׂרָאֵל אָהַב אֶת־יוֹסֵף מִכָּל־בָּנָיו כִּי בֶן־זְקֻנִים הוּא לוֹ וְעָשָׂה לוֹ כְּתֹנֶת פַּסִּים",
+        "english": "Israel loved Joseph more than all his sons, for he was the son of his old age, and he made him a coat of many colors",
+        "mood": "Favoritism, fateful gift"
+      },
+      {
+        "source": "Genesis 37:4",
+        "context": "The brothers' hatred",
+        "hebrew": "וַיִּשְׂנְאוּ אֹתוֹ וְלֹא יָכְלוּ דַּבְּרוֹ לְשָׁלֹם",
+        "english": "They hated him and could not speak peaceably to him",
+        "mood": "Hatred, broken communication"
+      },
+      {
+        "source": "Genesis 37:19",
+        "context": "The brothers see Joseph approaching",
+        "hebrew": "הִנֵּה בַּעַל הַחֲלֹמוֹת הַלָּזֶה בָּא",
+        "english": "Behold, this dreamer is coming",
+        "mood": "Mocking, ominous"
+      },
+      {
+        "source": "Genesis 45:4",
+        "context": "The revelation",
+        "hebrew": "אֲנִי יוֹסֵף אֲחִיכֶם אֲשֶׁר־מְכַרְתֶּם אֹתִי מִצְרָיְמָה",
+        "english": "I am Joseph your brother, whom you sold into Egypt",
+        "mood": "Revelation, confrontation"
+      },
+      {
+        "source": "Genesis 50:20",
+        "context": "Joseph's interpretation of their history",
+        "hebrew": "אַתֶּם חֲשַׁבְתֶּם עָלַי רָעָה אֱלֹהִים חֲשָׁבָהּ לְטֹבָה",
+        "english": "You intended evil against me, but God intended it for good",
+        "mood": "Forgiveness, providence, redemption"
+      }
+    ]
+  },
+  "player": {
+    "name": "Joseph",
+    "displayName": "Joseph",
+    "hebrewName": "יוֹסֵף",
+    "poseFileId": "joseph",
+    "characterType": "figure",
+    "era": "Biblical",
+    "attribute": "multicolored coat or Egyptian royal regalia",
+    "attributeDescription": "the coat of many colors (ketonet passim) OR Egyptian vizier regalia with gold collar and fine linen, depending on the scene",
+    "visualStyle": "the dreamer, sold by his brothers, rose to rule Egypt",
+    "clothing": "either the famous multicolored coat (as a youth) or fine Egyptian linen with gold jewelry and vizier's collar (as ruler)",
+    "physicalDescription": "handsome young man described as 'beautiful of form and beautiful of appearance.' Intelligent, confident eyes. As a youth: innocent and favored. As vizier: dignified, powerful, wise.",
+    "anatomyNote": "two arms only",
+    "archetype": "The Dreamer — sold into slavery, rose to power, forgave those who wronged him"
+  },
+  "figure": {
+    "name": "Judah",
+    "displayName": "Judah",
+    "hebrewName": "יְהוּדָה",
+    "poseFileId": "judah-son-of-jacob",
+    "characterType": "figure",
+    "era": "Biblical",
+    "attribute": "shepherd's staff, lion imagery",
+    "attributeDescription": "shepherd's staff, later associated with the lion of Judah and royal scepter",
+    "visualStyle": "fourth son of Jacob who suggested selling Joseph, later offered himself for Benjamin",
+    "clothing": "shepherd's garments in earth tones — browns and grays, rough wool. Working man's clothes, later dignified as ancestor of kings.",
+    "physicalDescription": "strong shepherd's build, weathered face. Expression shifts from jealousy and pragmatism (selling Joseph) to desperate self-sacrifice (offering himself for Benjamin). The brother who transformed.",
+    "anatomyNote": "two arms only",
+    "archetype": "The Transformed Brother — suggested selling Joseph, later offered himself as slave for Benjamin, ancestor of David and kings"
+  },
+  "connection": "The dreamer and those who tried to destroy his dreams — sold into slavery, rose to power, forgave them all",
+  "cardVariants": [
+    "sibling-card",
+    "sibling-duality",
+    "sibling-icon"
+  ],
+  "priority": 88,
+  "status": "active"
+}

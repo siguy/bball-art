@@ -1,0 +1,157 @@
+{
+  "id": "isaac-ishmael",
+  "series": "torah-titans",
+  "type": "rivalry",
+  "cardMode": "rivalry-figure-figure",
+  "rivalryConfig": {
+    "heroCharacterType": "figure",
+    "villainCharacterType": "figure"
+  },
+  "seriesSpecificData": {
+    "siblingDuality": {
+      "scripture": {
+        "hebrew": "וַיִּקְבְּרוּ אֹתוֹ יִצְחָק וְיִשְׁמָעֵאל בָּנָיו",
+        "english": "His sons Isaac and Ishmael buried him",
+        "source": "Genesis 25:9"
+      },
+      "char1": {
+        "color": "soft gold and ivory",
+        "element": "tent and well",
+        "imagery": "Tent silhouettes in the distance, the well of Beer-lahai-roi, symbols of settled prosperity. Stars overhead suggesting the covenant promise.",
+        "traits": "laughter (his name means 'he laughs'), promised heir, dwelt in tents, bound on the altar",
+        "seedSymbol": "a bow or arrow (Ishmael's skill)"
+      },
+      "char2": {
+        "color": "desert red and brown",
+        "element": "wilderness and bow",
+        "imagery": "Vast wilderness stretching to the horizon, a powerful bow, wild donkey silhouettes. The desert where God heard Hagar's cry.",
+        "traits": "wild donkey of a man, hand against all, skilled archer, father of twelve princes",
+        "seedSymbol": "a tent or well (Isaac's settlement)"
+      },
+      "connection": "Both sons of Abraham, both blessed to become great nations. One the promised heir through Sarah, one the firstborn through Hagar. Separated by jealousy, reunited at their father's grave."
+    }
+  },
+  "rivalryResearch": {
+    "relationship": "Abraham's two sons — Ishmael, the firstborn by Hagar the handmaid, and Isaac, the promised heir by Sarah the wife. Sarah demanded that Ishmael be cast out so he wouldn't inherit with Isaac. God promised Abraham that Ishmael would also become a great nation. Years later, the brothers reunited to bury their father together.",
+    "keyMoments": [
+      {
+        "title": "The Promise to Hagar",
+        "description": "Before Ishmael's birth, the angel told Hagar: 'He shall be a wild donkey of a man, his hand against everyone and everyone's hand against him.' A prophecy of wildness and conflict."
+      },
+      {
+        "title": "The Laughter",
+        "description": "Sarah saw Ishmael 'metzachek' (laughing/mocking) with Isaac. This wordplay on Isaac's name ('he laughs') triggered the banishment. What exactly Ishmael was doing remains debated."
+      },
+      {
+        "title": "The Banishment",
+        "description": "Abraham rose early, gave Hagar bread and water, and sent her away with the boy into the wilderness of Beer-sheba. The water ran out; she placed Ishmael under a bush to die."
+      },
+      {
+        "title": "God Hears",
+        "description": "God heard the boy crying. An angel called to Hagar: 'Fear not, for God has heard the voice of the lad.' Ishmael's name means 'God hears.' A well appeared; they survived."
+      },
+      {
+        "title": "The Burial of Abraham",
+        "description": "Isaac and Ishmael together buried Abraham in the cave of Machpelah. After years of separation, the brothers reunited for their father's death — a moment of reconciliation."
+      }
+    ],
+    "rivalryScenes": [
+      {
+        "id": "the-banishment",
+        "heroAction": "Young Isaac at Sarah's side, safe within the tent's doorway. He watches as his brother departs into the wilderness. Perhaps confused, perhaps sad. The heir who stayed.",
+        "villainAction": "Young Ishmael walks away with Hagar into the wilderness, a waterskin over his shoulder. Looking back at the tents of his father's camp. Cast out but not forgotten by God.",
+        "scene": "Abraham's camp at dawn. The tents of prosperity on one side, the vast wilderness on the other. A family divided.",
+        "energy": "Bittersweet, fateful separation"
+      },
+      {
+        "id": "the-well",
+        "heroAction": "Isaac at the well of Beer-lahai-roi, the 'Well of the Living One Who Sees Me' — where he first encountered Rebekah. Meditative, connected to water and life.",
+        "villainAction": "Ishmael at the wilderness well where the angel saved him and Hagar. His bow at his side, the desert stretching around him. Survivor, blessed in a different way.",
+        "scene": "Two wells — one at the edge of settlement, one in the wilderness. Both places where God appeared, both sources of life.",
+        "energy": "Parallel blessings, different paths"
+      },
+      {
+        "id": "burying-abraham",
+        "heroAction": "Isaac and Ishmael together, carrying Abraham's body to the cave of Machpelah. Brothers reunited in grief. Isaac's face solemn; perhaps reaching toward Ishmael.",
+        "villainAction": "Ishmael beside Isaac, helping to bury their father. Years of separation dissolved. The wild man of the wilderness returned for this sacred duty.",
+        "scene": "The cave of Machpelah where Abraham, Sarah, and later the patriarchs would rest. Two brothers, one task, reconciliation.",
+        "energy": "Reconciliation, unity in grief, honoring the father"
+      }
+    ],
+    "scriptureReferences": [
+      {
+        "source": "Genesis 16:12",
+        "context": "The angel's prophecy about Ishmael",
+        "hebrew": "וְהוּא יִהְיֶה פֶּרֶא אָדָם יָדוֹ בַכֹּל וְיַד כֹּל בּוֹ",
+        "english": "He shall be a wild donkey of a man; his hand against everyone, and everyone's hand against him",
+        "mood": "Prophetic, wild, conflicted"
+      },
+      {
+        "source": "Genesis 21:10",
+        "context": "Sarah demands banishment",
+        "hebrew": "כִּי לֹא יִירַשׁ בֶּן־הָאָמָה הַזֹּאת עִם־בְּנִי עִם־יִצְחָק",
+        "english": "The son of this handmaid shall not inherit with my son, with Isaac",
+        "mood": "Harsh, protective, divisive"
+      },
+      {
+        "source": "Genesis 21:13",
+        "context": "God's promise about Ishmael",
+        "hebrew": "וְגַם אֶת־בֶּן־הָאָמָה לְגוֹי אֲשִׂימֶנּוּ כִּי זַרְעֲךָ הוּא",
+        "english": "Also the son of the handmaid I will make into a nation, for he is your seed",
+        "mood": "Reassuring, both sons blessed"
+      },
+      {
+        "source": "Genesis 21:17",
+        "context": "God hears Ishmael's cry",
+        "hebrew": "וַיִּשְׁמַע אֱלֹהִים אֶת־קוֹל הַנַּעַר",
+        "english": "And God heard the voice of the lad",
+        "mood": "Divine mercy, salvation"
+      },
+      {
+        "source": "Genesis 25:9",
+        "context": "The brothers reunite to bury Abraham",
+        "hebrew": "וַיִּקְבְּרוּ אֹתוֹ יִצְחָק וְיִשְׁמָעֵאל בָּנָיו",
+        "english": "His sons Isaac and Ishmael buried him",
+        "mood": "Reconciliation, unity, filial duty"
+      }
+    ]
+  },
+  "player": {
+    "name": "Isaac",
+    "displayName": "Isaac",
+    "hebrewName": "יִצְחָק",
+    "poseFileId": "isaac",
+    "characterType": "figure",
+    "era": "Biblical",
+    "attribute": "well and tent",
+    "attributeDescription": "near a well or tent opening, symbols of his settled, contemplative life as the heir of Abraham's covenant",
+    "visualStyle": "the promised son, bound on the altar, dweller in tents",
+    "clothing": "fine patriarch's robes in soft golds and ivory, the dress of a wealthy tent-dweller, dignified and contemplative",
+    "physicalDescription": "gentle-featured man with peaceful, contemplative expression. The son of laughter, whose eyes carry the weight of having been bound on the altar. Olive skin, neat beard, dignified bearing.",
+    "anatomyNote": "two arms only",
+    "archetype": "The Promised Heir — son of laughter, bound on the altar, father of Jacob and Esau"
+  },
+  "figure": {
+    "name": "Ishmael",
+    "displayName": "Ishmael",
+    "hebrewName": "יִשְׁמָעֵאל",
+    "poseFileId": "ishmael",
+    "characterType": "figure",
+    "era": "Biblical",
+    "attribute": "bow and arrows",
+    "attributeDescription": "powerful bow and quiver of arrows, the weapons of the skilled archer who dwelt in the wilderness",
+    "visualStyle": "wild donkey of a man, skilled archer, father of twelve princes",
+    "clothing": "rugged desert garments in reds and browns, leather and rough cloth, the practical dress of a wilderness dweller and hunter",
+    "physicalDescription": "strong, wild-featured man with fierce eyes and weather-beaten skin from life in the desert. Powerful archer's build. The firstborn cast out, but blessed to become a great nation.",
+    "anatomyNote": "two arms only, may carry bow",
+    "archetype": "The Wild Son — cast out but blessed, father of twelve princes, a great nation from Abraham's seed"
+  },
+  "connection": "Both sons of Abraham, both blessed — the promised heir and the firstborn of the handmaid, reunited at their father's grave",
+  "cardVariants": [
+    "sibling-duality",
+    "sibling-card",
+    "sibling-icon"
+  ],
+  "priority": 85,
+  "status": "active"
+}

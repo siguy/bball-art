@@ -1,0 +1,196 @@
+{
+  "id": "ephraim-manasseh",
+  "series": "torah-titans",
+  "type": "rivalry",
+  "cardMode": "rivalry-figure-figure",
+  "rivalryConfig": {
+    "heroCharacterType": "figure",
+    "villainCharacterType": "figure"
+  },
+  "seriesSpecificData": {
+    "siblingIcon": {
+      "scripture": {
+        "hebrew": "שִׂכֵּל אֶת־יָדָיו כִּי מְנַשֶּׁה הַבְּכוֹר",
+        "english": "He crossed his hands, for Manasseh was the firstborn",
+        "source": "Genesis 48:14"
+      },
+      "char1": {
+        "halo": true,
+        "haloNote": "Golden halo - received the greater blessing",
+        "sacredSymbol": "Jacob's right hand reaching down from above, rays of greater blessing",
+        "panelColor": "silver and starlight"
+      },
+      "char2": {
+        "halo": false,
+        "haloNote": "No halo - received the lesser blessing, but 'he also shall be great'",
+        "sacredSymbol": "Jacob's left hand reaching down, firstborn crown slightly dimmed",
+        "panelColor": "gold and sunlight"
+      }
+    },
+    "siblingCard": {
+      "scripture": {
+        "hebrew": "שִׂכֵּל אֶת־יָדָיו כִּי מְנַשֶּׁה הַבְּכוֹר",
+        "english": "He crossed his hands, for Manasseh was the firstborn",
+        "source": "Genesis 48:14"
+      },
+      "centerDividerElement": "Two crossed hands forming an X pattern - symbolic of Jacob's deliberate crossing, the right hand reaching to the left, the left to the right",
+      "char1": {
+        "physicalDescription": "young man with gentle features, resembling his father Joseph. Innocent expression, peaceful demeanor. The younger son who received the greater blessing.",
+        "cardSymbol": "stars (his descendants would be greater)"
+      },
+      "char2": {
+        "physicalDescription": "young man wearing an EGYPTIAN HEADDRESS (nemes), slightly older than Ephraim, resembling his father Joseph. Dignified, accepting expression. The firstborn who graciously accepted his portion. Egyptian prince aesthetic.",
+        "cardSymbol": "sun (his father Joseph's dream, firstborn status)"
+      }
+    },
+    "siblingDuality": {
+      "scripture": {
+        "hebrew": "יְשִׂמְךָ אֱלֹהִים כְּאֶפְרַיִם וְכִמְנַשֶּׁה",
+        "english": "God make you like Ephraim and Manasseh",
+        "source": "Genesis 48:20"
+      },
+      "char1": {
+        "color": "silver and starlight",
+        "element": "right hand blessing",
+        "imagery": "Jacob's right hand on his head (though he stood at the left), the greater blessing flowing to the younger. Stars suggesting the greater nation to come.",
+        "traits": "younger but greater, received the right-hand blessing, his tribe led the northern kingdom",
+        "seedSymbol": "firstborn crown or birthright symbol (Manasseh's status)"
+      },
+      "char2": {
+        "color": "gold and sunlight",
+        "element": "firstborn right",
+        "imagery": "Jacob's left hand on his head (though he stood at the right), the lesser blessing despite his birthright. The sun suggesting his father Joseph's dream.",
+        "traits": "firstborn, received left-hand blessing, 'he also shall be great' but younger brother greater",
+        "seedSymbol": "hand crossing or younger-brother symbol (Ephraim's precedence)"
+      },
+      "connection": "Joseph's two sons, blessed by their grandfather Jacob with crossed hands. The younger Ephraim received the greater blessing, continuing the biblical pattern of younger-over-elder. Their blessing became the blessing Jewish parents give their sons every Friday night."
+    }
+  },
+  "rivalryResearch": {
+    "relationship": "Ephraim and Manasseh were Joseph's two sons, born in Egypt. When Jacob blessed them before his death, he deliberately crossed his hands to put his right hand on Ephraim (the younger) and left on Manasseh (the firstborn). When Joseph tried to correct him, Jacob insisted: 'I know, my son, I know. He also shall become a people, and he also shall be great; but truly his younger brother shall be greater.' Their blessing became the standard blessing for Jewish sons.",
+    "keyMoments": [
+      {
+        "title": "Born in Egypt",
+        "description": "Joseph named his firstborn Manasseh ('making to forget') because 'God has made me forget all my hardship.' He named the second Ephraim ('fruitfulness') because 'God has made me fruitful in the land of my affliction.'"
+      },
+      {
+        "title": "Brought Before Jacob",
+        "description": "Joseph brought his two sons to his dying father Jacob for blessing. He positioned Manasseh at Jacob's right hand (for the greater blessing) and Ephraim at the left."
+      },
+      {
+        "title": "The Crossed Hands",
+        "description": "Jacob stretched out his right hand and laid it on Ephraim's head, though he was the younger, and his left hand on Manasseh's head, crossing his hands intentionally."
+      },
+      {
+        "title": "Joseph's Protest",
+        "description": "When Joseph saw it, he was displeased and tried to move his father's right hand from Ephraim's head to Manasseh's: 'Not so, my father, for this one is the firstborn; put your right hand on his head.'"
+      },
+      {
+        "title": "Jacob's Insistence",
+        "description": "Jacob refused: 'I know, my son, I know. He also shall become a people, and he also shall be great; but truly his younger brother shall be greater than he, and his offspring shall become a multitude of nations.'"
+      },
+      {
+        "title": "The Blessing",
+        "description": "Jacob blessed them: 'By you Israel will pronounce blessings, saying: God make you like Ephraim and Manasseh.' This became the blessing Jewish parents give their sons every Shabbat."
+      }
+    ],
+    "rivalryScenes": [
+      {
+        "id": "the-crossed-hands",
+        "heroAction": "Young Ephraim receiving Jacob's right hand on his head, looking up at his grandfather with innocent acceptance. He doesn't understand the significance, but receives the greater blessing.",
+        "villainAction": "Young Manasseh receiving Jacob's left hand on his head, perhaps looking confused at the crossing. The firstborn receiving the lesser blessing, but blessed nonetheless.",
+        "scene": "Jacob's deathbed in Egypt. The old patriarch with hands deliberately crossed, the two boys before him, Joseph looking on in concern.",
+        "energy": "Blessing, intentional reversal, divine choice"
+      },
+      {
+        "id": "josephs-protest",
+        "heroAction": "Ephraim standing quietly, the blessing already given. The younger who was chosen, the pattern repeated (Isaac over Ishmael, Jacob over Esau, Joseph over his brothers).",
+        "villainAction": "Manasseh watching as his father Joseph reaches to correct Jacob's hands. 'Not so, my father, this one is the firstborn.' The moment of displacement.",
+        "scene": "The same blessing scene, focus on Joseph's hands reaching to move Jacob's. Jacob's face firm with prophetic knowledge.",
+        "energy": "Protest, divine insistence, birthright subverted"
+      },
+      {
+        "id": "both-blessed",
+        "heroAction": "Ephraim and Manasseh side by side, both blessed. Ephraim slightly forward or highlighted, but both clearly loved. 'He also shall be great.'",
+        "villainAction": "Manasseh beside Ephraim, also blessed. Not rejected but different. 'He also shall become a people, and he also shall be great.' Second but not forgotten.",
+        "scene": "The two brothers together after the blessing. Both touched by Jacob's hands, both part of Israel. Unity despite the distinction.",
+        "energy": "Both blessed, unity in difference"
+      }
+    ],
+    "scriptureReferences": [
+      {
+        "source": "Genesis 41:51-52",
+        "context": "The naming of Joseph's sons",
+        "hebrew": "וַיִּקְרָא יוֹסֵף אֶת־שֵׁם הַבְּכוֹר מְנַשֶּׁה... וְאֵת שֵׁם הַשֵּׁנִי קָרָא אֶפְרָיִם",
+        "english": "Joseph called the name of the firstborn Manasseh... and the name of the second he called Ephraim",
+        "mood": "Naming, significance"
+      },
+      {
+        "source": "Genesis 48:14",
+        "context": "Jacob crosses his hands",
+        "hebrew": "וַיִּשְׁלַח יִשְׂרָאֵל אֶת־יְמִינוֹ וַיָּשֶׁת עַל־רֹאשׁ אֶפְרַיִם וְהוּא הַצָּעִיר וְאֶת־שְׂמֹאלוֹ עַל־רֹאשׁ מְנַשֶּׁה שִׂכֵּל אֶת־יָדָיו כִּי מְנַשֶּׁה הַבְּכוֹר",
+        "english": "Israel stretched out his right hand and laid it on Ephraim's head, though he was the younger, and his left hand on Manasseh's head, crossing his hands, for Manasseh was the firstborn",
+        "mood": "Intentional, prophetic reversal"
+      },
+      {
+        "source": "Genesis 48:18",
+        "context": "Joseph's protest",
+        "hebrew": "לֹא־כֵן אָבִי כִּי־זֶה הַבְּכֹר שִׂים יְמִינְךָ עַל־רֹאשׁוֹ",
+        "english": "Not so, my father, for this one is the firstborn; put your right hand on his head",
+        "mood": "Protest, natural order"
+      },
+      {
+        "source": "Genesis 48:19",
+        "context": "Jacob's prophetic insistence",
+        "hebrew": "יָדַעְתִּי בְנִי יָדַעְתִּי גַּם־הוּא יִהְיֶה־לְּעָם וְגַם־הוּא יִגְדָּל וְאוּלָם אָחִיו הַקָּטֹן יִגְדַּל מִמֶּנּוּ",
+        "english": "I know, my son, I know. He also shall become a people, and he also shall be great; but truly his younger brother shall be greater than he",
+        "mood": "Prophetic knowledge, divine choice"
+      },
+      {
+        "source": "Genesis 48:20",
+        "context": "The blessing that endures",
+        "hebrew": "יְשִׂמְךָ אֱלֹהִים כְּאֶפְרַיִם וְכִמְנַשֶּׁה",
+        "english": "God make you like Ephraim and Manasseh",
+        "mood": "Eternal blessing, tradition"
+      }
+    ]
+  },
+  "player": {
+    "name": "Ephraim",
+    "displayName": "Ephraim",
+    "hebrewName": "אֶפְרַיִם",
+    "poseFileId": "ephraim",
+    "characterType": "figure",
+    "era": "Biblical",
+    "attribute": "right-hand blessing light",
+    "attributeDescription": "receiving his grandfather's right hand on his head, light of the greater blessing radiating",
+    "visualStyle": "the younger son who received the greater blessing, father of a tribe",
+    "clothing": "fine Egyptian-Hebrew garments in silver and starlight colors, the dress of Joseph's son raised in Egypt but blessed by Israel",
+    "physicalDescription": "young boy or young man with gentle features, resembling his father Joseph. Innocent, not aggressive — he didn't seek the greater blessing, it was given to him. Receiving Jacob's hand on his head.",
+    "anatomyNote": "two arms only",
+    "archetype": "The Chosen Younger — received the greater blessing through Jacob's crossed hands, his tribe led the northern kingdom"
+  },
+  "figure": {
+    "name": "Manasseh",
+    "displayName": "Manasseh",
+    "hebrewName": "מְנַשֶּׁה",
+    "poseFileId": "manasseh",
+    "characterType": "figure",
+    "era": "Biblical",
+    "attribute": "firstborn crown and left-hand blessing",
+    "attributeDescription": "the firstborn's dignity, receiving Jacob's left hand on his head, blessed but second to his younger brother",
+    "visualStyle": "the firstborn who received the lesser blessing, still a father of a tribe",
+    "clothing": "fine Egyptian-Hebrew garments in gold and sunlight colors, the dress of Joseph's firstborn raised in Egypt",
+    "physicalDescription": "young boy or young man, slightly older than Ephraim, resembling his father Joseph. Perhaps slightly confused at the crossed hands, or accepting with grace. 'He also shall be great.'",
+    "anatomyNote": "two arms only",
+    "archetype": "The Firstborn Displaced — born first but blessed second, still became a great tribe, the pattern of biblical reversals"
+  },
+  "connection": "Brothers blessed with crossed hands — the younger became greater, yet both together become the blessing for Jewish sons",
+  "cardVariants": [
+    "sibling-duality",
+    "sibling-card",
+    "sibling-icon"
+  ],
+  "priority": 80,
+  "status": "active"
+}

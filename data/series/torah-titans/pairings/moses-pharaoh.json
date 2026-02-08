@@ -1,0 +1,210 @@
+{
+  "id": "moses-pharaoh",
+  "series": "torah-titans",
+  "type": "rivalry",
+  "cardMode": "rivalry-figure-figure",
+  "rivalryConfig": {
+    "heroCharacterType": "figure",
+    "villainCharacterType": "figure"
+  },
+  "seriesSpecificData": {
+    "freedomTour": {
+      "tourName": "EXODUS: THE FREEDOM TOUR",
+      "tourTagline": "10 Plagues. 10 Stops. One Epic Journey to Freedom.",
+      "venue": "Egypt",
+      "headliner": "Moses",
+      "opponent": "Pharaoh",
+      "confrontationMoments": [
+        {
+          "id": "who-is-the-lord",
+          "name": "Who Is The Lord?",
+          "scene": "The first confrontation - Moses demands freedom, Pharaoh mocks the God of Israel",
+          "mosesAction": "Standing boldly with staff, speaking for God",
+          "pharaohAction": "Seated on throne, dismissive and arrogant",
+          "quoteId": "who-is-lord",
+          "passType": "VIP",
+          "accessLevel": "BACKSTAGE"
+        },
+        {
+          "id": "let-my-people-go",
+          "name": "Let My People Go",
+          "scene": "The repeated demand that echoes through history",
+          "mosesAction": "Staff raised, prophetic authority radiating",
+          "pharaohAction": "Hardened heart, refusing to yield",
+          "quoteId": "let-my-people-go",
+          "passType": "ALL ACCESS",
+          "accessLevel": "MAIN STAGE"
+        },
+        {
+          "id": "hardened-heart",
+          "name": "Hardened Heart",
+          "scene": "Pharaoh doubles down after each plague",
+          "mosesAction": "Warning of coming judgment",
+          "pharaohAction": "Fist to chest, stubborn defiance",
+          "quoteId": "hardened-heart",
+          "passType": "CREW",
+          "accessLevel": "ALL AREAS"
+        },
+        {
+          "id": "rise-and-go",
+          "name": "Rise and Go",
+          "scene": "The final night - Pharaoh broken, commanding Israel to leave",
+          "mosesAction": "Leading the people out at midnight",
+          "pharaohAction": "Grief-stricken, defeated, empty",
+          "quoteId": "go-serve",
+          "passType": "FAREWELL",
+          "accessLevel": "FINAL SHOW"
+        }
+      ],
+      "tourStops": [
+        { "number": 1, "plagueId": "blood", "eraId": "heavy-metal", "sold": true },
+        { "number": 2, "plagueId": "frogs", "eraId": "punk", "sold": true },
+        { "number": 3, "plagueId": "lice", "eraId": "grunge", "sold": true },
+        { "number": 4, "plagueId": "wild-beasts", "eraId": "hair-metal", "sold": true },
+        { "number": 5, "plagueId": "pestilence", "eraId": "death-metal", "sold": true },
+        { "number": 6, "plagueId": "boils", "eraId": "industrial", "sold": true },
+        { "number": 7, "plagueId": "hail", "eraId": "power-metal", "sold": true },
+        { "number": 8, "plagueId": "locusts", "eraId": "thrash-metal", "sold": true },
+        { "number": 9, "plagueId": "darkness", "eraId": "goth", "sold": true },
+        { "number": 10, "plagueId": "firstborn", "eraId": "arena-rock", "sold": true }
+      ],
+      "iconographyMashup": {
+        "ankh": "crossbar becomes Star of David",
+        "cartouche": "hieroglyphic frame contains Hebrew names",
+        "scarab": "beetles on guitar picks",
+        "eyeOfHorus": "spotlight beam shape",
+        "crookAndFlail": "mic stand and guitar",
+        "mosesStaff": "electric guitar or mic stand"
+      }
+    }
+  },
+  "rivalryResearch": {
+    "relationship": "Moses, the humble shepherd called by God at the burning bush, versus Pharaoh, the god-king of Egypt who enslaved Israel. Their confrontation over the ten plagues is the ultimate clash of divine authority against human arrogance. Each plague answered one of Egypt's gods; each refusal hardened Pharaoh's heart until the final, devastating plague broke him.",
+    "keyMoments": [
+      {
+        "title": "First Confrontation",
+        "description": "Moses and Aaron before Pharaoh's throne. 'Who is the LORD that I should heed Him?' The battle lines are drawn."
+      },
+      {
+        "title": "Staff to Serpent",
+        "description": "Moses' staff becomes a serpent, swallowing Pharaoh's magicians' snakes. The first sign of whose power is greater."
+      },
+      {
+        "title": "Ten Plagues",
+        "description": "Blood, frogs, lice, beasts, pestilence, boils, hail, locusts, darkness, death of firstborn. Each escalating, each giving Pharaoh a chance to relent."
+      },
+      {
+        "title": "The Hardened Heart",
+        "description": "After each plague, Pharaoh's heart hardened. Sometimes he hardened it himself; sometimes God hardened it. The debate on free will echoes through millennia."
+      },
+      {
+        "title": "Death of Firstborn",
+        "description": "At midnight, the final plague. Pharaoh rises in the night, his son dead, and finally releases Israel. 'Rise up, go out from among my people!'"
+      },
+      {
+        "title": "The Pursuit",
+        "description": "Even after releasing them, Pharaoh changes his mind and pursues Israel to the Red Sea. His final, fatal mistake."
+      }
+    ],
+    "rivalryScenes": [
+      {
+        "id": "throne-confrontation",
+        "heroAction": "Moses standing before the throne, staff in hand, speaking God's command with humble authority. The shepherd who became prophet.",
+        "villainAction": "Pharaoh seated in full regalia, dismissive wave, 'Who is the LORD?' The god-king meeting the God of slaves.",
+        "scene": "Egyptian throne room, golden and imposing. Two powers meeting - divine versus earthly.",
+        "energy": "Clash of authorities, humble power vs arrogant pride"
+      },
+      {
+        "id": "plague-confrontation",
+        "heroAction": "Moses with staff raised, calling down divine judgment. Face showing sorrow at the necessity, but unwavering resolve.",
+        "villainAction": "Pharaoh surrounded by plague effects, still defiant, heart hardening even as his kingdom crumbles.",
+        "scene": "Egypt in chaos from the current plague. Moses as channel of power, Pharaoh as stubborn obstacle.",
+        "energy": "Divine power vs human stubbornness"
+      },
+      {
+        "id": "final-night",
+        "heroAction": "Moses leading Israel out at midnight, the blood on the doorposts behind them, freedom finally achieved.",
+        "villainAction": "Pharaoh broken, grief-stricken over his dead son, commanding Israel to leave with hollow voice.",
+        "scene": "The night of the Exodus. Death has passed over Israel but struck Egypt. The tyrant is broken.",
+        "energy": "Victory through suffering, freedom at terrible cost"
+      }
+    ],
+    "scriptureReferences": [
+      {
+        "source": "Exodus 5:2",
+        "context": "Pharaoh's defiant response",
+        "hebrew": "מִי יְהוָה אֲשֶׁר אֶשְׁמַע בְּקֹלוֹ",
+        "english": "Who is the LORD that I should heed Him?",
+        "mood": "Arrogant dismissal"
+      },
+      {
+        "source": "Exodus 5:1",
+        "context": "Moses' demand",
+        "hebrew": "שַׁלַּח אֶת עַמִּי",
+        "english": "Let my people go!",
+        "mood": "Prophetic demand"
+      },
+      {
+        "source": "Exodus 7:3",
+        "context": "The hardened heart",
+        "hebrew": "וַאֲנִי אַקְשֶׁה אֶת לֵב פַּרְעֹה",
+        "english": "I will harden Pharaoh's heart",
+        "mood": "Divine plan"
+      },
+      {
+        "source": "Exodus 12:31",
+        "context": "The breaking point",
+        "hebrew": "קוּמוּ צְּאוּ מִתּוֹךְ עַמִּי",
+        "english": "Rise up, go out from among my people!",
+        "mood": "Broken surrender"
+      },
+      {
+        "source": "Exodus 14:21",
+        "context": "The Red Sea parts",
+        "hebrew": "וַיֵּט מֹשֶׁה אֶת יָדוֹ עַל הַיָּם",
+        "english": "Moses stretched out his hand over the sea",
+        "mood": "Miraculous deliverance"
+      }
+    ]
+  },
+  "player": {
+    "name": "Moses",
+    "displayName": "Moses",
+    "hebrewName": "מֹשֶׁה",
+    "poseFileId": "moses",
+    "characterType": "figure",
+    "era": "Biblical",
+    "attribute": "staff",
+    "attributeDescription": "the staff that became a serpent, struck the Nile, and parted the sea",
+    "visualStyle": "the prophet who confronted the mightiest empire on earth with nothing but a wooden staff and God's word",
+    "clothing": "simple shepherd's robes, humble garments contrasting with the Egyptian opulence around him",
+    "physicalDescription": "elderly man with long white beard, penetrating eyes that have seen the burning bush, weathered skin from decades in the wilderness, staff always in hand",
+    "anatomyNote": "two arms only",
+    "archetype": "The Prophet — spoke for God, wielded divine power through humility"
+  },
+  "figure": {
+    "name": "Pharaoh",
+    "displayName": "Pharaoh",
+    "hebrewName": "פַּרְעֹה",
+    "poseFileId": "pharaoh",
+    "characterType": "figure",
+    "era": "Biblical",
+    "attribute": "crook and flail",
+    "attributeDescription": "the royal crook and flail of Egyptian kingship, symbols of his divine authority",
+    "visualStyle": "the god-king of Egypt, supreme ruler, master of the greatest empire",
+    "clothing": "full Egyptian royal regalia: double crown (pschent), golden collar, pleated linen, jeweled armbands, royal crook and flail",
+    "physicalDescription": "regal bearing, sharp features, kohl-lined eyes, clean-shaven or ceremonial beard, expression of absolute authority and growing desperation as plagues progress",
+    "anatomyNote": "two arms only",
+    "archetype": "The Tyrant — worldly power that cannot withstand divine authority"
+  },
+  "connection": "The ultimate confrontation: humble prophet vs god-king, divine authority vs earthly power",
+  "cardVariants": [
+    "freedom-tour",
+    "plague-tour-stop",
+    "backstage-pass",
+    "tour-finale",
+    "plague-card"
+  ],
+  "priority": 95,
+  "status": "active"
+}

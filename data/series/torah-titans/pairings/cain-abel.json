@@ -1,0 +1,159 @@
+{
+  "id": "cain-abel",
+  "series": "torah-titans",
+  "type": "rivalry",
+  "cardMode": "rivalry-figure-figure",
+  "rivalryConfig": {
+    "heroCharacterType": "figure",
+    "villainCharacterType": "figure"
+  },
+  "seriesSpecificData": {
+    "siblingIcon": {
+      "char1Halo": false,
+      "char2Halo": true,
+      "scripture": {
+        "hebrew": "וַיִּשַׁע יְהוָה אֶל־הֶבֶל וְאֶל־מִנְחָתוֹ וְאֶל־קַיִן וְאֶל־מִנְחָתוֹ לֹא שָׁעָה",
+        "english": "The Lord looked with favor on Abel and his offering, but on Cain and his offering He did not look",
+        "source": "Genesis 4:4-5"
+      },
+      "char1Panel": {
+        "imagery": "Offering grain and fruit on a stone altar, smoke descending and dispersing - rejected by God. The field stretches behind him, the earth he tills.",
+        "symbolism": "The rejected offering, the firstborn who was not favored"
+      },
+      "char2Panel": {
+        "imagery": "Offering a firstborn lamb on a stone altar, smoke rising heavenward - accepted by God. Pastoral hills with grazing sheep behind him.",
+        "symbolism": "The accepted offering, the shepherd whose blood would cry from the ground"
+      }
+    }
+  },
+  "rivalryResearch": {
+    "relationship": "The first brothers in human history, and the first murder. Cain the farmer, Abel the shepherd. God looked with favor on Abel's offering of firstborn lambs but rejected Cain's offering of fruit. Consumed by jealousy, Cain rose up against his brother in the field and killed him. When God asked 'Where is your brother?', Cain spoke the words that echo through history: 'Am I my brother's keeper?'",
+    "keyMoments": [
+      {
+        "title": "The Offerings",
+        "description": "Cain brought fruit of the ground; Abel brought the firstborn of his flock. God accepted Abel's offering - the smoke rising - but rejected Cain's - the smoke descending. The first religious rivalry."
+      },
+      {
+        "title": "The Warning",
+        "description": "God warned Cain: 'Sin crouches at the door; its desire is for you, but you must rule over it.' Cain did not heed the warning."
+      },
+      {
+        "title": "The Murder",
+        "description": "Cain spoke to Abel his brother, and when they were in the field, Cain rose up against Abel and killed him. The first homicide, and a fratricide."
+      },
+      {
+        "title": "The Blood Cries Out",
+        "description": "God confronted Cain: 'The voice of your brother's blood cries out to Me from the ground.' Abel's blood became a witness, crying from the earth."
+      },
+      {
+        "title": "The Mark",
+        "description": "God marked Cain so none would kill him, and Cain went out from the presence of the Lord to dwell in the land of Nod, east of Eden."
+      }
+    ],
+    "rivalryScenes": [
+      {
+        "id": "the-offerings",
+        "heroAction": "Abel kneels reverently before a simple stone altar, presenting a perfect firstborn lamb. His face is humble and sincere. Smoke rises straight up from the offering, caught in a beam of divine light. Sheep graze peacefully on pastoral hills behind him.",
+        "villainAction": "Cain stands stiffly before his altar, presenting grain and fruit. His face shows pride mixed with uncertainty. Smoke disperses and descends, rejected. The cultivated field stretches behind him, the ground he works.",
+        "scene": "Two altars side by side in the open air, one with rising smoke and divine favor, one with descending smoke and rejection. The moment that set everything in motion.",
+        "energy": "Sacred, fateful, the first religious distinction"
+      },
+      {
+        "id": "the-murder",
+        "heroAction": "Abel lies fallen in the field, or raises his hands in defense. His shepherd's crook broken beside him. Innocent blood about to soak into the ground. The moment of the first victim.",
+        "villainAction": "Cain raises a rock or weapon above his head, face contorted with jealous rage. The culmination of his festering resentment. About to commit the first murder.",
+        "scene": "An open field at sunset, long shadows. The moment before or after the first death by violence. The ground that will soon cry out.",
+        "energy": "Violent, tragic, primal"
+      },
+      {
+        "id": "blood-cries-out",
+        "heroAction": "Abel is absent - represented only by blood seeping into the earth, or by a spectral presence. His voice cries from the ground. The first martyr.",
+        "villainAction": "Cain stands alone, looking at his bloodied hands with dawning horror. The earth beneath his feet seems to pulse or glow red. He cannot escape what he has done.",
+        "scene": "The field after the murder. The ground itself has become a witness. Divine presence looms unseen but felt.",
+        "energy": "Haunting, guilt, divine witness"
+      }
+    ],
+    "scriptureReferences": [
+      {
+        "source": "Genesis 4:2",
+        "context": "The brothers' vocations",
+        "hebrew": "וַיְהִי־הֶבֶל רֹעֵה צֹאן וְקַיִן הָיָה עֹבֵד אֲדָמָה",
+        "english": "Abel was a keeper of sheep, and Cain was a tiller of the ground",
+        "mood": "Defining, contrasting"
+      },
+      {
+        "source": "Genesis 4:4-5",
+        "context": "The offerings received differently",
+        "hebrew": "וַיִּשַׁע יְהוָה אֶל־הֶבֶל וְאֶל־מִנְחָתוֹ וְאֶל־קַיִן וְאֶל־מִנְחָתוֹ לֹא שָׁעָה",
+        "english": "The Lord looked with favor on Abel and his offering, but on Cain and his offering He did not look",
+        "mood": "Divine judgment, fateful"
+      },
+      {
+        "source": "Genesis 4:7",
+        "context": "God's warning to Cain",
+        "hebrew": "לַפֶּתַח חַטָּאת רֹבֵץ וְאֵלֶיךָ תְּשׁוּקָתוֹ וְאַתָּה תִּמְשָׁל־בּוֹ",
+        "english": "Sin crouches at the door; its desire is for you, but you must rule over it",
+        "mood": "Warning, choice"
+      },
+      {
+        "source": "Genesis 4:9",
+        "context": "Cain's famous response",
+        "hebrew": "הֲשֹׁמֵר אָחִי אָנֹכִי",
+        "english": "Am I my brother's keeper?",
+        "mood": "Defiant, evasive"
+      },
+      {
+        "source": "Genesis 4:10",
+        "context": "The blood cries out",
+        "hebrew": "קוֹל דְּמֵי אָחִיךָ צֹעֲקִים אֵלַי מִן־הָאֲדָמָה",
+        "english": "The voice of your brother's blood cries out to Me from the ground",
+        "mood": "Accusatory, haunting"
+      },
+      {
+        "source": "Genesis 4:15",
+        "context": "The mark of Cain",
+        "hebrew": "וַיָּשֶׂם יְהוָה לְקַיִן אוֹת",
+        "english": "And the Lord set a mark upon Cain",
+        "mood": "Judgment, protection, exile"
+      }
+    ]
+  },
+  "player": {
+    "name": "Cain",
+    "displayName": "Cain",
+    "hebrewName": "קַיִן",
+    "poseFileId": "cain",
+    "characterType": "figure",
+    "era": "Biblical",
+    "attribute": "farmer's tools and grain",
+    "attributeDescription": "sheaf of grain or farming implements, the tools of a tiller of the ground",
+    "visualStyle": "first murderer, the farmer whose offering was rejected",
+    "clothing": "rough-hewn farmer's garments in earth browns, simple woven cloth, the dress of one who works the soil",
+    "physicalDescription": "strong-built man with calloused hands from farming, weathered face, dark brooding eyes that hold jealousy and resentment. First son of Adam, marked by God after the murder.",
+    "anatomyNote": "two arms only",
+    "archetype": "The First Murderer - consumed by jealousy, killed his brother, became a wanderer marked by God"
+  },
+  "figure": {
+    "name": "Abel",
+    "displayName": "Abel",
+    "hebrewName": "הֶבֶל",
+    "poseFileId": "abel",
+    "characterType": "figure",
+    "era": "Biblical",
+    "attribute": "shepherd's crook and lamb",
+    "attributeDescription": "shepherd's crook, a gentle firstborn lamb cradled or at his feet, the offerings that God accepted",
+    "visualStyle": "first martyr, the shepherd whose offering was accepted",
+    "clothing": "simple pastoral garments in creams and whites, soft sheepskin, the dress of a shepherd",
+    "physicalDescription": "gentle-faced young man with kind eyes and peaceful expression. The innocent shepherd, first to offer acceptable sacrifice to God, first victim of murder. His blood cried from the ground.",
+    "anatomyNote": "two arms only",
+    "archetype": "The First Martyr - innocent shepherd, favored by God, killed by his brother's jealousy"
+  },
+  "connection": "The first brothers, the first murder — one offering accepted, one rejected, blood crying from the ground",
+  "cardVariants": [
+    "sibling-icon",
+    "sibling-duality",
+    "sibling-card"
+  ],
+  "priority": 90,
+  "status": "active"
+}

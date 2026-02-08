@@ -1,0 +1,170 @@
+{
+  "id": "moses-miriam",
+  "series": "torah-titans",
+  "type": "rivalry",
+  "cardMode": "rivalry-figure-figure",
+  "rivalryConfig": {
+    "heroCharacterType": "figure",
+    "villainCharacterType": "figure"
+  },
+  "seriesSpecificData": {
+    "siblingIcon": {
+      "char1Halo": true,
+      "char2Halo": true,
+      "scripture": {
+        "hebrew": "וָאֶשְׁלַח לְפָנֶיךָ אֶת־מֹשֶׁה אַהֲרֹן וּמִרְיָם",
+        "english": "I sent before you Moses, Aaron, and Miriam",
+        "source": "Micah 6:4"
+      },
+      "char1Panel": {
+        "imagery": "Staff raised or tablets in hand, radiant face (post-Sinai he wore a veil). The humble leader who spoke with God face to face. Perhaps kneeling in prayer for Miriam.",
+        "symbolism": "The greatest prophet, most humble of men, intercessor for his sister"
+      },
+      "char2Panel": {
+        "imagery": "Timbrel in hand from the Song at the Sea, prophetess garb. Or shown in the moment of her leprosy, outside the camp, being prayed for by Moses.",
+        "symbolism": "The prophetess who saved baby Moses, led the women, challenged her brother, was healed by his prayer"
+      }
+    }
+  },
+  "rivalryResearch": {
+    "relationship": "Moses and Miriam were siblings along with Aaron — the three leaders God sent before Israel. Miriam saved baby Moses by watching over his basket in the Nile. She led the women in song after the sea parted. But later, Miriam (and Aaron) spoke against Moses regarding his Cushite wife, questioning his unique prophetic status. God struck Miriam with leprosy; Moses prayed the shortest, most powerful prayer: 'Please God, heal her please.' She was healed after seven days outside the camp.",
+    "keyMoments": [
+      {
+        "title": "The Basket",
+        "description": "Young Miriam watched over baby Moses in his basket among the reeds of the Nile. When Pharaoh's daughter found him, Miriam boldly approached and offered to find a Hebrew nurse — bringing Moses' own mother to nurse him."
+      },
+      {
+        "title": "The Song at the Sea",
+        "description": "After the sea parted and Israel crossed, Miriam the prophetess took a timbrel and led the women in dancing and song: 'Sing to the Lord, for He has triumphed gloriously!'"
+      },
+      {
+        "title": "The Challenge",
+        "description": "Miriam and Aaron spoke against Moses concerning his Cushite wife. They said: 'Has the Lord spoken only through Moses? Has He not also spoken through us?' God heard."
+      },
+      {
+        "title": "The Leprosy",
+        "description": "God's anger burned against them. When the cloud departed from the Tent, Miriam was stricken with leprosy, white as snow. Aaron begged Moses to intercede."
+      },
+      {
+        "title": "The Prayer",
+        "description": "Moses cried out: 'Please God, heal her please!' (אֵל נָא רְפָא נָא לָהּ) — just five words, the most concentrated prayer. God commanded seven days outside the camp, then healing."
+      },
+      {
+        "title": "The Well of Miriam",
+        "description": "Tradition says a miraculous well followed Israel through the wilderness for Miriam's merit. When she died, the well disappeared and the people had no water."
+      }
+    ],
+    "rivalryScenes": [
+      {
+        "id": "the-basket",
+        "heroAction": "Baby Moses floating in a basket among the reeds, or young Moses being nursed by his mother thanks to Miriam's quick thinking. The future leader, saved by his sister.",
+        "villainAction": "Young Miriam hiding among the reeds, watching over the basket. Brave and clever, approaching Pharaoh's daughter with a solution. The sister who saved him.",
+        "scene": "The Nile riverbank, papyrus reeds, Pharaoh's daughter and her attendants in the background. A moment of danger and salvation.",
+        "energy": "Protective love, cleverness, salvation"
+      },
+      {
+        "id": "the-song",
+        "heroAction": "Moses with staff raised, the sea still parted or closing on Pharaoh's army. Leading Israel in song, 'This is my God and I will glorify Him.' Male voices raised.",
+        "villainAction": "Miriam with timbrel raised, leading the women in dance and song. 'Sing to the Lord, for He has triumphed gloriously!' Female voices answering. Parallel leadership.",
+        "scene": "The shore of the Sea of Reeds after the crossing. Two groups singing — men with Moses, women with Miriam. Celebration of deliverance.",
+        "energy": "Triumph, celebration, parallel leadership"
+      },
+      {
+        "id": "the-challenge",
+        "heroAction": "Moses silent, humble, not defending himself against his siblings' words. The 'most humble man on the face of the earth' lets God answer. Dignified restraint.",
+        "villainAction": "Miriam speaking against Moses, questioning his unique status. 'Has the Lord spoken only through Moses?' Perhaps with Aaron beside her. The moment before judgment.",
+        "scene": "Near the Tent of Meeting. The divine cloud present. Tension between siblings about prophetic authority.",
+        "energy": "Challenge, jealousy, testing God"
+      },
+      {
+        "id": "the-healing",
+        "heroAction": "Moses with hands raised in prayer, face anguished for his sister. Crying out: 'Please God, heal her please!' Interceding despite being wronged. The most humble man.",
+        "villainAction": "Miriam outside the camp, stricken white with leprosy. Humbled, penitent. Waiting for healing and restoration. The prophetess brought low and lifted up.",
+        "scene": "The camp of Israel with Miriam outside it, Moses praying toward her or toward heaven. The seven days of waiting.",
+        "energy": "Prayer, mercy, restoration"
+      }
+    ],
+    "scriptureReferences": [
+      {
+        "source": "Exodus 2:4",
+        "context": "Young Miriam watches the basket",
+        "hebrew": "וַתֵּתַצַּב אֲחֹתוֹ מֵרָחֹק לְדֵעָה מַה־יֵּעָשֶׂה לוֹ",
+        "english": "His sister stood at a distance to know what would be done to him",
+        "mood": "Protective, watchful"
+      },
+      {
+        "source": "Exodus 15:20",
+        "context": "Miriam leads the women in song",
+        "hebrew": "וַתִּקַּח מִרְיָם הַנְּבִיאָה אֲחוֹת אַהֲרֹן אֶת־הַתֹּף בְּיָדָהּ",
+        "english": "Miriam the prophetess, the sister of Aaron, took a timbrel in her hand",
+        "mood": "Triumphant, prophetic, celebratory"
+      },
+      {
+        "source": "Numbers 12:1",
+        "context": "Miriam and Aaron speak against Moses",
+        "hebrew": "וַתְּדַבֵּר מִרְיָם וְאַהֲרֹן בְּמֹשֶׁה",
+        "english": "Miriam and Aaron spoke against Moses",
+        "mood": "Challenge, jealousy"
+      },
+      {
+        "source": "Numbers 12:3",
+        "context": "Moses' defining characteristic",
+        "hebrew": "וְהָאִישׁ מֹשֶׁה עָנָו מְאֹד מִכֹּל הָאָדָם אֲשֶׁר עַל־פְּנֵי הָאֲדָמָה",
+        "english": "Now the man Moses was very humble, more than any person on the face of the earth",
+        "mood": "Humble, restrained"
+      },
+      {
+        "source": "Numbers 12:13",
+        "context": "Moses' prayer for Miriam",
+        "hebrew": "אֵל נָא רְפָא נָא לָהּ",
+        "english": "Please God, heal her please",
+        "mood": "Desperate, loving, intercessory"
+      },
+      {
+        "source": "Micah 6:4",
+        "context": "God's remembrance of the three leaders",
+        "hebrew": "וָאֶשְׁלַח לְפָנֶיךָ אֶת־מֹשֶׁה אַהֲרֹן וּמִרְיָם",
+        "english": "I sent before you Moses, Aaron, and Miriam",
+        "mood": "Honor, shared leadership"
+      }
+    ]
+  },
+  "player": {
+    "name": "Moses",
+    "displayName": "Moses",
+    "hebrewName": "מֹשֶׁה",
+    "poseFileId": "moses",
+    "characterType": "figure",
+    "era": "Biblical",
+    "attribute": "staff and tablets",
+    "attributeDescription": "the staff that split the sea and struck the rock, or the tablets of the covenant, or face veiled/radiant from speaking with God",
+    "visualStyle": "the greatest prophet, most humble of men, deliverer of Israel",
+    "clothing": "simple robes befitting the most humble man — not ornate, dignified but not ostentatious. Perhaps a veil if post-Sinai.",
+    "physicalDescription": "elderly but vigorous man with long white beard, radiant face (post-Sinai), eyes that have seen God. 'His eye was not dim, nor his natural force abated' at 120. Humble bearing despite immense authority.",
+    "anatomyNote": "two arms only",
+    "archetype": "The Prophet — spoke with God face to face, delivered Israel, most humble man"
+  },
+  "figure": {
+    "name": "Miriam",
+    "displayName": "Miriam",
+    "hebrewName": "מִרְיָם",
+    "poseFileId": "miriam",
+    "characterType": "figure",
+    "era": "Biblical",
+    "attribute": "timbrel and well",
+    "attributeDescription": "the timbrel she played leading the women in song, or associated with the miraculous well that followed Israel for her merit",
+    "visualStyle": "the prophetess who saved baby Moses and led the women in song",
+    "clothing": "prophetess robes in flowing turquoise and water colors, hair covered as appropriate for a leader of Israel's women",
+    "physicalDescription": "strong-featured woman with expressive eyes, dignified bearing of a prophetess. In youth: quick and brave. In age: wise and musical. Can be shown as young girl (basket scene), mature prophetess (song), or humbled/restored (leprosy).",
+    "anatomyNote": "two arms only",
+    "archetype": "The Prophetess — saved Moses, led the women, challenged her brother, was restored through his prayer"
+  },
+  "connection": "Siblings who led Israel together — she saved him as a baby, he prayed for her healing",
+  "cardVariants": [
+    "sibling-icon",
+    "sibling-duality",
+    "sibling-card"
+  ],
+  "priority": 86,
+  "status": "active"
+}
