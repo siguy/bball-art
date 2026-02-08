@@ -1,0 +1,73 @@
+{
+  "id": "russell-westbrook-absalom",
+  "series": "court-covenant",
+  "type": "rivalry",
+  "isAlternate": false,
+  "alternateOf": null,
+  "opposingPairing": null,
+  "cardMode": "rivalry-player-figure",
+  "rivalryConfig": {
+    "heroCharacterType": "player",
+    "villainCharacterType": "figure"
+  },
+  "player": {
+    "name": "Russell Westbrook",
+    "displayName": "Russell Westbrook",
+    "poseFileId": "russell-westbrook",
+    "characterType": "player",
+    "era": "2000s",
+    "jerseyColors": {
+      "primary": {
+        "base": "white",
+        "accent": "blue"
+      },
+      "secondary": {
+        "base": "blue",
+        "accent": "white"
+      }
+    },
+    "signatureMoves": [],
+    "physicalDescription": "6'3\" point guard, known for his explosive athleticism, triple-double prowess, and relentless intensity. Powerful build, signature scowl.",
+    "archetype": "Russell Westbrook"
+  },
+  "figure": {
+    "name": "Absalom",
+    "displayName": "Absalom",
+    "poseFileId": "absalom",
+    "characterType": "figure",
+    "attribute": "His Hair",
+    "attributeDescription": "Thick, long, and beautiful hair, so heavy it had to be cut annually and weighed over 200 shekels. A symbol of his vanity and, ironically, the instrument of his downfall.",
+    "visualStyle": "Renaissance painting, dramatic lighting, emphasis on beauty and tragedy.",
+    "clothing": "Royal garments befitting a prince, including fine linen robes, a gold belt, and possibly armor reflecting his role as a military leader.",
+    "physicalDescription": "Remarkably handsome prince, known for his flowing hair. Driven by ambition and resentment, he orchestrates a rebellion against his father, King David. Ultimately defeated and killed in a tragic end.",
+    "anatomyNote": "two arms only",
+    "archetype": "Absalom"
+  },
+  "connection": {
+    "thematic": "Rebellious Sons",
+    "narrative": "One sought glory from the hardwood, the other from the throne, both with an unyielding hunger.",
+    "relationship": "Westbrook, known for his intense and sometimes controversial style of play, embodies Absalom's ambition and pursuit of personal glory, even at the cost of team harmony or established order. A confrontation between a star point guard and a would-be king."
+  },
+  "interactions": [
+    {
+      "id": "face-off",
+      "description": "Russell Westbrook and Absalom in an intense stare-down"
+    },
+    {
+      "id": "clash",
+      "description": "Russell Westbrook and Absalom in mid-action collision"
+    },
+    {
+      "id": "judgment",
+      "description": "Russell Westbrook victorious, Absalom acknowledging defeat"
+    }
+  ],
+  "defaultInteraction": "face-off",
+  "cardVariants": [
+    "thunder-lightning-rivalry",
+    "beam-team-rivalry",
+    "metal-universe-rivalry"
+  ],
+  "priority": 99,
+  "status": "active"
+}

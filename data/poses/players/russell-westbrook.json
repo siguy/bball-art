@@ -1,0 +1,48 @@
+{
+  "id": "russell-westbrook",
+  "name": "Russell Westbrook",
+  "defaultPose": "triple-threat-stance",
+  "description": "6'3\" point guard, known for his explosive athleticism, triple-double prowess, and relentless intensity. Powerful build, signature scowl.",
+  "poses": {
+    "triple-threat-stance": {
+      "id": "triple-threat-stance",
+      "name": "Triple Threat Stance",
+      "description": "A low, ready stance with the ball, ready to drive, pass, or shoot.",
+      "expression": "intense focus, coiled and ready to explode",
+      "prompt": "Russell Westbrook in a low, athletic triple threat stance - knees bent, ball held ready in front, eyes laser-focused and scanning the court, shoulders squared to the basket, ready to attack at any moment, coiled spring energy",
+      "energy": "explosive readiness"
+    },
+    "driving-layup": {
+      "id": "driving-layup",
+      "name": "Driving Layup",
+      "description": "Full speed drive to the basket, finishing with a high-flying layup.",
+      "expression": "aggressive determination, unwavering focus",
+      "prompt": "Russell Westbrook driving to the basket at full speed for a layup - ball high in right hand, body parallel to the baseline, legs pumping, defender trailing, eyes locked on the rim, powerful leap toward the basket, aggressive and determined expression",
+      "energy": "relentless attack"
+    },
+    "chest-pound": {
+      "id": "chest-pound",
+      "name": "Chest Pound Celebration",
+      "description": "Pounding his chest after a big play.",
+      "expression": "raw emotion, untamed passion",
+      "prompt": "Russell Westbrook pounding his chest after a clutch play - face contorted in a roar, veins bulging, fist hammering his chest with force, body coiled and releasing energy, teammates reacting in the background, pure unadulterated passion",
+      "energy": "ferocious intensity"
+    },
+    "stepback-jumper": {
+      "id": "stepback-jumper",
+      "name": "Stepback Jumper",
+      "description": "Creating space with a quick stepback and rising for a jumper.",
+      "expression": "confident swagger, icy stare",
+      "prompt": "Russell Westbrook executing a stepback jumper - ball released at the apex of the jump, body leaning back slightly, feet planted wide, defender behind him, eyes locked on the basket with unwavering focus, a confident swagger in his posture",
+      "energy": "smooth separation"
+    },
+    "pointing-celebration": {
+      "id": "pointing-celebration",
+      "name": "Pointing Celebration",
+      "description": "Pointing at a teammate after an assist or big play",
+      "expression": "intense pride, recognizing contribution",
+      "prompt": "Russell Westbrook emphatically pointing at a teammate - after a successful assist or game-changing play, face showing intense pride and excitement, finger extended accusingly toward teammate, energy palpable between them, a gesture of respect and acknowledgment, full of emotion.",
+      "energy": "fierce camaraderie"
+    }
+  }
+}
