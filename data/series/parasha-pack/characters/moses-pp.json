@@ -1,0 +1,54 @@
+{
+  "id": "moses-pp",
+  "name": "Moses",
+  "nameHebrew": "מֹשֶׁה",
+  "series": "parasha-pack",
+  "characterType": "biblical-figure",
+
+  "appearance": {
+    "age": "adult",
+    "description": "Friendly middle-aged man with warm brown skin and kind, gentle eyes. Short dark beard with some gray showing he's experienced. Wears simple blue and cream robes. Often holds a wooden shepherd's staff. Has a calm, patient expression.",
+    "distinguishingFeatures": [
+      "Kind gentle eyes",
+      "Short beard with touch of gray",
+      "Wooden shepherd's staff",
+      "Blue and cream robes",
+      "Calm caring expression"
+    ],
+    "continuityNote": "MUST look identical across all parashiyot from Shemot through Devarim. Same face, same robes, same staff."
+  },
+
+  "personality": {
+    "traits": ["caring", "humble", "brave", "patient"],
+    "childFriendlyDescription": "Moses is a caring leader who helps everyone. He's humble (doesn't brag) and very brave. He always listens carefully before acting."
+  },
+
+  "emotions": {
+    "default": "calm-caring",
+    "range": [
+      { "id": "calm-caring", "description": "Peaceful, kind expression" },
+      { "id": "determined", "description": "Focused, brave, ready to act" },
+      { "id": "worried", "description": "Concerned, furrowed brow" },
+      { "id": "tired-but-caring", "description": "Slightly weary but still warm" },
+      { "id": "joyful", "description": "Big smile, celebrating" },
+      { "id": "awe", "description": "Wide eyes, reverent" }
+    ]
+  },
+
+  "props": {
+    "staff": {
+      "description": "Simple wooden shepherd's staff, slightly curved at top",
+      "when": "Most scenes where Moses is leading or doing something important"
+    }
+  },
+
+  "appearancesInParashiyot": [
+    "shemot", "vaera", "bo", "beshalach", "yitro", "mishpatim", "terumah",
+    "tetzaveh", "ki-tisa", "vayakhel", "pekudei", "vayikra", "tzav",
+    "shemini", "tazria", "metzora", "acharei-mot", "kedoshim", "emor",
+    "behar", "bechukotai", "bamidbar", "naso", "behaalotcha", "shelach",
+    "korach", "chukat", "balak", "pinchas", "matot", "masei", "devarim",
+    "vaetchanan", "eikev", "reeh", "shoftim", "ki-teitzei", "ki-tavo",
+    "nitzavim", "vayelech", "haazinu", "vezot-haberachah"
+  ]
+}

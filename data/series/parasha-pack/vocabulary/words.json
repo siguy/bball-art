@@ -1,0 +1,137 @@
+{
+  "version": "1.0",
+  "description": "Hebrew power words for Parasha Pack decks",
+
+  "words": {
+    "shema": {
+      "id": "shema",
+      "hebrew": "שְׁמַע",
+      "english": "Listen / Hear",
+      "pronunciation": "sheh-MAH",
+      "simpleDefinition": "When you really pay attention with your ears AND your heart",
+      "fullDefinition": "To hear and internalize, to truly listen and understand",
+      "visualAssociation": "ear with heart inside, sound waves",
+      "category": "action",
+      "emotionWord": false,
+      "parashiyot": ["yitro", "vaetchanan"],
+      "audioUrl": null
+    },
+    "kavod": {
+      "id": "kavod",
+      "hebrew": "כָּבוֹד",
+      "english": "Respect / Honor",
+      "pronunciation": "kah-VOD",
+      "simpleDefinition": "Treating someone special because they matter",
+      "fullDefinition": "Honor, respect, glory; treating others with dignity",
+      "visualAssociation": "child hugging parent, crown",
+      "category": "value",
+      "emotionWord": false,
+      "parashiyot": ["yitro"],
+      "audioUrl": null
+    },
+    "simcha": {
+      "id": "simcha",
+      "hebrew": "שִׂמְחָה",
+      "english": "Joy / Happiness",
+      "pronunciation": "sim-KHAH",
+      "simpleDefinition": "A big happy feeling in your heart!",
+      "fullDefinition": "Joy, gladness, happiness; the feeling of celebration",
+      "visualAssociation": "smiling face, dancing, sun shining",
+      "category": "emotion",
+      "emotionWord": true,
+      "parashiyot": ["bereshit", "vayera"],
+      "audioUrl": null
+    },
+    "chesed": {
+      "id": "chesed",
+      "hebrew": "חֶסֶד",
+      "english": "Kindness",
+      "pronunciation": "KHEH-sed",
+      "simpleDefinition": "Doing nice things for others because you care",
+      "fullDefinition": "Loving-kindness, grace, mercy; acts of goodness",
+      "visualAssociation": "hands helping, heart, giving",
+      "category": "value",
+      "emotionWord": false,
+      "parashiyot": ["vayera", "chayei-sarah"],
+      "audioUrl": null
+    },
+    "emunah": {
+      "id": "emunah",
+      "hebrew": "אֱמוּנָה",
+      "english": "Faith / Trust",
+      "pronunciation": "eh-moo-NAH",
+      "simpleDefinition": "Believing in something even when you can't see it",
+      "fullDefinition": "Faith, trust, belief; confidence in God and goodness",
+      "visualAssociation": "eyes closed peacefully, hands open",
+      "category": "value",
+      "emotionWord": false,
+      "parashiyot": ["beshalach", "lech-lecha"],
+      "audioUrl": null
+    },
+    "ahavah": {
+      "id": "ahavah",
+      "hebrew": "אַהֲבָה",
+      "english": "Love",
+      "pronunciation": "ah-hah-VAH",
+      "simpleDefinition": "The warm feeling when you care about someone very much",
+      "fullDefinition": "Love, affection; deep caring for others",
+      "visualAssociation": "heart, hug, family together",
+      "category": "emotion",
+      "emotionWord": true,
+      "parashiyot": ["vaetchanan", "toldot"],
+      "audioUrl": null
+    },
+    "shalom": {
+      "id": "shalom",
+      "hebrew": "שָׁלוֹם",
+      "english": "Peace / Hello / Goodbye",
+      "pronunciation": "shah-LOHM",
+      "simpleDefinition": "When everything feels calm and good",
+      "fullDefinition": "Peace, wholeness, completeness; also used as greeting",
+      "visualAssociation": "dove, calm water, smiling faces",
+      "category": "value",
+      "emotionWord": false,
+      "parashiyot": ["noach", "vayishlach"],
+      "audioUrl": null
+    },
+    "todah": {
+      "id": "todah",
+      "hebrew": "תּוֹדָה",
+      "english": "Thank You",
+      "pronunciation": "toh-DAH",
+      "simpleDefinition": "What you say when someone does something nice for you",
+      "fullDefinition": "Thanks, gratitude; acknowledgment of kindness",
+      "visualAssociation": "hands together, gift being given",
+      "category": "action",
+      "emotionWord": false,
+      "parashiyot": ["vayishlach", "tzav"],
+      "audioUrl": null
+    },
+    "teshuvah": {
+      "id": "teshuvah",
+      "hebrew": "תְּשׁוּבָה",
+      "english": "Saying Sorry / Returning",
+      "pronunciation": "teh-shoo-VAH",
+      "simpleDefinition": "When you make a mistake and want to make it better",
+      "fullDefinition": "Repentance, return; the process of acknowledging wrongdoing and making amends",
+      "visualAssociation": "turning around, heart changing, hug after apology",
+      "category": "action",
+      "emotionWord": false,
+      "parashiyot": ["haazinu", "nitzavim"],
+      "audioUrl": null
+    },
+    "yirah": {
+      "id": "yirah",
+      "hebrew": "יִרְאָה",
+      "english": "Awe / Wonder",
+      "pronunciation": "yee-RAH",
+      "simpleDefinition": "That amazing feeling when you see something SO big and special",
+      "fullDefinition": "Awe, reverence, wonder; the feeling of encountering something greater than yourself",
+      "visualAssociation": "wide eyes, mouth open in wonder, looking up",
+      "category": "emotion",
+      "emotionWord": true,
+      "parashiyot": ["yitro", "vayera"],
+      "audioUrl": null
+    }
+  }
+}

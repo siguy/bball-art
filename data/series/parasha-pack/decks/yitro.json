@@ -1,0 +1,305 @@
+{
+  "id": "yitro",
+  "parasha": "Yitro",
+  "parashaHebrew": "יִתְרוֹ",
+  "book": "Exodus",
+  "bookHebrew": "שְׁמוֹת",
+  "chapters": "18:1-20:23",
+  "sefariaRef": "Exodus 18:1-20:23",
+  "weekNumber": 17,
+
+  "bigIdea": {
+    "simple": "God gives us special rules to help us be good!",
+    "teacherVersion": "At Mount Sinai, the whole Jewish people heard God's voice together and received the Ten Commandments - rules to help us live good lives.",
+    "emotionalTone": "awe, togetherness, responsibility"
+  },
+
+  "mitzvahConnection": {
+    "theme": "Listening to Good Advice",
+    "action": "Ask a grown-up for help when something is hard",
+    "discussion": "Yitro gave Moses good advice. Who gives YOU good advice?"
+  },
+
+  "powerWords": [
+    {
+      "id": "shema",
+      "hebrew": "שְׁמַע",
+      "english": "Listen / Hear",
+      "pronunciation": "sheh-MAH",
+      "simpleDefinition": "When you really pay attention with your ears AND your heart",
+      "visualAssociation": "ear with heart inside, sound waves",
+      "usageInStory": "The people listened very carefully when God spoke",
+      "audioQR": null
+    },
+    {
+      "id": "kavod",
+      "hebrew": "כָּבוֹד",
+      "english": "Respect / Honor",
+      "pronunciation": "kah-VOD",
+      "simpleDefinition": "Treating someone special because they matter",
+      "visualAssociation": "child hugging parent, crown",
+      "usageInStory": "Honor your father and mother - one of the Ten Commandments!",
+      "audioQR": null
+    }
+  ],
+
+  "characters": ["moses-pp", "yitro-pp", "israelites-pp"],
+
+  "cards": [
+    {
+      "id": "yitro-anchor",
+      "type": "anchor",
+      "title": "Parashat Yitro",
+      "subtitle": "The Ten Commandments!",
+      "text": "This week, the whole Jewish people stood together at a big mountain and heard God's special rules!",
+      "emotionalTone": "excitement, awe",
+      "visualPrompt": "Mount Sinai with lightning and clouds at the top, a diverse group of cartoon Israelites (men, women, children) at the bottom looking up with wonder and awe, soft golden light breaking through clouds, simple desert landscape",
+      "border": {
+        "color": "mountain",
+        "accent": "gold"
+      },
+      "teacherScript": {
+        "opening": "This week's parasha is called Yitro! Let's say it together: YIT-RO! It's named after Moses's father-in-law.",
+        "main": "Something AMAZING happened in this story. The whole Jewish people - grandmas, grandpas, mommies, daddies, and ALL the kids - stood together at a big, big mountain called Sinai.",
+        "closing": "And guess what happened there? They heard God's voice! Let's find out more..."
+      }
+    },
+    {
+      "id": "yitro-spotlight-yitro",
+      "type": "spotlight",
+      "characterId": "yitro-pp",
+      "title": "Meet Yitro!",
+      "text": "Yitro was Moses's father-in-law. He came to visit and gave Moses very good advice!",
+      "trait": "Wise Helper",
+      "emotion": "proud",
+      "emotionLabel": "Proud",
+      "visualPrompt": "Elderly Yitro with warm smile and twinkling wise eyes, long gray beard, desert robes in earth tones, one hand raised as if explaining something, standing confidently, simple tent in background",
+      "border": {
+        "color": "desert",
+        "accent": "orange"
+      },
+      "teacherScript": {
+        "opening": "Look at this man! His name is Yitro. Let's say his name: YIT-RO!",
+        "emotion": "Look at Yitro's face. He looks PROUD. Can you see his big smile? He feels proud because he has something important to share.",
+        "main": "Yitro was Moses's father-in-law. That means he was married to Moses's wife's daddy! He traveled a LONG way to see Moses. And he had a really, really good idea to help!",
+        "trait": "Yitro is a WISE HELPER. Being wise means knowing good things. A helper shares what they know!"
+      }
+    },
+    {
+      "id": "yitro-spotlight-moses",
+      "type": "spotlight",
+      "characterId": "moses-pp",
+      "title": "Moses the Leader",
+      "text": "Moses led the Jewish people out of Egypt. Now he has a big job taking care of everyone!",
+      "trait": "Caring Leader",
+      "emotion": "tired-but-caring",
+      "emotionLabel": "Tired but Caring",
+      "visualPrompt": "Moses with friendly face showing slight tiredness but warm caring expression, simplified shepherd's staff, robes in blue and cream, hands on heart showing he cares, people in distant background waiting for help",
+      "border": {
+        "color": "desert",
+        "accent": "blue"
+      },
+      "teacherScript": {
+        "opening": "Here's someone we know! Who is this? That's right - MOSES!",
+        "emotion": "Look at Moses's face. He looks a little TIRED, but also CARING. See how his eyes are kind? He wants to help everyone, but helping SO many people is hard work!",
+        "main": "Moses was the leader of the Jewish people. When anyone had a problem, they came to Moses. 'Moses, help!' 'Moses, what should I do?' ALL day long! That's a LOT of helping!",
+        "trait": "Moses is a CARING LEADER. He cares about everyone, even when he's tired."
+      }
+    },
+    {
+      "id": "yitro-action-advice",
+      "type": "action",
+      "title": "Yitro's Good Idea",
+      "text": "Yitro said: 'Moses, you can't help everyone alone! Let others help too!'",
+      "moment": "jethro-advises-judges",
+      "characters": ["yitro-pp", "moses-pp"],
+      "emotions": {
+        "yitro-pp": "confident",
+        "moses-pp": "surprised-then-grateful"
+      },
+      "visualPrompt": "Yitro standing next to Moses, Yitro gesturing wisely with open palm, Moses has surprised/thoughtful expression with hand on chin, in background show multiple smaller figures representing other helpers/judges, warm desert colors, simple tent setting",
+      "border": {
+        "color": "desert",
+        "accent": "gold"
+      },
+      "teacherScript": {
+        "opening": "One day, Yitro watched Moses work. He saw people waiting ALL day to talk to Moses.",
+        "action": "Yitro said: 'Moses! You are working too hard! One person can't do everything!'",
+        "climax": "Then Yitro had his BIG IDEA: 'Find other good people to help! They can answer the easy questions, and you can answer the REALLY hard ones!'",
+        "closing": "Moses listened to Yitro's advice. And guess what? IT WORKED! Sometimes we all need help from others."
+      }
+    },
+    {
+      "id": "yitro-action-sinai",
+      "type": "action",
+      "title": "Standing at Mount Sinai",
+      "text": "The whole Jewish people stood together. The mountain shook! Thunder boomed! God was there!",
+      "moment": "revelation-at-sinai",
+      "characters": ["israelites-pp"],
+      "emotions": {
+        "israelites-pp": "awe-and-wonder"
+      },
+      "visualPrompt": "Large mountain with dramatic clouds and golden lightning at top, soft glowing light (divine presence - NOT a figure), crowd of cartoon Israelites at bottom showing mix of awe and nervousness - wide eyes, hands raised in wonder, children holding parents' hands, shofar visible",
+      "border": {
+        "color": "mountain",
+        "accent": "gold"
+      },
+      "teacherScript": {
+        "opening": "Then came the most AMAZING day ever!",
+        "buildup": "The mountain shook. SHAKE SHAKE SHAKE! (shake your body!)",
+        "climax": "The thunder boomed. BOOM BOOM BOOM! The shofar blew. TEKIAH! (pretend to blow a shofar!)",
+        "moment": "And everyone... listened... very, very carefully. Because God was about to speak!",
+        "emotion": "Look at the people's faces. They feel AWE. That's a special feeling when something is SO amazing and SO big!"
+      }
+    },
+    {
+      "id": "yitro-action-commandments",
+      "type": "action",
+      "title": "The Ten Commandments",
+      "text": "God gave the Jewish people ten special rules to help them be good and kind.",
+      "moment": "ten-commandments-given",
+      "characters": [],
+      "emotions": {},
+      "visualPrompt": "Two stone tablets floating in golden light, Hebrew letters visible but stylized, rays of warm light behind tablets, soft clouds around edges, NO human figure for God - only light and tablets, simple majestic composition",
+      "border": {
+        "color": "gold",
+        "accent": "blue"
+      },
+      "teacherScript": {
+        "opening": "And then God gave the people something very special...",
+        "main": "TEN RULES! We call them the Ten Commandments. Let's count on our fingers - one, two, three, four, five, six, seven, eight, nine, TEN!",
+        "examples": "Rules like: Be kind to your mommy and daddy. Don't take things that aren't yours. Tell the truth!",
+        "closing": "These rules help us be good friends, good family members, and good people!"
+      }
+    },
+    {
+      "id": "yitro-thinker-mountain",
+      "type": "thinker",
+      "title": "At the Mountain",
+      "visualPrompt": "Israelites at base of mountain looking up, mix of emotions visible on faces - some holding hands, some children on shoulders, warm colors, inviting composition for discussion",
+      "border": {
+        "color": "mountain",
+        "accent": "purple"
+      },
+      "questions": {
+        "emotional": {
+          "text": "How do you think the people felt when they heard the loud thunder and saw the mountain shake?",
+          "type": "emotional-empathy",
+          "followUp": "Were they scared? Excited? Both?"
+        },
+        "cognitive": {
+          "text": "Why do you think God wanted EVERYONE - grandmas, grandpas, mommies, daddies, AND kids - to be there together?",
+          "type": "cognitive-empathy",
+          "followUp": "What's special about doing something all together?"
+        },
+        "connection": {
+          "text": "Have you ever heard a really, REALLY loud noise? What did you do?",
+          "type": "connection",
+          "followUp": "Did you cover your ears? Hold someone's hand?"
+        }
+      },
+      "teacherScript": {
+        "setup": "Let's think about this story...",
+        "transition": "Let's look at the people in the picture. What do you notice about their faces?",
+        "afterQuestions": "It's okay to feel different feelings at the same time! You can feel scared AND excited!"
+      }
+    },
+    {
+      "id": "yitro-thinker-advice",
+      "type": "thinker",
+      "title": "Good Advice",
+      "visualPrompt": "Split scene: Yitro talking to Moses on one side, child talking to parent/teacher on other side, warm caring expressions, cozy feeling",
+      "border": {
+        "color": "desert",
+        "accent": "orange"
+      },
+      "questions": {
+        "emotional": {
+          "text": "How do you think Moses felt when Yitro gave him the idea to get helpers?",
+          "type": "emotional-empathy",
+          "followUp": "Relieved? Happy? Surprised?"
+        },
+        "cognitive": {
+          "text": "Why is it good to listen to advice from people who care about us?",
+          "type": "cognitive-empathy",
+          "followUp": "What might happen if we never listen to good advice?"
+        },
+        "connection": {
+          "text": "Who gives YOU good advice? A parent? A teacher? A grandparent?",
+          "type": "connection",
+          "followUp": "Can you tell us about a time they helped you?"
+        }
+      },
+      "teacherScript": {
+        "setup": "Yitro gave Moses such good advice! Let's think about advice...",
+        "transition": "Sometimes people who love us can see things we can't see.",
+        "afterQuestions": "It's smart to listen when people who care about us have good ideas!"
+      }
+    },
+    {
+      "id": "yitro-power-shema",
+      "type": "power-word",
+      "wordId": "shema",
+      "title": "Shema - Listen!",
+      "hebrew": "שְׁמַע",
+      "english": "Listen / Hear",
+      "pronunciation": "sheh-MAH",
+      "definition": "When you really pay attention with your ears AND your heart",
+      "visualPrompt": "Large friendly ear shape with a heart inside it, sound waves coming toward ear, Hebrew word שְׁמַע prominently displayed, bright cheerful colors, simple clean design for children",
+      "border": {
+        "color": "blue",
+        "accent": "pink"
+      },
+      "inStory": "The Jewish people had to SHEMA - really listen - when God spoke at the mountain!",
+      "practice": "Let's practice! Everyone close your eyes and SHEMA - really listen. What do you hear?",
+      "teacherScript": {
+        "intro": "Let's learn a special Hebrew word! Say it with me: SHEMA!",
+        "meaning": "Shema means LISTEN - but not just with your ears! It means listen with your HEART too. Really pay attention!",
+        "connection": "In this story, the people had to SHEMA very carefully when God spoke.",
+        "practice": "Let's practice SHEMA! Close your eyes... what sounds can you hear right now?"
+      }
+    },
+    {
+      "id": "yitro-power-kavod",
+      "type": "power-word",
+      "wordId": "kavod",
+      "title": "Kavod - Respect!",
+      "hebrew": "כָּבוֹד",
+      "english": "Respect / Honor",
+      "pronunciation": "kah-VOD",
+      "definition": "Treating someone special because they matter",
+      "visualPrompt": "Child giving flowers to parent, or child helping grandparent, warm glowing heart above them, Hebrew word כָּבוֹד displayed prominently, soft loving colors",
+      "border": {
+        "color": "gold",
+        "accent": "red"
+      },
+      "inStory": "One of the Ten Commandments is to show KAVOD to your parents - treat them special!",
+      "practice": "How can YOU show KAVOD to your mommy or daddy today?",
+      "teacherScript": {
+        "intro": "Here's another special Hebrew word! Say it with me: KAH-VOD!",
+        "meaning": "Kavod means RESPECT or HONOR. It means treating someone like they're special and important!",
+        "connection": "One of the Ten Commandments says: Show KAVOD to your mommy and daddy! That means being kind to them and helping them.",
+        "practice": "How can we show KAVOD? Maybe by saying 'please' and 'thank you'? Or helping clean up? Or giving a hug?"
+      }
+    }
+  ],
+
+  "teacherScript": {
+    "deckOpening": "Shalom, friends! This week we're learning Parashat Yitro! Get ready for mountains, thunder, and very special rules!",
+    "deckClosing": "We learned SO much today! We met Yitro the wise helper, we stood at the mountain with the Jewish people, and we learned about God's special rules. Remember: SHEMA - listen with your heart, and show KAVOD - respect to the people you love!",
+    "transitions": {
+      "anchor-to-spotlight": "Now let's meet someone special from this story...",
+      "spotlight-to-action": "And guess what happened next?",
+      "action-to-thinker": "Hmm, that makes me wonder...",
+      "thinker-to-power-word": "Let's learn a special Hebrew word!"
+    }
+  },
+
+  "metadata": {
+    "difficulty": "standard",
+    "themes": ["listening", "respect", "rules", "family", "advice", "togetherness"],
+    "seasonalTies": ["winter"],
+    "relatedHolidays": ["shavuot"],
+    "estimatedTime": "20-30 minutes"
+  }
+}

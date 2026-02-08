@@ -1,0 +1,54 @@
+{
+  "id": "israelites-pp",
+  "name": "The Israelites",
+  "nameHebrew": "בְּנֵי יִשְׂרָאֵל",
+  "alternateNames": ["Jewish People", "Children of Israel"],
+  "series": "parasha-pack",
+  "characterType": "group",
+
+  "appearance": {
+    "description": "A diverse group of cartoon people - men, women, children, elderly. Mix of skin tones from light brown to dark brown. Simple biblical robes in various earth tones and gentle colors. Expressive faces showing various emotions. Children often holding parents' hands or on shoulders.",
+    "groupComposition": {
+      "adults": "Mix of men and women, various ages",
+      "children": "Always include children in group scenes",
+      "elderly": "Include grandparent figures when appropriate"
+    },
+    "distinguishingFeatures": [
+      "Diverse group with various ages",
+      "Mix of skin tones",
+      "Simple biblical clothing",
+      "Always includes children",
+      "Expressive unified emotions"
+    ],
+    "continuityNote": "When showing crowds of Israelites, maintain consistent style. Individual faces can vary, but overall aesthetic should be consistent."
+  },
+
+  "personality": {
+    "traits": ["community-minded", "faithful", "sometimes worried", "resilient"],
+    "childFriendlyDescription": "The Israelites are a big family of people who traveled together, helped each other, and learned to follow God's rules together. They had kids just like you!"
+  },
+
+  "emotions": {
+    "default": "together-hopeful",
+    "range": [
+      { "id": "together-hopeful", "description": "Unified, looking forward with hope" },
+      { "id": "awe-and-wonder", "description": "Wide eyes, mouths open, amazed" },
+      { "id": "scared", "description": "Huddled together, worried expressions" },
+      { "id": "celebrating", "description": "Dancing, singing, joyful" },
+      { "id": "complaining", "description": "Grumpy faces, arms crossed (for challenging moments)" },
+      { "id": "listening", "description": "Attentive, focused, learning" }
+    ]
+  },
+
+  "compositionGuidelines": {
+    "smallGroup": "5-7 distinct figures, mix of ages",
+    "crowd": "Many figures, some detailed in front, silhouettes in back",
+    "family": "Parents with 1-2 children, possibly grandparent"
+  },
+
+  "appearancesInParashiyot": [
+    "shemot", "vaera", "bo", "beshalach", "yitro", "mishpatim", "ki-tisa",
+    "vayakhel", "pekudei", "bamidbar", "behaalotcha", "shelach", "korach",
+    "chukat", "balak", "pinchas", "matot", "masei", "devarim", "nitzavim"
+  ]
+}

@@ -1,0 +1,50 @@
+{
+  "id": "yitro-pp",
+  "name": "Yitro",
+  "nameHebrew": "יִתְרוֹ",
+  "alternateNames": ["Jethro"],
+  "series": "parasha-pack",
+  "characterType": "biblical-figure",
+
+  "appearance": {
+    "age": "elderly",
+    "description": "Wise elderly man with long flowing white/gray beard. Warm twinkling eyes that show wisdom and kindness. Wears earth-toned desert robes (browns, tans). Has a gentle grandfatherly smile. May have a walking stick.",
+    "distinguishingFeatures": [
+      "Long flowing white/gray beard",
+      "Twinkling wise eyes",
+      "Grandfatherly warm smile",
+      "Earth-toned desert robes",
+      "Optional walking stick"
+    ],
+    "continuityNote": "Yitro appears primarily in Parashat Yitro. Same appearance if referenced elsewhere."
+  },
+
+  "personality": {
+    "traits": ["wise", "kind", "observant", "helpful"],
+    "childFriendlyDescription": "Yitro is like a wise grandpa. He watches carefully and notices things others might miss. He loves to share good ideas that help people!"
+  },
+
+  "emotions": {
+    "default": "wise-kind",
+    "range": [
+      { "id": "wise-kind", "description": "Gentle smile, knowing eyes" },
+      { "id": "proud", "description": "Big smile, pleased expression" },
+      { "id": "thoughtful", "description": "Hand on chin, thinking" },
+      { "id": "joyful", "description": "Arms wide, welcoming" },
+      { "id": "concerned", "description": "Worried brow, caring" }
+    ]
+  },
+
+  "relationships": {
+    "moses": "father-in-law (Yitro is Moses's wife's father)"
+  },
+
+  "props": {
+    "walkingStick": {
+      "description": "Simple wooden walking stick for an elder",
+      "when": "Optional, for walking scenes"
+    }
+  },
+
+  "appearancesInParashiyot": ["yitro"]
+}

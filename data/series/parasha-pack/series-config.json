@@ -1,0 +1,179 @@
+{
+  "id": "parasha-pack",
+  "name": "Parasha Pack",
+  "tagline": "Weekly Torah Adventures for Little Learners",
+  "description": "Educational card decks teaching weekly Torah portions to preschool/kindergarten children (ages 4-6)",
+  "theme": "educational-biblical",
+
+  "audience": {
+    "ageRange": [4, 6],
+    "setting": "classroom",
+    "gradeLevel": "preschool-kindergarten"
+  },
+
+  "format": {
+    "cardSize": "5x7",
+    "cardRatio": "5:7",
+    "deckSize": { "min": 10, "max": 15 },
+    "outputFormats": ["png", "pdf", "qr-enhanced"],
+    "resolution": {
+      "width": 1500,
+      "height": 2100,
+      "dpi": 300
+    }
+  },
+
+  "cardModes": ["deck-anchor", "deck-spotlight", "deck-action", "deck-thinker", "deck-power-word"],
+
+  "cardTypes": {
+    "anchor": {
+      "name": "Anchor Card",
+      "description": "Weekly parasha summary - the 'big idea'",
+      "characterCount": 0,
+      "perDeck": 1,
+      "emotionalElement": "Sets emotional tone for the parasha",
+      "templates": ["anchor-card"]
+    },
+    "spotlight": {
+      "name": "Spotlight Card",
+      "description": "Character introduction with emotion and trait",
+      "characterCount": 1,
+      "perDeck": { "min": 2, "max": 4 },
+      "emotionalElement": "Shows one clear emotion + character trait",
+      "templates": ["spotlight-card"]
+    },
+    "action": {
+      "name": "Action Card",
+      "description": "Key plot moment with emotional reactions",
+      "characterCount": { "min": 1, "max": 3 },
+      "perDeck": { "min": 3, "max": 6 },
+      "emotionalElement": "Characters react emotionally to events",
+      "templates": ["action-card"]
+    },
+    "thinker": {
+      "name": "Thinker Card",
+      "description": "Discussion card with 3 perspective-taking questions",
+      "characterCount": 0,
+      "perDeck": { "min": 2, "max": 3 },
+      "emotionalElement": "Full emotional literacy framework",
+      "questionTypes": ["emotional-empathy", "cognitive-empathy", "connection"],
+      "templates": ["thinker-card"]
+    },
+    "power-word": {
+      "name": "Power Word Card",
+      "description": "Hebrew vocabulary with visual association",
+      "characterCount": 0,
+      "perDeck": 2,
+      "emotionalElement": "Some words are emotion vocabulary",
+      "templates": ["power-word-card"]
+    }
+  },
+
+  "visualStyle": {
+    "aesthetic": "vivid-cartoon",
+    "colors": {
+      "foreground": {
+        "primary": ["#FF4136", "#0074D9", "#FFDC00", "#2ECC40"],
+        "description": "Bold primary colors for characters and main actions"
+      },
+      "background": {
+        "pastels": ["#FFE5E5", "#E5F0FF", "#FFFBE5", "#E5FFE5"],
+        "description": "Soft pastels to ensure characters 'pop'"
+      },
+      "thematic": {
+        "desert": "#F5DEB3",
+        "water": "#87CEEB",
+        "garden": "#90EE90",
+        "mountain": "#DEB887",
+        "fire": "#FFD700"
+      }
+    },
+    "contrast": "high",
+    "complexity": "simple-shapes",
+    "maxObjectsPerScene": 7,
+    "characterStyle": {
+      "shape": "rounded-friendly",
+      "eyes": "large-expressive",
+      "lines": "thick-clean-outlines"
+    }
+  },
+
+  "contentGuidelines": {
+    "neverDepict": [
+      "God in human form",
+      "Graphic violence or blood",
+      "Death explicitly shown",
+      "Scary monsters or demons",
+      "Complex scenes with many small elements"
+    ],
+    "divinePresence": [
+      "Light rays from above",
+      "Glowing clouds",
+      "Environmental effects (wind, fire)",
+      "Stylized Hebrew text with glow"
+    ],
+    "alwaysInclude": [
+      "Character emotions via face/body",
+      "Simple, clear compositions",
+      "Friendly, approachable characters"
+    ],
+    "languageLevel": "simple-sentences",
+    "maxWordsPerCard": 20
+  },
+
+  "emotionalLiteracy": {
+    "enabled": true,
+    "emotionWordBank": {
+      "positive": ["Happy", "Proud", "Excited", "Loved", "Safe", "Grateful"],
+      "challenging": ["Scared", "Worried", "Sad", "Angry", "Confused", "Lonely"],
+      "complex": ["Nervous-but-excited", "Sad-but-hopeful"]
+    },
+    "questionTypes": {
+      "emotional-empathy": "How do you think [character] felt when...?",
+      "cognitive-empathy": "Why do you think [character] did...?",
+      "connection": "Have you ever felt...? What did you do?"
+    }
+  },
+
+  "teacherSupport": {
+    "hasScripts": true,
+    "scriptStyle": "rhythmic-read-aloud",
+    "scaffoldingTechniques": [
+      "Before question: Look at character's face",
+      "Model connection: Remember when YOU...",
+      "Role-play: Can you make a face like [character]?"
+    ],
+    "hasMitzvahConnection": true,
+    "hasVocabulary": true,
+    "vocabularyPerDeck": 2
+  },
+
+  "qrEnhancement": {
+    "enabled": true,
+    "features": ["audio-pronunciation", "song-links", "parent-guide"]
+  },
+
+  "characterContinuity": {
+    "enabled": true,
+    "sharedAppearances": true,
+    "description": "Characters maintain consistent appearance across all 54 parashiyot"
+  },
+
+  "availableTemplates": [
+    "anchor-card",
+    "spotlight-card",
+    "action-card",
+    "thinker-card",
+    "power-word-card"
+  ],
+
+  "tone": {
+    "style": "warm-educational",
+    "doNot": ["scary", "complex", "preachy", "condescending"]
+  },
+
+  "dataSource": {
+    "api": "https://www.sefaria.org/api/calendars",
+    "usage": "Fetch current week's parasha automatically"
+  }
+}

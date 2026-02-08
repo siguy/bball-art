@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Parasha Pack - Deck Viewer</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      margin: 0;
+      padding: 20px;
+    }
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+    header {
+      text-align: center;
+      color: white;
+      margin-bottom: 30px;
+    }
+    header h1 {
+      margin: 0 0 10px 0;
+      font-size: 2.5rem;
+    }
+    header p {
+      margin: 0;
+      opacity: 0.9;
+      font-size: 1.1rem;
+    }
+    .deck-selector {
+      background: white;
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 30px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+    }
+    .deck-selector label {
+      font-weight: 600;
+      margin-right: 10px;
+    }
+    .deck-selector select {
+      padding: 8px 16px;
+      font-size: 1rem;
+      border-radius: 6px;
+      border: 2px solid #ddd;
+    }
+    .deck-info {
+      margin-top: 15px;
+      padding: 15px;
+      background: #f8f9fa;
+      border-radius: 8px;
+    }
+    .deck-info h3 {
+      margin: 0 0 10px 0;
+      color: #333;
+    }
+    .deck-info p {
+      margin: 5px 0;
+      color: #666;
+    }
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 24px;
+    }
+    .card-item {
+      background: white;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+      transition: transform 0.2s, box-shadow 0.2s;
+      cursor: pointer;
+    }
+    .card-item:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+    }
+    .card-item img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    .card-item .card-meta {
+      padding: 12px 16px;
+      background: #f8f9fa;
+    }
+    .card-item .card-type {
+      display: inline-block;
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+    .card-type.anchor { background: #FFD700; color: #333; }
+    .card-type.spotlight { background: #FF9500; color: white; }
+    .card-type.action { background: #FF4136; color: white; }
+    .card-type.thinker { background: #9B59B6; color: white; }
+    .card-type.power-word { background: #0074D9; color: white; }
+    .card-item .card-title {
+      font-weight: 600;
+      color: #333;
+      margin: 0;
+    }
+    .no-cards {
+      text-align: center;
+      color: white;
+      padding: 60px 20px;
+    }
+    .no-cards h2 {
+      margin-bottom: 10px;
+    }
+    /* Modal */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.9);
+      z-index: 1000;
+      justify-content: center;
+      align-items: center;
+    }
+    .modal.active {
+      display: flex;
+    }
+    .modal img {
+      max-width: 90%;
+      max-height: 90%;
+      border-radius: 8px;
+    }
+    .modal-close {
+      position: absolute;
+      top: 20px;
+      right: 30px;
+      color: white;
+      font-size: 2rem;
+      cursor: pointer;
+    }
+    .loading {
+      text-align: center;
+      color: white;
+      padding: 40px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Parasha Pack</h1>
+      <p>Weekly Torah Adventures for Little Learners</p>
+    </header>
+
+    <div class="deck-selector">
+      <label for="deck-select">Select Deck:</label>
+      <select id="deck-select">
+        <option value="">Loading...</option>
+      </select>
+      <div class="deck-info" id="deck-info" style="display: none;">
+        <h3 id="deck-title"></h3>
+        <p id="deck-ref"></p>
+        <p id="deck-cards-count"></p>
+      </div>
+    </div>
+
+    <div id="cards-container" class="cards-grid">
+      <div class="loading">Select a deck to view cards...</div>
+    </div>
+  </div>
+
+  <div class="modal" id="modal">
+    <span class="modal-close" onclick="closeModal()">&times;</span>
+    <img id="modal-img" src="" alt="">
+  </div>
+
+  <script>
+    const DECKS_API = '/api/parasha-pack/decks';
+    const DECKS_BASE_URL = '/decks/parasha-pack';
+
+    let currentDeck = null;
+    let deckCards = [];
+
+    // Initialize
+    document.addEventListener('DOMContentLoaded', async () => {
+      await loadDecks();
+      document.getElementById('deck-select').addEventListener('change', onDeckChange);
+    });
+
+    async function loadDecks() {
+      const select = document.getElementById('deck-select');
+      try {
+        const response = await fetch(DECKS_API);
+        if (response.ok) {
+          const decks = await response.json();
+          select.innerHTML = '<option value="">-- Select a Parasha --</option>';
+          decks.forEach(deck => {
+            const option = document.createElement('option');
+            option.value = deck.id;
+            option.textContent = `${deck.parasha} (${deck.parashaHebrew})`;
+            select.appendChild(option);
+          });
+        } else {
+          // Fallback: scan directory
+          select.innerHTML = '<option value="yitro">Yitro (יִתְרוֹ)</option>';
+        }
+      } catch (e) {
+        console.warn('Could not fetch decks, using fallback');
+        select.innerHTML = '<option value="yitro">Yitro (יִתְרוֹ)</option>';
+      }
+    }
+
+    async function onDeckChange(e) {
+      const deckId = e.target.value;
+      if (!deckId) {
+        document.getElementById('deck-info').style.display = 'none';
+        document.getElementById('cards-container').innerHTML = '<div class="loading">Select a deck to view cards...</div>';
+        return;
+      }
+
+      // Load deck data
+      try {
+        const response = await fetch(`/api/parasha-pack/decks/${deckId}`);
+        if (response.ok) {
+          currentDeck = await response.json();
+        } else {
+          // Fallback for when API isn't implemented
+          currentDeck = { id: deckId, parasha: deckId, parashaHebrew: '', cards: [] };
+        }
+      } catch (e) {
+        currentDeck = { id: deckId, parasha: deckId, parashaHebrew: '', cards: [] };
+      }
+
+      // Show deck info
+      const infoDiv = document.getElementById('deck-info');
+      document.getElementById('deck-title').textContent = `Parashat ${currentDeck.parasha || deckId}`;
+      document.getElementById('deck-ref').textContent = currentDeck.chapters ? `${currentDeck.book} ${currentDeck.chapters}` : '';
+      infoDiv.style.display = 'block';
+
+      // Load card images from directory
+      await loadDeckCards(deckId);
+    }
+
+    async function loadDeckCards(deckId) {
+      const container = document.getElementById('cards-container');
+      container.innerHTML = '<div class="loading">Loading cards...</div>';
+
+      try {
+        // Fetch list of images in the deck folder
+        const response = await fetch(`/api/parasha-pack/cards/${deckId}`);
+        if (response.ok) {
+          deckCards = await response.json();
+        } else {
+          // Fallback: try to find known patterns
+          deckCards = await scanForCards(deckId);
+        }
+
+        if (deckCards.length === 0) {
+          container.innerHTML = '<div class="no-cards"><h2>No cards generated yet</h2><p>Generate cards with: node scripts/generate-parasha-deck.js ' + deckId + '</p></div>';
+          return;
+        }
+
+        document.getElementById('deck-cards-count').textContent = `${deckCards.length} cards generated`;
+        renderCards(deckCards);
+      } catch (e) {
+        console.error('Error loading cards:', e);
+        container.innerHTML = '<div class="no-cards"><h2>Error loading cards</h2></div>';
+      }
+    }
+
+    async function scanForCards(deckId) {
+      // Try common card patterns
+      const types = ['anc', 'spt', 'act', 'thk', 'pwr'];
+      const typeNames = {
+        'anc': 'anchor',
+        'spt': 'spotlight',
+        'act': 'action',
+        'thk': 'thinker',
+        'pwr': 'power-word'
+      };
+
+      const cards = [];
+
+      // Scan by fetching images directly
+      const response = await fetch(`${DECKS_BASE_URL}/${deckId}/`);
+      if (!response.ok) return cards;
+
+      const html = await response.text();
+      const matches = html.matchAll(/href="([^"]+\.jpeg)"/g);
+
+      for (const match of matches) {
+        const filename = match[1];
+        const parts = filename.split('_');
+        if (parts.length >= 3) {
+          const typeAbbrev = parts[2];
+          cards.push({
+            filename,
+            url: `${DECKS_BASE_URL}/${deckId}/${filename}`,
+            type: typeNames[typeAbbrev] || typeAbbrev,
+            title: extractTitle(filename)
+          });
+        }
+      }
+
+      return cards;
+    }
+
+    function extractTitle(filename) {
+      // pp_yitro_spt_yitro-spotlight-yitro_timestamp.jpeg
+      const parts = filename.replace('.jpeg', '').split('_');
+      if (parts.length >= 4) {
+        return parts[3].split('-').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
+      }
+      return filename;
+    }
+
+    function renderCards(cards) {
+      const container = document.getElementById('cards-container');
+
+      // Sort by type: anchor, spotlight, action, thinker, power-word
+      const typeOrder = ['anchor', 'spotlight', 'action', 'thinker', 'power-word'];
+      cards.sort((a, b) => {
+        const aIdx = typeOrder.indexOf(a.type);
+        const bIdx = typeOrder.indexOf(b.type);
+        return (aIdx === -1 ? 99 : aIdx) - (bIdx === -1 ? 99 : bIdx);
+      });
+
+      container.innerHTML = cards.map(card => `
+        <div class="card-item" onclick="openModal('${card.url}')">
+          <img src="${card.url}" alt="${card.title}" loading="lazy">
+          <div class="card-meta">
+            <span class="card-type ${card.type}">${card.type}</span>
+            <p class="card-title">${card.title}</p>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function openModal(url) {
+      document.getElementById('modal-img').src = url;
+      document.getElementById('modal').classList.add('active');
+    }
+
+    function closeModal() {
+      document.getElementById('modal').classList.remove('active');
+    }
+
+    // Close modal on escape
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeModal();
+    });
+
+    // Close modal on background click
+    document.getElementById('modal').addEventListener('click', (e) => {
+      if (e.target === e.currentTarget) closeModal();
+    });
+  </script>
+</body>
+</html>
