@@ -114,8 +114,9 @@ src/
 - Shots can bounce off rim and miss
 
 ### Dribbling
-- Ball bounces to floor while player moves on ground (1 bounce/sec)
-- Ball positioned on side player is moving (left side when going left, right when going right)
+- Ball bounces to floor while carrier moves on ground (1 bounce/sec)
+- Works for both players and opponents
+- Ball positioned on side carrier is moving (left when going left, right when going right)
 - Smooth transition when changing direction (lerp 0.8)
 - Stops bouncing when jumping, stationary, or dunking
 
