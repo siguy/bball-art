@@ -138,9 +138,13 @@ src/
 
 ### AI Behaviors
 - **CHASE_BALL**: Closest opponent moves toward ball (speed 200)
-- **ATTACK**: Ball carrier drives toward left hoop, stops in shoot/dunk range
+- **ATTACK**: Ball carrier drives toward left hoop, shoots when in range
+  - ~1.6% chance per frame to attempt shot (~1/second at 60fps)
+  - Jumps first (-450 velocity), shoots after 300ms delay
+  - 60% base accuracy targeting left hoop (x=210)
 - **DEFEND**: Shadow active player, stay 80px to the right
 - AI only moves when on ground (no mid-air adjustments)
+- `aiPaused` flag disables AI shooting (for tests)
 
 ## Key Files
 
@@ -149,7 +153,8 @@ src/
 - `updateAI()` - AI state transitions and behaviors
 - `performDunk()` - Calculate trajectory to rim
 - `completeDunk()` - Score + "SLAM DUNK!" text
-- `shootBall()` - Release with accuracy-based trajectory
+- `shootBall(player, targetHoopX)` - Release with accuracy-based trajectory
+- `aiShoot(opponent)` - AI shooting toward left hoop (60% accuracy)
 - `onScore()` - Player scores at right hoop
 - `onOpponentScore()` - Opponent scores at left hoop
 - `onBallPickup()` - Ball collection with cooldown

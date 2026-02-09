@@ -93,6 +93,9 @@ export default class GameScene extends Phaser.Scene {
     this.shoveCooldown = 0; // Frames before shove can be used again
     this.stealKeyPressed = false; // Track steal key state to prevent repeat triggers
 
+    // AI control
+    this.aiPaused = false; // Set true to pause AI actions (for testing)
+
     // Dribbling state
     this.dribbleTime = 0; // Counter for dribble animation
     this.lastBallSide = 25; // Track which side ball was on (25 = right, -25 = left)
@@ -698,12 +701,26 @@ export default class GameScene extends Phaser.Scene {
         if (inDunkZone) {
           // Close enough to dunk - stop and jump (dunking in future step)
           opp.body.setVelocityX(0);
+          // TODO: AI dunking in step 10.7 or later
         } else if (inShootZone) {
-          // In shooting range - stop and shoot (shooting in future step)
+          // In shooting range - stop and try to shoot
           opp.body.setVelocityX(0);
+
+          // ~1.6% chance per frame = ~1 shot attempt per second at 60fps
+          // Skip shooting if AI is paused (for testing)
+          if (!this.aiPaused && Math.random() < 0.016) {
+            // Jump first, then shoot at apex
+            opp.body.setVelocityY(-450); // Lower jump than player
+            // Delayed shot release (shoot after ~0.3 seconds, near apex)
+            this.time.delayedCall(300, () => {
+              if (this.opponentHasBall && this.opponentBallCarrier === opp) {
+                this.aiShoot(opp);
+              }
+            });
+          }
         } else {
-          // Drive toward the hoop
-          opp.body.setVelocityX(distToHoop > 0 ? -aiSpeed : aiSpeed);
+          // Drive toward the hoop (distToHoop negative = hoop is to the left)
+          opp.body.setVelocityX(distToHoop < 0 ? -aiSpeed : aiSpeed);
         }
       } else if (opp.aiState === 'DEFEND') {
         // Shadow the closest red player, stay guardDistance away
@@ -794,12 +811,12 @@ export default class GameScene extends Phaser.Scene {
     });
   }
 
-  shootBall(player) {
+  shootBall(player, targetHoopX = 1270) {
     this.ballCarrier = null;
     this.ballPickupCooldown = 30; // Prevent immediate pickup after shot
     this.ball.body.setAllowGravity(true);
 
-    const hoopX = 1270;
+    const hoopX = targetHoopX;
     const hoopY = 325; // Target entry zone, ball arcs down through it
     const distX = hoopX - this.ball.x;
     const distance = Math.abs(distX);
@@ -839,6 +856,37 @@ export default class GameScene extends Phaser.Scene {
 
     // Add randomness based on accuracy
     const randomness = (1 - jumpAccuracy) * 0.35;
+    vx *= (1 + (Math.random() - 0.5) * randomness);
+    vy *= (1 + (Math.random() - 0.5) * randomness);
+
+    this.ball.body.setVelocity(vx, vy);
+  }
+
+  // AI shooting - opponent jumps and shoots toward left hoop
+  aiShoot(opponent) {
+    // Release the ball
+    this.opponentHasBall = false;
+    this.opponentBallCarrier = null;
+    this.ballPickupCooldown = 30;
+    this.ball.body.setAllowGravity(true);
+
+    const hoopX = 210; // Left hoop
+    const hoopY = 325;
+    const distX = hoopX - this.ball.x;
+    const distance = Math.abs(distX);
+
+    // Base 60% accuracy for AI
+    const aiAccuracy = 0.6;
+
+    // Calculate trajectory
+    const distY = hoopY - this.ball.y;
+    const timeToHoop = Math.max(0.6, distance / 500);
+    let vx = distX / timeToHoop;
+    const gravity = 800;
+    let vy = (distY - 0.5 * gravity * timeToHoop * timeToHoop) / timeToHoop;
+
+    // Add randomness based on accuracy
+    const randomness = (1 - aiAccuracy) * 0.35;
     vx *= (1 + (Math.random() - 0.5) * randomness);
     vy *= (1 + (Math.random() - 0.5) * randomness);
 

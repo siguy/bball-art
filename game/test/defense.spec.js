@@ -51,6 +51,13 @@ async function injectHelpers(page) {
         scene.performSteal();
         Math.random = originalRandom;
         return true;
+      },
+      // Pause AI actions (shooting) to prevent interference with tests
+      pauseAI: () => {
+        const scene = window.__test.getScene();
+        if (!scene) return false;
+        scene.aiPaused = true;
+        return true;
       }
     };
   });
@@ -163,6 +170,9 @@ test('failed steal applies cooldown', async ({ page }) => {
 
   await injectHelpers(page);
 
+  // Pause AI to prevent opponent from shooting during test
+  await page.evaluate(() => window.__test.pauseAI());
+
   // Move close to opponent
   let state = await page.evaluate(() => window.__test.getState());
   await page.keyboard.down('KeyD');
@@ -195,6 +205,9 @@ test('shove always works and has longer cooldown', async ({ page }) => {
   await page.waitForTimeout(800);
 
   await injectHelpers(page);
+
+  // Pause AI to prevent opponent from shooting during test
+  await page.evaluate(() => window.__test.pauseAI());
 
   // Add shove helper
   await page.evaluate(() => {
