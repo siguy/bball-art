@@ -37,12 +37,17 @@ export default class GameScene extends Phaser.Scene {
     this.activeOutline = this.add.graphics();
     this.activeOutline.lineStyle(3, 0xffff00, 1);
 
-    // Opponent (purple, stationary for now)
-    this.opponent = this.add.rectangle(700, 590, 40, 60, 0x800080);
+    // Opponents (purple team)
+    this.opponent = this.add.rectangle(700, 500, 40, 60, 0x800080);
     this.physics.add.existing(this.opponent);
     this.opponent.body.setCollideWorldBounds(true);
-    this.opponent.body.setImmovable(true);
-    this.opponent.body.setAllowGravity(false); // Stationary, no gravity
+
+    this.opponent2 = this.add.rectangle(500, 500, 40, 60, 0x800080);
+    this.physics.add.existing(this.opponent2);
+    this.opponent2.body.setCollideWorldBounds(true);
+
+    // Array for easy iteration
+    this.opponents = [this.opponent, this.opponent2];
 
     // Movement keys
     this.cursors = this.input.keyboard.createCursorKeys();
@@ -78,7 +83,8 @@ export default class GameScene extends Phaser.Scene {
     this.scoringInProgress = false; // Prevents camera from following ball during net animation
 
     // Defense state
-    this.opponentHasBall = true; // Opponent starts with ball
+    this.opponentHasBall = true; // Opponent team starts with ball
+    this.opponentBallCarrier = this.opponent; // Track which opponent has the ball
     this.stealCooldown = 0; // Frames before steal can be attempted again
     this.shoveCooldown = 0; // Frames before shove can be used again
     this.stealKeyPressed = false; // Track steal key state to prevent repeat triggers
@@ -91,6 +97,7 @@ export default class GameScene extends Phaser.Scene {
     this.physics.add.collider(this.player, this.floor);
     this.physics.add.collider(this.teammate, this.floor);
     this.physics.add.collider(this.opponent, this.floor);
+    this.physics.add.collider(this.opponent2, this.floor);
 
     // Ball
     this.ball = this.add.circle(0, 0, 12, 0xffa500);
@@ -231,8 +238,9 @@ export default class GameScene extends Phaser.Scene {
     // Ball pickup - teammate (player 2)
     this.physics.add.overlap(this.teammate, this.ball, () => this.onBallPickup(this.teammate), null, this);
 
-    // Ball pickup - opponent
-    this.physics.add.overlap(this.opponent, this.ball, this.onOpponentBallPickup, null, this);
+    // Ball pickup - opponents
+    this.physics.add.overlap(this.opponent, this.ball, () => this.onOpponentBallPickup(this.opponent), null, this);
+    this.physics.add.overlap(this.opponent2, this.ball, () => this.onOpponentBallPickup(this.opponent2), null, this);
 
     // Score (fixed to screen)
     this.score = 0;
@@ -289,12 +297,13 @@ export default class GameScene extends Phaser.Scene {
     this.ballEnteredHoop = false; // Reset scoring state
   }
 
-  onOpponentBallPickup() {
+  onOpponentBallPickup(opponent) {
     // Don't pick up if: a red team player has ball, opponent already has ball, or cooldown active
     if (this.ballCarrier || this.opponentHasBall || this.ballPickupCooldown > 0) {
       return;
     }
     this.opponentHasBall = true;
+    this.opponentBallCarrier = opponent;
     this.ball.body.setVelocity(0, 0);
     this.ball.body.setAllowGravity(false);
   }
@@ -334,6 +343,7 @@ export default class GameScene extends Phaser.Scene {
       // Opponent takes ball out behind the basket where they were scored on (right side)
       this.opponent.x = 1380;
       this.opponentHasBall = true;
+      this.opponentBallCarrier = this.opponent;
       this.ball.body.setVelocity(0, 0);
       this.ball.body.setAllowGravity(false);
       this.scoringInProgress = false;
@@ -478,11 +488,15 @@ export default class GameScene extends Phaser.Scene {
       }
     }
 
-    // Opponent stays on screen (clamp position for now, AI movement in later step)
-    this.opponent.x = Phaser.Math.Clamp(this.opponent.x, camLeft + margin, camRight - margin);
+    // Opponents stay on screen (clamp position for now, AI movement in later step)
+    for (const opp of this.opponents) {
+      opp.x = Phaser.Math.Clamp(opp.x, camLeft + margin, camRight - margin);
+    }
 
     // === DEFENSE (steal and shove) ===
-    const distToOpponent = Math.abs(activePlayer.x - this.opponent.x);
+    // Check distance to opponent who has the ball
+    const ballCarrierOpp = this.opponentBallCarrier;
+    const distToOpponent = ballCarrierOpp ? Math.abs(activePlayer.x - ballCarrierOpp.x) : 999;
     const closeToOpponent = distToOpponent < 70;
 
     // Decrement cooldowns
@@ -567,10 +581,10 @@ export default class GameScene extends Phaser.Scene {
       }
     }
 
-    // Ball follows opponent
-    if (this.opponentHasBall) {
-      this.ball.x = this.opponent.x - 25; // Ball on left side of opponent
-      this.ball.y = this.opponent.y - 20;
+    // Ball follows opponent ball carrier
+    if (this.opponentHasBall && this.opponentBallCarrier) {
+      this.ball.x = this.opponentBallCarrier.x - 25; // Ball on left side of opponent
+      this.ball.y = this.opponentBallCarrier.y - 20;
     }
 
     // Ball follows the carrier with dribble animation
@@ -681,6 +695,7 @@ export default class GameScene extends Phaser.Scene {
       // Opponent takes ball out behind the basket where they were scored on (right side)
       this.opponent.x = 1380;
       this.opponentHasBall = true;
+      this.opponentBallCarrier = this.opponent;
       this.ball.body.setVelocity(0, 0);
       this.ball.body.setAllowGravity(false);
       this.scoringInProgress = false;
@@ -781,10 +796,11 @@ export default class GameScene extends Phaser.Scene {
   }
 
   performSteal() {
-    // 40% chance of success
+    // 30% chance of success
     if (Math.random() < 0.3) {
       // Success: ball becomes loose
       this.opponentHasBall = false;
+      this.opponentBallCarrier = null;
       this.makeBallLoose();
 
       // Show STEAL! text
@@ -813,18 +829,22 @@ export default class GameScene extends Phaser.Scene {
 
   performShove() {
     // Always works: knock opponent back and ball drops
+    const target = this.opponentBallCarrier;
+    if (!target) return;
+
     this.opponentHasBall = false;
+    this.opponentBallCarrier = null;
     this.shoveCooldown = 60;
 
     // Knock opponent back 100px (away from active player)
     const activePlayer = this.players[this.activePlayerIndex];
-    const pushDirection = activePlayer.x < this.opponent.x ? 1 : -1;
+    const pushDirection = activePlayer.x < target.x ? 1 : -1;
     const newOpponentX = Phaser.Math.Clamp(
-      this.opponent.x + (pushDirection * 100),
+      target.x + (pushDirection * 100),
       40, // Left bound (half opponent width)
       1430 // Right bound (1570 - 40)
     );
-    this.opponent.x = newOpponentX;
+    target.x = newOpponentX;
 
     // Ball becomes loose
     this.makeBallLoose();

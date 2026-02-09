@@ -9,7 +9,7 @@ Part of **Court & Covenant** - NBA Jam-style basketball game pairing NBA legends
 | Build | Status |
 |-------|--------|
 | BUILD 1: One Player Scores | ✅ Steps 1-8 complete |
-| BUILD 2: Full 2v2 Game | 🟡 Step 10.2 complete (left hoop + scoring) |
+| BUILD 2: Full 2v2 Game | 🟡 Step 10.3 complete (two opponents) |
 | BUILD 3: Polish & iPad | 🔲 Not started |
 
 **Reference docs:**
@@ -120,9 +120,11 @@ src/
 - Stops bouncing when jumping, stationary, or dunking
 
 ### Defense
-- **Opponent**: Purple rectangle at x=700, stationary dummy (AI in BUILD 2), starts with ball
-- **Steal (Down)**: 30% chance when close (<70px), 80-frame cooldown on fail
-- **Shove (Shift+Down)**: 100% success, knocks opponent back 100px, 60-frame cooldown
+- **Opponents**: Two purple rectangles at x=500 and x=700, with gravity (AI in Step 10.4)
+- **`this.opponents` array**: For iterating over both opponents
+- **`this.opponentBallCarrier`**: Tracks which opponent has the ball
+- **Steal (Down)**: 30% chance when close (<70px) to ball carrier, 80-frame cooldown on fail
+- **Shove (Shift+Down)**: 100% success, knocks ball carrier back 100px, 60-frame cooldown
 - **Loose ball**: Drops with gravity, first to touch picks up
 
 ## Key Files
@@ -152,7 +154,8 @@ Tests verify:
 ## BUILD 2 (Next)
 
 - [x] Second player (teammate)
-- [ ] Two opponents (purple team with AI)
+- [x] Two opponents (purple team)
+- [ ] Opponent AI
 - [x] Passing (E key)
 - [x] Player switching (Tab)
 - [x] Second hoop on left
