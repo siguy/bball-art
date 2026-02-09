@@ -587,10 +587,30 @@ export default class GameScene extends Phaser.Scene {
       }
     }
 
-    // Ball follows opponent ball carrier
+    // Ball follows opponent ball carrier with dribble animation
     if (this.opponentHasBall && this.opponentBallCarrier) {
-      this.ball.x = this.opponentBallCarrier.x - 25; // Ball on left side of opponent
-      this.ball.y = this.opponentBallCarrier.y - 20;
+      const carrier = this.opponentBallCarrier;
+      const carrierOnGround = carrier.body.blocked.down;
+      const isMoving = Math.abs(carrier.body.velocity.x) > 10;
+
+      // Ball on the side opponent is moving toward
+      if (isMoving) {
+        this.lastBallSide = carrier.body.velocity.x > 0 ? 25 : -25;
+      }
+      const targetX = carrier.x + this.lastBallSide;
+
+      if (carrierOnGround && isMoving) {
+        // Dribbling: ball bounces to floor and back
+        this.dribbleTime += 0.105;
+        const dribbleBounce = Math.abs(Math.sin(this.dribbleTime)) * 40;
+        this.ball.x = this.ball.x + (targetX - this.ball.x) * 0.8;
+        this.ball.y = carrier.y - 5 + dribbleBounce;
+      } else {
+        // Not dribbling: ball follows opponent directly
+        this.ball.x = this.ball.x + (targetX - this.ball.x) * 0.3;
+        this.ball.y = carrier.y - 20;
+        this.dribbleTime = 0;
+      }
     }
 
     // Ball follows the carrier with dribble animation
