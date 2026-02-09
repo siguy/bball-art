@@ -49,6 +49,10 @@ export default class GameScene extends Phaser.Scene {
     // Array for easy iteration
     this.opponents = [this.opponent, this.opponent2];
 
+    // AI state for each opponent: 'CHASE_BALL', 'ATTACK', 'DEFEND'
+    this.opponent.aiState = 'ATTACK'; // Starts with ball
+    this.opponent2.aiState = 'DEFEND';
+
     // Movement keys
     this.cursors = this.input.keyboard.createCursorKeys();
     this.wasd = this.input.keyboard.addKeys({
@@ -526,8 +530,10 @@ export default class GameScene extends Phaser.Scene {
 
     // Debug display - show all relevant state
     const ballStatus = this.ballCarrier ? (this.ballCarrier === this.player ? 'P1' : 'P2') : (this.opponentHasBall ? 'O' : 'L');
+    const ai1 = this.opponent.aiState ? this.opponent.aiState[0] : '?'; // First letter
+    const ai2 = this.opponent2.aiState ? this.opponent2.aiState[0] : '?';
     this.debugText.setText(
-      `Ground: ${onGround} | Ball: ${ballStatus} | Active: P${this.activePlayerIndex + 1} | ` +
+      `Ball: ${ballStatus} | AI: ${ai1}/${ai2} | ` +
       `DistOpp: ${Math.round(distToOpponent)} | StealCD: ${this.stealCooldown} | ShoveCD: ${this.shoveCooldown}`
     );
 
@@ -642,6 +648,25 @@ export default class GameScene extends Phaser.Scene {
         this.isDunking = false;
         this.wasInAir = false;
         this.dunkingPlayer = null;
+      }
+    }
+
+    // Update AI for all opponents
+    this.updateAI();
+  }
+
+  updateAI() {
+    // Determine if ball is loose (no one has it)
+    const ballIsLoose = !this.ballCarrier && !this.opponentHasBall;
+
+    for (const opp of this.opponents) {
+      // State transitions
+      if (ballIsLoose) {
+        opp.aiState = 'CHASE_BALL';
+      } else if (opp === this.opponentBallCarrier) {
+        opp.aiState = 'ATTACK';
+      } else {
+        opp.aiState = 'DEFEND';
       }
     }
   }
