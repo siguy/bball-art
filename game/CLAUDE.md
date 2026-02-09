@@ -136,10 +136,17 @@ src/
   - Otherwise → `DEFEND`
 - **Debug display**: Shows AI states as first letters (A/D/C)
 
+### AI Behaviors
+- **CHASE_BALL**: Closest opponent moves toward ball (speed 200)
+- **ATTACK**: Ball carrier drives toward left hoop, stops in shoot/dunk range
+- **DEFEND**: Shadow active player, stay 80px to the right
+- AI only moves when on ground (no mid-air adjustments)
+
 ## Key Files
 
 **GameScene.js** - All gameplay logic:
 - `update()` - Main game loop (jump, shoot, move, dunk checks)
+- `updateAI()` - AI state transitions and behaviors
 - `performDunk()` - Calculate trajectory to rim
 - `completeDunk()` - Score + "SLAM DUNK!" text
 - `shootBall()` - Release with accuracy-based trajectory
@@ -203,4 +210,11 @@ leftRimEdges = 185/235;   // 50px opening
 worldWidth = 1470;        // Court width (extended for two hoops)
 cameraLerp = 0.08;        // Follow smoothness (lower = smoother)
 screenMargin = 60;        // Min distance from camera edge for entities
+
+// In GameScene.js - AI
+aiSpeed = 200;            // Opponent movement speed (player = 250)
+leftHoopX = 210;          // AI target hoop (opponents score here)
+shootRange = 400;         // AI stops to shoot at this distance
+dunkRange = 180;          // AI stops to dunk at this distance
+guardDistance = 80;       // How far DEFEND stays from player
 ```

@@ -103,12 +103,16 @@ test('player must get close to opponent for steal', async ({ page }) => {
   state = await page.evaluate(() => window.__test.getState());
   expect(state.opponentHasBall).toBe(true); // Ball still with opponent
 
-  // Move toward opponent for a fixed duration (2 seconds should be enough)
+  // Move toward opponent until close (opponent backs away with AI, so use while loop)
   await page.keyboard.down('KeyD');
-  await page.waitForTimeout(2000);
+  let attempts = 0;
+  while (state.distToOpponent > 60 && attempts < 100) {
+    await page.waitForTimeout(100);
+    state = await page.evaluate(() => window.__test.getState());
+    attempts++;
+  }
   await page.keyboard.up('KeyD');
 
-  state = await page.evaluate(() => window.__test.getState());
   console.log('After moving, distance:', state.distToOpponent);
   expect(state.distToOpponent).toBeLessThan(60);
 });

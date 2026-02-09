@@ -492,10 +492,7 @@ export default class GameScene extends Phaser.Scene {
       }
     }
 
-    // Opponents stay on screen (clamp position for now, AI movement in later step)
-    for (const opp of this.opponents) {
-      opp.x = Phaser.Math.Clamp(opp.x, camLeft + margin, camRight - margin);
-    }
+    // Note: Opponents now controlled by AI in updateAI() - no clamping needed
 
     // === DEFENSE (steal and shove) ===
     // Check distance to opponent who has the ball
@@ -659,6 +656,13 @@ export default class GameScene extends Phaser.Scene {
     // Determine if ball is loose (no one has it)
     const ballIsLoose = !this.ballCarrier && !this.opponentHasBall;
 
+    // AI movement speed (player is 250)
+    const aiSpeed = 200;
+    const leftHoopX = 210;
+    const shootRange = 400;
+    const dunkRange = 180;
+    const guardDistance = 80;
+
     for (const opp of this.opponents) {
       // State transitions
       if (ballIsLoose) {
@@ -667,6 +671,51 @@ export default class GameScene extends Phaser.Scene {
         opp.aiState = 'ATTACK';
       } else {
         opp.aiState = 'DEFEND';
+      }
+
+      // Only move if on ground
+      const oppOnGround = opp.body.blocked.down;
+      if (!oppOnGround) continue;
+
+      // Execute behavior based on state
+      if (opp.aiState === 'CHASE_BALL') {
+        // Move toward the ball
+        const distToBall = this.ball.x - opp.x;
+        if (Math.abs(distToBall) > 20) {
+          opp.body.setVelocityX(distToBall > 0 ? aiSpeed : -aiSpeed);
+        } else {
+          opp.body.setVelocityX(0);
+        }
+      } else if (opp.aiState === 'ATTACK') {
+        // Drive toward left hoop
+        const distToHoop = leftHoopX - opp.x;
+
+        // Check if in dunk range (for left hoop, need to be to the RIGHT of hoop)
+        const inDunkZone = distToHoop > -50 && distToHoop < dunkRange;
+        // Check if in shooting range
+        const inShootZone = Math.abs(distToHoop) < shootRange;
+
+        if (inDunkZone) {
+          // Close enough to dunk - stop and jump (dunking in future step)
+          opp.body.setVelocityX(0);
+        } else if (inShootZone) {
+          // In shooting range - stop and shoot (shooting in future step)
+          opp.body.setVelocityX(0);
+        } else {
+          // Drive toward the hoop
+          opp.body.setVelocityX(distToHoop > 0 ? -aiSpeed : aiSpeed);
+        }
+      } else if (opp.aiState === 'DEFEND') {
+        // Shadow the closest red player, stay guardDistance away
+        const activePlayer = this.players[this.activePlayerIndex];
+        const targetX = activePlayer.x + guardDistance; // Stay to the right of player
+
+        const distToTarget = targetX - opp.x;
+        if (Math.abs(distToTarget) > 20) {
+          opp.body.setVelocityX(distToTarget > 0 ? aiSpeed : -aiSpeed);
+        } else {
+          opp.body.setVelocityX(0);
+        }
       }
     }
   }
