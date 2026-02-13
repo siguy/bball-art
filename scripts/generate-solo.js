@@ -26,7 +26,8 @@
 import minimist from 'minimist';
 import { writeFileSync, existsSync, readdirSync, mkdirSync } from 'fs';
 import { join } from 'path';
-import { generateImage } from './nano-banana-client.js';
+import { generateImage as generateGemini } from './nano-banana-client.js';
+import { generateImage as generateDraft } from './draft-client.js';
 import { buildSoloFilename, getOutputDir } from './lib/filename-builder.js';
 import { CONFIG, getPosesPath } from './lib/config.js';
 import { findCharacterData, loadPoseFile, listPoseFiles } from './lib/data-loader.js';
@@ -44,7 +45,7 @@ import {
 // Parse arguments
 const args = minimist(process.argv.slice(2), {
   string: ['series', 'pose', 'hair'],
-  boolean: ['list-poses', 'dry-run', 'help'],
+  boolean: ['list-poses', 'dry-run', 'draft', 'help'],
   alias: { h: 'help' },
 });
 
@@ -234,12 +235,15 @@ async function generateSoloCard() {
 
   const outputPath = join(outputDir, filename.replace(/\.[^.]+$/, ''));
 
-  console.log(`\nGenerating image...`);
+  const isDraft = args.draft;
+  const generateImage = isDraft ? generateDraft : generateGemini;
+
+  console.log(`\nGenerating image${isDraft ? ' [DRAFT]' : ''}...`);
   console.log(`Output: ${outputPath}`);
 
-  // Include logo as reference image
+  // Include logo as reference image (skip in draft mode)
   const referenceImages = [];
-  if (existsSync(CONFIG.logoPath)) {
+  if (!isDraft && existsSync(CONFIG.logoPath)) {
     referenceImages.push({
       path: CONFIG.logoPath,
       mimeType: 'image/png',
@@ -265,6 +269,7 @@ async function generateSoloCard() {
     // Log to test-runs
     const logEntry = {
       timestamp: new Date().toISOString(),
+      draft: isDraft || false,
       mode: 'solo',
       series,
       characterType,

@@ -8,6 +8,7 @@ Card generation scripts and shared libraries.
 GOOGLE_CLOUD_PROJECT=your-project-id
 GOOGLE_APPLICATION_CREDENTIALS=path/to/service-account.json
 BUFFER_ACCESS_TOKEN=your-buffer-api-token  # For social scheduling
+FAL_KEY=your-fal-ai-key                   # For draft mode (FLUX.1 dev)
 ```
 
 ## Shared Libraries (`scripts/lib/`)
@@ -120,6 +121,7 @@ node scripts/test-solo-characters.js
 
 | Flag | Description |
 |------|-------------|
+| `--draft` | Use cheap FLUX.1 dev model for exploration (~$0.025/image) |
 | `--dry-run` | Show prompt without generating image |
 | `--list-poses` | Show available poses for pairing/character |
 | `--series X` | Explicit series (court-covenant, torah-titans) |
@@ -132,6 +134,7 @@ node scripts/test-solo-characters.js
 
 | Script | Purpose |
 |--------|---------|
+| `draft-client.js` | fal.ai FLUX.1 dev client (draft mode) |
 | `generate-card.js` | Main card generation |
 | `generate-with-poses.js` | Pose-controlled generation |
 | `generate-solo.js` | Solo character cards |

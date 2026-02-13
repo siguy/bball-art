@@ -49,12 +49,19 @@ cd game && npm run dev
 # Generate a card
 node scripts/generate-card.js jordan-moses thunder-lightning
 
+# Generate a DRAFT card (cheap, ~$0.025 via fal.ai FLUX.1 dev)
+node scripts/generate-card.js jordan-moses thunder-lightning --draft
+
 # Generate with pose control
 node scripts/generate-with-poses.js rodman-esau thunder-lightning-dark \
   --player-pose diving-loose-ball --figure-pose drawing-bow
 
 # Generate solo character
 node scripts/generate-solo.js player jordan thunder-lightning --pose tongue-out-dunk
+
+# Any generate command supports --draft for cheap exploration
+node scripts/generate-with-poses.js rodman-esau thunder-lightning-dark \
+  --player-pose diving-loose-ball --figure-pose drawing-bow --draft
 
 # Validate JSON data
 node scripts/validate-data.js
