@@ -471,8 +471,9 @@ export default class GameScene extends Phaser.Scene {
       this.activePlayerIndex = (this.activePlayerIndex + 1) % 2;
     }
 
-    // Get active player
+    // Get active and inactive player
     const activePlayer = this.players[this.activePlayerIndex];
+    const inactivePlayer = this.players[(this.activePlayerIndex + 1) % 2];
     const onGround = activePlayer.body.blocked.down;
     const speed = activePlayer.turboActive ? 375 : 250;
     const isStunned = activePlayer.stunTimer > 0;
@@ -567,17 +568,20 @@ export default class GameScene extends Phaser.Scene {
     if (this.ballState === 'CARRIED') {
       if (this.ballOwner === this.player) ballStatus = 'P1';
       else if (this.ballOwner === this.teammate) ballStatus = 'P2';
-      else ballStatus = 'O';
+      else if (this.ballOwner === this.opponent) ballStatus = 'O1';
+      else ballStatus = 'O2';
     } else {
-      ballStatus = this.ballState === 'IN_FLIGHT' ? 'F' : 'L';
+      ballStatus = this.ballState;
     }
-    const ai1 = this.opponent.aiState ? this.opponent.aiState[0] : '?'; // First letter
-    const ai2 = this.opponent2.aiState ? this.opponent2.aiState[0] : '?';
+    const ai1 = this.opponent.aiState ? this.opponent.aiState.slice(0, 3) : '?';
+    const ai2 = this.opponent2.aiState ? this.opponent2.aiState.slice(0, 3) : '?';
+    const tmAi = inactivePlayer.aiState ? inactivePlayer.aiState.slice(0, 3) : '?';
+    const turbo = Math.round(activePlayer.turboMeter);
+    const tmTurbo = Math.round(inactivePlayer.turboMeter);
     const stunP = activePlayer.stunTimer > 0 ? ` STUN:${activePlayer.stunTimer}` : '';
-    const cdP = activePlayer.pickupCooldown > 0 ? ` CD:${activePlayer.pickupCooldown}` : '';
     this.debugText.setText(
-      `Ball: ${ballStatus} | AI: ${ai1}/${ai2} | ` +
-      `DistOpp: ${Math.round(distToOpponent)} | StealCD: ${this.stealCooldown} | ShoveCD: ${this.shoveCooldown}${stunP}${cdP}`
+      `Ball: ${ballStatus} | Opp: ${ai1}/${ai2} | Tm: ${tmAi} | ` +
+      `Turbo: ${turbo}/${tmTurbo} | StealCD: ${this.stealCooldown}${stunP}`
     );
 
     // === PASS (E key) ===
