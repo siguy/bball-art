@@ -57,12 +57,17 @@ export default class GameScene extends Phaser.Scene {
     this.opponent.defendTarget = this.player;
     this.opponent2.defendTarget = this.teammate;
 
-    // Per-entity state (stun, cooldown, AI)
+    // Per-entity state (stun, cooldown, turbo)
     const allEntities = [...this.players, ...this.opponents];
     for (const entity of allEntities) {
       entity.stunTimer = 0;       // Frames where entity cannot act
       entity.pickupCooldown = 0;  // Per-entity ball pickup cooldown
+      entity.turboMeter = 100;    // Turbo fuel (0-100)
+      entity.turboActive = false; // Whether turbo is currently firing
     }
+
+    // Turbo meter visual bars (drawn per-frame in update)
+    this.turboGraphics = this.add.graphics();
 
     // AI-specific per-opponent state
     this.opponent.aiStealCooldown = 0;
@@ -295,7 +300,7 @@ export default class GameScene extends Phaser.Scene {
     }).setOrigin(1, 0).setScrollFactor(0);
 
     // Controls hint (fixed to screen, centered between scores at top)
-    this.add.text(640, 28, 'WASD = Move | SPACE = Jump/Shoot | TAB = Switch | E = Pass | DOWN = Steal', {
+    this.add.text(640, 28, 'WASD = Move | SPACE = Jump/Shoot | SHIFT = Turbo | TAB = Switch | E = Pass | DOWN = Steal', {
       fontSize: '14px',
       fontFamily: 'Arial',
       color: '#ffff00',
@@ -446,7 +451,7 @@ export default class GameScene extends Phaser.Scene {
     // Get active player
     const activePlayer = this.players[this.activePlayerIndex];
     const onGround = activePlayer.body.blocked.down;
-    const speed = 250;
+    const speed = activePlayer.turboActive ? 375 : 250;
     const isStunned = activePlayer.stunTimer > 0;
 
     // Check dunk range (can dunk from 200px before hoop to 50px past it)
@@ -536,11 +541,11 @@ export default class GameScene extends Phaser.Scene {
       this.stealKeyPressed = true;
 
       if (closeToOpponent && opponentHasBall) {
-        if (this.shiftKey.isDown && this.shoveCooldown <= 0) {
-          // SHOVE: Shift+Down - always works, knocks opponent back
+        if (activePlayer.turboActive && this.shoveCooldown <= 0) {
+          // SHOVE: Turbo+Down - always works, knocks opponent back
           this.performShove();
-        } else if (!this.shiftKey.isDown && this.stealCooldown <= 0) {
-          // STEAL: Down alone - 30% chance
+        } else if (!activePlayer.turboActive && this.stealCooldown <= 0) {
+          // STEAL: Down alone (no turbo) - 30% chance
           this.performSteal();
         }
       }
@@ -577,13 +582,14 @@ export default class GameScene extends Phaser.Scene {
     // === JUMP (only when on ground, only once per press) ===
     if (this.spaceKey.isDown && onGround && !this.jumpedThisPress && !isStunned) {
       this.jumpedThisPress = true; // Prevent multiple jumps
-      if (inDunkRange && activeHasBall) {
-        // DUNK - boosted jump toward hoop
+      const isTurbo = activePlayer.turboActive;
+      if (inDunkRange && activeHasBall && isTurbo) {
+        // DUNK - requires turbo! Boosted jump toward hoop
         activePlayer.body.setVelocityY(-700);
         this.performDunk(activePlayer);
       } else {
-        // Normal jump
-        activePlayer.body.setVelocityY(-550);
+        // Normal or turbo jump (turbo = higher)
+        activePlayer.body.setVelocityY(isTurbo ? -700 : -550);
         this.isDunking = false;
       }
     }
@@ -672,6 +678,48 @@ export default class GameScene extends Phaser.Scene {
       if (entity.pickupCooldown > 0) entity.pickupCooldown--;
     }
 
+    // === TURBO SYSTEM ===
+    // Player turbo: hold Shift to activate
+    const turboHeld = this.shiftKey.isDown;
+    for (const p of this.players) {
+      if (p === activePlayer && turboHeld && p.turboMeter > 0 && !isStunned) {
+        p.turboActive = true;
+        p.turboMeter = Math.max(0, p.turboMeter - 0.5);
+      } else {
+        p.turboActive = false;
+        p.turboMeter = Math.min(100, p.turboMeter + 0.3);
+      }
+    }
+
+    // AI turbo: burst when attacking/chasing, save on defense
+    for (const opp of this.opponents) {
+      if (opp.stunTimer > 0) { opp.turboActive = false; continue; }
+      const shouldTurbo = (opp.aiState === 'ATTACK' || opp.aiState === 'CHASE_BALL') && opp.turboMeter > 30;
+      if (shouldTurbo) {
+        opp.turboActive = true;
+        opp.turboMeter = Math.max(0, opp.turboMeter - 0.5);
+      } else {
+        opp.turboActive = false;
+        opp.turboMeter = Math.min(100, opp.turboMeter + 0.3);
+      }
+    }
+
+    // Draw turbo meter bars under each entity
+    this.turboGraphics.clear();
+    for (const entity of allEntities) {
+      const barWidth = 30;
+      const barHeight = 4;
+      const x = entity.x - barWidth / 2;
+      const y = entity.y + 35; // Below the entity
+      // Background
+      this.turboGraphics.fillStyle(0x333333, 0.8);
+      this.turboGraphics.fillRect(x, y, barWidth, barHeight);
+      // Fill (yellow when active, white when charging)
+      const fillColor = entity.turboActive ? 0xffff00 : 0xaaaaaa;
+      this.turboGraphics.fillStyle(fillColor, 1);
+      this.turboGraphics.fillRect(x, y, barWidth * (entity.turboMeter / 100), barHeight);
+    }
+
     // Decrement global ball pickup cooldown (for scoring animations)
     if (this.ballPickupCooldown > 0) {
       this.ballPickupCooldown--;
@@ -728,8 +776,6 @@ export default class GameScene extends Phaser.Scene {
     // Determine if ball is not carried (loose or in-flight)
     const ballIsLoose = this.ballState !== 'CARRIED';
 
-    // AI movement speed (player is 250)
-    const aiSpeed = 200;
     const leftHoopX = 210;
     const shootRange = 400;
     const dunkRange = 180;
@@ -754,6 +800,8 @@ export default class GameScene extends Phaser.Scene {
 
       // Stunned opponents skip all AI behavior
       if (opp.stunTimer > 0) continue;
+
+      const aiSpeed = opp.turboActive ? 300 : 200;
 
       // State transitions
       if (this.ballOwner === opp) {
@@ -802,9 +850,10 @@ export default class GameScene extends Phaser.Scene {
           const inShootZone = Math.abs(distToHoop) < shootRange;
 
           if (inDunkZone) {
-            // AI dunk — jump toward the left hoop
+            // AI dunk — requires turbo meter
             opp.body.setVelocityX(0);
-            if (!this.aiPaused && Math.random() < 0.03) {
+            if (!this.aiPaused && Math.random() < 0.03 && opp.turboMeter > 20) {
+              opp.turboActive = true; // Burn turbo for dunk
               this.aiDunk(opp);
             }
           } else if (inShootZone) {
@@ -1070,6 +1119,9 @@ export default class GameScene extends Phaser.Scene {
     let vx = distX / timeToHoop;
     const gravity = 800;
     let vy = (distY - 0.5 * gravity * timeToHoop * timeToHoop) / timeToHoop;
+
+    // Turbo accuracy bonus (+15%)
+    if (player.turboActive) jumpAccuracy = Math.min(1.0, jumpAccuracy + 0.15);
 
     // Add randomness based on accuracy
     const randomness = (1 - jumpAccuracy) * 0.35;
