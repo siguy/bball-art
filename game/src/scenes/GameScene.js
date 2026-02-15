@@ -720,6 +720,12 @@ export default class GameScene extends Phaser.Scene {
       this.turboGraphics.fillRect(x, y, barWidth * (entity.turboMeter / 100), barHeight);
     }
 
+    // === BLOCK DETECTION ===
+    // Any entity in the air near an IN_FLIGHT ball can block it
+    if (this.ballState === 'IN_FLIGHT' && !this.isDunking) {
+      this.checkForBlocks();
+    }
+
     // Decrement global ball pickup cooldown (for scoring animations)
     if (this.ballPickupCooldown > 0) {
       this.ballPickupCooldown--;
@@ -871,10 +877,28 @@ export default class GameScene extends Phaser.Scene {
           }
         }
       } else if (opp.aiState === 'DEFEND' || opp.aiState === 'SUPPORT') {
-        if (!oppOnGround) continue;
-
         // Each opponent guards their assigned player
         const target = opp.defendTarget;
+
+        // AI BLOCK ATTEMPT: if ball is IN_FLIGHT and nearby, jump to block
+        if (this.ballState === 'IN_FLIGHT' && oppOnGround && !this.aiPaused) {
+          const distToBall = Math.sqrt(
+            Math.pow(opp.x - this.ball.x, 2) + Math.pow(opp.y - this.ball.y, 2)
+          );
+          // Jump to block if ball is close and still rising or at peak
+          if (distToBall < 120 && this.ball.body.velocity.y < 100) {
+            const jumpVel = opp.turboActive ? -700 : -550;
+            opp.body.setVelocityY(jumpVel);
+            // Move toward ball
+            const dx = this.ball.x - opp.x;
+            if (Math.abs(dx) > 10) {
+              opp.body.setVelocityX(dx > 0 ? aiSpeed : -aiSpeed);
+            }
+            continue; // Skip other defend logic this frame
+          }
+        }
+
+        if (!oppOnGround) continue;
 
         // If our assigned target has the ball, try to steal
         if (this.ballOwner === target && this.players.includes(target)) {
@@ -1123,6 +1147,15 @@ export default class GameScene extends Phaser.Scene {
     // Turbo accuracy bonus (+15%)
     if (player.turboActive) jumpAccuracy = Math.min(1.0, jumpAccuracy + 0.15);
 
+    // Defensive pressure: nearby defenders reduce accuracy
+    const defenderDist = this.getClosestDefenderDistance(player);
+    if (defenderDist < 60) {
+      jumpAccuracy *= 0.6; // Heavily contested
+      this.showCenterFeedback('CONTESTED!', '#ff6666');
+    } else if (defenderDist < 120) {
+      jumpAccuracy *= 0.85; // Lightly contested
+    }
+
     // Add randomness based on accuracy
     const randomness = (1 - jumpAccuracy) * 0.35;
     vx *= (1 + (Math.random() - 0.5) * randomness);
@@ -1145,7 +1178,16 @@ export default class GameScene extends Phaser.Scene {
     const distance = Math.abs(distX);
 
     // Base 70% accuracy for AI
-    const aiAccuracy = 0.7;
+    let aiAccuracy = 0.7;
+
+    // Defensive pressure: nearby defenders reduce accuracy
+    const defenderDist = this.getClosestDefenderDistance(opponent);
+    if (defenderDist < 60) {
+      aiAccuracy *= 0.6; // Heavily contested
+      this.showCenterFeedback('CONTESTED!', '#ff4444');
+    } else if (defenderDist < 120) {
+      aiAccuracy *= 0.85; // Lightly contested
+    }
 
     // Calculate trajectory
     const distY = hoopY - this.ball.y;
@@ -1279,6 +1321,116 @@ export default class GameScene extends Phaser.Scene {
       scale: 1.2,
       duration: 800,
       onComplete: () => shoveText.destroy()
+    });
+  }
+
+  // Check if any airborne entity can block the ball
+  checkForBlocks() {
+    const blockRange = 50; // Distance from ball to count as a block
+    const allEntities = [...this.players, ...this.opponents];
+
+    for (const entity of allEntities) {
+      // Must be in the air, not stunned, and not the one who threw it
+      if (entity.body.blocked.down) continue;
+      if (entity.stunTimer > 0) continue;
+      if (entity === this.lastThrower) continue;
+
+      // Check distance from entity's top (hand) to ball
+      const entityTopY = entity.y - 30; // Top of sprite
+      const dx = Math.abs(entity.x - this.ball.x);
+      const dy = Math.abs(entityTopY - this.ball.y);
+      const dist = Math.sqrt(dx * dx + dy * dy);
+
+      if (dist > blockRange) continue;
+
+      // Check for goaltending: ball on downward arc near either hoop
+      const ballDescending = this.ball.body.velocity.y > 0;
+      const nearRightHoop = Math.abs(this.ball.x - 1270) < 60 && this.ball.y < 360;
+      const nearLeftHoop = Math.abs(this.ball.x - 210) < 60 && this.ball.y < 360;
+
+      if (ballDescending && (nearRightHoop || nearLeftHoop)) {
+        // GOALTENDING — basket counts for the shooter's team
+        if (nearRightHoop && this.lastThrower && this.players.includes(this.lastThrower)) {
+          // Player shot goaltended — score for red
+          this.score += 2;
+          this.scoreText.setText('RED: ' + this.score);
+          this.showCenterFeedback('GOALTEND!', '#ff4444');
+        } else if (nearLeftHoop && this.lastThrower && this.opponents.includes(this.lastThrower)) {
+          // AI shot goaltended — score for purple
+          this.opponentScore += 2;
+          this.opponentScoreText.setText('PURPLE: ' + this.opponentScore);
+          this.showCenterFeedback('GOALTEND!', '#cc66ff');
+        }
+        // Reset ball after goaltend (give possession to team that scored)
+        this.ballPickupCooldown = 60;
+        this.scoringInProgress = true;
+        this.ball.body.setVelocity(0, 300);
+        this.ball.body.setAllowGravity(true);
+
+        this.time.delayedCall(500, () => {
+          if (nearRightHoop) {
+            // Red scored via goaltend — purple gets ball
+            this.opponent.x = 1380;
+            this.ballState = 'CARRIED';
+            this.ballOwner = this.opponent;
+          } else {
+            // Purple scored via goaltend — red gets ball
+            const activePlayer = this.players[this.activePlayerIndex];
+            activePlayer.x = 100;
+            this.ballState = 'CARRIED';
+            this.ballOwner = activePlayer;
+          }
+          this.ball.body.setVelocity(0, 0);
+          this.ball.body.setAllowGravity(false);
+          this.scoringInProgress = false;
+        });
+        return; // Only one block event per frame
+      }
+
+      // LEGAL BLOCK — swat the ball away
+      const awayFromBlocker = entity.x < this.ball.x ? 300 : -300;
+      this.ballState = 'LOOSE';
+      this.ballOwner = null;
+      this.lastThrower = null;
+      this.ball.body.setAllowGravity(true);
+      this.ball.body.setDrag(50, 0);
+      this.ball.body.setVelocity(awayFromBlocker, -200);
+      this.ballPickupCooldown = 15;
+
+      // "REJECTED!" popup
+      this.showCenterFeedback('REJECTED!', '#ff0000');
+      return; // Only one block per frame
+    }
+  }
+
+  // Get the closest defender distance for shot contest calculation
+  getClosestDefenderDistance(shooter) {
+    let closestDist = Infinity;
+    const defenders = this.players.includes(shooter) ? this.opponents : this.players;
+    for (const def of defenders) {
+      const dist = Math.abs(def.x - shooter.x);
+      if (dist < closestDist) closestDist = dist;
+    }
+    return closestDist;
+  }
+
+  // Center-screen feedback text (for blocks, goaltends, contested shots)
+  showCenterFeedback(text, color) {
+    const popup = this.add.text(640, 280, text, {
+      fontSize: '64px',
+      fontFamily: 'Arial Black',
+      color: color,
+      stroke: '#000000',
+      strokeThickness: 6
+    }).setOrigin(0.5).setScrollFactor(0);
+
+    this.tweens.add({
+      targets: popup,
+      alpha: 0,
+      y: 220,
+      scale: 1.2,
+      duration: 800,
+      onComplete: () => popup.destroy()
     });
   }
 
