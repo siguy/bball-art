@@ -141,7 +141,7 @@ export default class GameScene extends Phaser.Scene {
     this.physics.add.existing(this.ball);
     this.ball.body.setCircle(12);
     this.ball.body.setBounce(0.6);
-    this.ball.body.setDrag(50, 0); // Air resistance on loose ball (x only)
+    this.ball.body.setDrag(0, 0); // Drag applied dynamically — only on LOOSE balls
     this.ball.body.setCollideWorldBounds(true);
     this.ball.body.setAllowGravity(false);
 
@@ -332,6 +332,7 @@ export default class GameScene extends Phaser.Scene {
     this.ballOwner = entity;
     this.ball.body.setVelocity(0, 0);
     this.ball.body.setAllowGravity(false);
+    this.ball.body.setDrag(0, 0); // Clear drag when carried
     this.ballEnteredHoop = false;
     this.ballEnteredLeftHoop = false;
   }
@@ -873,6 +874,7 @@ export default class GameScene extends Phaser.Scene {
       this.ballState = 'LOOSE';
       this.ballOwner = null;
       this.ball.body.setAllowGravity(true);
+      this.ball.body.setDrag(50, 0);
       this.ball.body.setVelocity(toOpp > 0 ? 150 : -150, -100);
       this.showFeedback('STOLEN!', '#cc66ff');
     }
@@ -1149,6 +1151,7 @@ export default class GameScene extends Phaser.Scene {
       this.ballState = 'LOOSE';
       this.ballOwner = null;
       this.ball.body.setAllowGravity(true);
+      this.ball.body.setDrag(50, 0);
       const toPlayer = activePlayer.x - this.ball.x;
       this.ball.body.setVelocity(toPlayer > 0 ? 150 : -150, -100);
 
@@ -1183,6 +1186,7 @@ export default class GameScene extends Phaser.Scene {
 
     this.ballState = 'LOOSE';
     this.ballOwner = null;
+    this.ball.body.setDrag(50, 0);
     this.shoveCooldown = 60;
 
     // Stun the shoved opponent
@@ -1230,6 +1234,7 @@ export default class GameScene extends Phaser.Scene {
     this.ballState = 'LOOSE';
     this.ballOwner = null;
     this.ball.body.setAllowGravity(true);
+    this.ball.body.setDrag(50, 0); // Drag only on loose balls
     const randomVelX = (Math.random() - 0.5) * 100;
     this.ball.body.setVelocity(randomVelX, -50);
     this.ballPickupCooldown = 10;
