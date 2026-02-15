@@ -11,7 +11,7 @@ Part of **Court & Covenant** - NBA Jam-style basketball game pairing NBA legends
 |-------|--------|
 | BUILD 1: One Player Scores | ✅ Complete (Steps 1-8) |
 | BUILD 2: Full 2v2 Game | ✅ Complete (Steps 9-10, experimental refactor) |
-| BUILD 3: Polish & iPad | 🟡 Touch controls done, timer + BLESSED! remaining |
+| BUILD 3: Polish & iPad | ✅ Complete (touch, timer, BLESSED!) |
 
 **Experimental refactor (merged):** Ball state machine, stun/cooldown, turbo, blocking, game juice, touch controls — all merged from `feat/experimental-gameplay`.
 
@@ -169,6 +169,26 @@ Two purple opponents with independent state machines:
 - Ball positioned on side carrier is moving (left/right)
 - NBA Jam rules: no double dribble (can dribble, jump, continue dribbling)
 
+### Game Timer
+
+- **2-minute countdown** using wall clock (`Date.now()`) — unaffected by hit-stop timeScale changes
+- Display: centered top of screen, yellow `"M:SS"` format
+- **Last 10 seconds**: timer flashes red/yellow (alternating every 250ms)
+- **Time's up**: `endGame()` freezes all entities, shows "GAME OVER", transitions to GameOverScene after 1.5s
+- **GameOverScene**: Shows winner (RED/PURPLE/TIE) + final score, Space/tap to restart
+
+### BLESSED! Mode
+
+NBA Jam's "He's on fire!" equivalent — 3 consecutive baskets trigger a power-up:
+- **Tracking**: `redStreak` / `purpleStreak` counters, tracked across all scoring paths (shots, dunks, goaltends)
+- **Activation** (3+ consecutive baskets): gold camera flash, screen shake, "BLESSED!" popup, persistent indicator text
+- **Visual**: Blessed team's players pulse gold/orange (`0xffd700` / `0xff8c00`)
+- **Speed boost**: 1.3x multiplier on movement speed for both blessed team players
+- **Accuracy boost**: +20% (stacks with turbo's +15%)
+- **Unlimited turbo**: Meter doesn't drain while BLESSED
+- **Deactivation**: Opponent scores (not time-based, matches NBA Jam). Resets the blessed team's streak counter.
+- Works for both teams — AI can trigger BLESSED on 3 consecutive purple baskets
+
 ## Key Methods (GameScene.js)
 
 | Method | Purpose |
@@ -187,6 +207,9 @@ Two purple opponents with independent state machines:
 | `passBall(fromPlayer)` | Pass to teammate |
 | `makeBallLoose(fromEntity)` | Set ball LOOSE with drag |
 | `setupTouchControls()` | Initialize touch UI |
+| `endGame()` | Freeze entities, show GAME OVER, transition to GameOverScene |
+| `activateBlessed(team)` | Trigger BLESSED! mode for a team |
+| `deactivateBlessed()` | End BLESSED! mode, reset streak |
 | `showFeedback(text, color)` | Popup near active player |
 | `showCenterFeedback(text, color)` | Center-screen popup |
 
@@ -259,4 +282,16 @@ joystickMaxDist = 60;         // px max joystick travel
 buttonARadius = 45;           // SHOOT/STEAL/BLOCK button
 buttonBRadius = 35;           // PASS/SWITCH button
 touchAutoShootDelay = 400;    // ms — auto-release at apex
+
+// Game Timer
+gameDuration = 120;           // 2 minutes
+timerFlashThreshold = 10;     // Seconds remaining when timer flashes red
+gameOverDelay = 1500;         // ms before transitioning to GameOverScene
+
+// BLESSED! Mode
+blessedThreshold = 3;         // Consecutive baskets to trigger
+blessedSpeedBoost = 1.3;      // 1.3x movement speed
+blessedAccuracyBonus = 0.20;  // +20% shot accuracy
+blessedUnlimitedTurbo = true; // Turbo doesn't drain
+// Deactivation: opponent scores (no time limit)
 ```
