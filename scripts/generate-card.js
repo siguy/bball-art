@@ -24,7 +24,8 @@
 import minimist from 'minimist';
 import { writeFileSync, existsSync, mkdirSync } from 'fs';
 import { join } from 'path';
-import { generateImage } from './nano-banana-client.js';
+import { generateImage as generateGemini } from './nano-banana-client.js';
+import { generateImage as generateDraft } from './draft-client.js';
 import { buildPairingFilename, getOutputDir } from './lib/filename-builder.js';
 import { CONFIG } from './lib/config.js';
 import { loadPairing, listAvailablePairings } from './lib/data-loader.js';
@@ -33,7 +34,7 @@ import { loadTemplate, getAvailableTemplatesHelp } from './lib/template-loader.j
 // Parse command line arguments
 const args = minimist(process.argv.slice(2), {
   string: ['series', 'interaction', 'custom-player-action', 'custom-figure-action', 'player-pose', 'figure-pose', 'model', 'act'],
-  boolean: ['dry-run', 'help'],
+  boolean: ['dry-run', 'draft', 'help'],
   alias: { h: 'help' },
 });
 
@@ -52,6 +53,7 @@ if (args.help || (!pairingId || !cardType)) {
   console.error('  --player-pose <id>          Player pose ID');
   console.error('  --figure-pose <id>          Figure pose ID');
   console.error('  --model <model>             Use specific model');
+  console.error('  --draft                     Use cheap FLUX model for exploration');
   console.error('  --dry-run                   Generate prompt only');
   process.exit(1);
 }
@@ -154,23 +156,26 @@ async function generateCard() {
 
   const outputPath = join(outputDir, filename.replace(/\.[^.]+$/, ''));
 
-  console.log(`\nGenerating image...`);
+  const isDraft = args.draft;
+  const generateImage = isDraft ? generateDraft : generateGemini;
+
+  console.log(`\nGenerating image${isDraft ? ' [DRAFT]' : ''}...`);
   console.log(`Output: ${outputPath}`);
 
-  // Include logo as reference image for consistent branding
+  // Include logo as reference image (skip in draft mode)
   const referenceImages = [];
-  if (existsSync(CONFIG.logoPath)) {
+  if (!isDraft && existsSync(CONFIG.logoPath)) {
     referenceImages.push({
       path: CONFIG.logoPath,
       mimeType: 'image/png',
     });
-  } else {
+  } else if (!isDraft) {
     console.warn('Warning: Logo not found at', CONFIG.logoPath);
   }
 
   const result = await generateImage(prompt, {
     outputPath,
-    model: args.model,
+    model: isDraft ? undefined : args.model,
     referenceImages,
   });
 
@@ -187,6 +192,7 @@ async function generateCard() {
     // Log to test-runs for tracking
     const logEntry = {
       timestamp: new Date().toISOString(),
+      draft: isDraft || false,
       series,
       subSeries,
       pairingId,
@@ -194,7 +200,7 @@ async function generateCard() {
       playerPose,
       figurePose,
       interaction: args.interaction || pairing.defaultInteraction,
-      model: args.model || CONFIG.models.image,
+      model: isDraft ? 'flux-1-dev' : (args.model || CONFIG.models.image),
       outputPath: result.path,
       promptLength: prompt.length,
       fileSize: result.size,

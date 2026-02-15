@@ -22,8 +22,8 @@ async function injectHelpers(page) {
           playerX: scene.player?.x,
           playerY: scene.player?.y,
           opponentX: scene.opponent?.x,
-          hasBall: scene.ballCarrier != null, // true if any red player has ball
-          opponentHasBall: scene.opponentHasBall,
+          hasBall: scene.ballState === 'CARRIED' && scene.players.includes(scene.ballOwner),
+          opponentHasBall: scene.ballState === 'CARRIED' && scene.opponents.includes(scene.ballOwner),
           stealCooldown: scene.stealCooldown,
           shoveCooldown: scene.shoveCooldown,
           score: scene.score,

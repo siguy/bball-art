@@ -53,6 +53,45 @@ export default class GameScene extends Phaser.Scene {
     this.opponent.aiState = 'ATTACK'; // Starts with ball
     this.opponent2.aiState = 'DEFEND';
 
+    // Assign each opponent a defensive target (one per red player)
+    this.opponent.defendTarget = this.player;
+    this.opponent2.defendTarget = this.teammate;
+
+    // Per-entity state (stun, cooldown, turbo)
+    const allEntities = [...this.players, ...this.opponents];
+    for (const entity of allEntities) {
+      entity.stunTimer = 0;       // Frames where entity cannot act
+      entity.pickupCooldown = 0;  // Per-entity ball pickup cooldown
+      entity.turboMeter = 100;    // Turbo fuel (0-100)
+      entity.turboActive = false; // Whether turbo is currently firing
+    }
+
+    // Turbo meter visual bars (drawn per-frame in update)
+    this.turboGraphics = this.add.graphics();
+
+    // AI-specific per-opponent state
+    this.opponent.aiStealCooldown = 0;
+    this.opponent2.aiStealCooldown = 0;
+    this.opponent.aiSwayTimer = 0;
+    this.opponent2.aiSwayTimer = Math.PI; // Offset so they don't sync
+
+    // Teammate AI state
+    this.player.aiState = 'DEFEND';
+    this.player.aiStealCooldown = 0;
+    this.player.aiSwayTimer = 0;
+    this.player.defendTarget = this.opponent;
+    this.teammate.aiState = 'DEFEND';
+    this.teammate.aiStealCooldown = 0;
+    this.teammate.aiSwayTimer = Math.PI;
+    this.teammate.defendTarget = this.opponent2;
+
+    // Reset all input when tab loses focus (prevents stuck keys)
+    this.game.events.on('blur', () => {
+      this.input.keyboard.resetKeys();
+      const activePlayer = this.players[this.activePlayerIndex];
+      if (activePlayer.body) activePlayer.body.setVelocityX(0);
+    });
+
     // Movement keys
     this.cursors = this.input.keyboard.createCursorKeys();
     this.wasd = this.input.keyboard.addKeys({
@@ -86,19 +125,32 @@ export default class GameScene extends Phaser.Scene {
     this.ballEnteredLeftHoop = false; // Track two-zone scoring (left hoop)
     this.scoringInProgress = false; // Prevents camera from following ball during net animation
 
+    // === BALL STATE MACHINE ===
+    // Single source of truth for ball ownership (replaces scattered booleans)
+    // States: 'CARRIED' (someone has it), 'IN_FLIGHT' (shot/pass), 'LOOSE' (free ball)
+    this.ballState = 'CARRIED';
+    this.ballOwner = this.opponent; // Opponent starts with ball
+    this.lastThrower = null; // Who last shot/passed (for cooldown logic)
+
     // Defense state
-    this.opponentHasBall = true; // Opponent team starts with ball
-    this.opponentBallCarrier = this.opponent; // Track which opponent has the ball
     this.stealCooldown = 0; // Frames before steal can be attempted again
     this.shoveCooldown = 0; // Frames before shove can be used again
     this.stealKeyPressed = false; // Track steal key state to prevent repeat triggers
 
     // AI control
     this.aiPaused = false; // Set true to pause AI actions (for testing)
+    this.aiDunkingOpponent = null; // Track AI opponent currently dunking
 
     // Dribbling state
     this.dribbleTime = 0; // Counter for dribble animation
     this.lastBallSide = 25; // Track which side ball was on (25 = right, -25 = left)
+
+    // Block detection timing
+    this.ballFlightTime = 0; // Frames since ball became IN_FLIGHT
+
+    // Ball trail (last N positions for visual trail when IN_FLIGHT)
+    this.ballTrail = [];
+    this.ballTrailGraphics = this.add.graphics();
 
     // Collisions
     this.physics.add.collider(this.player, this.floor);
@@ -111,9 +163,9 @@ export default class GameScene extends Phaser.Scene {
     this.physics.add.existing(this.ball);
     this.ball.body.setCircle(12);
     this.ball.body.setBounce(0.6);
+    this.ball.body.setDrag(0, 0); // Drag applied dynamically — only on LOOSE balls
     this.ball.body.setCollideWorldBounds(true);
     this.ball.body.setAllowGravity(false);
-    this.ballCarrier = null; // Which player has the ball (null = no one on red team)
 
     this.physics.add.collider(this.ball, this.floor);
 
@@ -167,7 +219,7 @@ export default class GameScene extends Phaser.Scene {
 
     // Entry zone overlap - mark that ball entered from above
     this.physics.add.overlap(this.ball, this.scoreEntry, () => {
-      if (this.ball.body.velocity.y > 0 && !this.hasBall && !this.isDunking) {
+      if (this.ball.body.velocity.y > 0 && this.ballState !== 'CARRIED' && !this.isDunking) {
         this.ballEnteredHoop = true;
       }
     });
@@ -226,7 +278,7 @@ export default class GameScene extends Phaser.Scene {
 
     // Entry zone overlap for left hoop
     this.physics.add.overlap(this.ball, this.leftScoreEntry, () => {
-      if (this.ball.body.velocity.y > 0 && !this.opponentHasBall && !this.isDunking) {
+      if (this.ball.body.velocity.y > 0 && this.ballState !== 'CARRIED' && !this.isDunking) {
         this.ballEnteredLeftHoop = true;
       }
     });
@@ -239,15 +291,11 @@ export default class GameScene extends Phaser.Scene {
       }
     });
 
-    // Ball pickup - player 1
-    this.physics.add.overlap(this.player, this.ball, () => this.onBallPickup(this.player), null, this);
-
-    // Ball pickup - teammate (player 2)
-    this.physics.add.overlap(this.teammate, this.ball, () => this.onBallPickup(this.teammate), null, this);
-
-    // Ball pickup - opponents
-    this.physics.add.overlap(this.opponent, this.ball, () => this.onOpponentBallPickup(this.opponent), null, this);
-    this.physics.add.overlap(this.opponent2, this.ball, () => this.onOpponentBallPickup(this.opponent2), null, this);
+    // Ball pickup - all entities use unified pickupBall()
+    this.physics.add.overlap(this.player, this.ball, () => this.pickupBall(this.player), null, this);
+    this.physics.add.overlap(this.teammate, this.ball, () => this.pickupBall(this.teammate), null, this);
+    this.physics.add.overlap(this.opponent, this.ball, () => this.pickupBall(this.opponent), null, this);
+    this.physics.add.overlap(this.opponent2, this.ball, () => this.pickupBall(this.opponent2), null, this);
 
     // Score (fixed to screen)
     this.score = 0;
@@ -268,14 +316,44 @@ export default class GameScene extends Phaser.Scene {
       strokeThickness: 4
     }).setOrigin(1, 0).setScrollFactor(0);
 
-    // Controls hint (fixed to screen, centered on viewport)
-    this.add.text(640, 600, 'WASD = Move | SPACE = Jump/Shoot | TAB = Switch | E = Pass | DOWN = Steal', {
-      fontSize: '16px',
+    // === GAME TIMER ===
+    this.gameOver = false;
+    this.gameStartTime = Date.now();
+    this.gameDuration = 120; // 2 minutes
+
+    this.timerText = this.add.text(640, 20, '2:00', {
+      fontSize: '36px',
+      fontFamily: 'Arial Black',
+      color: '#ffff00',
+      stroke: '#000000',
+      strokeThickness: 4
+    }).setOrigin(0.5).setScrollFactor(0);
+
+    // === BLESSED! MODE ===
+    this.redStreak = 0;
+    this.purpleStreak = 0;
+    this.blessedTeam = null;
+
+    this.blessedText = this.add.text(1260, 55, '', {
+      fontSize: '24px',
+      fontFamily: 'Arial Black',
+      color: '#ffd700',
+      stroke: '#000000',
+      strokeThickness: 3
+    }).setOrigin(1, 0).setScrollFactor(0).setVisible(false);
+
+    // Controls hint (fixed to screen, centered between scores at top)
+    // Only show keyboard controls on non-touch devices
+    this.isTouchDevice = this.sys.game.device.input.touch;
+    this.controlsHint = this.add.text(640, 50,
+      'WASD = Move | SPACE = Jump/Shoot | SHIFT = Turbo | TAB = Switch | E = Pass | DOWN = Steal', {
+      fontSize: '14px',
       fontFamily: 'Arial',
       color: '#ffff00',
       stroke: '#000000',
       strokeThickness: 2
     }).setOrigin(0.5).setScrollFactor(0);
+    if (this.isTouchDevice) this.controlsHint.setVisible(false);
 
     // Debug (hidden by default, toggle with backtick key)
     this.debugMode = false;
@@ -291,36 +369,129 @@ export default class GameScene extends Phaser.Scene {
     // Start following the active player with smooth lerp
     this.cameraTarget = this.players[this.activePlayerIndex];
     this.cameras.main.startFollow(this.cameraTarget, true, 0.08, 0.08);
+
+    // === TOUCH CONTROLS ===
+    if (this.isTouchDevice) {
+      this.setupTouchControls();
+    }
   }
 
-  onBallPickup(player) {
-    // Don't pick up if: someone already has ball, opponent has ball, dunking, or cooldown active
-    if (this.ballCarrier || this.opponentHasBall || this.isDunking || this.ballPickupCooldown > 0) {
-      return;
-    }
-    this.ballCarrier = player;
-    this.ball.body.setVelocity(0, 0);
-    this.ball.body.setAllowGravity(false);
-    this.ballEnteredHoop = false; // Reset scoring state
+  setupTouchControls() {
+    // Touch state
+    this.touchInput = {
+      moveX: 0,        // -1 to 1 (left/right)
+      turbo: false,     // joystick pushed far enough
+      joystickActive: false,
+      joystickId: null, // pointer ID tracking the joystick
+      joystickOrigin: { x: 0, y: 0 },
+    };
+
+    // Graphics layers (fixed to camera)
+    this.touchGfx = this.add.graphics().setScrollFactor(0).setDepth(100);
+
+    // Button A: SHOOT/STEAL (large, bottom-right)
+    const btnAx = 1180, btnAy = 620, btnAr = 45;
+    this.btnA = this.add.circle(btnAx, btnAy, btnAr, 0xffffff, 0.15)
+      .setScrollFactor(0).setDepth(100).setInteractive();
+    this.btnALabel = this.add.text(btnAx, btnAy, 'SHOOT', {
+      fontSize: '16px', fontFamily: 'Arial', color: '#ffffff',
+      stroke: '#000000', strokeThickness: 3
+    }).setOrigin(0.5).setScrollFactor(0).setDepth(101);
+    this.btnADown = false;
+
+    // Button B: PASS/SWITCH (smaller, above-left of A)
+    const btnBx = 1090, btnBy = 550, btnBr = 35;
+    this.btnB = this.add.circle(btnBx, btnBy, btnBr, 0xffffff, 0.15)
+      .setScrollFactor(0).setDepth(100).setInteractive();
+    this.btnBLabel = this.add.text(btnBx, btnBy, 'PASS', {
+      fontSize: '14px', fontFamily: 'Arial', color: '#ffffff',
+      stroke: '#000000', strokeThickness: 3
+    }).setOrigin(0.5).setScrollFactor(0).setDepth(101);
+    this.btnBDown = false;
+
+    // Button press handlers
+    this.btnA.on('pointerdown', () => { this.btnADown = true; });
+    this.btnA.on('pointerup', () => { this.btnADown = false; });
+    this.btnA.on('pointerout', () => { this.btnADown = false; });
+
+    this.btnB.on('pointerdown', () => { this.btnBDown = true; });
+    this.btnB.on('pointerup', () => { this.btnBDown = false; });
+    this.btnB.on('pointerout', () => { this.btnBDown = false; });
+
+    // Joystick: track any pointer on the left half of screen
+    this.input.on('pointerdown', (pointer) => {
+      // Ignore if this pointer is on a button (right side, specific area)
+      const gameX = pointer.x / this.cameras.main.zoom;
+      if (gameX > 900) return; // Right side reserved for buttons
+
+      if (!this.touchInput.joystickActive) {
+        this.touchInput.joystickActive = true;
+        this.touchInput.joystickId = pointer.id;
+        this.touchInput.joystickOrigin.x = pointer.x;
+        this.touchInput.joystickOrigin.y = pointer.y;
+      }
+    });
+
+    this.input.on('pointermove', (pointer) => {
+      if (this.touchInput.joystickActive && pointer.id === this.touchInput.joystickId) {
+        const dx = pointer.x - this.touchInput.joystickOrigin.x;
+        const dist = Math.abs(dx);
+        const maxDist = 60;
+
+        // Normalize to -1..1
+        this.touchInput.moveX = Phaser.Math.Clamp(dx / maxDist, -1, 1);
+        // Turbo when pushed far
+        this.touchInput.turbo = dist > 40;
+      }
+    });
+
+    this.input.on('pointerup', (pointer) => {
+      if (this.touchInput.joystickActive && pointer.id === this.touchInput.joystickId) {
+        this.touchInput.joystickActive = false;
+        this.touchInput.joystickId = null;
+        this.touchInput.moveX = 0;
+        this.touchInput.turbo = false;
+      }
+    });
+
+    // Track previous button states for "just pressed" detection
+    this.prevBtnA = false;
+    this.prevBtnB = false;
   }
 
-  onOpponentBallPickup(opponent) {
-    // Don't pick up if: a red team player has ball, opponent already has ball, or cooldown active
-    if (this.ballCarrier || this.opponentHasBall || this.ballPickupCooldown > 0) {
+  // Unified ball pickup — works for any entity (player or opponent)
+  pickupBall(entity) {
+    if (this.ballState === 'CARRIED' || this.isDunking || this.ballPickupCooldown > 0) {
       return;
     }
-    this.opponentHasBall = true;
-    this.opponentBallCarrier = opponent;
+    // Per-entity checks: stunned or on cooldown
+    if (entity.stunTimer > 0 || entity.pickupCooldown > 0) {
+      return;
+    }
+    this.ballState = 'CARRIED';
+    this.ballOwner = entity;
     this.ball.body.setVelocity(0, 0);
     this.ball.body.setAllowGravity(false);
+    this.ball.body.setDrag(0, 0); // Clear drag when carried
+    this.ballEnteredHoop = false;
+    this.ballEnteredLeftHoop = false;
   }
 
   onScore() {
     // Prevent double-scoring (called from exit zone overlap)
-    if (this.ballCarrier || this.isDunking) return;
+    if (this.ballState === 'CARRIED' || this.isDunking) return;
 
     this.score += 2;
     this.scoreText.setText('RED: ' + this.score);
+
+    // BLESSED! streak tracking
+    this.redStreak++;
+    this.purpleStreak = 0;
+    if (this.blessedTeam === 'purple') this.deactivateBlessed();
+    if (this.redStreak >= 3 && this.blessedTeam !== 'red') this.activateBlessed('red');
+
+    // === GAME JUICE: Score flash ===
+    this.cameras.main.flash(150, 255, 255, 255, false, null, this);
 
     const scorePopup = this.add.text(640, 300, 'SCORE!', {
       fontSize: '72px',
@@ -343,14 +514,14 @@ export default class GameScene extends Phaser.Scene {
 
     // Let ball fall through net for 0.5s, then give possession
     this.ball.body.setAllowGravity(true);
-    this.ballPickupCooldown = 60; // Prevent pickup during net animation
-    this.scoringInProgress = true; // Prevent camera from chasing ball
+    this.ballPickupCooldown = 60;
+    this.scoringInProgress = true;
 
     this.time.delayedCall(500, () => {
       // Opponent takes ball out behind the basket where they were scored on (right side)
       this.opponent.x = 1380;
-      this.opponentHasBall = true;
-      this.opponentBallCarrier = this.opponent;
+      this.ballState = 'CARRIED';
+      this.ballOwner = this.opponent;
       this.ball.body.setVelocity(0, 0);
       this.ball.body.setAllowGravity(false);
       this.scoringInProgress = false;
@@ -359,10 +530,19 @@ export default class GameScene extends Phaser.Scene {
 
   onOpponentScore() {
     // Prevent double-scoring
-    if (this.opponentHasBall || this.isDunking) return;
+    if (this.ballState === 'CARRIED' || this.isDunking) return;
 
     this.opponentScore += 2;
     this.opponentScoreText.setText('PURPLE: ' + this.opponentScore);
+
+    // BLESSED! streak tracking
+    this.purpleStreak++;
+    this.redStreak = 0;
+    if (this.blessedTeam === 'red') this.deactivateBlessed();
+    if (this.purpleStreak >= 3 && this.blessedTeam !== 'purple') this.activateBlessed('purple');
+
+    // === GAME JUICE: Score flash ===
+    this.cameras.main.flash(150, 200, 100, 255, false, null, this);
 
     const scorePopup = this.add.text(640, 300, 'OPPONENT SCORES!', {
       fontSize: '56px',
@@ -385,14 +565,14 @@ export default class GameScene extends Phaser.Scene {
 
     // Let ball fall through net for 0.5s, then give possession
     this.ball.body.setAllowGravity(true);
-    this.ballPickupCooldown = 60; // Prevent pickup during net animation
-    this.scoringInProgress = true; // Prevent camera from chasing ball
+    this.ballPickupCooldown = 60;
+    this.scoringInProgress = true;
 
     this.time.delayedCall(500, () => {
-      // Active player takes ball out behind the basket where they were scored on (left side)
       const activePlayer = this.players[this.activePlayerIndex];
       activePlayer.x = 100;
-      this.ballCarrier = activePlayer;
+      this.ballState = 'CARRIED';
+      this.ballOwner = activePlayer;
       this.ball.body.setVelocity(0, 0);
       this.ball.body.setAllowGravity(false);
       this.scoringInProgress = false;
@@ -400,6 +580,25 @@ export default class GameScene extends Phaser.Scene {
   }
 
   update() {
+    // Game over guard
+    if (this.gameOver) return;
+
+    // === GAME TIMER (wall clock, unaffected by hit-stop) ===
+    const elapsed = (Date.now() - this.gameStartTime) / 1000;
+    const remaining = Math.max(0, this.gameDuration - elapsed);
+    const minutes = Math.floor(remaining / 60);
+    const seconds = Math.floor(remaining % 60);
+    this.timerText.setText(`${minutes}:${seconds.toString().padStart(2, '0')}`);
+    if (remaining < 10) {
+      this.timerText.setColor(Math.floor(Date.now() / 250) % 2 === 0 ? '#ff0000' : '#ffff00');
+    } else {
+      this.timerText.setColor('#ffff00');
+    }
+    if (remaining <= 0) {
+      this.endGame();
+      return;
+    }
+
     // Debug toggle (I key)
     if (Phaser.Input.Keyboard.JustDown(this.debugKey)) {
       this.debugMode = !this.debugMode;
@@ -411,9 +610,20 @@ export default class GameScene extends Phaser.Scene {
       this.leftScoreExit.setAlpha(this.debugMode ? 0.3 : 0);
     }
 
-    // Tab key switches active player
-    if (Phaser.Input.Keyboard.JustDown(this.tabKey)) {
-      // Stop the current player before switching
+    // === UNIFIED INPUT (keyboard + touch) ===
+    const touch = this.isTouchDevice && this.touchInput;
+    const btnAJustDown = touch && this.btnADown && !this.prevBtnA;
+    const btnAJustUp = touch && !this.btnADown && this.prevBtnA;
+    const btnBJustDown = touch && this.btnBDown && !this.prevBtnB;
+    if (touch) {
+      this.prevBtnA = this.btnADown;
+      this.prevBtnB = this.btnBDown;
+    }
+
+    // Tab / Switch: keyboard or touch button B (on defense)
+    const switchJustPressed = Phaser.Input.Keyboard.JustDown(this.tabKey)
+      || (btnBJustDown && !(this.ballOwner && this.players.includes(this.ballOwner)));
+    if (switchJustPressed) {
       const currentPlayer = this.players[this.activePlayerIndex];
       if (currentPlayer.body.blocked.down) {
         currentPlayer.body.setVelocityX(0);
@@ -421,31 +631,48 @@ export default class GameScene extends Phaser.Scene {
       this.activePlayerIndex = (this.activePlayerIndex + 1) % 2;
     }
 
-    // Get active player
+    // Get active and inactive player
     const activePlayer = this.players[this.activePlayerIndex];
+    const inactivePlayer = this.players[(this.activePlayerIndex + 1) % 2];
     const onGround = activePlayer.body.blocked.down;
-    const speed = 250;
+    const blessedSpeedMult = this.blessedTeam === 'red' ? 1.3 : 1;
+    const speed = (activePlayer.turboActive ? 375 : 250) * blessedSpeedMult;
+    const isStunned = activePlayer.stunTimer > 0;
 
     // Check dunk range (can dunk from 200px before hoop to 50px past it)
     const distToHoop = 1270 - activePlayer.x;
     const inDunkRange = distToHoop > -50 && distToHoop < 200;
 
     // Helper: does this player have the ball?
-    const activeHasBall = this.ballCarrier === activePlayer;
+    const activeHasBall = this.ballOwner === activePlayer;
 
     // Visual feedback for BOTH players
     for (const p of this.players) {
-      const playerHasBall = this.ballCarrier === p;
+      const playerHasBall = this.ballOwner === p;
       const pDistToHoop = 1270 - p.x;
       const pInDunkRange = pDistToHoop > -50 && pDistToHoop < 200;
       const pOnGround = p.body.blocked.down;
 
-      if (pInDunkRange && playerHasBall && pOnGround) {
+      if (this.blessedTeam === 'red') {
+        // BLESSED! = pulsing gold/orange
+        const pulse = Math.sin(Date.now() / 100) > 0;
+        p.setFillStyle(pulse ? 0xffd700 : 0xff8c00);
+      } else if (pInDunkRange && playerHasBall && pOnGround) {
         p.setFillStyle(0xffd700); // Gold = ready to dunk!
       } else if (playerHasBall) {
         p.setFillStyle(0xff0000); // Red = has ball
       } else {
         p.setFillStyle(0x880000); // Dark red = no ball
+      }
+    }
+
+    // Opponent visual: blessed purple = pulsing gold
+    for (const opp of this.opponents) {
+      if (this.blessedTeam === 'purple') {
+        const pulse = Math.sin(Date.now() / 100) > 0;
+        opp.setFillStyle(pulse ? 0xffd700 : 0xff8c00);
+      } else {
+        opp.setFillStyle(0x800080);
       }
     }
 
@@ -461,10 +688,10 @@ export default class GameScene extends Phaser.Scene {
 
     // === CAMERA TARGET: follow ball carrier, or active player if no one has ball ===
     let newTarget;
-    if (this.ballCarrier) {
-      newTarget = this.ballCarrier;
-    } else if (!this.opponentHasBall && this.ball.body.allowGravity && !this.scoringInProgress) {
-      // Ball is loose - follow the ball (but not during scoring animation)
+    if (this.ballState === 'CARRIED' && this.players.includes(this.ballOwner)) {
+      newTarget = this.ballOwner;
+    } else if (this.ballState !== 'CARRIED' && !this.scoringInProgress) {
+      // Ball is loose/in-flight - follow the ball (but not during scoring animation)
       newTarget = this.ball;
     } else {
       newTarget = activePlayer;
@@ -475,31 +702,14 @@ export default class GameScene extends Phaser.Scene {
       this.cameras.main.startFollow(this.cameraTarget, true, 0.08, 0.08);
     }
 
-    // === KEEP ENTITIES ON SCREEN ===
-    const camera = this.cameras.main;
-    const camLeft = camera.scrollX;
-    const camRight = camera.scrollX + camera.width;
-    const margin = 60; // Keep entities at least 60px from camera edge
-
-    // Inactive teammate: stop if on screen, move if off screen
-    const inactivePlayer = this.players[(this.activePlayerIndex + 1) % 2];
-    const inactiveOnGround = inactivePlayer.body.blocked.down;
-    if (inactiveOnGround && (!this.isDunking || this.dunkingPlayer !== inactivePlayer)) {
-      if (inactivePlayer.x < camLeft + margin) {
-        inactivePlayer.body.setVelocityX(200); // Run right to stay on screen
-      } else if (inactivePlayer.x > camRight - margin) {
-        inactivePlayer.body.setVelocityX(-200); // Run left to stay on screen
-      } else {
-        // On screen - stop moving
-        inactivePlayer.body.setVelocityX(0);
-      }
-    }
-
-    // Note: Opponents now controlled by AI in updateAI() - no clamping needed
+    // === TEAMMATE AI ===
+    // Inactive player plays autonomously (like opponent AI but for red team)
+    this.updateTeammateAI();
 
     // === DEFENSE (steal and shove) ===
     // Check distance to opponent who has the ball
-    const ballCarrierOpp = this.opponentBallCarrier;
+    const opponentHasBall = this.ballState === 'CARRIED' && this.opponents.includes(this.ballOwner);
+    const ballCarrierOpp = opponentHasBall ? this.ballOwner : null;
     const distToOpponent = ballCarrierOpp ? Math.abs(activePlayer.x - ballCarrierOpp.x) : 999;
     const closeToOpponent = distToOpponent < 70;
 
@@ -507,17 +717,18 @@ export default class GameScene extends Phaser.Scene {
     if (this.stealCooldown > 0) this.stealCooldown--;
     if (this.shoveCooldown > 0) this.shoveCooldown--;
 
-    // Steal/Shove key: Down Arrow (only trigger once per press)
+    // Steal/Shove: Down Arrow or touch button A (when close to opponent)
     const stealKeyDown = this.cursors.down.isDown;
-    if (stealKeyDown && !this.stealKeyPressed) {
+    const touchSteal = btnAJustDown && closeToOpponent && opponentHasBall;
+    if ((stealKeyDown && !this.stealKeyPressed || touchSteal) && !isStunned) {
       this.stealKeyPressed = true;
 
-      if (closeToOpponent && this.opponentHasBall) {
-        if (this.shiftKey.isDown && this.shoveCooldown <= 0) {
-          // SHOVE: Shift+Down - always works, knocks opponent back
+      if (closeToOpponent && opponentHasBall) {
+        if (activePlayer.turboActive && this.shoveCooldown <= 0) {
+          // SHOVE: Turbo+Down - always works, knocks opponent back
           this.performShove();
-        } else if (!this.shiftKey.isDown && this.stealCooldown <= 0) {
-          // STEAL: Down alone - 30% chance
+        } else if (!activePlayer.turboActive && this.stealCooldown <= 0) {
+          // STEAL: Down alone (no turbo) - 30% chance
           this.performSteal();
         }
       }
@@ -529,57 +740,95 @@ export default class GameScene extends Phaser.Scene {
     }
 
     // Debug display - show all relevant state
-    const ballStatus = this.ballCarrier ? (this.ballCarrier === this.player ? 'P1' : 'P2') : (this.opponentHasBall ? 'O' : 'L');
-    const ai1 = this.opponent.aiState ? this.opponent.aiState[0] : '?'; // First letter
-    const ai2 = this.opponent2.aiState ? this.opponent2.aiState[0] : '?';
+    let ballStatus;
+    if (this.ballState === 'CARRIED') {
+      if (this.ballOwner === this.player) ballStatus = 'P1';
+      else if (this.ballOwner === this.teammate) ballStatus = 'P2';
+      else if (this.ballOwner === this.opponent) ballStatus = 'O1';
+      else ballStatus = 'O2';
+    } else {
+      ballStatus = this.ballState;
+    }
+    const ai1 = this.opponent.aiState ? this.opponent.aiState.slice(0, 3) : '?';
+    const ai2 = this.opponent2.aiState ? this.opponent2.aiState.slice(0, 3) : '?';
+    const tmAi = inactivePlayer.aiState ? inactivePlayer.aiState.slice(0, 3) : '?';
+    const turbo = Math.round(activePlayer.turboMeter);
+    const tmTurbo = Math.round(inactivePlayer.turboMeter);
+    const stunP = activePlayer.stunTimer > 0 ? ` STUN:${activePlayer.stunTimer}` : '';
+    const timerSec = Math.max(0, this.gameDuration - (Date.now() - this.gameStartTime) / 1000).toFixed(1);
+    const blessed = this.blessedTeam ? this.blessedTeam.toUpperCase() : 'none';
     this.debugText.setText(
-      `Ball: ${ballStatus} | AI: ${ai1}/${ai2} | ` +
-      `DistOpp: ${Math.round(distToOpponent)} | StealCD: ${this.stealCooldown} | ShoveCD: ${this.shoveCooldown}`
+      `Ball: ${ballStatus} | Opp: ${ai1}/${ai2} | Tm: ${tmAi} | ` +
+      `Turbo: ${turbo}/${tmTurbo} | StealCD: ${this.stealCooldown}${stunP}\n` +
+      `Timer: ${timerSec}s | Streak R:${this.redStreak} P:${this.purpleStreak} | Blessed: ${blessed}`
     );
 
-    // === PASS (E key) ===
-    if (Phaser.Input.Keyboard.JustDown(this.passKey) && activeHasBall) {
+    // === PASS (E key or touch button B on offense) ===
+    const passJust = Phaser.Input.Keyboard.JustDown(this.passKey) || (btnBJustDown && activeHasBall);
+    if (passJust && activeHasBall && !isStunned) {
       this.passBall(activePlayer);
     }
 
-    // === JUMP (only when on ground, only once per press) ===
-    if (this.spaceKey.isDown && onGround && !this.jumpedThisPress) {
+    // === JUMP / SHOOT / BLOCK ===
+    // Keyboard: Space to jump, release in air to shoot
+    // Touch button A: offense = jump + auto-shoot, defense (not close) = jump to block
+    const touchJump = btnAJustDown && (activeHasBall || !closeToOpponent);
+    const jumpPressed = this.spaceKey.isDown || touchJump;
+    if (jumpPressed && onGround && !this.jumpedThisPress && !isStunned) {
       this.jumpedThisPress = true; // Prevent multiple jumps
-      if (inDunkRange && activeHasBall) {
-        // DUNK - boosted jump toward hoop
+      const isTurbo = activePlayer.turboActive;
+      if (inDunkRange && activeHasBall && isTurbo) {
+        // DUNK - requires turbo! Boosted jump toward hoop
         activePlayer.body.setVelocityY(-700);
         this.performDunk(activePlayer);
       } else {
-        // Normal jump
-        activePlayer.body.setVelocityY(-550);
+        // Normal or turbo jump (turbo = higher)
+        activePlayer.body.setVelocityY(isTurbo ? -700 : -550);
         this.isDunking = false;
+
+        // Touch auto-shoot: schedule release at apex (~0.4s)
+        if (touch && activeHasBall) {
+          this.time.delayedCall(400, () => {
+            if (this.ballOwner === activePlayer && !this.isDunking) {
+              this.shootBall(activePlayer);
+            }
+          });
+        }
       }
     }
 
     // Reset jump flag when space is released
-    if (!this.spaceKey.isDown) {
+    if (!this.spaceKey.isDown && !this.btnADown) {
       this.jumpedThisPress = false;
     }
 
-    // === SHOOT (release in air, not dunking) ===
-    if (Phaser.Input.Keyboard.JustUp(this.spaceKey) && !onGround && activeHasBall && !this.isDunking) {
+    // === SHOOT (release in air, not dunking) — keyboard only ===
+    if (Phaser.Input.Keyboard.JustUp(this.spaceKey) && !onGround && activeHasBall && !this.isDunking && !isStunned) {
       this.shootBall(activePlayer);
     }
 
-    // === MOVEMENT ===
-    if (this.isDunking && this.dunkingPlayer === activePlayer) {
+    // === MOVEMENT (keyboard + touch joystick) ===
+    const kbLeft = this.cursors.left.isDown || this.wasd.left.isDown;
+    const kbRight = this.cursors.right.isDown || this.wasd.right.isDown;
+    const touchMoveX = touch ? this.touchInput.moveX : 0;
+    const moveLeft = kbLeft || touchMoveX < -0.2;
+    const moveRight = kbRight || touchMoveX > 0.2;
+
+    if (isStunned) {
+      // No movement while stunned
+    } else if (this.isDunking && this.dunkingPlayer === activePlayer) {
       // During dunk: allow slight adjustments but don't fully override
       const currentVelX = activePlayer.body.velocity.x;
-      if (this.cursors.left.isDown || this.wasd.left.isDown) {
-        activePlayer.body.setVelocityX(currentVelX - 5); // Slight left adjustment
-      } else if (this.cursors.right.isDown || this.wasd.right.isDown) {
-        activePlayer.body.setVelocityX(currentVelX + 5); // Slight right adjustment
+      if (moveLeft) {
+        activePlayer.body.setVelocityX(currentVelX - 5);
+      } else if (moveRight) {
+        activePlayer.body.setVelocityX(currentVelX + 5);
       }
     } else if (!this.isDunking || this.dunkingPlayer !== activePlayer) {
-      // Normal movement (only if active player is not dunking)
-      if (this.cursors.left.isDown || this.wasd.left.isDown) {
+      // Normal movement
+      if (moveLeft) {
         activePlayer.body.setVelocityX(-speed);
-      } else if (this.cursors.right.isDown || this.wasd.right.isDown) {
+      } else if (moveRight) {
         activePlayer.body.setVelocityX(speed);
       } else if (onGround) {
         // Only stop when on ground (preserve air momentum)
@@ -587,72 +836,154 @@ export default class GameScene extends Phaser.Scene {
       }
     }
 
-    // Ball follows opponent ball carrier with dribble animation
-    if (this.opponentHasBall && this.opponentBallCarrier) {
-      const carrier = this.opponentBallCarrier;
+    // Ball follows AI dunker during dunk
+    if (this.aiDunkingOpponent) {
+      this.ball.x = this.aiDunkingOpponent.x;
+      this.ball.y = this.aiDunkingOpponent.y - 20;
+      this.ball.body.setVelocity(0, 0);
+      this.ball.body.setAllowGravity(false);
+    }
+
+    // Ball follows carrier with dribble animation (unified for all entities)
+    if (this.ballState === 'CARRIED' && this.ballOwner && !this.aiDunkingOpponent) {
+      const carrier = this.ballOwner;
       const carrierOnGround = carrier.body.blocked.down;
       const isMoving = Math.abs(carrier.body.velocity.x) > 10;
 
-      // Ball on the side opponent is moving toward
       if (isMoving) {
         this.lastBallSide = carrier.body.velocity.x > 0 ? 25 : -25;
       }
       const targetX = carrier.x + this.lastBallSide;
 
-      if (carrierOnGround && isMoving) {
-        // Dribbling: ball bounces to floor and back
+      const isPlayerDunking = this.isDunking && this.players.includes(carrier);
+      if (carrierOnGround && isMoving && !isPlayerDunking) {
+        // Dribbling: ball bounces to floor and back (1 bounce/sec at 60fps)
         this.dribbleTime += 0.105;
         const dribbleBounce = Math.abs(Math.sin(this.dribbleTime)) * 40;
         this.ball.x = this.ball.x + (targetX - this.ball.x) * 0.8;
         this.ball.y = carrier.y - 5 + dribbleBounce;
       } else {
-        // Not dribbling: ball follows opponent directly
+        // Not dribbling: ball follows carrier directly
         this.ball.x = this.ball.x + (targetX - this.ball.x) * 0.3;
         this.ball.y = carrier.y - 20;
         this.dribbleTime = 0;
       }
     }
 
-    // Ball follows the carrier with dribble animation
-    if (this.ballCarrier) {
-      const carrier = this.ballCarrier;
-      const carrierOnGround = carrier.body.blocked.down;
-      const isMoving = Math.abs(carrier.body.velocity.x) > 10;
-      // Ball on the side player is moving toward (only update when moving)
-      if (isMoving) {
-        this.lastBallSide = carrier.body.velocity.x > 0 ? 25 : -25;
-      }
-      const targetX = carrier.x + this.lastBallSide;
-
-      if (carrierOnGround && isMoving && !this.isDunking) {
-        // Dribbling: ball bounces to floor and back (1 bounce/sec at 60fps)
-        this.dribbleTime += 0.105; // 1 cycle per second
-        const dribbleBounce = Math.abs(Math.sin(this.dribbleTime)) * 40; // 0-40px amplitude
-        this.ball.x = this.ball.x + (targetX - this.ball.x) * 0.8; // Slight trail effect
-        this.ball.y = carrier.y - 5 + dribbleBounce; // Start lower (-5), bounce to floor (+35)
+    // Decrement per-entity stun timers and pickup cooldowns
+    const allEntities = [...this.players, ...this.opponents];
+    for (const entity of allEntities) {
+      if (entity.stunTimer > 0) {
+        entity.stunTimer--;
+        // Stun visual: flash entity visibility every 4 frames
+        entity.setAlpha(Math.floor(entity.stunTimer / 4) % 2 === 0 ? 0.3 : 1.0);
+        // Stunned entities can't move
+        if (entity.body.blocked.down) {
+          entity.body.setVelocityX(0);
+        }
       } else {
-        // Not dribbling: ball follows player directly (jumping, stationary, or dunking)
-        this.ball.x = this.ball.x + (targetX - this.ball.x) * 0.3; // Smooth transition when stopping
-        this.ball.y = carrier.y - 20;
-        // Reset dribble time when not dribbling so bounce starts from consistent position
-        this.dribbleTime = 0;
+        entity.setAlpha(1.0);
+      }
+      if (entity.pickupCooldown > 0) entity.pickupCooldown--;
+    }
+
+    // === TURBO SYSTEM ===
+    // Player turbo: hold Shift (keyboard) or push joystick far (touch)
+    const turboHeld = this.shiftKey.isDown || (touch && this.touchInput.turbo);
+    for (const p of this.players) {
+      if (p === activePlayer && turboHeld && p.turboMeter > 0 && !isStunned) {
+        p.turboActive = true;
+        if (this.blessedTeam !== 'red') {
+          p.turboMeter = Math.max(0, p.turboMeter - 0.5);
+        }
+      } else {
+        p.turboActive = false;
+        p.turboMeter = Math.min(100, p.turboMeter + 0.15);
       }
     }
 
-    // Decrement ball pickup cooldown
+    // AI turbo: burst when attacking/chasing, save on defense
+    for (const opp of this.opponents) {
+      if (opp.stunTimer > 0) { opp.turboActive = false; continue; }
+      const shouldTurbo = (opp.aiState === 'ATTACK' || opp.aiState === 'CHASE_BALL') && opp.turboMeter > 30;
+      if (shouldTurbo) {
+        opp.turboActive = true;
+        if (this.blessedTeam !== 'purple') {
+          opp.turboMeter = Math.max(0, opp.turboMeter - 0.5);
+        }
+      } else {
+        opp.turboActive = false;
+        opp.turboMeter = Math.min(100, opp.turboMeter + 0.15);
+      }
+    }
+
+    // Draw turbo meter bars under each entity
+    this.turboGraphics.clear();
+    for (const entity of allEntities) {
+      const barWidth = 30;
+      const barHeight = 4;
+      const x = entity.x - barWidth / 2;
+      const y = entity.y + 35; // Below the entity
+      // Background
+      this.turboGraphics.fillStyle(0x333333, 0.8);
+      this.turboGraphics.fillRect(x, y, barWidth, barHeight);
+      // Fill (yellow when active, white when charging)
+      const fillColor = entity.turboActive ? 0xffff00 : 0xaaaaaa;
+      this.turboGraphics.fillStyle(fillColor, 1);
+      this.turboGraphics.fillRect(x, y, barWidth * (entity.turboMeter / 100), barHeight);
+    }
+
+    // === BALL TRAIL ===
+    this.ballTrailGraphics.clear();
+    if (this.ballState === 'IN_FLIGHT') {
+      this.ballTrail.push({ x: this.ball.x, y: this.ball.y });
+      if (this.ballTrail.length > 8) this.ballTrail.shift();
+      for (let i = 0; i < this.ballTrail.length; i++) {
+        const alpha = (i / this.ballTrail.length) * 0.4;
+        const radius = 4 + (i / this.ballTrail.length) * 6;
+        this.ballTrailGraphics.fillStyle(0xffa500, alpha);
+        this.ballTrailGraphics.fillCircle(this.ballTrail[i].x, this.ballTrail[i].y, radius);
+      }
+    } else {
+      this.ballTrail.length = 0;
+    }
+
+    // === BLOCK DETECTION ===
+    // Track how long ball has been in flight (prevents instant blocks)
+    if (this.ballState === 'IN_FLIGHT') {
+      this.ballFlightTime++;
+    } else {
+      this.ballFlightTime = 0;
+    }
+
+    // Only opposing team can block, and only after ball has been in flight for a bit
+    if (this.ballState === 'IN_FLIGHT' && !this.isDunking) {
+      this.checkForBlocks();
+    }
+
+    // Decrement global ball pickup cooldown (for scoring animations)
     if (this.ballPickupCooldown > 0) {
       this.ballPickupCooldown--;
     }
 
     // Check if dunking player reached the hoop during a dunk
-    if (this.isDunking && this.ballCarrier && this.dunkingPlayer) {
-      // Dunking player is near the rim horizontally (within 50px) and at/above rim height
-      const distFromRim = Math.abs(this.dunkingPlayer.x - 1250);
-      const nearRimX = distFromRim < 50;
-      const atRimHeight = this.dunkingPlayer.y < 400;
-
-      if (nearRimX && atRimHeight) {
-        this.completeDunk();
+    if (this.isDunking && this.dunkingPlayer) {
+      if (this.aiDunkingOpponent === this.dunkingPlayer) {
+        // AI dunk — target left hoop (rim at x=210)
+        const distFromRim = Math.abs(this.dunkingPlayer.x - 230);
+        const nearRimX = distFromRim < 50;
+        const atRimHeight = this.dunkingPlayer.y < 400;
+        if (nearRimX && atRimHeight) {
+          this.completeAIDunk();
+        }
+      } else if (this.ballOwner && this.players.includes(this.ballOwner)) {
+        // Player dunk — target right hoop (rim at x=1270)
+        const distFromRim = Math.abs(this.dunkingPlayer.x - 1250);
+        const nearRimX = distFromRim < 50;
+        const atRimHeight = this.dunkingPlayer.y < 400;
+        if (nearRimX && atRimHeight) {
+          this.completeDunk();
+        }
       }
     }
 
@@ -665,6 +996,13 @@ export default class GameScene extends Phaser.Scene {
 
       // Reset dunking flag when landing (only if player was actually in the air during THIS dunk)
       if (dunkingOnGround && this.wasInAir) {
+        // If AI dunk missed the hoop, make ball loose
+        if (this.aiDunkingOpponent) {
+          this.ball.x = this.aiDunkingOpponent.x;
+          this.ball.y = this.aiDunkingOpponent.y - 30;
+          this.makeBallLoose(this.aiDunkingOpponent);
+          this.aiDunkingOpponent = null;
+        }
         this.isDunking = false;
         this.wasInAir = false;
         this.dunkingPlayer = null;
@@ -673,87 +1011,398 @@ export default class GameScene extends Phaser.Scene {
 
     // Update AI for all opponents
     this.updateAI();
+
+    // === TOUCH CONTROLS RENDERING ===
+    if (this.isTouchDevice && this.touchGfx) {
+      this.touchGfx.clear();
+
+      // Draw joystick if active
+      if (this.touchInput.joystickActive) {
+        const ox = this.touchInput.joystickOrigin.x;
+        const oy = this.touchInput.joystickOrigin.y;
+        const thumbX = ox + this.touchInput.moveX * 60;
+
+        // Outer ring
+        this.touchGfx.lineStyle(2, 0xffffff, 0.3);
+        this.touchGfx.strokeCircle(ox, oy, 60);
+        // Turbo threshold ring
+        this.touchGfx.lineStyle(1, 0xffff00, 0.2);
+        this.touchGfx.strokeCircle(ox, oy, 40);
+        // Thumb
+        const thumbColor = this.touchInput.turbo ? 0xffff00 : 0xffffff;
+        this.touchGfx.fillStyle(thumbColor, 0.5);
+        this.touchGfx.fillCircle(thumbX, oy, 20);
+      }
+
+      // Update button labels based on game state
+      const hasball = this.ballOwner && this.players.includes(this.ballOwner);
+      if (hasball) {
+        const isTurbo = activePlayer.turboActive;
+        this.btnALabel.setText(inDunkRange && isTurbo ? 'DUNK' : 'SHOOT');
+        this.btnBLabel.setText('PASS');
+      } else if (closeToOpponent) {
+        const isTurbo = activePlayer.turboActive;
+        this.btnALabel.setText(isTurbo ? 'SHOVE' : 'STEAL');
+        this.btnBLabel.setText('SWITCH');
+      } else {
+        this.btnALabel.setText('BLOCK');
+        this.btnBLabel.setText('SWITCH');
+      }
+
+      // Highlight buttons when pressed
+      this.btnA.setFillStyle(0xffffff, this.btnADown ? 0.4 : 0.15);
+      this.btnB.setFillStyle(0xffffff, this.btnBDown ? 0.4 : 0.15);
+    }
+  }
+
+  // Teammate AI: inactive red player plays autonomously
+  updateTeammateAI() {
+    const inactivePlayer = this.players[(this.activePlayerIndex + 1) % 2];
+
+    // Skip if this player is currently being controlled, dunking, or stunned
+    if (this.isDunking && this.dunkingPlayer === inactivePlayer) return;
+    if (inactivePlayer.stunTimer > 0) return;
+
+    const tmOnGround = inactivePlayer.body.blocked.down;
+    if (!tmOnGround) return; // Let physics handle air movement
+
+    if (inactivePlayer.aiStealCooldown > 0) inactivePlayer.aiStealCooldown--;
+
+    const tmBlessedMult = this.blessedTeam === 'red' ? 1.3 : 1;
+    const tmSpeed = (inactivePlayer.turboActive ? 375 : 250) * tmBlessedMult;
+    const rightHoopX = 1270;
+    const ballIsLoose = this.ballState !== 'CARRIED';
+    const activePlayer = this.players[this.activePlayerIndex];
+
+    // State transitions
+    if (this.ballOwner === inactivePlayer) {
+      inactivePlayer.aiState = 'ATTACK';
+    } else if (ballIsLoose) {
+      // Chase loose ball only if active player is further away
+      const tmDist = Math.abs(inactivePlayer.x - this.ball.x);
+      const activeDist = Math.abs(activePlayer.x - this.ball.x);
+      inactivePlayer.aiState = tmDist < activeDist ? 'CHASE_BALL' : 'SUPPORT';
+    } else if (this.ballOwner === activePlayer) {
+      // Teammate of ball carrier — get open for a pass
+      inactivePlayer.aiState = 'SUPPORT';
+    } else if (this.opponents.includes(this.ballOwner)) {
+      // Opponent has ball — defend
+      inactivePlayer.aiState = 'DEFEND';
+    } else {
+      inactivePlayer.aiState = 'SUPPORT';
+    }
+
+    // Execute behavior
+    if (inactivePlayer.aiState === 'CHASE_BALL') {
+      const distToBall = this.ball.x - inactivePlayer.x;
+      const ballAbove = this.ball.y < inactivePlayer.y - 60;
+      if (ballAbove && Math.abs(distToBall) < 80) {
+        inactivePlayer.body.setVelocityY(-450);
+      }
+      if (Math.abs(distToBall) > 20) {
+        inactivePlayer.body.setVelocityX(distToBall > 0 ? tmSpeed : -tmSpeed);
+      } else {
+        inactivePlayer.body.setVelocityX(0);
+      }
+    } else if (inactivePlayer.aiState === 'ATTACK') {
+      // Drive toward right hoop and shoot/dunk
+      const distToHoop = rightHoopX - inactivePlayer.x;
+
+      // If past the backboard, drive back
+      if (inactivePlayer.x > 1320) {
+        inactivePlayer.body.setVelocityX(-tmSpeed);
+      } else {
+        const inDunkZone = distToHoop > -50 && distToHoop < 200;
+        const inShootZone = Math.abs(distToHoop) < 400;
+
+        if (inDunkZone && inactivePlayer.turboMeter > 20) {
+          inactivePlayer.body.setVelocityX(0);
+          if (!this.aiPaused && Math.random() < 0.03) {
+            inactivePlayer.turboActive = true;
+            this.performDunk(inactivePlayer);
+            inactivePlayer.body.setVelocityY(-700);
+          }
+        } else if (inShootZone) {
+          inactivePlayer.body.setVelocityX(0);
+          if (!this.aiPaused && Math.random() < 0.03) {
+            inactivePlayer.body.setVelocityY(-450);
+            this.time.delayedCall(300, () => {
+              if (this.ballOwner === inactivePlayer) {
+                this.shootBall(inactivePlayer, rightHoopX);
+              }
+            });
+          }
+        } else {
+          inactivePlayer.body.setVelocityX(distToHoop > 0 ? tmSpeed : -tmSpeed);
+        }
+      }
+    } else if (inactivePlayer.aiState === 'DEFEND') {
+      // Guard the assigned opponent
+      const target = inactivePlayer.defendTarget;
+      if (this.ballOwner === target) {
+        const distToCarrier = Math.abs(inactivePlayer.x - target.x);
+        const dx = target.x - inactivePlayer.x;
+        if (distToCarrier > 50) {
+          inactivePlayer.body.setVelocityX(dx > 0 ? tmSpeed : -tmSpeed);
+        } else {
+          inactivePlayer.body.setVelocityX(0);
+          // Attempt steal
+          if (inactivePlayer.aiStealCooldown <= 0 && !this.aiPaused) {
+            this.teammateAttemptSteal(inactivePlayer, target);
+            inactivePlayer.aiStealCooldown = 90;
+          }
+        }
+      } else {
+        // Shadow assigned opponent
+        inactivePlayer.aiSwayTimer += 0.04;
+        const swayOffset = Math.sin(inactivePlayer.aiSwayTimer) * 60;
+        const targetX = target.x - 80 + swayOffset; // Stay between opponent and right hoop
+        const distToTarget = targetX - inactivePlayer.x;
+        if (Math.abs(distToTarget) > 10) {
+          inactivePlayer.body.setVelocityX(distToTarget > 0 ? tmSpeed : -tmSpeed);
+        } else {
+          inactivePlayer.body.setVelocityX(0);
+        }
+      }
+    } else if (inactivePlayer.aiState === 'SUPPORT') {
+      // Get open for a pass — position ahead of ball carrier toward the hoop
+      let targetX;
+      if (this.ballOwner === activePlayer) {
+        // Stay ahead of active player, offset toward hoop
+        targetX = Math.min(activePlayer.x + 200, 1100);
+      } else {
+        // No one has ball or opponent has it — drift to mid-court
+        targetX = 700;
+      }
+      const distToTarget = targetX - inactivePlayer.x;
+      if (Math.abs(distToTarget) > 30) {
+        inactivePlayer.body.setVelocityX(distToTarget > 0 ? tmSpeed : -tmSpeed);
+      } else {
+        inactivePlayer.body.setVelocityX(0);
+      }
+    }
+  }
+
+  // Teammate steal attempt (same as AI steal but for red team)
+  teammateAttemptSteal(teammate, target) {
+    if (!target || !this.opponents.includes(target)) return;
+    if (this.ballOwner !== target) return;
+    const dist = Math.abs(teammate.x - target.x);
+    if (dist > 70) return;
+
+    if (Math.random() < 0.25) {
+      this.ball.x = target.x;
+      this.ball.y = target.y - 30;
+      target.stunTimer = 15;
+      target.pickupCooldown = 45;
+      const toTm = teammate.x - this.ball.x;
+      this.ballState = 'LOOSE';
+      this.ballOwner = null;
+      this.ball.body.setAllowGravity(true);
+      this.ball.body.setDrag(50, 0);
+      this.ball.body.setVelocity(toTm > 0 ? 150 : -150, -100);
+      this.showCenterFeedback('STOLEN!', '#ff4444');
+    }
   }
 
   updateAI() {
-    // Determine if ball is loose (no one has it)
-    const ballIsLoose = !this.ballCarrier && !this.opponentHasBall;
+    // Determine if ball is not carried (loose or in-flight)
+    const ballIsLoose = this.ballState !== 'CARRIED';
 
-    // AI movement speed (player is 250)
-    const aiSpeed = 200;
     const leftHoopX = 210;
     const shootRange = 400;
     const dunkRange = 180;
     const guardDistance = 80;
 
+    // Decide which opponent chases a loose ball (closest one only)
+    let chaserOpp = null;
+    if (ballIsLoose) {
+      let closestDist = Infinity;
+      for (const opp of this.opponents) {
+        const d = Math.abs(opp.x - this.ball.x);
+        if (d < closestDist) {
+          closestDist = d;
+          chaserOpp = opp;
+        }
+      }
+    }
+
     for (const opp of this.opponents) {
+      // Decrement per-opponent steal cooldown
+      if (opp.aiStealCooldown > 0) opp.aiStealCooldown--;
+
+      // Stunned opponents skip all AI behavior
+      if (opp.stunTimer > 0) continue;
+
+      const aiBlessedMult = this.blessedTeam === 'purple' ? 1.3 : 1;
+      const aiSpeed = (opp.turboActive ? 300 : 200) * aiBlessedMult;
+
       // State transitions
-      if (ballIsLoose) {
-        opp.aiState = 'CHASE_BALL';
-      } else if (opp === this.opponentBallCarrier) {
+      if (this.ballOwner === opp) {
         opp.aiState = 'ATTACK';
+      } else if (ballIsLoose && opp === chaserOpp) {
+        opp.aiState = 'CHASE_BALL';
+      } else if (this.ballOwner && this.players.includes(this.ballOwner)) {
+        // Red team has ball — defend
+        opp.aiState = 'DEFEND';
+      } else if (this.ballOwner && this.opponents.includes(this.ballOwner) && this.ballOwner !== opp) {
+        // Other opponent has ball — support (stay open for pass)
+        opp.aiState = 'SUPPORT';
       } else {
         opp.aiState = 'DEFEND';
       }
 
-      // Only move if on ground
       const oppOnGround = opp.body.blocked.down;
-      if (!oppOnGround) continue;
 
       // Execute behavior based on state
       if (opp.aiState === 'CHASE_BALL') {
-        // Move toward the ball
         const distToBall = this.ball.x - opp.x;
-        if (Math.abs(distToBall) > 20) {
-          opp.body.setVelocityX(distToBall > 0 ? aiSpeed : -aiSpeed);
-        } else {
-          opp.body.setVelocityX(0);
+        const ballAbove = this.ball.y < opp.y - 60;
+
+        if (oppOnGround) {
+          // Jump for rebounds if ball is above
+          if (ballAbove && Math.abs(distToBall) < 80) {
+            opp.body.setVelocityY(-450);
+          }
+          if (Math.abs(distToBall) > 20) {
+            opp.body.setVelocityX(distToBall > 0 ? aiSpeed : -aiSpeed);
+          } else {
+            opp.body.setVelocityX(0);
+          }
         }
       } else if (opp.aiState === 'ATTACK') {
+        if (!oppOnGround) continue;
+
         // Drive toward left hoop
         const distToHoop = leftHoopX - opp.x;
 
-        // Check if in dunk range (for left hoop, need to be to the RIGHT of hoop)
-        const inDunkZone = distToHoop > -50 && distToHoop < dunkRange;
-        // Check if in shooting range
-        const inShootZone = Math.abs(distToHoop) < shootRange;
+        // If behind or too close to the backboard, drive away first
+        if (opp.x < 280) {
+          opp.body.setVelocityX(aiSpeed); // Drive right to get proper angle
+        } else {
+          const inDunkZone = distToHoop > -50 && distToHoop < dunkRange;
+          const inShootZone = Math.abs(distToHoop) < shootRange;
 
-        if (inDunkZone) {
-          // Close enough to dunk - stop and jump (dunking in future step)
-          opp.body.setVelocityX(0);
-          // TODO: AI dunking in step 10.7 or later
-        } else if (inShootZone) {
-          // In shooting range - stop and try to shoot
-          opp.body.setVelocityX(0);
+          if (inDunkZone) {
+            // AI dunk — requires turbo meter
+            opp.body.setVelocityX(0);
+            if (!this.aiPaused && Math.random() < 0.03 && opp.turboMeter > 20) {
+              opp.turboActive = true; // Burn turbo for dunk
+              this.aiDunk(opp);
+            }
+          } else if (inShootZone) {
+            opp.body.setVelocityX(0);
+            if (!this.aiPaused && Math.random() < 0.03) {
+              opp.body.setVelocityY(-450);
+              this.time.delayedCall(300, () => {
+                if (this.ballOwner === opp) {
+                  this.aiShoot(opp);
+                }
+              });
+            }
+          } else {
+            opp.body.setVelocityX(distToHoop < 0 ? -aiSpeed : aiSpeed);
+          }
+        }
+      } else if (opp.aiState === 'DEFEND' || opp.aiState === 'SUPPORT') {
+        // Each opponent guards their assigned player
+        const target = opp.defendTarget;
 
-          // ~1.6% chance per frame = ~1 shot attempt per second at 60fps
-          // Skip shooting if AI is paused (for testing)
-          if (!this.aiPaused && Math.random() < 0.016) {
-            // Jump first, then shoot at apex
-            opp.body.setVelocityY(-450); // Lower jump than player
-            // Delayed shot release (shoot after ~0.3 seconds, near apex)
-            this.time.delayedCall(300, () => {
-              if (this.opponentHasBall && this.opponentBallCarrier === opp) {
-                this.aiShoot(opp);
-              }
-            });
+        // AI BLOCK ATTEMPT: if ball is IN_FLIGHT and nearby, jump to block
+        if (this.ballState === 'IN_FLIGHT' && oppOnGround && !this.aiPaused) {
+          const distToBall = Math.sqrt(
+            Math.pow(opp.x - this.ball.x, 2) + Math.pow(opp.y - this.ball.y, 2)
+          );
+          // Jump to block if ball is close and still rising or at peak
+          if (distToBall < 120 && this.ball.body.velocity.y < 100) {
+            const jumpVel = opp.turboActive ? -700 : -550;
+            opp.body.setVelocityY(jumpVel);
+            // Move toward ball
+            const dx = this.ball.x - opp.x;
+            if (Math.abs(dx) > 10) {
+              opp.body.setVelocityX(dx > 0 ? aiSpeed : -aiSpeed);
+            }
+            continue; // Skip other defend logic this frame
+          }
+        }
+
+        if (!oppOnGround) continue;
+
+        // If our assigned target has the ball, try to steal
+        if (this.ballOwner === target && this.players.includes(target)) {
+          const distToCarrier = Math.abs(opp.x - target.x);
+          // Move toward ball carrier
+          const dx = target.x - opp.x;
+          if (distToCarrier > 40) {
+            opp.body.setVelocityX(dx > 0 ? aiSpeed : -aiSpeed);
+          } else {
+            opp.body.setVelocityX(0);
+            // Attempt steal when close
+            if (opp.aiStealCooldown <= 0 && !this.aiPaused) {
+              this.aiAttemptSteal(opp);
+              opp.aiStealCooldown = 90; // Cooldown between attempts
+            }
           }
         } else {
-          // Drive toward the hoop (distToHoop negative = hoop is to the left)
-          opp.body.setVelocityX(distToHoop < 0 ? -aiSpeed : aiSpeed);
-        }
-      } else if (opp.aiState === 'DEFEND') {
-        // Shadow the closest red player, stay guardDistance away
-        const activePlayer = this.players[this.activePlayerIndex];
-        const targetX = activePlayer.x + guardDistance; // Stay to the right of player
-
-        const distToTarget = targetX - opp.x;
-        if (Math.abs(distToTarget) > 20) {
-          opp.body.setVelocityX(distToTarget > 0 ? aiSpeed : -aiSpeed);
-        } else {
-          opp.body.setVelocityX(0);
+          // Shadow assigned player, sway side to side near them
+          opp.aiSwayTimer += 0.04;
+          const swayOffset = Math.sin(opp.aiSwayTimer) * 60; // ±60px sway
+          const targetX = target.x + guardDistance + swayOffset;
+          const distToTarget = targetX - opp.x;
+          if (Math.abs(distToTarget) > 10) {
+            opp.body.setVelocityX(distToTarget > 0 ? aiSpeed : -aiSpeed);
+          } else {
+            opp.body.setVelocityX(0);
+          }
         }
       }
+    }
+  }
+
+  aiAttemptSteal(opponent) {
+    if (!this.ballOwner || !this.players.includes(this.ballOwner)) return;
+    const target = this.ballOwner;
+    const dist = Math.abs(opponent.x - target.x);
+    if (dist > 70) return;
+
+    // 25% chance for AI steal (lower than player's 30%)
+    if (Math.random() < 0.25) {
+      this.ball.x = target.x;
+      this.ball.y = target.y - 30;
+      target.stunTimer = 15;          // Brief stumble
+      target.pickupCooldown = 45;     // Can't re-grab quickly
+      const toOpp = opponent.x - this.ball.x;
+      this.ballState = 'LOOSE';
+      this.ballOwner = null;
+      this.ball.body.setAllowGravity(true);
+      this.ball.body.setDrag(50, 0);
+      this.ball.body.setVelocity(toOpp > 0 ? 150 : -150, -100);
+      this.showFeedback('STOLEN!', '#cc66ff');
+    }
+  }
+
+  aiDunk(opponent) {
+    if (this.isDunking) return;
+    if (this.ballOwner !== opponent) return;
+
+    // Mark dunking state (ball stays CARRIED by opponent during dunk)
+    this.isDunking = true;
+    this.dunkingPlayer = opponent;
+    this.aiDunkingOpponent = opponent; // Track that this is an AI dunk
+
+    // Jump toward left hoop rim
+    const targetX = 230; // Just right of left rim center
+    const distToRim = targetX - opponent.x;
+
+    opponent.body.setVelocityY(-700);
+    if (Math.abs(distToRim) < 30) {
+      opponent.body.setVelocityX(0);
+    } else {
+      const timeToApex = 0.7;
+      let vx = distToRim / timeToApex;
+      const sign = vx >= 0 ? 1 : -1;
+      vx = sign * Math.max(100, Math.min(400, Math.abs(vx)));
+      opponent.body.setVelocityX(vx);
     }
   }
 
@@ -787,26 +1436,36 @@ export default class GameScene extends Phaser.Scene {
 
   // Called when player reaches the rim during a dunk
   completeDunk() {
-    this.ballCarrier = null;
-
-    // Ball drops through hoop and net
+    // Ball drops through hoop
+    this.ballState = 'IN_FLIGHT';
+    this.ballOwner = null;
     this.ball.x = 1270;
     this.ball.y = 355;
     this.ball.body.setVelocity(0, 300);
     this.ball.body.setAllowGravity(true);
-    this.ballPickupCooldown = 60; // Prevent pickup during net animation
-    this.scoringInProgress = true; // Prevent camera from chasing ball
+    this.ballPickupCooldown = 60;
+    this.scoringInProgress = true;
+
+    // === GAME JUICE: Dunk ===
+    this.cameras.main.shake(200, 0.01);
+    this.time.timeScale = 0.3;
+    this.time.delayedCall(100, () => { this.time.timeScale = 1; });
 
     // Score NOW when ball is slammed through
     this.score += 2;
     this.scoreText.setText('RED: ' + this.score);
 
+    // BLESSED! streak tracking
+    this.redStreak++;
+    this.purpleStreak = 0;
+    if (this.blessedTeam === 'purple') this.deactivateBlessed();
+    if (this.redStreak >= 3 && this.blessedTeam !== 'red') this.activateBlessed('red');
+
     // Delay 0.5s to show ball through net, then give possession
     this.time.delayedCall(500, () => {
-      // Opponent takes ball out behind the basket where they were scored on (right side)
       this.opponent.x = 1380;
-      this.opponentHasBall = true;
-      this.opponentBallCarrier = this.opponent;
+      this.ballState = 'CARRIED';
+      this.ballOwner = this.opponent;
       this.ball.body.setVelocity(0, 0);
       this.ball.body.setAllowGravity(false);
       this.scoringInProgress = false;
@@ -831,9 +1490,70 @@ export default class GameScene extends Phaser.Scene {
     });
   }
 
+  // Called when AI opponent reaches the left rim during a dunk
+  completeAIDunk() {
+    this.aiDunkingOpponent = null;
+
+    // Ball drops through left hoop
+    this.ballState = 'IN_FLIGHT';
+    this.ballOwner = null;
+    this.ball.x = 210;
+    this.ball.y = 355;
+    this.ball.body.setVelocity(0, 300);
+    this.ball.body.setAllowGravity(true);
+    this.ballPickupCooldown = 60;
+    this.scoringInProgress = true;
+
+    // === GAME JUICE: Dunk ===
+    this.cameras.main.shake(200, 0.01);
+    this.time.timeScale = 0.3;
+    this.time.delayedCall(100, () => { this.time.timeScale = 1; });
+
+    // Score for purple team
+    this.opponentScore += 2;
+    this.opponentScoreText.setText('PURPLE: ' + this.opponentScore);
+
+    // BLESSED! streak tracking
+    this.purpleStreak++;
+    this.redStreak = 0;
+    if (this.blessedTeam === 'red') this.deactivateBlessed();
+    if (this.purpleStreak >= 3 && this.blessedTeam !== 'purple') this.activateBlessed('purple');
+
+    // Delay 0.5s, then give possession to red team
+    this.time.delayedCall(500, () => {
+      const activePlayer = this.players[this.activePlayerIndex];
+      activePlayer.x = 100;
+      this.ballState = 'CARRIED';
+      this.ballOwner = activePlayer;
+      this.ball.body.setVelocity(0, 0);
+      this.ball.body.setAllowGravity(false);
+      this.scoringInProgress = false;
+    });
+
+    // SLAM DUNK text in purple
+    const slamText = this.add.text(640, 280, 'SLAM DUNK!', {
+      fontSize: '80px',
+      fontFamily: 'Arial Black',
+      color: '#cc66ff',
+      stroke: '#000000',
+      strokeThickness: 8
+    }).setOrigin(0.5).setScrollFactor(0);
+
+    this.tweens.add({
+      targets: slamText,
+      alpha: 0,
+      y: 200,
+      scale: 1.3,
+      duration: 1200,
+      onComplete: () => slamText.destroy()
+    });
+  }
+
   shootBall(player, targetHoopX = 1270) {
-    this.ballCarrier = null;
-    this.ballPickupCooldown = 30; // Prevent immediate pickup after shot
+    this.ballState = 'IN_FLIGHT';
+    this.lastThrower = player;
+    this.ballOwner = null;
+    player.pickupCooldown = 30; // Shooter can't re-grab their own shot
     this.ball.body.setAllowGravity(true);
 
     const hoopX = targetHoopX;
@@ -874,6 +1594,23 @@ export default class GameScene extends Phaser.Scene {
     const gravity = 800;
     let vy = (distY - 0.5 * gravity * timeToHoop * timeToHoop) / timeToHoop;
 
+    // Turbo accuracy bonus (+15%)
+    if (player.turboActive) jumpAccuracy = Math.min(1.0, jumpAccuracy + 0.15);
+
+    // BLESSED! accuracy bonus (+20%)
+    if (this.blessedTeam === 'red' && this.players.includes(player)) {
+      jumpAccuracy = Math.min(1.0, jumpAccuracy + 0.20);
+    }
+
+    // Defensive pressure: nearby defenders reduce accuracy
+    const defenderDist = this.getClosestDefenderDistance(player);
+    if (defenderDist < 60) {
+      jumpAccuracy *= 0.6; // Heavily contested
+      this.showCenterFeedback('CONTESTED!', '#ff6666');
+    } else if (defenderDist < 120) {
+      jumpAccuracy *= 0.85; // Lightly contested
+    }
+
     // Add randomness based on accuracy
     const randomness = (1 - jumpAccuracy) * 0.35;
     vx *= (1 + (Math.random() - 0.5) * randomness);
@@ -884,10 +1621,10 @@ export default class GameScene extends Phaser.Scene {
 
   // AI shooting - opponent jumps and shoots toward left hoop
   aiShoot(opponent) {
-    // Release the ball
-    this.opponentHasBall = false;
-    this.opponentBallCarrier = null;
-    this.ballPickupCooldown = 30;
+    this.ballState = 'IN_FLIGHT';
+    this.lastThrower = opponent;
+    this.ballOwner = null;
+    opponent.pickupCooldown = 30; // Shooter can't re-grab
     this.ball.body.setAllowGravity(true);
 
     const hoopX = 210; // Left hoop
@@ -895,8 +1632,22 @@ export default class GameScene extends Phaser.Scene {
     const distX = hoopX - this.ball.x;
     const distance = Math.abs(distX);
 
-    // Base 60% accuracy for AI
-    const aiAccuracy = 0.6;
+    // Base 70% accuracy for AI
+    let aiAccuracy = 0.7;
+
+    // BLESSED! accuracy bonus (+20%)
+    if (this.blessedTeam === 'purple') {
+      aiAccuracy = Math.min(1.0, aiAccuracy + 0.20);
+    }
+
+    // Defensive pressure: nearby defenders reduce accuracy
+    const defenderDist = this.getClosestDefenderDistance(opponent);
+    if (defenderDist < 60) {
+      aiAccuracy *= 0.6; // Heavily contested
+      this.showCenterFeedback('CONTESTED!', '#ff4444');
+    } else if (defenderDist < 120) {
+      aiAccuracy *= 0.85; // Lightly contested
+    }
 
     // Calculate trajectory
     const distY = hoopY - this.ball.y;
@@ -918,7 +1669,9 @@ export default class GameScene extends Phaser.Scene {
     const teammate = this.players.find(p => p !== fromPlayer);
     if (!teammate) return;
 
-    this.ballCarrier = null;
+    this.ballState = 'IN_FLIGHT';
+    this.lastThrower = fromPlayer;
+    this.ballOwner = null;
     this.ball.body.setAllowGravity(true);
 
     // Calculate pass trajectory to teammate
@@ -940,10 +1693,21 @@ export default class GameScene extends Phaser.Scene {
   performSteal() {
     // 30% chance of success
     if (Math.random() < 0.3) {
-      // Success: ball becomes loose
-      this.opponentHasBall = false;
-      this.opponentBallCarrier = null;
-      this.makeBallLoose();
+      // Success: ball becomes loose — knock it toward the player
+      const target = this.ballOwner;
+      const activePlayer = this.players[this.activePlayerIndex];
+      if (target) {
+        this.ball.x = target.x;
+        this.ball.y = target.y - 30;
+        target.stunTimer = 15;        // Brief stumble
+        target.pickupCooldown = 45;   // Can't re-grab quickly
+      }
+      this.ballState = 'LOOSE';
+      this.ballOwner = null;
+      this.ball.body.setAllowGravity(true);
+      this.ball.body.setDrag(50, 0);
+      const toPlayer = activePlayer.x - this.ball.x;
+      this.ball.body.setVelocity(toPlayer > 0 ? 150 : -150, -100);
 
       // Show STEAL! text
       const stealText = this.add.text(640, 280, 'STEAL!', {
@@ -971,25 +1735,38 @@ export default class GameScene extends Phaser.Scene {
 
   performShove() {
     // Always works: knock opponent back and ball drops
-    const target = this.opponentBallCarrier;
-    if (!target) return;
+    const target = this.ballOwner;
+    if (!target || !this.opponents.includes(target)) return;
 
-    this.opponentHasBall = false;
-    this.opponentBallCarrier = null;
+    this.ballState = 'LOOSE';
+    this.ballOwner = null;
+    this.ball.body.setDrag(50, 0);
     this.shoveCooldown = 60;
+
+    // Stun the shoved opponent
+    target.stunTimer = 60;          // 1 second stun
+    target.pickupCooldown = 60;     // Can't grab during stun
+
+    // Drop ball at opponent's CURRENT position before pushing them away
+    this.ball.x = target.x;
+    this.ball.y = target.y - 30;
 
     // Knock opponent back 100px (away from active player)
     const activePlayer = this.players[this.activePlayerIndex];
     const pushDirection = activePlayer.x < target.x ? 1 : -1;
     const newOpponentX = Phaser.Math.Clamp(
       target.x + (pushDirection * 100),
-      40, // Left bound (half opponent width)
-      1430 // Right bound (1570 - 40)
+      40,
+      1430
     );
     target.x = newOpponentX;
 
-    // Ball becomes loose
-    this.makeBallLoose();
+    // Ball pops toward the player who shoved
+    this.ball.body.setAllowGravity(true);
+    this.ball.body.setVelocity(-pushDirection * 150, -100);
+
+    // === GAME JUICE: Shove ===
+    this.cameras.main.shake(80, 0.005);
 
     // Show SHOVE! text
     const shoveText = this.add.text(640, 280, 'SHOVE!', {
@@ -1010,13 +1787,215 @@ export default class GameScene extends Phaser.Scene {
     });
   }
 
-  makeBallLoose() {
-    // Ball drops with gravity, can be picked up by first to touch
+  // Check if any airborne OPPOSING entity can block the ball
+  checkForBlocks() {
+    // Need a known thrower to determine teams — no thrower = no block
+    if (!this.lastThrower) return;
+    // Ball must have been in flight for a bit (prevent instant self-blocks)
+    if (this.ballFlightTime < 10) return;
+
+    const blockRange = 40; // Distance from entity top to ball
+    // Only the opposing team can block
+    const throwerIsPlayer = this.players.includes(this.lastThrower);
+    const defenders = throwerIsPlayer ? this.opponents : this.players;
+
+    for (const entity of defenders) {
+      // Must be in the air and not stunned
+      if (entity.body.blocked.down) continue;
+      if (entity.stunTimer > 0) continue;
+
+      // Check distance from entity's top (hand) to ball
+      const entityTopY = entity.y - 30; // Top of sprite
+      const dx = Math.abs(entity.x - this.ball.x);
+      const dy = Math.abs(entityTopY - this.ball.y);
+      const dist = Math.sqrt(dx * dx + dy * dy);
+
+      if (dist > blockRange) continue;
+
+      // Check for goaltending: ball on downward arc near the shooter's target hoop
+      const ballDescending = this.ball.body.velocity.y > 0;
+      const nearRightHoop = Math.abs(this.ball.x - 1270) < 60 && this.ball.y < 360;
+      const nearLeftHoop = Math.abs(this.ball.x - 210) < 60 && this.ball.y < 360;
+
+      if (ballDescending && (nearRightHoop || nearLeftHoop)) {
+        // GOALTENDING — basket counts for the shooter's team
+        if (nearRightHoop && throwerIsPlayer) {
+          // Player shot goaltended — score for red
+          this.score += 2;
+          this.scoreText.setText('RED: ' + this.score);
+          this.redStreak++; this.purpleStreak = 0;
+          if (this.blessedTeam === 'purple') this.deactivateBlessed();
+          if (this.redStreak >= 3 && this.blessedTeam !== 'red') this.activateBlessed('red');
+          this.showCenterFeedback('GOALTEND!', '#ff4444');
+        } else if (nearLeftHoop && !throwerIsPlayer) {
+          // AI shot goaltended — score for purple
+          this.opponentScore += 2;
+          this.opponentScoreText.setText('PURPLE: ' + this.opponentScore);
+          this.purpleStreak++; this.redStreak = 0;
+          if (this.blessedTeam === 'red') this.deactivateBlessed();
+          if (this.purpleStreak >= 3 && this.blessedTeam !== 'purple') this.activateBlessed('purple');
+          this.showCenterFeedback('GOALTEND!', '#cc66ff');
+        } else {
+          // Defender near their own hoop on a ball that wasn't shot at it — not goaltending, skip
+          continue;
+        }
+        // Reset ball after goaltend (give possession to team that scored)
+        this.ballPickupCooldown = 60;
+        this.scoringInProgress = true;
+        this.ballState = 'IN_FLIGHT';
+        this.ballOwner = null;
+        this.lastThrower = null;
+        this.ball.body.setVelocity(0, 300);
+        this.ball.body.setAllowGravity(true);
+
+        this.time.delayedCall(500, () => {
+          if (nearRightHoop) {
+            // Red scored via goaltend — purple gets ball
+            this.opponent.x = 1380;
+            this.ballState = 'CARRIED';
+            this.ballOwner = this.opponent;
+          } else {
+            // Purple scored via goaltend — red gets ball
+            const activePlayer = this.players[this.activePlayerIndex];
+            activePlayer.x = 100;
+            this.ballState = 'CARRIED';
+            this.ballOwner = activePlayer;
+          }
+          this.ball.body.setVelocity(0, 0);
+          this.ball.body.setAllowGravity(false);
+          this.scoringInProgress = false;
+        });
+        return; // Only one block event per frame
+      }
+
+      // LEGAL BLOCK — swat the ball away from the blocker
+      const awayFromBlocker = entity.x < this.ball.x ? 300 : -300;
+      this.ballState = 'LOOSE';
+      this.ballOwner = null;
+      this.lastThrower = null;
+      this.ballFlightTime = 0;
+      this.ball.body.setAllowGravity(true);
+      this.ball.body.setDrag(50, 0);
+      this.ball.body.setVelocity(awayFromBlocker, -200);
+      this.ballPickupCooldown = 15;
+
+      // === GAME JUICE: Block ===
+      this.cameras.main.shake(100, 0.008);
+      this.time.timeScale = 0.5;
+      this.time.delayedCall(80, () => { this.time.timeScale = 1; });
+
+      // "REJECTED!" popup
+      this.showCenterFeedback('REJECTED!', '#ff0000');
+      return; // Only one block per frame
+    }
+  }
+
+  // Get the closest defender distance for shot contest calculation
+  getClosestDefenderDistance(shooter) {
+    let closestDist = Infinity;
+    const defenders = this.players.includes(shooter) ? this.opponents : this.players;
+    for (const def of defenders) {
+      const dist = Math.abs(def.x - shooter.x);
+      if (dist < closestDist) closestDist = dist;
+    }
+    return closestDist;
+  }
+
+  endGame() {
+    this.gameOver = true;
+    this.time.timeScale = 1; // Reset any active hit-stop
+
+    // Freeze all entities
+    const allEntities = [...this.players, ...this.opponents];
+    for (const entity of allEntities) {
+      entity.body.setVelocity(0, 0);
+      entity.body.setAllowGravity(false);
+    }
+    this.ball.body.setVelocity(0, 0);
+    this.ball.body.setAllowGravity(false);
+
+    // Timer shows 0:00
+    this.timerText.setText('0:00');
+    this.timerText.setColor('#ff0000');
+
+    // "GAME OVER" center popup
+    this.showCenterFeedback('GAME OVER', '#ffd700');
+
+    // Determine winner
+    let winner;
+    if (this.score > this.opponentScore) {
+      winner = 'RED';
+    } else if (this.opponentScore > this.score) {
+      winner = 'PURPLE';
+    } else {
+      winner = 'TIE';
+    }
+
+    // Transition to GameOverScene after 1.5s
+    this.time.delayedCall(1500, () => {
+      this.scene.start('GameOverScene', {
+        winner,
+        score: { team1: this.score, team2: this.opponentScore }
+      });
+    });
+  }
+
+  activateBlessed(team) {
+    this.blessedTeam = team;
+
+    // Gold flash + screen shake
+    this.cameras.main.flash(200, 255, 215, 0);
+    this.cameras.main.shake(200, 0.01);
+
+    // Center feedback
+    this.showCenterFeedback('BLESSED!', '#ffd700');
+
+    // Show persistent indicator
+    this.blessedText.setText(team === 'red' ? 'RED BLESSED!' : 'PURPLE BLESSED!');
+    this.blessedText.setVisible(true);
+  }
+
+  deactivateBlessed() {
+    if (!this.blessedTeam) return;
+    const team = this.blessedTeam;
+    this.blessedTeam = null;
+
+    // Reset streak for the team that lost BLESSED
+    if (team === 'red') this.redStreak = 0;
+    else this.purpleStreak = 0;
+
+    // Hide indicator
+    this.blessedText.setVisible(false);
+  }
+
+  // Center-screen feedback text (for blocks, goaltends, contested shots)
+  showCenterFeedback(text, color) {
+    const popup = this.add.text(640, 280, text, {
+      fontSize: '64px',
+      fontFamily: 'Arial Black',
+      color: color,
+      stroke: '#000000',
+      strokeThickness: 6
+    }).setOrigin(0.5).setScrollFactor(0);
+
+    this.tweens.add({
+      targets: popup,
+      alpha: 0,
+      y: 220,
+      scale: 1.2,
+      duration: 800,
+      onComplete: () => popup.destroy()
+    });
+  }
+
+  makeBallLoose(fromEntity = null) {
+    this.ballState = 'LOOSE';
+    this.ballOwner = null;
     this.ball.body.setAllowGravity(true);
-    // Give it a slight random velocity
+    this.ball.body.setDrag(50, 0); // Drag only on loose balls
     const randomVelX = (Math.random() - 0.5) * 100;
     this.ball.body.setVelocity(randomVelX, -50);
-    this.ballPickupCooldown = 10; // Short cooldown so it's a race
+    this.ballPickupCooldown = 10;
   }
 
   showFeedback(text, color) {

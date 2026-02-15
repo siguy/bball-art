@@ -23,8 +23,8 @@ async function injectHelpers(page) {
         return {
           playerX: activePlayer?.x,
           playerY: activePlayer?.y,
-          hasBall: scene.ballCarrier != null, // true if any red player has ball
-          opponentHasBall: scene.opponentHasBall,
+          hasBall: scene.ballState === 'CARRIED' && scene.players.includes(scene.ballOwner),
+          opponentHasBall: scene.ballState === 'CARRIED' && scene.opponents.includes(scene.ballOwner),
           isDunking: scene.isDunking,
           score: scene.score,
           onGround: activePlayer?.body?.blocked?.down,
@@ -37,10 +37,9 @@ async function injectHelpers(page) {
       giveBallToPlayer: () => {
         const scene = window.__test.getScene();
         if (!scene) return false;
-        scene.opponentHasBall = false;
-        // Give ball to active player
         const activePlayer = scene.players ? scene.players[scene.activePlayerIndex] : scene.player;
-        scene.ballCarrier = activePlayer;
+        scene.ballState = 'CARRIED';
+        scene.ballOwner = activePlayer;
         scene.ball.body.setVelocity(0, 0);
         scene.ball.body.setAllowGravity(false);
         return true;

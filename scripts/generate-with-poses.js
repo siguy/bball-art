@@ -43,7 +43,7 @@ const __dirname = dirname(__filename);
 // Parse arguments
 const args = minimist(process.argv.slice(2), {
   string: ['series', 'player-pose', 'figure-pose', 'hair'],
-  boolean: ['list-poses', 'show-hints', 'dry-run', 'help'],
+  boolean: ['list-poses', 'show-hints', 'dry-run', 'draft', 'help'],
   alias: { h: 'help' },
 });
 
@@ -235,6 +235,10 @@ const cmdArgs = [
   '--player-pose', char1PoseId,
   '--figure-pose', char2PoseId,
 ];
+
+if (args.draft) {
+  cmdArgs.push('--draft');
+}
 
 if (args['dry-run']) {
   console.log('\n=== DRY RUN ===\n');

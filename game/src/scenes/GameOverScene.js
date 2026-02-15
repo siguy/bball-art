@@ -21,10 +21,15 @@ export default class GameOverScene extends Phaser.Scene {
         const team1Color = '#e63946';
         const team2Color = '#7b2cbf';
 
-        // Determine winner color
-        const winnerColor = this.winner.includes('1') || this.winner.toLowerCase().includes('red')
-            ? team1Color
-            : team2Color;
+        // Determine winner display
+        let winnerText, winnerColor;
+        if (this.winner === 'TIE') {
+            winnerText = "IT'S A TIE!";
+            winnerColor = '#ffd700';
+        } else {
+            winnerText = `${this.winner} WINS!`;
+            winnerColor = this.winner === 'RED' ? team1Color : team2Color;
+        }
 
         // "GAME OVER" title
         this.add.text(width / 2, height / 4, 'GAME OVER', {
@@ -36,7 +41,7 @@ export default class GameOverScene extends Phaser.Scene {
         }).setOrigin(0.5);
 
         // Winner announcement
-        this.add.text(width / 2, height / 2 - 40, `${this.winner.toUpperCase()} WINS!`, {
+        this.add.text(width / 2, height / 2 - 40, winnerText, {
             fontFamily: 'Arial Black, Arial, sans-serif',
             fontSize: '48px',
             color: winnerColor,
@@ -53,13 +58,13 @@ export default class GameOverScene extends Phaser.Scene {
         }).setOrigin(0.5);
 
         // Team score labels with colors
-        this.add.text(width / 2 - 80, height / 2 + 100, 'TEAM 1', {
+        this.add.text(width / 2 - 80, height / 2 + 100, 'RED', {
             fontFamily: 'Arial Black, Arial, sans-serif',
             fontSize: '24px',
             color: team1Color
         }).setOrigin(0.5);
 
-        this.add.text(width / 2 + 80, height / 2 + 100, 'TEAM 2', {
+        this.add.text(width / 2 + 80, height / 2 + 100, 'PURPLE', {
             fontFamily: 'Arial Black, Arial, sans-serif',
             fontSize: '24px',
             color: team2Color
