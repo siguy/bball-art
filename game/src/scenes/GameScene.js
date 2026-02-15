@@ -645,9 +645,9 @@ export default class GameScene extends Phaser.Scene {
     if (this.stealCooldown > 0) this.stealCooldown--;
     if (this.shoveCooldown > 0) this.shoveCooldown--;
 
-    // Steal/Shove: Down Arrow or touch button A (when on defense)
+    // Steal/Shove: Down Arrow or touch button A (when close to opponent)
     const stealKeyDown = this.cursors.down.isDown;
-    const touchSteal = btnAJustDown && opponentHasBall;
+    const touchSteal = btnAJustDown && closeToOpponent && opponentHasBall;
     if ((stealKeyDown && !this.stealKeyPressed || touchSteal) && !isStunned) {
       this.stealKeyPressed = true;
 
@@ -694,10 +694,11 @@ export default class GameScene extends Phaser.Scene {
       this.passBall(activePlayer);
     }
 
-    // === JUMP / SHOOT ===
+    // === JUMP / SHOOT / BLOCK ===
     // Keyboard: Space to jump, release in air to shoot
-    // Touch: Button A (on offense) = jump + auto-shoot at apex
-    const jumpPressed = this.spaceKey.isDown || (btnAJustDown && activeHasBall && !opponentHasBall);
+    // Touch button A: offense = jump + auto-shoot, defense (not close) = jump to block
+    const touchJump = btnAJustDown && (activeHasBall || !closeToOpponent);
+    const jumpPressed = this.spaceKey.isDown || touchJump;
     if (jumpPressed && onGround && !this.jumpedThisPress && !isStunned) {
       this.jumpedThisPress = true; // Prevent multiple jumps
       const isTurbo = activePlayer.turboActive;
@@ -960,9 +961,12 @@ export default class GameScene extends Phaser.Scene {
         const isTurbo = activePlayer.turboActive;
         this.btnALabel.setText(inDunkRange && isTurbo ? 'DUNK' : 'SHOOT');
         this.btnBLabel.setText('PASS');
-      } else {
+      } else if (closeToOpponent) {
         const isTurbo = activePlayer.turboActive;
         this.btnALabel.setText(isTurbo ? 'SHOVE' : 'STEAL');
+        this.btnBLabel.setText('SWITCH');
+      } else {
+        this.btnALabel.setText('BLOCK');
         this.btnBLabel.setText('SWITCH');
       }
 
