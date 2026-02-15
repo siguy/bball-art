@@ -148,6 +148,10 @@ export default class GameScene extends Phaser.Scene {
     // Block detection timing
     this.ballFlightTime = 0; // Frames since ball became IN_FLIGHT
 
+    // Ball trail (last N positions for visual trail when IN_FLIGHT)
+    this.ballTrail = [];
+    this.ballTrailGraphics = this.add.graphics();
+
     // Collisions
     this.physics.add.collider(this.player, this.floor);
     this.physics.add.collider(this.teammate, this.floor);
@@ -362,6 +366,9 @@ export default class GameScene extends Phaser.Scene {
     this.score += 2;
     this.scoreText.setText('RED: ' + this.score);
 
+    // === GAME JUICE: Score flash ===
+    this.cameras.main.flash(150, 255, 255, 255, false, null, this);
+
     const scorePopup = this.add.text(640, 300, 'SCORE!', {
       fontSize: '72px',
       fontFamily: 'Arial',
@@ -403,6 +410,9 @@ export default class GameScene extends Phaser.Scene {
 
     this.opponentScore += 2;
     this.opponentScoreText.setText('PURPLE: ' + this.opponentScore);
+
+    // === GAME JUICE: Score flash ===
+    this.cameras.main.flash(150, 200, 100, 255, false, null, this);
 
     const scorePopup = this.add.text(640, 300, 'OPPONENT SCORES!', {
       fontSize: '56px',
@@ -714,6 +724,21 @@ export default class GameScene extends Phaser.Scene {
       const fillColor = entity.turboActive ? 0xffff00 : 0xaaaaaa;
       this.turboGraphics.fillStyle(fillColor, 1);
       this.turboGraphics.fillRect(x, y, barWidth * (entity.turboMeter / 100), barHeight);
+    }
+
+    // === BALL TRAIL ===
+    this.ballTrailGraphics.clear();
+    if (this.ballState === 'IN_FLIGHT') {
+      this.ballTrail.push({ x: this.ball.x, y: this.ball.y });
+      if (this.ballTrail.length > 8) this.ballTrail.shift();
+      for (let i = 0; i < this.ballTrail.length; i++) {
+        const alpha = (i / this.ballTrail.length) * 0.4;
+        const radius = 4 + (i / this.ballTrail.length) * 6;
+        this.ballTrailGraphics.fillStyle(0xffa500, alpha);
+        this.ballTrailGraphics.fillCircle(this.ballTrail[i].x, this.ballTrail[i].y, radius);
+      }
+    } else {
+      this.ballTrail.length = 0;
     }
 
     // === BLOCK DETECTION ===
@@ -1170,6 +1195,11 @@ export default class GameScene extends Phaser.Scene {
     this.ballPickupCooldown = 60;
     this.scoringInProgress = true;
 
+    // === GAME JUICE: Dunk ===
+    this.cameras.main.shake(200, 0.01);
+    this.time.timeScale = 0.3;
+    this.time.delayedCall(100, () => { this.time.timeScale = 1; });
+
     // Score NOW when ball is slammed through
     this.score += 2;
     this.scoreText.setText('RED: ' + this.score);
@@ -1216,6 +1246,11 @@ export default class GameScene extends Phaser.Scene {
     this.ball.body.setAllowGravity(true);
     this.ballPickupCooldown = 60;
     this.scoringInProgress = true;
+
+    // === GAME JUICE: Dunk ===
+    this.cameras.main.shake(200, 0.01);
+    this.time.timeScale = 0.3;
+    this.time.delayedCall(100, () => { this.time.timeScale = 1; });
 
     // Score for purple team
     this.opponentScore += 2;
@@ -1457,6 +1492,9 @@ export default class GameScene extends Phaser.Scene {
     this.ball.body.setAllowGravity(true);
     this.ball.body.setVelocity(-pushDirection * 150, -100);
 
+    // === GAME JUICE: Shove ===
+    this.cameras.main.shake(80, 0.005);
+
     // Show SHOVE! text
     const shoveText = this.add.text(640, 280, 'SHOVE!', {
       fontSize: '64px',
@@ -1561,6 +1599,11 @@ export default class GameScene extends Phaser.Scene {
       this.ball.body.setDrag(50, 0);
       this.ball.body.setVelocity(awayFromBlocker, -200);
       this.ballPickupCooldown = 15;
+
+      // === GAME JUICE: Block ===
+      this.cameras.main.shake(100, 0.008);
+      this.time.timeScale = 0.5;
+      this.time.delayedCall(80, () => { this.time.timeScale = 1; });
 
       // "REJECTED!" popup
       this.showCenterFeedback('REJECTED!', '#ff0000');
