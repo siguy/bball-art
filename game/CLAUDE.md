@@ -4,19 +4,16 @@ Part of **Court & Covenant** - NBA Jam-style basketball game pairing NBA legends
 
 ## Progress Tracking
 
-**Active plan:** `~/.claude/plans/holy-hoops-experimental.md` (100% complete)
-**Branch:** `feat/experimental-gameplay`
-**Worktree:** `/Users/simonbrief/bball-art-experimental/`
+**Active plan:** `~/.claude/plans/holy-hoops-game.md`
+**Branch:** `feat/draft-mode`
 
-| Phase | Status |
+| Build | Status |
 |-------|--------|
-| Phase 1: Ball State Machine | ✅ Complete |
-| Phase 2: Stun Timer + Loose Ball Physics | ✅ Complete |
-| Phase 3: Turbo System | ✅ Complete |
-| Phase 4: Blocking + Defensive Pressure | ✅ Complete |
-| Phase 5: Game Juice | ✅ Complete |
-| Phase 6: Integration + Polish | ✅ Complete |
-| Phase 7: Touch Controls (Mobile/iPad) | ✅ Complete |
+| BUILD 1: One Player Scores | ✅ Complete (Steps 1-8) |
+| BUILD 2: Full 2v2 Game | ✅ Complete (Steps 9-10, experimental refactor) |
+| BUILD 3: Polish & iPad | 🟡 Touch controls done, timer + BLESSED! remaining |
+
+**Experimental refactor (merged):** Ball state machine, stun/cooldown, turbo, blocking, game juice, touch controls — all merged from `feat/experimental-gameplay`.
 
 ## Quick Start
 
