@@ -57,11 +57,16 @@ export default class GameScene extends Phaser.Scene {
     this.opponent.defendTarget = this.player;
     this.opponent2.defendTarget = this.teammate;
 
-    // AI steal cooldown per opponent
+    // Per-entity state (stun, cooldown, AI)
+    const allEntities = [...this.players, ...this.opponents];
+    for (const entity of allEntities) {
+      entity.stunTimer = 0;       // Frames where entity cannot act
+      entity.pickupCooldown = 0;  // Per-entity ball pickup cooldown
+    }
+
+    // AI-specific per-opponent state
     this.opponent.aiStealCooldown = 0;
     this.opponent2.aiStealCooldown = 0;
-
-    // AI defend sway timer (per opponent)
     this.opponent.aiSwayTimer = 0;
     this.opponent2.aiSwayTimer = Math.PI; // Offset so they don't sync
 
@@ -136,6 +141,7 @@ export default class GameScene extends Phaser.Scene {
     this.physics.add.existing(this.ball);
     this.ball.body.setCircle(12);
     this.ball.body.setBounce(0.6);
+    this.ball.body.setDrag(50, 0); // Air resistance on loose ball (x only)
     this.ball.body.setCollideWorldBounds(true);
     this.ball.body.setAllowGravity(false);
 
@@ -318,6 +324,10 @@ export default class GameScene extends Phaser.Scene {
     if (this.ballState === 'CARRIED' || this.isDunking || this.ballPickupCooldown > 0) {
       return;
     }
+    // Per-entity checks: stunned or on cooldown
+    if (entity.stunTimer > 0 || entity.pickupCooldown > 0) {
+      return;
+    }
     this.ballState = 'CARRIED';
     this.ballOwner = entity;
     this.ball.body.setVelocity(0, 0);
@@ -436,6 +446,7 @@ export default class GameScene extends Phaser.Scene {
     const activePlayer = this.players[this.activePlayerIndex];
     const onGround = activePlayer.body.blocked.down;
     const speed = 250;
+    const isStunned = activePlayer.stunTimer > 0;
 
     // Check dunk range (can dunk from 200px before hoop to 50px past it)
     const distToHoop = 1270 - activePlayer.x;
@@ -520,7 +531,7 @@ export default class GameScene extends Phaser.Scene {
 
     // Steal/Shove key: Down Arrow (only trigger once per press)
     const stealKeyDown = this.cursors.down.isDown;
-    if (stealKeyDown && !this.stealKeyPressed) {
+    if (stealKeyDown && !this.stealKeyPressed && !isStunned) {
       this.stealKeyPressed = true;
 
       if (closeToOpponent && opponentHasBall) {
@@ -550,18 +561,20 @@ export default class GameScene extends Phaser.Scene {
     }
     const ai1 = this.opponent.aiState ? this.opponent.aiState[0] : '?'; // First letter
     const ai2 = this.opponent2.aiState ? this.opponent2.aiState[0] : '?';
+    const stunP = activePlayer.stunTimer > 0 ? ` STUN:${activePlayer.stunTimer}` : '';
+    const cdP = activePlayer.pickupCooldown > 0 ? ` CD:${activePlayer.pickupCooldown}` : '';
     this.debugText.setText(
       `Ball: ${ballStatus} | AI: ${ai1}/${ai2} | ` +
-      `DistOpp: ${Math.round(distToOpponent)} | StealCD: ${this.stealCooldown} | ShoveCD: ${this.shoveCooldown}`
+      `DistOpp: ${Math.round(distToOpponent)} | StealCD: ${this.stealCooldown} | ShoveCD: ${this.shoveCooldown}${stunP}${cdP}`
     );
 
     // === PASS (E key) ===
-    if (Phaser.Input.Keyboard.JustDown(this.passKey) && activeHasBall) {
+    if (Phaser.Input.Keyboard.JustDown(this.passKey) && activeHasBall && !isStunned) {
       this.passBall(activePlayer);
     }
 
     // === JUMP (only when on ground, only once per press) ===
-    if (this.spaceKey.isDown && onGround && !this.jumpedThisPress) {
+    if (this.spaceKey.isDown && onGround && !this.jumpedThisPress && !isStunned) {
       this.jumpedThisPress = true; // Prevent multiple jumps
       if (inDunkRange && activeHasBall) {
         // DUNK - boosted jump toward hoop
@@ -580,12 +593,14 @@ export default class GameScene extends Phaser.Scene {
     }
 
     // === SHOOT (release in air, not dunking) ===
-    if (Phaser.Input.Keyboard.JustUp(this.spaceKey) && !onGround && activeHasBall && !this.isDunking) {
+    if (Phaser.Input.Keyboard.JustUp(this.spaceKey) && !onGround && activeHasBall && !this.isDunking && !isStunned) {
       this.shootBall(activePlayer);
     }
 
-    // === MOVEMENT ===
-    if (this.isDunking && this.dunkingPlayer === activePlayer) {
+    // === MOVEMENT (skip if stunned — stun tick handles stopping) ===
+    if (isStunned) {
+      // No movement while stunned
+    } else if (this.isDunking && this.dunkingPlayer === activePlayer) {
       // During dunk: allow slight adjustments but don't fully override
       const currentVelX = activePlayer.body.velocity.x;
       if (this.cursors.left.isDown || this.wasd.left.isDown) {
@@ -639,7 +654,24 @@ export default class GameScene extends Phaser.Scene {
       }
     }
 
-    // Decrement ball pickup cooldown
+    // Decrement per-entity stun timers and pickup cooldowns
+    const allEntities = [...this.players, ...this.opponents];
+    for (const entity of allEntities) {
+      if (entity.stunTimer > 0) {
+        entity.stunTimer--;
+        // Stun visual: flash entity visibility every 4 frames
+        entity.setAlpha(Math.floor(entity.stunTimer / 4) % 2 === 0 ? 0.3 : 1.0);
+        // Stunned entities can't move
+        if (entity.body.blocked.down) {
+          entity.body.setVelocityX(0);
+        }
+      } else {
+        entity.setAlpha(1.0);
+      }
+      if (entity.pickupCooldown > 0) entity.pickupCooldown--;
+    }
+
+    // Decrement global ball pickup cooldown (for scoring animations)
     if (this.ballPickupCooldown > 0) {
       this.ballPickupCooldown--;
     }
@@ -718,6 +750,9 @@ export default class GameScene extends Phaser.Scene {
     for (const opp of this.opponents) {
       // Decrement per-opponent steal cooldown
       if (opp.aiStealCooldown > 0) opp.aiStealCooldown--;
+
+      // Stunned opponents skip all AI behavior
+      if (opp.stunTimer > 0) continue;
 
       // State transitions
       if (this.ballOwner === opp) {
@@ -832,12 +867,13 @@ export default class GameScene extends Phaser.Scene {
     if (Math.random() < 0.25) {
       this.ball.x = target.x;
       this.ball.y = target.y - 30;
+      target.stunTimer = 15;          // Brief stumble
+      target.pickupCooldown = 45;     // Can't re-grab quickly
       const toOpp = opponent.x - this.ball.x;
       this.ballState = 'LOOSE';
       this.ballOwner = null;
       this.ball.body.setAllowGravity(true);
       this.ball.body.setVelocity(toOpp > 0 ? 150 : -150, -100);
-      this.ballPickupCooldown = 30;
       this.showFeedback('STOLEN!', '#cc66ff');
     }
   }
@@ -992,7 +1028,7 @@ export default class GameScene extends Phaser.Scene {
     this.ballState = 'IN_FLIGHT';
     this.lastThrower = player;
     this.ballOwner = null;
-    this.ballPickupCooldown = 30;
+    player.pickupCooldown = 30; // Shooter can't re-grab their own shot
     this.ball.body.setAllowGravity(true);
 
     const hoopX = targetHoopX;
@@ -1046,7 +1082,7 @@ export default class GameScene extends Phaser.Scene {
     this.ballState = 'IN_FLIGHT';
     this.lastThrower = opponent;
     this.ballOwner = null;
-    this.ballPickupCooldown = 30;
+    opponent.pickupCooldown = 30; // Shooter can't re-grab
     this.ball.body.setAllowGravity(true);
 
     const hoopX = 210; // Left hoop
@@ -1107,13 +1143,14 @@ export default class GameScene extends Phaser.Scene {
       if (target) {
         this.ball.x = target.x;
         this.ball.y = target.y - 30;
+        target.stunTimer = 15;        // Brief stumble
+        target.pickupCooldown = 45;   // Can't re-grab quickly
       }
       this.ballState = 'LOOSE';
       this.ballOwner = null;
       this.ball.body.setAllowGravity(true);
       const toPlayer = activePlayer.x - this.ball.x;
       this.ball.body.setVelocity(toPlayer > 0 ? 150 : -150, -100);
-      this.ballPickupCooldown = 30;
 
       // Show STEAL! text
       const stealText = this.add.text(640, 280, 'STEAL!', {
@@ -1148,6 +1185,10 @@ export default class GameScene extends Phaser.Scene {
     this.ballOwner = null;
     this.shoveCooldown = 60;
 
+    // Stun the shoved opponent
+    target.stunTimer = 60;          // 1 second stun
+    target.pickupCooldown = 60;     // Can't grab during stun
+
     // Drop ball at opponent's CURRENT position before pushing them away
     this.ball.x = target.x;
     this.ball.y = target.y - 30;
@@ -1157,15 +1198,14 @@ export default class GameScene extends Phaser.Scene {
     const pushDirection = activePlayer.x < target.x ? 1 : -1;
     const newOpponentX = Phaser.Math.Clamp(
       target.x + (pushDirection * 100),
-      40, // Left bound (half opponent width)
-      1430 // Right bound (1570 - 40)
+      40,
+      1430
     );
     target.x = newOpponentX;
 
     // Ball pops toward the player who shoved
     this.ball.body.setAllowGravity(true);
     this.ball.body.setVelocity(-pushDirection * 150, -100);
-    this.ballPickupCooldown = 30;
 
     // Show SHOVE! text
     const shoveText = this.add.text(640, 280, 'SHOVE!', {
