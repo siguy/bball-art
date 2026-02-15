@@ -27,6 +27,9 @@ const config = {
         mode: Phaser.Scale.FIT,
         autoCenter: Phaser.Scale.CENTER_BOTH
     },
+    input: {
+        activePointers: 3 // Support joystick + 2 buttons simultaneously
+    },
     scene: [BootScene, MenuScene, GameScene, GameOverScene]
 };
 

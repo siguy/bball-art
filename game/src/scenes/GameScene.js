@@ -317,13 +317,17 @@ export default class GameScene extends Phaser.Scene {
     }).setOrigin(1, 0).setScrollFactor(0);
 
     // Controls hint (fixed to screen, centered between scores at top)
-    this.add.text(640, 28, 'WASD = Move | SPACE = Jump/Shoot | SHIFT = Turbo | TAB = Switch | E = Pass | DOWN = Steal', {
+    // Only show keyboard controls on non-touch devices
+    this.isTouchDevice = this.sys.game.device.input.touch;
+    this.controlsHint = this.add.text(640, 28,
+      'WASD = Move | SPACE = Jump/Shoot | SHIFT = Turbo | TAB = Switch | E = Pass | DOWN = Steal', {
       fontSize: '14px',
       fontFamily: 'Arial',
       color: '#ffff00',
       stroke: '#000000',
       strokeThickness: 2
     }).setOrigin(0.5).setScrollFactor(0);
+    if (this.isTouchDevice) this.controlsHint.setVisible(false);
 
     // Debug (hidden by default, toggle with backtick key)
     this.debugMode = false;
@@ -339,6 +343,94 @@ export default class GameScene extends Phaser.Scene {
     // Start following the active player with smooth lerp
     this.cameraTarget = this.players[this.activePlayerIndex];
     this.cameras.main.startFollow(this.cameraTarget, true, 0.08, 0.08);
+
+    // === TOUCH CONTROLS ===
+    if (this.isTouchDevice) {
+      this.setupTouchControls();
+    }
+  }
+
+  setupTouchControls() {
+    // Touch state
+    this.touchInput = {
+      moveX: 0,        // -1 to 1 (left/right)
+      turbo: false,     // joystick pushed far enough
+      joystickActive: false,
+      joystickId: null, // pointer ID tracking the joystick
+      joystickOrigin: { x: 0, y: 0 },
+    };
+
+    // Graphics layers (fixed to camera)
+    this.touchGfx = this.add.graphics().setScrollFactor(0).setDepth(100);
+
+    // Button A: SHOOT/STEAL (large, bottom-right)
+    const btnAx = 1180, btnAy = 620, btnAr = 45;
+    this.btnA = this.add.circle(btnAx, btnAy, btnAr, 0xffffff, 0.15)
+      .setScrollFactor(0).setDepth(100).setInteractive();
+    this.btnALabel = this.add.text(btnAx, btnAy, 'SHOOT', {
+      fontSize: '16px', fontFamily: 'Arial', color: '#ffffff',
+      stroke: '#000000', strokeThickness: 3
+    }).setOrigin(0.5).setScrollFactor(0).setDepth(101);
+    this.btnADown = false;
+
+    // Button B: PASS/SWITCH (smaller, above-left of A)
+    const btnBx = 1090, btnBy = 550, btnBr = 35;
+    this.btnB = this.add.circle(btnBx, btnBy, btnBr, 0xffffff, 0.15)
+      .setScrollFactor(0).setDepth(100).setInteractive();
+    this.btnBLabel = this.add.text(btnBx, btnBy, 'PASS', {
+      fontSize: '14px', fontFamily: 'Arial', color: '#ffffff',
+      stroke: '#000000', strokeThickness: 3
+    }).setOrigin(0.5).setScrollFactor(0).setDepth(101);
+    this.btnBDown = false;
+
+    // Button press handlers
+    this.btnA.on('pointerdown', () => { this.btnADown = true; });
+    this.btnA.on('pointerup', () => { this.btnADown = false; });
+    this.btnA.on('pointerout', () => { this.btnADown = false; });
+
+    this.btnB.on('pointerdown', () => { this.btnBDown = true; });
+    this.btnB.on('pointerup', () => { this.btnBDown = false; });
+    this.btnB.on('pointerout', () => { this.btnBDown = false; });
+
+    // Joystick: track any pointer on the left half of screen
+    this.input.on('pointerdown', (pointer) => {
+      // Ignore if this pointer is on a button (right side, specific area)
+      const gameX = pointer.x / this.cameras.main.zoom;
+      if (gameX > 900) return; // Right side reserved for buttons
+
+      if (!this.touchInput.joystickActive) {
+        this.touchInput.joystickActive = true;
+        this.touchInput.joystickId = pointer.id;
+        this.touchInput.joystickOrigin.x = pointer.x;
+        this.touchInput.joystickOrigin.y = pointer.y;
+      }
+    });
+
+    this.input.on('pointermove', (pointer) => {
+      if (this.touchInput.joystickActive && pointer.id === this.touchInput.joystickId) {
+        const dx = pointer.x - this.touchInput.joystickOrigin.x;
+        const dist = Math.abs(dx);
+        const maxDist = 60;
+
+        // Normalize to -1..1
+        this.touchInput.moveX = Phaser.Math.Clamp(dx / maxDist, -1, 1);
+        // Turbo when pushed far
+        this.touchInput.turbo = dist > 40;
+      }
+    });
+
+    this.input.on('pointerup', (pointer) => {
+      if (this.touchInput.joystickActive && pointer.id === this.touchInput.joystickId) {
+        this.touchInput.joystickActive = false;
+        this.touchInput.joystickId = null;
+        this.touchInput.moveX = 0;
+        this.touchInput.turbo = false;
+      }
+    });
+
+    // Track previous button states for "just pressed" detection
+    this.prevBtnA = false;
+    this.prevBtnB = false;
   }
 
   // Unified ball pickup — works for any entity (player or opponent)
@@ -461,9 +553,20 @@ export default class GameScene extends Phaser.Scene {
       this.leftScoreExit.setAlpha(this.debugMode ? 0.3 : 0);
     }
 
-    // Tab key switches active player
-    if (Phaser.Input.Keyboard.JustDown(this.tabKey)) {
-      // Stop the current player before switching
+    // === UNIFIED INPUT (keyboard + touch) ===
+    const touch = this.isTouchDevice && this.touchInput;
+    const btnAJustDown = touch && this.btnADown && !this.prevBtnA;
+    const btnAJustUp = touch && !this.btnADown && this.prevBtnA;
+    const btnBJustDown = touch && this.btnBDown && !this.prevBtnB;
+    if (touch) {
+      this.prevBtnA = this.btnADown;
+      this.prevBtnB = this.btnBDown;
+    }
+
+    // Tab / Switch: keyboard or touch button B (on defense)
+    const switchJustPressed = Phaser.Input.Keyboard.JustDown(this.tabKey)
+      || (btnBJustDown && !(this.ballOwner && this.players.includes(this.ballOwner)));
+    if (switchJustPressed) {
       const currentPlayer = this.players[this.activePlayerIndex];
       if (currentPlayer.body.blocked.down) {
         currentPlayer.body.setVelocityX(0);
@@ -542,9 +645,10 @@ export default class GameScene extends Phaser.Scene {
     if (this.stealCooldown > 0) this.stealCooldown--;
     if (this.shoveCooldown > 0) this.shoveCooldown--;
 
-    // Steal/Shove key: Down Arrow (only trigger once per press)
+    // Steal/Shove: Down Arrow or touch button A (when on defense)
     const stealKeyDown = this.cursors.down.isDown;
-    if (stealKeyDown && !this.stealKeyPressed && !isStunned) {
+    const touchSteal = btnAJustDown && opponentHasBall;
+    if ((stealKeyDown && !this.stealKeyPressed || touchSteal) && !isStunned) {
       this.stealKeyPressed = true;
 
       if (closeToOpponent && opponentHasBall) {
@@ -584,13 +688,17 @@ export default class GameScene extends Phaser.Scene {
       `Turbo: ${turbo}/${tmTurbo} | StealCD: ${this.stealCooldown}${stunP}`
     );
 
-    // === PASS (E key) ===
-    if (Phaser.Input.Keyboard.JustDown(this.passKey) && activeHasBall && !isStunned) {
+    // === PASS (E key or touch button B on offense) ===
+    const passJust = Phaser.Input.Keyboard.JustDown(this.passKey) || (btnBJustDown && activeHasBall);
+    if (passJust && activeHasBall && !isStunned) {
       this.passBall(activePlayer);
     }
 
-    // === JUMP (only when on ground, only once per press) ===
-    if (this.spaceKey.isDown && onGround && !this.jumpedThisPress && !isStunned) {
+    // === JUMP / SHOOT ===
+    // Keyboard: Space to jump, release in air to shoot
+    // Touch: Button A (on offense) = jump + auto-shoot at apex
+    const jumpPressed = this.spaceKey.isDown || (btnAJustDown && activeHasBall && !opponentHasBall);
+    if (jumpPressed && onGround && !this.jumpedThisPress && !isStunned) {
       this.jumpedThisPress = true; // Prevent multiple jumps
       const isTurbo = activePlayer.turboActive;
       if (inDunkRange && activeHasBall && isTurbo) {
@@ -601,35 +709,50 @@ export default class GameScene extends Phaser.Scene {
         // Normal or turbo jump (turbo = higher)
         activePlayer.body.setVelocityY(isTurbo ? -700 : -550);
         this.isDunking = false;
+
+        // Touch auto-shoot: schedule release at apex (~0.4s)
+        if (touch && activeHasBall) {
+          this.time.delayedCall(400, () => {
+            if (this.ballOwner === activePlayer && !this.isDunking) {
+              this.shootBall(activePlayer);
+            }
+          });
+        }
       }
     }
 
     // Reset jump flag when space is released
-    if (!this.spaceKey.isDown) {
+    if (!this.spaceKey.isDown && !this.btnADown) {
       this.jumpedThisPress = false;
     }
 
-    // === SHOOT (release in air, not dunking) ===
+    // === SHOOT (release in air, not dunking) — keyboard only ===
     if (Phaser.Input.Keyboard.JustUp(this.spaceKey) && !onGround && activeHasBall && !this.isDunking && !isStunned) {
       this.shootBall(activePlayer);
     }
 
-    // === MOVEMENT (skip if stunned — stun tick handles stopping) ===
+    // === MOVEMENT (keyboard + touch joystick) ===
+    const kbLeft = this.cursors.left.isDown || this.wasd.left.isDown;
+    const kbRight = this.cursors.right.isDown || this.wasd.right.isDown;
+    const touchMoveX = touch ? this.touchInput.moveX : 0;
+    const moveLeft = kbLeft || touchMoveX < -0.2;
+    const moveRight = kbRight || touchMoveX > 0.2;
+
     if (isStunned) {
       // No movement while stunned
     } else if (this.isDunking && this.dunkingPlayer === activePlayer) {
       // During dunk: allow slight adjustments but don't fully override
       const currentVelX = activePlayer.body.velocity.x;
-      if (this.cursors.left.isDown || this.wasd.left.isDown) {
-        activePlayer.body.setVelocityX(currentVelX - 5); // Slight left adjustment
-      } else if (this.cursors.right.isDown || this.wasd.right.isDown) {
-        activePlayer.body.setVelocityX(currentVelX + 5); // Slight right adjustment
+      if (moveLeft) {
+        activePlayer.body.setVelocityX(currentVelX - 5);
+      } else if (moveRight) {
+        activePlayer.body.setVelocityX(currentVelX + 5);
       }
     } else if (!this.isDunking || this.dunkingPlayer !== activePlayer) {
-      // Normal movement (only if active player is not dunking)
-      if (this.cursors.left.isDown || this.wasd.left.isDown) {
+      // Normal movement
+      if (moveLeft) {
         activePlayer.body.setVelocityX(-speed);
-      } else if (this.cursors.right.isDown || this.wasd.right.isDown) {
+      } else if (moveRight) {
         activePlayer.body.setVelocityX(speed);
       } else if (onGround) {
         // Only stop when on ground (preserve air momentum)
@@ -689,8 +812,8 @@ export default class GameScene extends Phaser.Scene {
     }
 
     // === TURBO SYSTEM ===
-    // Player turbo: hold Shift to activate
-    const turboHeld = this.shiftKey.isDown;
+    // Player turbo: hold Shift (keyboard) or push joystick far (touch)
+    const turboHeld = this.shiftKey.isDown || (touch && this.touchInput.turbo);
     for (const p of this.players) {
       if (p === activePlayer && turboHeld && p.turboMeter > 0 && !isStunned) {
         p.turboActive = true;
@@ -808,6 +931,45 @@ export default class GameScene extends Phaser.Scene {
 
     // Update AI for all opponents
     this.updateAI();
+
+    // === TOUCH CONTROLS RENDERING ===
+    if (this.isTouchDevice && this.touchGfx) {
+      this.touchGfx.clear();
+
+      // Draw joystick if active
+      if (this.touchInput.joystickActive) {
+        const ox = this.touchInput.joystickOrigin.x;
+        const oy = this.touchInput.joystickOrigin.y;
+        const thumbX = ox + this.touchInput.moveX * 60;
+
+        // Outer ring
+        this.touchGfx.lineStyle(2, 0xffffff, 0.3);
+        this.touchGfx.strokeCircle(ox, oy, 60);
+        // Turbo threshold ring
+        this.touchGfx.lineStyle(1, 0xffff00, 0.2);
+        this.touchGfx.strokeCircle(ox, oy, 40);
+        // Thumb
+        const thumbColor = this.touchInput.turbo ? 0xffff00 : 0xffffff;
+        this.touchGfx.fillStyle(thumbColor, 0.5);
+        this.touchGfx.fillCircle(thumbX, oy, 20);
+      }
+
+      // Update button labels based on game state
+      const hasball = this.ballOwner && this.players.includes(this.ballOwner);
+      if (hasball) {
+        const isTurbo = activePlayer.turboActive;
+        this.btnALabel.setText(inDunkRange && isTurbo ? 'DUNK' : 'SHOOT');
+        this.btnBLabel.setText('PASS');
+      } else {
+        const isTurbo = activePlayer.turboActive;
+        this.btnALabel.setText(isTurbo ? 'SHOVE' : 'STEAL');
+        this.btnBLabel.setText('SWITCH');
+      }
+
+      // Highlight buttons when pressed
+      this.btnA.setFillStyle(0xffffff, this.btnADown ? 0.4 : 0.15);
+      this.btnB.setFillStyle(0xffffff, this.btnBDown ? 0.4 : 0.15);
+    }
   }
 
   // Teammate AI: inactive red player plays autonomously
