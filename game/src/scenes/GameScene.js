@@ -53,6 +53,25 @@ export default class GameScene extends Phaser.Scene {
     this.opponent.aiState = 'ATTACK'; // Starts with ball
     this.opponent2.aiState = 'DEFEND';
 
+    // Assign each opponent a defensive target (one per red player)
+    this.opponent.defendTarget = this.player;
+    this.opponent2.defendTarget = this.teammate;
+
+    // AI steal cooldown per opponent
+    this.opponent.aiStealCooldown = 0;
+    this.opponent2.aiStealCooldown = 0;
+
+    // AI defend sway timer (per opponent)
+    this.opponent.aiSwayTimer = 0;
+    this.opponent2.aiSwayTimer = Math.PI; // Offset so they don't sync
+
+    // Reset all input when tab loses focus (prevents stuck keys)
+    this.game.events.on('blur', () => {
+      this.input.keyboard.resetKeys();
+      const activePlayer = this.players[this.activePlayerIndex];
+      if (activePlayer.body) activePlayer.body.setVelocityX(0);
+    });
+
     // Movement keys
     this.cursors = this.input.keyboard.createCursorKeys();
     this.wasd = this.input.keyboard.addKeys({
@@ -95,6 +114,7 @@ export default class GameScene extends Phaser.Scene {
 
     // AI control
     this.aiPaused = false; // Set true to pause AI actions (for testing)
+    this.aiDunkingOpponent = null; // Track AI opponent currently dunking
 
     // Dribbling state
     this.dribbleTime = 0; // Counter for dribble animation
@@ -268,9 +288,9 @@ export default class GameScene extends Phaser.Scene {
       strokeThickness: 4
     }).setOrigin(1, 0).setScrollFactor(0);
 
-    // Controls hint (fixed to screen, centered on viewport)
-    this.add.text(640, 600, 'WASD = Move | SPACE = Jump/Shoot | TAB = Switch | E = Pass | DOWN = Steal', {
-      fontSize: '16px',
+    // Controls hint (fixed to screen, centered between scores at top)
+    this.add.text(640, 28, 'WASD = Move | SPACE = Jump/Shoot | TAB = Switch | E = Pass | DOWN = Steal', {
+      fontSize: '14px',
       fontFamily: 'Arial',
       color: '#ffff00',
       stroke: '#000000',
@@ -486,11 +506,10 @@ export default class GameScene extends Phaser.Scene {
     const inactiveOnGround = inactivePlayer.body.blocked.down;
     if (inactiveOnGround && (!this.isDunking || this.dunkingPlayer !== inactivePlayer)) {
       if (inactivePlayer.x < camLeft + margin) {
-        inactivePlayer.body.setVelocityX(200); // Run right to stay on screen
+        inactivePlayer.body.setVelocityX(200);
       } else if (inactivePlayer.x > camRight - margin) {
-        inactivePlayer.body.setVelocityX(-200); // Run left to stay on screen
+        inactivePlayer.body.setVelocityX(-200);
       } else {
-        // On screen - stop moving
         inactivePlayer.body.setVelocityX(0);
       }
     }
@@ -587,6 +606,14 @@ export default class GameScene extends Phaser.Scene {
       }
     }
 
+    // Ball follows AI dunker during dunk
+    if (this.aiDunkingOpponent) {
+      this.ball.x = this.aiDunkingOpponent.x;
+      this.ball.y = this.aiDunkingOpponent.y - 20;
+      this.ball.body.setVelocity(0, 0);
+      this.ball.body.setAllowGravity(false);
+    }
+
     // Ball follows opponent ball carrier with dribble animation
     if (this.opponentHasBall && this.opponentBallCarrier) {
       const carrier = this.opponentBallCarrier;
@@ -645,14 +672,23 @@ export default class GameScene extends Phaser.Scene {
     }
 
     // Check if dunking player reached the hoop during a dunk
-    if (this.isDunking && this.ballCarrier && this.dunkingPlayer) {
-      // Dunking player is near the rim horizontally (within 50px) and at/above rim height
-      const distFromRim = Math.abs(this.dunkingPlayer.x - 1250);
-      const nearRimX = distFromRim < 50;
-      const atRimHeight = this.dunkingPlayer.y < 400;
-
-      if (nearRimX && atRimHeight) {
-        this.completeDunk();
+    if (this.isDunking && this.dunkingPlayer) {
+      if (this.aiDunkingOpponent === this.dunkingPlayer) {
+        // AI dunk — target left hoop (rim at x=210)
+        const distFromRim = Math.abs(this.dunkingPlayer.x - 230);
+        const nearRimX = distFromRim < 50;
+        const atRimHeight = this.dunkingPlayer.y < 400;
+        if (nearRimX && atRimHeight) {
+          this.completeAIDunk();
+        }
+      } else if (this.ballCarrier) {
+        // Player dunk — target right hoop (rim at x=1270)
+        const distFromRim = Math.abs(this.dunkingPlayer.x - 1250);
+        const nearRimX = distFromRim < 50;
+        const atRimHeight = this.dunkingPlayer.y < 400;
+        if (nearRimX && atRimHeight) {
+          this.completeDunk();
+        }
       }
     }
 
@@ -665,6 +701,13 @@ export default class GameScene extends Phaser.Scene {
 
       // Reset dunking flag when landing (only if player was actually in the air during THIS dunk)
       if (dunkingOnGround && this.wasInAir) {
+        // If AI dunk missed the hoop, make ball loose
+        if (this.aiDunkingOpponent) {
+          this.ball.x = this.aiDunkingOpponent.x;
+          this.ball.y = this.aiDunkingOpponent.y - 30;
+          this.makeBallLoose();
+          this.aiDunkingOpponent = null;
+        }
         this.isDunking = false;
         this.wasInAir = false;
         this.dunkingPlayer = null;
@@ -686,74 +729,173 @@ export default class GameScene extends Phaser.Scene {
     const dunkRange = 180;
     const guardDistance = 80;
 
+    // Decide which opponent chases a loose ball (closest one only)
+    let chaserOpp = null;
+    if (ballIsLoose) {
+      let closestDist = Infinity;
+      for (const opp of this.opponents) {
+        const d = Math.abs(opp.x - this.ball.x);
+        if (d < closestDist) {
+          closestDist = d;
+          chaserOpp = opp;
+        }
+      }
+    }
+
     for (const opp of this.opponents) {
+      // Decrement per-opponent steal cooldown
+      if (opp.aiStealCooldown > 0) opp.aiStealCooldown--;
+
       // State transitions
-      if (ballIsLoose) {
-        opp.aiState = 'CHASE_BALL';
-      } else if (opp === this.opponentBallCarrier) {
+      if (opp === this.opponentBallCarrier) {
         opp.aiState = 'ATTACK';
+      } else if (ballIsLoose && opp === chaserOpp) {
+        opp.aiState = 'CHASE_BALL';
+      } else if (this.ballCarrier) {
+        // Red team has ball — defend
+        opp.aiState = 'DEFEND';
+      } else if (ballIsLoose) {
+        // Other opponent while ball is loose — defend position
+        opp.aiState = 'DEFEND';
       } else {
+        // Teammate has ball — support (stay open)
         opp.aiState = 'DEFEND';
       }
 
-      // Only move if on ground
       const oppOnGround = opp.body.blocked.down;
-      if (!oppOnGround) continue;
 
       // Execute behavior based on state
       if (opp.aiState === 'CHASE_BALL') {
-        // Move toward the ball
         const distToBall = this.ball.x - opp.x;
-        if (Math.abs(distToBall) > 20) {
-          opp.body.setVelocityX(distToBall > 0 ? aiSpeed : -aiSpeed);
-        } else {
-          opp.body.setVelocityX(0);
+        const ballAbove = this.ball.y < opp.y - 60;
+
+        if (oppOnGround) {
+          // Jump for rebounds if ball is above
+          if (ballAbove && Math.abs(distToBall) < 80) {
+            opp.body.setVelocityY(-450);
+          }
+          if (Math.abs(distToBall) > 20) {
+            opp.body.setVelocityX(distToBall > 0 ? aiSpeed : -aiSpeed);
+          } else {
+            opp.body.setVelocityX(0);
+          }
         }
       } else if (opp.aiState === 'ATTACK') {
+        if (!oppOnGround) continue;
+
         // Drive toward left hoop
         const distToHoop = leftHoopX - opp.x;
 
-        // Check if in dunk range (for left hoop, need to be to the RIGHT of hoop)
-        const inDunkZone = distToHoop > -50 && distToHoop < dunkRange;
-        // Check if in shooting range
-        const inShootZone = Math.abs(distToHoop) < shootRange;
-
-        if (inDunkZone) {
-          // Close enough to dunk - stop and jump (dunking in future step)
-          opp.body.setVelocityX(0);
-          // TODO: AI dunking in step 10.7 or later
-        } else if (inShootZone) {
-          // In shooting range - stop and try to shoot
-          opp.body.setVelocityX(0);
-
-          // ~1.6% chance per frame = ~1 shot attempt per second at 60fps
-          // Skip shooting if AI is paused (for testing)
-          if (!this.aiPaused && Math.random() < 0.016) {
-            // Jump first, then shoot at apex
-            opp.body.setVelocityY(-450); // Lower jump than player
-            // Delayed shot release (shoot after ~0.3 seconds, near apex)
-            this.time.delayedCall(300, () => {
-              if (this.opponentHasBall && this.opponentBallCarrier === opp) {
-                this.aiShoot(opp);
-              }
-            });
-          }
+        // If behind or too close to the backboard, drive away first
+        if (opp.x < 280) {
+          opp.body.setVelocityX(aiSpeed); // Drive right to get proper angle
         } else {
-          // Drive toward the hoop (distToHoop negative = hoop is to the left)
-          opp.body.setVelocityX(distToHoop < 0 ? -aiSpeed : aiSpeed);
+          const inDunkZone = distToHoop > -50 && distToHoop < dunkRange;
+          const inShootZone = Math.abs(distToHoop) < shootRange;
+
+          if (inDunkZone) {
+            // AI dunk — jump toward the left hoop
+            opp.body.setVelocityX(0);
+            if (!this.aiPaused && Math.random() < 0.03) {
+              this.aiDunk(opp);
+            }
+          } else if (inShootZone) {
+            opp.body.setVelocityX(0);
+            if (!this.aiPaused && Math.random() < 0.03) {
+              opp.body.setVelocityY(-450);
+              this.time.delayedCall(300, () => {
+                if (this.opponentHasBall && this.opponentBallCarrier === opp) {
+                  this.aiShoot(opp);
+                }
+              });
+            }
+          } else {
+            opp.body.setVelocityX(distToHoop < 0 ? -aiSpeed : aiSpeed);
+          }
         }
       } else if (opp.aiState === 'DEFEND') {
-        // Shadow the closest red player, stay guardDistance away
-        const activePlayer = this.players[this.activePlayerIndex];
-        const targetX = activePlayer.x + guardDistance; // Stay to the right of player
+        if (!oppOnGround) continue;
 
-        const distToTarget = targetX - opp.x;
-        if (Math.abs(distToTarget) > 20) {
-          opp.body.setVelocityX(distToTarget > 0 ? aiSpeed : -aiSpeed);
+        // Each opponent guards their assigned player
+        const target = opp.defendTarget;
+
+        // If our assigned target has the ball, try to steal
+        if (this.ballCarrier && this.ballCarrier === target) {
+          const distToCarrier = Math.abs(opp.x - target.x);
+          // Move toward ball carrier
+          const dx = target.x - opp.x;
+          if (distToCarrier > 40) {
+            opp.body.setVelocityX(dx > 0 ? aiSpeed : -aiSpeed);
+          } else {
+            opp.body.setVelocityX(0);
+            // Attempt steal when close
+            if (opp.aiStealCooldown <= 0 && !this.aiPaused) {
+              this.aiAttemptSteal(opp);
+              opp.aiStealCooldown = 90; // Cooldown between attempts
+            }
+          }
         } else {
-          opp.body.setVelocityX(0);
+          // Shadow assigned player, sway side to side near them
+          opp.aiSwayTimer += 0.04;
+          const swayOffset = Math.sin(opp.aiSwayTimer) * 60; // ±60px sway
+          const targetX = target.x + guardDistance + swayOffset;
+          const distToTarget = targetX - opp.x;
+          if (Math.abs(distToTarget) > 10) {
+            opp.body.setVelocityX(distToTarget > 0 ? aiSpeed : -aiSpeed);
+          } else {
+            opp.body.setVelocityX(0);
+          }
         }
       }
+    }
+  }
+
+  aiAttemptSteal(opponent) {
+    const target = this.ballCarrier;
+    if (!target) return;
+    const dist = Math.abs(opponent.x - target.x);
+    if (dist > 70) return;
+
+    // 25% chance for AI steal (lower than player's 30%)
+    if (Math.random() < 0.25) {
+      this.ballCarrier = null;
+      this.ball.x = target.x;
+      this.ball.y = target.y - 30;
+      // Launch ball toward the opponent who stole it
+      const toOpp = opponent.x - this.ball.x;
+      this.ball.body.setAllowGravity(true);
+      this.ball.body.setVelocity(toOpp > 0 ? 150 : -150, -100);
+      this.ballPickupCooldown = 30;
+      this.showFeedback('STOLEN!', '#cc66ff');
+    }
+  }
+
+  aiDunk(opponent) {
+    if (this.isDunking) return;
+    if (!this.opponentHasBall || this.opponentBallCarrier !== opponent) return;
+
+    // Release ball ownership
+    this.opponentHasBall = false;
+    this.opponentBallCarrier = null;
+
+    // Mark dunking state
+    this.isDunking = true;
+    this.dunkingPlayer = opponent;
+    this.aiDunkingOpponent = opponent; // Track that this is an AI dunk
+
+    // Jump toward left hoop rim
+    const targetX = 230; // Just right of left rim center
+    const distToRim = targetX - opponent.x;
+
+    opponent.body.setVelocityY(-700);
+    if (Math.abs(distToRim) < 30) {
+      opponent.body.setVelocityX(0);
+    } else {
+      const timeToApex = 0.7;
+      let vx = distToRim / timeToApex;
+      const sign = vx >= 0 ? 1 : -1;
+      vx = sign * Math.max(100, Math.min(400, Math.abs(vx)));
+      opponent.body.setVelocityX(vx);
     }
   }
 
@@ -817,6 +959,51 @@ export default class GameScene extends Phaser.Scene {
       fontSize: '80px',
       fontFamily: 'Arial Black',
       color: '#ff4500',
+      stroke: '#000000',
+      strokeThickness: 8
+    }).setOrigin(0.5).setScrollFactor(0);
+
+    this.tweens.add({
+      targets: slamText,
+      alpha: 0,
+      y: 200,
+      scale: 1.3,
+      duration: 1200,
+      onComplete: () => slamText.destroy()
+    });
+  }
+
+  // Called when AI opponent reaches the left rim during a dunk
+  completeAIDunk() {
+    this.aiDunkingOpponent = null;
+
+    // Ball drops through left hoop
+    this.ball.x = 210;
+    this.ball.y = 355;
+    this.ball.body.setVelocity(0, 300);
+    this.ball.body.setAllowGravity(true);
+    this.ballPickupCooldown = 60;
+    this.scoringInProgress = true;
+
+    // Score for purple team
+    this.opponentScore += 2;
+    this.opponentScoreText.setText('PURPLE: ' + this.opponentScore);
+
+    // Delay 0.5s, then give possession to red team
+    this.time.delayedCall(500, () => {
+      const activePlayer = this.players[this.activePlayerIndex];
+      activePlayer.x = 100;
+      this.ballCarrier = activePlayer;
+      this.ball.body.setVelocity(0, 0);
+      this.ball.body.setAllowGravity(false);
+      this.scoringInProgress = false;
+    });
+
+    // SLAM DUNK text in purple
+    const slamText = this.add.text(640, 280, 'SLAM DUNK!', {
+      fontSize: '80px',
+      fontFamily: 'Arial Black',
+      color: '#cc66ff',
       stroke: '#000000',
       strokeThickness: 8
     }).setOrigin(0.5).setScrollFactor(0);
@@ -895,8 +1082,8 @@ export default class GameScene extends Phaser.Scene {
     const distX = hoopX - this.ball.x;
     const distance = Math.abs(distX);
 
-    // Base 60% accuracy for AI
-    const aiAccuracy = 0.6;
+    // Base 70% accuracy for AI
+    const aiAccuracy = 0.7;
 
     // Calculate trajectory
     const distY = hoopY - this.ball.y;
@@ -940,10 +1127,20 @@ export default class GameScene extends Phaser.Scene {
   performSteal() {
     // 30% chance of success
     if (Math.random() < 0.3) {
-      // Success: ball becomes loose
+      // Success: ball becomes loose — knock it toward the player
+      const target = this.opponentBallCarrier;
+      const activePlayer = this.players[this.activePlayerIndex];
       this.opponentHasBall = false;
       this.opponentBallCarrier = null;
-      this.makeBallLoose();
+      if (target) {
+        this.ball.x = target.x;
+        this.ball.y = target.y - 30;
+      }
+      // Launch ball toward the player who stole it
+      this.ball.body.setAllowGravity(true);
+      const toPlayer = activePlayer.x - this.ball.x;
+      this.ball.body.setVelocity(toPlayer > 0 ? 150 : -150, -100);
+      this.ballPickupCooldown = 30;
 
       // Show STEAL! text
       const stealText = this.add.text(640, 280, 'STEAL!', {
@@ -978,6 +1175,10 @@ export default class GameScene extends Phaser.Scene {
     this.opponentBallCarrier = null;
     this.shoveCooldown = 60;
 
+    // Drop ball at opponent's CURRENT position before pushing them away
+    this.ball.x = target.x;
+    this.ball.y = target.y - 30;
+
     // Knock opponent back 100px (away from active player)
     const activePlayer = this.players[this.activePlayerIndex];
     const pushDirection = activePlayer.x < target.x ? 1 : -1;
@@ -988,8 +1189,10 @@ export default class GameScene extends Phaser.Scene {
     );
     target.x = newOpponentX;
 
-    // Ball becomes loose
-    this.makeBallLoose();
+    // Ball pops toward the player who shoved
+    this.ball.body.setAllowGravity(true);
+    this.ball.body.setVelocity(-pushDirection * 150, -100);
+    this.ballPickupCooldown = 30;
 
     // Show SHOVE! text
     const shoveText = this.add.text(640, 280, 'SHOVE!', {
