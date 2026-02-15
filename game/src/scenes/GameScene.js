@@ -75,6 +75,16 @@ export default class GameScene extends Phaser.Scene {
     this.opponent.aiSwayTimer = 0;
     this.opponent2.aiSwayTimer = Math.PI; // Offset so they don't sync
 
+    // Teammate AI state
+    this.player.aiState = 'DEFEND';
+    this.player.aiStealCooldown = 0;
+    this.player.aiSwayTimer = 0;
+    this.player.defendTarget = this.opponent;
+    this.teammate.aiState = 'DEFEND';
+    this.teammate.aiStealCooldown = 0;
+    this.teammate.aiSwayTimer = Math.PI;
+    this.teammate.defendTarget = this.opponent2;
+
     // Reset all input when tab loses focus (prevents stuck keys)
     this.game.events.on('blur', () => {
       this.input.keyboard.resetKeys();
@@ -134,6 +144,9 @@ export default class GameScene extends Phaser.Scene {
     // Dribbling state
     this.dribbleTime = 0; // Counter for dribble animation
     this.lastBallSide = 25; // Track which side ball was on (25 = right, -25 = left)
+
+    // Block detection timing
+    this.ballFlightTime = 0; // Frames since ball became IN_FLIGHT
 
     // Collisions
     this.physics.add.collider(this.player, this.floor);
@@ -503,26 +516,9 @@ export default class GameScene extends Phaser.Scene {
       this.cameras.main.startFollow(this.cameraTarget, true, 0.08, 0.08);
     }
 
-    // === KEEP ENTITIES ON SCREEN ===
-    const camera = this.cameras.main;
-    const camLeft = camera.scrollX;
-    const camRight = camera.scrollX + camera.width;
-    const margin = 60; // Keep entities at least 60px from camera edge
-
-    // Inactive teammate: stop if on screen, move if off screen
-    const inactivePlayer = this.players[(this.activePlayerIndex + 1) % 2];
-    const inactiveOnGround = inactivePlayer.body.blocked.down;
-    if (inactiveOnGround && (!this.isDunking || this.dunkingPlayer !== inactivePlayer)) {
-      if (inactivePlayer.x < camLeft + margin) {
-        inactivePlayer.body.setVelocityX(200);
-      } else if (inactivePlayer.x > camRight - margin) {
-        inactivePlayer.body.setVelocityX(-200);
-      } else {
-        inactivePlayer.body.setVelocityX(0);
-      }
-    }
-
-    // Note: Opponents now controlled by AI in updateAI() - no clamping needed
+    // === TEAMMATE AI ===
+    // Inactive player plays autonomously (like opponent AI but for red team)
+    this.updateTeammateAI();
 
     // === DEFENSE (steal and shove) ===
     // Check distance to opponent who has the ball
@@ -687,7 +683,7 @@ export default class GameScene extends Phaser.Scene {
         p.turboMeter = Math.max(0, p.turboMeter - 0.5);
       } else {
         p.turboActive = false;
-        p.turboMeter = Math.min(100, p.turboMeter + 0.3);
+        p.turboMeter = Math.min(100, p.turboMeter + 0.15);
       }
     }
 
@@ -700,7 +696,7 @@ export default class GameScene extends Phaser.Scene {
         opp.turboMeter = Math.max(0, opp.turboMeter - 0.5);
       } else {
         opp.turboActive = false;
-        opp.turboMeter = Math.min(100, opp.turboMeter + 0.3);
+        opp.turboMeter = Math.min(100, opp.turboMeter + 0.15);
       }
     }
 
@@ -721,7 +717,14 @@ export default class GameScene extends Phaser.Scene {
     }
 
     // === BLOCK DETECTION ===
-    // Any entity in the air near an IN_FLIGHT ball can block it
+    // Track how long ball has been in flight (prevents instant blocks)
+    if (this.ballState === 'IN_FLIGHT') {
+      this.ballFlightTime++;
+    } else {
+      this.ballFlightTime = 0;
+    }
+
+    // Only opposing team can block, and only after ball has been in flight for a bit
     if (this.ballState === 'IN_FLIGHT' && !this.isDunking) {
       this.checkForBlocks();
     }
@@ -776,6 +779,155 @@ export default class GameScene extends Phaser.Scene {
 
     // Update AI for all opponents
     this.updateAI();
+  }
+
+  // Teammate AI: inactive red player plays autonomously
+  updateTeammateAI() {
+    const inactivePlayer = this.players[(this.activePlayerIndex + 1) % 2];
+
+    // Skip if this player is currently being controlled, dunking, or stunned
+    if (this.isDunking && this.dunkingPlayer === inactivePlayer) return;
+    if (inactivePlayer.stunTimer > 0) return;
+
+    const tmOnGround = inactivePlayer.body.blocked.down;
+    if (!tmOnGround) return; // Let physics handle air movement
+
+    if (inactivePlayer.aiStealCooldown > 0) inactivePlayer.aiStealCooldown--;
+
+    const tmSpeed = inactivePlayer.turboActive ? 375 : 250;
+    const rightHoopX = 1270;
+    const ballIsLoose = this.ballState !== 'CARRIED';
+    const activePlayer = this.players[this.activePlayerIndex];
+
+    // State transitions
+    if (this.ballOwner === inactivePlayer) {
+      inactivePlayer.aiState = 'ATTACK';
+    } else if (ballIsLoose) {
+      // Chase loose ball only if active player is further away
+      const tmDist = Math.abs(inactivePlayer.x - this.ball.x);
+      const activeDist = Math.abs(activePlayer.x - this.ball.x);
+      inactivePlayer.aiState = tmDist < activeDist ? 'CHASE_BALL' : 'SUPPORT';
+    } else if (this.ballOwner === activePlayer) {
+      // Teammate of ball carrier — get open for a pass
+      inactivePlayer.aiState = 'SUPPORT';
+    } else if (this.opponents.includes(this.ballOwner)) {
+      // Opponent has ball — defend
+      inactivePlayer.aiState = 'DEFEND';
+    } else {
+      inactivePlayer.aiState = 'SUPPORT';
+    }
+
+    // Execute behavior
+    if (inactivePlayer.aiState === 'CHASE_BALL') {
+      const distToBall = this.ball.x - inactivePlayer.x;
+      const ballAbove = this.ball.y < inactivePlayer.y - 60;
+      if (ballAbove && Math.abs(distToBall) < 80) {
+        inactivePlayer.body.setVelocityY(-450);
+      }
+      if (Math.abs(distToBall) > 20) {
+        inactivePlayer.body.setVelocityX(distToBall > 0 ? tmSpeed : -tmSpeed);
+      } else {
+        inactivePlayer.body.setVelocityX(0);
+      }
+    } else if (inactivePlayer.aiState === 'ATTACK') {
+      // Drive toward right hoop and shoot/dunk
+      const distToHoop = rightHoopX - inactivePlayer.x;
+
+      // If past the backboard, drive back
+      if (inactivePlayer.x > 1320) {
+        inactivePlayer.body.setVelocityX(-tmSpeed);
+      } else {
+        const inDunkZone = distToHoop > -50 && distToHoop < 200;
+        const inShootZone = Math.abs(distToHoop) < 400;
+
+        if (inDunkZone && inactivePlayer.turboMeter > 20) {
+          inactivePlayer.body.setVelocityX(0);
+          if (!this.aiPaused && Math.random() < 0.03) {
+            inactivePlayer.turboActive = true;
+            this.performDunk(inactivePlayer);
+            inactivePlayer.body.setVelocityY(-700);
+          }
+        } else if (inShootZone) {
+          inactivePlayer.body.setVelocityX(0);
+          if (!this.aiPaused && Math.random() < 0.03) {
+            inactivePlayer.body.setVelocityY(-450);
+            this.time.delayedCall(300, () => {
+              if (this.ballOwner === inactivePlayer) {
+                this.shootBall(inactivePlayer, rightHoopX);
+              }
+            });
+          }
+        } else {
+          inactivePlayer.body.setVelocityX(distToHoop > 0 ? tmSpeed : -tmSpeed);
+        }
+      }
+    } else if (inactivePlayer.aiState === 'DEFEND') {
+      // Guard the assigned opponent
+      const target = inactivePlayer.defendTarget;
+      if (this.ballOwner === target) {
+        const distToCarrier = Math.abs(inactivePlayer.x - target.x);
+        const dx = target.x - inactivePlayer.x;
+        if (distToCarrier > 50) {
+          inactivePlayer.body.setVelocityX(dx > 0 ? tmSpeed : -tmSpeed);
+        } else {
+          inactivePlayer.body.setVelocityX(0);
+          // Attempt steal
+          if (inactivePlayer.aiStealCooldown <= 0 && !this.aiPaused) {
+            this.teammateAttemptSteal(inactivePlayer, target);
+            inactivePlayer.aiStealCooldown = 90;
+          }
+        }
+      } else {
+        // Shadow assigned opponent
+        inactivePlayer.aiSwayTimer += 0.04;
+        const swayOffset = Math.sin(inactivePlayer.aiSwayTimer) * 60;
+        const targetX = target.x - 80 + swayOffset; // Stay between opponent and right hoop
+        const distToTarget = targetX - inactivePlayer.x;
+        if (Math.abs(distToTarget) > 10) {
+          inactivePlayer.body.setVelocityX(distToTarget > 0 ? tmSpeed : -tmSpeed);
+        } else {
+          inactivePlayer.body.setVelocityX(0);
+        }
+      }
+    } else if (inactivePlayer.aiState === 'SUPPORT') {
+      // Get open for a pass — position ahead of ball carrier toward the hoop
+      let targetX;
+      if (this.ballOwner === activePlayer) {
+        // Stay ahead of active player, offset toward hoop
+        targetX = Math.min(activePlayer.x + 200, 1100);
+      } else {
+        // No one has ball or opponent has it — drift to mid-court
+        targetX = 700;
+      }
+      const distToTarget = targetX - inactivePlayer.x;
+      if (Math.abs(distToTarget) > 30) {
+        inactivePlayer.body.setVelocityX(distToTarget > 0 ? tmSpeed : -tmSpeed);
+      } else {
+        inactivePlayer.body.setVelocityX(0);
+      }
+    }
+  }
+
+  // Teammate steal attempt (same as AI steal but for red team)
+  teammateAttemptSteal(teammate, target) {
+    if (!target || !this.opponents.includes(target)) return;
+    if (this.ballOwner !== target) return;
+    const dist = Math.abs(teammate.x - target.x);
+    if (dist > 70) return;
+
+    if (Math.random() < 0.25) {
+      this.ball.x = target.x;
+      this.ball.y = target.y - 30;
+      target.stunTimer = 15;
+      target.pickupCooldown = 45;
+      const toTm = teammate.x - this.ball.x;
+      this.ballState = 'LOOSE';
+      this.ballOwner = null;
+      this.ball.body.setAllowGravity(true);
+      this.ball.body.setDrag(50, 0);
+      this.ball.body.setVelocity(toTm > 0 ? 150 : -150, -100);
+      this.showCenterFeedback('STOLEN!', '#ff4444');
+    }
   }
 
   updateAI() {
@@ -1324,16 +1476,22 @@ export default class GameScene extends Phaser.Scene {
     });
   }
 
-  // Check if any airborne entity can block the ball
+  // Check if any airborne OPPOSING entity can block the ball
   checkForBlocks() {
-    const blockRange = 50; // Distance from ball to count as a block
-    const allEntities = [...this.players, ...this.opponents];
+    // Need a known thrower to determine teams — no thrower = no block
+    if (!this.lastThrower) return;
+    // Ball must have been in flight for a bit (prevent instant self-blocks)
+    if (this.ballFlightTime < 10) return;
 
-    for (const entity of allEntities) {
-      // Must be in the air, not stunned, and not the one who threw it
+    const blockRange = 40; // Distance from entity top to ball
+    // Only the opposing team can block
+    const throwerIsPlayer = this.players.includes(this.lastThrower);
+    const defenders = throwerIsPlayer ? this.opponents : this.players;
+
+    for (const entity of defenders) {
+      // Must be in the air and not stunned
       if (entity.body.blocked.down) continue;
       if (entity.stunTimer > 0) continue;
-      if (entity === this.lastThrower) continue;
 
       // Check distance from entity's top (hand) to ball
       const entityTopY = entity.y - 30; // Top of sprite
@@ -1343,27 +1501,33 @@ export default class GameScene extends Phaser.Scene {
 
       if (dist > blockRange) continue;
 
-      // Check for goaltending: ball on downward arc near either hoop
+      // Check for goaltending: ball on downward arc near the shooter's target hoop
       const ballDescending = this.ball.body.velocity.y > 0;
       const nearRightHoop = Math.abs(this.ball.x - 1270) < 60 && this.ball.y < 360;
       const nearLeftHoop = Math.abs(this.ball.x - 210) < 60 && this.ball.y < 360;
 
       if (ballDescending && (nearRightHoop || nearLeftHoop)) {
         // GOALTENDING — basket counts for the shooter's team
-        if (nearRightHoop && this.lastThrower && this.players.includes(this.lastThrower)) {
+        if (nearRightHoop && throwerIsPlayer) {
           // Player shot goaltended — score for red
           this.score += 2;
           this.scoreText.setText('RED: ' + this.score);
           this.showCenterFeedback('GOALTEND!', '#ff4444');
-        } else if (nearLeftHoop && this.lastThrower && this.opponents.includes(this.lastThrower)) {
+        } else if (nearLeftHoop && !throwerIsPlayer) {
           // AI shot goaltended — score for purple
           this.opponentScore += 2;
           this.opponentScoreText.setText('PURPLE: ' + this.opponentScore);
           this.showCenterFeedback('GOALTEND!', '#cc66ff');
+        } else {
+          // Defender near their own hoop on a ball that wasn't shot at it — not goaltending, skip
+          continue;
         }
         // Reset ball after goaltend (give possession to team that scored)
         this.ballPickupCooldown = 60;
         this.scoringInProgress = true;
+        this.ballState = 'IN_FLIGHT';
+        this.ballOwner = null;
+        this.lastThrower = null;
         this.ball.body.setVelocity(0, 300);
         this.ball.body.setAllowGravity(true);
 
@@ -1387,11 +1551,12 @@ export default class GameScene extends Phaser.Scene {
         return; // Only one block event per frame
       }
 
-      // LEGAL BLOCK — swat the ball away
+      // LEGAL BLOCK — swat the ball away from the blocker
       const awayFromBlocker = entity.x < this.ball.x ? 300 : -300;
       this.ballState = 'LOOSE';
       this.ballOwner = null;
       this.lastThrower = null;
+      this.ballFlightTime = 0;
       this.ball.body.setAllowGravity(true);
       this.ball.body.setDrag(50, 0);
       this.ball.body.setVelocity(awayFromBlocker, -200);
