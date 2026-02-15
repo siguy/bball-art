@@ -105,9 +105,14 @@ export default class GameScene extends Phaser.Scene {
     this.ballEnteredLeftHoop = false; // Track two-zone scoring (left hoop)
     this.scoringInProgress = false; // Prevents camera from following ball during net animation
 
+    // === BALL STATE MACHINE ===
+    // Single source of truth for ball ownership (replaces scattered booleans)
+    // States: 'CARRIED' (someone has it), 'IN_FLIGHT' (shot/pass), 'LOOSE' (free ball)
+    this.ballState = 'CARRIED';
+    this.ballOwner = this.opponent; // Opponent starts with ball
+    this.lastThrower = null; // Who last shot/passed (for cooldown logic)
+
     // Defense state
-    this.opponentHasBall = true; // Opponent team starts with ball
-    this.opponentBallCarrier = this.opponent; // Track which opponent has the ball
     this.stealCooldown = 0; // Frames before steal can be attempted again
     this.shoveCooldown = 0; // Frames before shove can be used again
     this.stealKeyPressed = false; // Track steal key state to prevent repeat triggers
@@ -133,7 +138,6 @@ export default class GameScene extends Phaser.Scene {
     this.ball.body.setBounce(0.6);
     this.ball.body.setCollideWorldBounds(true);
     this.ball.body.setAllowGravity(false);
-    this.ballCarrier = null; // Which player has the ball (null = no one on red team)
 
     this.physics.add.collider(this.ball, this.floor);
 
@@ -187,7 +191,7 @@ export default class GameScene extends Phaser.Scene {
 
     // Entry zone overlap - mark that ball entered from above
     this.physics.add.overlap(this.ball, this.scoreEntry, () => {
-      if (this.ball.body.velocity.y > 0 && !this.hasBall && !this.isDunking) {
+      if (this.ball.body.velocity.y > 0 && this.ballState !== 'CARRIED' && !this.isDunking) {
         this.ballEnteredHoop = true;
       }
     });
@@ -246,7 +250,7 @@ export default class GameScene extends Phaser.Scene {
 
     // Entry zone overlap for left hoop
     this.physics.add.overlap(this.ball, this.leftScoreEntry, () => {
-      if (this.ball.body.velocity.y > 0 && !this.opponentHasBall && !this.isDunking) {
+      if (this.ball.body.velocity.y > 0 && this.ballState !== 'CARRIED' && !this.isDunking) {
         this.ballEnteredLeftHoop = true;
       }
     });
@@ -259,15 +263,11 @@ export default class GameScene extends Phaser.Scene {
       }
     });
 
-    // Ball pickup - player 1
-    this.physics.add.overlap(this.player, this.ball, () => this.onBallPickup(this.player), null, this);
-
-    // Ball pickup - teammate (player 2)
-    this.physics.add.overlap(this.teammate, this.ball, () => this.onBallPickup(this.teammate), null, this);
-
-    // Ball pickup - opponents
-    this.physics.add.overlap(this.opponent, this.ball, () => this.onOpponentBallPickup(this.opponent), null, this);
-    this.physics.add.overlap(this.opponent2, this.ball, () => this.onOpponentBallPickup(this.opponent2), null, this);
+    // Ball pickup - all entities use unified pickupBall()
+    this.physics.add.overlap(this.player, this.ball, () => this.pickupBall(this.player), null, this);
+    this.physics.add.overlap(this.teammate, this.ball, () => this.pickupBall(this.teammate), null, this);
+    this.physics.add.overlap(this.opponent, this.ball, () => this.pickupBall(this.opponent), null, this);
+    this.physics.add.overlap(this.opponent2, this.ball, () => this.pickupBall(this.opponent2), null, this);
 
     // Score (fixed to screen)
     this.score = 0;
@@ -313,31 +313,22 @@ export default class GameScene extends Phaser.Scene {
     this.cameras.main.startFollow(this.cameraTarget, true, 0.08, 0.08);
   }
 
-  onBallPickup(player) {
-    // Don't pick up if: someone already has ball, opponent has ball, dunking, or cooldown active
-    if (this.ballCarrier || this.opponentHasBall || this.isDunking || this.ballPickupCooldown > 0) {
+  // Unified ball pickup — works for any entity (player or opponent)
+  pickupBall(entity) {
+    if (this.ballState === 'CARRIED' || this.isDunking || this.ballPickupCooldown > 0) {
       return;
     }
-    this.ballCarrier = player;
+    this.ballState = 'CARRIED';
+    this.ballOwner = entity;
     this.ball.body.setVelocity(0, 0);
     this.ball.body.setAllowGravity(false);
-    this.ballEnteredHoop = false; // Reset scoring state
-  }
-
-  onOpponentBallPickup(opponent) {
-    // Don't pick up if: a red team player has ball, opponent already has ball, or cooldown active
-    if (this.ballCarrier || this.opponentHasBall || this.ballPickupCooldown > 0) {
-      return;
-    }
-    this.opponentHasBall = true;
-    this.opponentBallCarrier = opponent;
-    this.ball.body.setVelocity(0, 0);
-    this.ball.body.setAllowGravity(false);
+    this.ballEnteredHoop = false;
+    this.ballEnteredLeftHoop = false;
   }
 
   onScore() {
     // Prevent double-scoring (called from exit zone overlap)
-    if (this.ballCarrier || this.isDunking) return;
+    if (this.ballState === 'CARRIED' || this.isDunking) return;
 
     this.score += 2;
     this.scoreText.setText('RED: ' + this.score);
@@ -363,14 +354,14 @@ export default class GameScene extends Phaser.Scene {
 
     // Let ball fall through net for 0.5s, then give possession
     this.ball.body.setAllowGravity(true);
-    this.ballPickupCooldown = 60; // Prevent pickup during net animation
-    this.scoringInProgress = true; // Prevent camera from chasing ball
+    this.ballPickupCooldown = 60;
+    this.scoringInProgress = true;
 
     this.time.delayedCall(500, () => {
       // Opponent takes ball out behind the basket where they were scored on (right side)
       this.opponent.x = 1380;
-      this.opponentHasBall = true;
-      this.opponentBallCarrier = this.opponent;
+      this.ballState = 'CARRIED';
+      this.ballOwner = this.opponent;
       this.ball.body.setVelocity(0, 0);
       this.ball.body.setAllowGravity(false);
       this.scoringInProgress = false;
@@ -379,7 +370,7 @@ export default class GameScene extends Phaser.Scene {
 
   onOpponentScore() {
     // Prevent double-scoring
-    if (this.opponentHasBall || this.isDunking) return;
+    if (this.ballState === 'CARRIED' || this.isDunking) return;
 
     this.opponentScore += 2;
     this.opponentScoreText.setText('PURPLE: ' + this.opponentScore);
@@ -405,14 +396,14 @@ export default class GameScene extends Phaser.Scene {
 
     // Let ball fall through net for 0.5s, then give possession
     this.ball.body.setAllowGravity(true);
-    this.ballPickupCooldown = 60; // Prevent pickup during net animation
-    this.scoringInProgress = true; // Prevent camera from chasing ball
+    this.ballPickupCooldown = 60;
+    this.scoringInProgress = true;
 
     this.time.delayedCall(500, () => {
-      // Active player takes ball out behind the basket where they were scored on (left side)
       const activePlayer = this.players[this.activePlayerIndex];
       activePlayer.x = 100;
-      this.ballCarrier = activePlayer;
+      this.ballState = 'CARRIED';
+      this.ballOwner = activePlayer;
       this.ball.body.setVelocity(0, 0);
       this.ball.body.setAllowGravity(false);
       this.scoringInProgress = false;
@@ -451,11 +442,11 @@ export default class GameScene extends Phaser.Scene {
     const inDunkRange = distToHoop > -50 && distToHoop < 200;
 
     // Helper: does this player have the ball?
-    const activeHasBall = this.ballCarrier === activePlayer;
+    const activeHasBall = this.ballOwner === activePlayer;
 
     // Visual feedback for BOTH players
     for (const p of this.players) {
-      const playerHasBall = this.ballCarrier === p;
+      const playerHasBall = this.ballOwner === p;
       const pDistToHoop = 1270 - p.x;
       const pInDunkRange = pDistToHoop > -50 && pDistToHoop < 200;
       const pOnGround = p.body.blocked.down;
@@ -481,10 +472,10 @@ export default class GameScene extends Phaser.Scene {
 
     // === CAMERA TARGET: follow ball carrier, or active player if no one has ball ===
     let newTarget;
-    if (this.ballCarrier) {
-      newTarget = this.ballCarrier;
-    } else if (!this.opponentHasBall && this.ball.body.allowGravity && !this.scoringInProgress) {
-      // Ball is loose - follow the ball (but not during scoring animation)
+    if (this.ballState === 'CARRIED' && this.players.includes(this.ballOwner)) {
+      newTarget = this.ballOwner;
+    } else if (this.ballState !== 'CARRIED' && !this.scoringInProgress) {
+      // Ball is loose/in-flight - follow the ball (but not during scoring animation)
       newTarget = this.ball;
     } else {
       newTarget = activePlayer;
@@ -518,7 +509,8 @@ export default class GameScene extends Phaser.Scene {
 
     // === DEFENSE (steal and shove) ===
     // Check distance to opponent who has the ball
-    const ballCarrierOpp = this.opponentBallCarrier;
+    const opponentHasBall = this.ballState === 'CARRIED' && this.opponents.includes(this.ballOwner);
+    const ballCarrierOpp = opponentHasBall ? this.ballOwner : null;
     const distToOpponent = ballCarrierOpp ? Math.abs(activePlayer.x - ballCarrierOpp.x) : 999;
     const closeToOpponent = distToOpponent < 70;
 
@@ -531,7 +523,7 @@ export default class GameScene extends Phaser.Scene {
     if (stealKeyDown && !this.stealKeyPressed) {
       this.stealKeyPressed = true;
 
-      if (closeToOpponent && this.opponentHasBall) {
+      if (closeToOpponent && opponentHasBall) {
         if (this.shiftKey.isDown && this.shoveCooldown <= 0) {
           // SHOVE: Shift+Down - always works, knocks opponent back
           this.performShove();
@@ -548,7 +540,14 @@ export default class GameScene extends Phaser.Scene {
     }
 
     // Debug display - show all relevant state
-    const ballStatus = this.ballCarrier ? (this.ballCarrier === this.player ? 'P1' : 'P2') : (this.opponentHasBall ? 'O' : 'L');
+    let ballStatus;
+    if (this.ballState === 'CARRIED') {
+      if (this.ballOwner === this.player) ballStatus = 'P1';
+      else if (this.ballOwner === this.teammate) ballStatus = 'P2';
+      else ballStatus = 'O';
+    } else {
+      ballStatus = this.ballState === 'IN_FLIGHT' ? 'F' : 'L';
+    }
     const ai1 = this.opponent.aiState ? this.opponent.aiState[0] : '?'; // First letter
     const ai2 = this.opponent2.aiState ? this.opponent2.aiState[0] : '?';
     this.debugText.setText(
@@ -614,54 +613,28 @@ export default class GameScene extends Phaser.Scene {
       this.ball.body.setAllowGravity(false);
     }
 
-    // Ball follows opponent ball carrier with dribble animation
-    if (this.opponentHasBall && this.opponentBallCarrier) {
-      const carrier = this.opponentBallCarrier;
+    // Ball follows carrier with dribble animation (unified for all entities)
+    if (this.ballState === 'CARRIED' && this.ballOwner && !this.aiDunkingOpponent) {
+      const carrier = this.ballOwner;
       const carrierOnGround = carrier.body.blocked.down;
       const isMoving = Math.abs(carrier.body.velocity.x) > 10;
 
-      // Ball on the side opponent is moving toward
       if (isMoving) {
         this.lastBallSide = carrier.body.velocity.x > 0 ? 25 : -25;
       }
       const targetX = carrier.x + this.lastBallSide;
 
-      if (carrierOnGround && isMoving) {
-        // Dribbling: ball bounces to floor and back
+      const isPlayerDunking = this.isDunking && this.players.includes(carrier);
+      if (carrierOnGround && isMoving && !isPlayerDunking) {
+        // Dribbling: ball bounces to floor and back (1 bounce/sec at 60fps)
         this.dribbleTime += 0.105;
         const dribbleBounce = Math.abs(Math.sin(this.dribbleTime)) * 40;
         this.ball.x = this.ball.x + (targetX - this.ball.x) * 0.8;
         this.ball.y = carrier.y - 5 + dribbleBounce;
       } else {
-        // Not dribbling: ball follows opponent directly
+        // Not dribbling: ball follows carrier directly
         this.ball.x = this.ball.x + (targetX - this.ball.x) * 0.3;
         this.ball.y = carrier.y - 20;
-        this.dribbleTime = 0;
-      }
-    }
-
-    // Ball follows the carrier with dribble animation
-    if (this.ballCarrier) {
-      const carrier = this.ballCarrier;
-      const carrierOnGround = carrier.body.blocked.down;
-      const isMoving = Math.abs(carrier.body.velocity.x) > 10;
-      // Ball on the side player is moving toward (only update when moving)
-      if (isMoving) {
-        this.lastBallSide = carrier.body.velocity.x > 0 ? 25 : -25;
-      }
-      const targetX = carrier.x + this.lastBallSide;
-
-      if (carrierOnGround && isMoving && !this.isDunking) {
-        // Dribbling: ball bounces to floor and back (1 bounce/sec at 60fps)
-        this.dribbleTime += 0.105; // 1 cycle per second
-        const dribbleBounce = Math.abs(Math.sin(this.dribbleTime)) * 40; // 0-40px amplitude
-        this.ball.x = this.ball.x + (targetX - this.ball.x) * 0.8; // Slight trail effect
-        this.ball.y = carrier.y - 5 + dribbleBounce; // Start lower (-5), bounce to floor (+35)
-      } else {
-        // Not dribbling: ball follows player directly (jumping, stationary, or dunking)
-        this.ball.x = this.ball.x + (targetX - this.ball.x) * 0.3; // Smooth transition when stopping
-        this.ball.y = carrier.y - 20;
-        // Reset dribble time when not dribbling so bounce starts from consistent position
         this.dribbleTime = 0;
       }
     }
@@ -681,7 +654,7 @@ export default class GameScene extends Phaser.Scene {
         if (nearRimX && atRimHeight) {
           this.completeAIDunk();
         }
-      } else if (this.ballCarrier) {
+      } else if (this.ballOwner && this.players.includes(this.ballOwner)) {
         // Player dunk — target right hoop (rim at x=1270)
         const distFromRim = Math.abs(this.dunkingPlayer.x - 1250);
         const nearRimX = distFromRim < 50;
@@ -705,7 +678,7 @@ export default class GameScene extends Phaser.Scene {
         if (this.aiDunkingOpponent) {
           this.ball.x = this.aiDunkingOpponent.x;
           this.ball.y = this.aiDunkingOpponent.y - 30;
-          this.makeBallLoose();
+          this.makeBallLoose(this.aiDunkingOpponent);
           this.aiDunkingOpponent = null;
         }
         this.isDunking = false;
@@ -719,8 +692,8 @@ export default class GameScene extends Phaser.Scene {
   }
 
   updateAI() {
-    // Determine if ball is loose (no one has it)
-    const ballIsLoose = !this.ballCarrier && !this.opponentHasBall;
+    // Determine if ball is not carried (loose or in-flight)
+    const ballIsLoose = this.ballState !== 'CARRIED';
 
     // AI movement speed (player is 250)
     const aiSpeed = 200;
@@ -747,18 +720,17 @@ export default class GameScene extends Phaser.Scene {
       if (opp.aiStealCooldown > 0) opp.aiStealCooldown--;
 
       // State transitions
-      if (opp === this.opponentBallCarrier) {
+      if (this.ballOwner === opp) {
         opp.aiState = 'ATTACK';
       } else if (ballIsLoose && opp === chaserOpp) {
         opp.aiState = 'CHASE_BALL';
-      } else if (this.ballCarrier) {
+      } else if (this.ballOwner && this.players.includes(this.ballOwner)) {
         // Red team has ball — defend
         opp.aiState = 'DEFEND';
-      } else if (ballIsLoose) {
-        // Other opponent while ball is loose — defend position
-        opp.aiState = 'DEFEND';
+      } else if (this.ballOwner && this.opponents.includes(this.ballOwner) && this.ballOwner !== opp) {
+        // Other opponent has ball — support (stay open for pass)
+        opp.aiState = 'SUPPORT';
       } else {
-        // Teammate has ball — support (stay open)
         opp.aiState = 'DEFEND';
       }
 
@@ -804,7 +776,7 @@ export default class GameScene extends Phaser.Scene {
             if (!this.aiPaused && Math.random() < 0.03) {
               opp.body.setVelocityY(-450);
               this.time.delayedCall(300, () => {
-                if (this.opponentHasBall && this.opponentBallCarrier === opp) {
+                if (this.ballOwner === opp) {
                   this.aiShoot(opp);
                 }
               });
@@ -813,14 +785,14 @@ export default class GameScene extends Phaser.Scene {
             opp.body.setVelocityX(distToHoop < 0 ? -aiSpeed : aiSpeed);
           }
         }
-      } else if (opp.aiState === 'DEFEND') {
+      } else if (opp.aiState === 'DEFEND' || opp.aiState === 'SUPPORT') {
         if (!oppOnGround) continue;
 
         // Each opponent guards their assigned player
         const target = opp.defendTarget;
 
         // If our assigned target has the ball, try to steal
-        if (this.ballCarrier && this.ballCarrier === target) {
+        if (this.ballOwner === target && this.players.includes(target)) {
           const distToCarrier = Math.abs(opp.x - target.x);
           // Move toward ball carrier
           const dx = target.x - opp.x;
@@ -851,18 +823,18 @@ export default class GameScene extends Phaser.Scene {
   }
 
   aiAttemptSteal(opponent) {
-    const target = this.ballCarrier;
-    if (!target) return;
+    if (!this.ballOwner || !this.players.includes(this.ballOwner)) return;
+    const target = this.ballOwner;
     const dist = Math.abs(opponent.x - target.x);
     if (dist > 70) return;
 
     // 25% chance for AI steal (lower than player's 30%)
     if (Math.random() < 0.25) {
-      this.ballCarrier = null;
       this.ball.x = target.x;
       this.ball.y = target.y - 30;
-      // Launch ball toward the opponent who stole it
       const toOpp = opponent.x - this.ball.x;
+      this.ballState = 'LOOSE';
+      this.ballOwner = null;
       this.ball.body.setAllowGravity(true);
       this.ball.body.setVelocity(toOpp > 0 ? 150 : -150, -100);
       this.ballPickupCooldown = 30;
@@ -872,13 +844,9 @@ export default class GameScene extends Phaser.Scene {
 
   aiDunk(opponent) {
     if (this.isDunking) return;
-    if (!this.opponentHasBall || this.opponentBallCarrier !== opponent) return;
+    if (this.ballOwner !== opponent) return;
 
-    // Release ball ownership
-    this.opponentHasBall = false;
-    this.opponentBallCarrier = null;
-
-    // Mark dunking state
+    // Mark dunking state (ball stays CARRIED by opponent during dunk)
     this.isDunking = true;
     this.dunkingPlayer = opponent;
     this.aiDunkingOpponent = opponent; // Track that this is an AI dunk
@@ -929,15 +897,15 @@ export default class GameScene extends Phaser.Scene {
 
   // Called when player reaches the rim during a dunk
   completeDunk() {
-    this.ballCarrier = null;
-
-    // Ball drops through hoop and net
+    // Ball drops through hoop
+    this.ballState = 'IN_FLIGHT';
+    this.ballOwner = null;
     this.ball.x = 1270;
     this.ball.y = 355;
     this.ball.body.setVelocity(0, 300);
     this.ball.body.setAllowGravity(true);
-    this.ballPickupCooldown = 60; // Prevent pickup during net animation
-    this.scoringInProgress = true; // Prevent camera from chasing ball
+    this.ballPickupCooldown = 60;
+    this.scoringInProgress = true;
 
     // Score NOW when ball is slammed through
     this.score += 2;
@@ -945,10 +913,9 @@ export default class GameScene extends Phaser.Scene {
 
     // Delay 0.5s to show ball through net, then give possession
     this.time.delayedCall(500, () => {
-      // Opponent takes ball out behind the basket where they were scored on (right side)
       this.opponent.x = 1380;
-      this.opponentHasBall = true;
-      this.opponentBallCarrier = this.opponent;
+      this.ballState = 'CARRIED';
+      this.ballOwner = this.opponent;
       this.ball.body.setVelocity(0, 0);
       this.ball.body.setAllowGravity(false);
       this.scoringInProgress = false;
@@ -978,6 +945,8 @@ export default class GameScene extends Phaser.Scene {
     this.aiDunkingOpponent = null;
 
     // Ball drops through left hoop
+    this.ballState = 'IN_FLIGHT';
+    this.ballOwner = null;
     this.ball.x = 210;
     this.ball.y = 355;
     this.ball.body.setVelocity(0, 300);
@@ -993,7 +962,8 @@ export default class GameScene extends Phaser.Scene {
     this.time.delayedCall(500, () => {
       const activePlayer = this.players[this.activePlayerIndex];
       activePlayer.x = 100;
-      this.ballCarrier = activePlayer;
+      this.ballState = 'CARRIED';
+      this.ballOwner = activePlayer;
       this.ball.body.setVelocity(0, 0);
       this.ball.body.setAllowGravity(false);
       this.scoringInProgress = false;
@@ -1019,8 +989,10 @@ export default class GameScene extends Phaser.Scene {
   }
 
   shootBall(player, targetHoopX = 1270) {
-    this.ballCarrier = null;
-    this.ballPickupCooldown = 30; // Prevent immediate pickup after shot
+    this.ballState = 'IN_FLIGHT';
+    this.lastThrower = player;
+    this.ballOwner = null;
+    this.ballPickupCooldown = 30;
     this.ball.body.setAllowGravity(true);
 
     const hoopX = targetHoopX;
@@ -1071,9 +1043,9 @@ export default class GameScene extends Phaser.Scene {
 
   // AI shooting - opponent jumps and shoots toward left hoop
   aiShoot(opponent) {
-    // Release the ball
-    this.opponentHasBall = false;
-    this.opponentBallCarrier = null;
+    this.ballState = 'IN_FLIGHT';
+    this.lastThrower = opponent;
+    this.ballOwner = null;
     this.ballPickupCooldown = 30;
     this.ball.body.setAllowGravity(true);
 
@@ -1105,7 +1077,9 @@ export default class GameScene extends Phaser.Scene {
     const teammate = this.players.find(p => p !== fromPlayer);
     if (!teammate) return;
 
-    this.ballCarrier = null;
+    this.ballState = 'IN_FLIGHT';
+    this.lastThrower = fromPlayer;
+    this.ballOwner = null;
     this.ball.body.setAllowGravity(true);
 
     // Calculate pass trajectory to teammate
@@ -1128,15 +1102,14 @@ export default class GameScene extends Phaser.Scene {
     // 30% chance of success
     if (Math.random() < 0.3) {
       // Success: ball becomes loose — knock it toward the player
-      const target = this.opponentBallCarrier;
+      const target = this.ballOwner;
       const activePlayer = this.players[this.activePlayerIndex];
-      this.opponentHasBall = false;
-      this.opponentBallCarrier = null;
       if (target) {
         this.ball.x = target.x;
         this.ball.y = target.y - 30;
       }
-      // Launch ball toward the player who stole it
+      this.ballState = 'LOOSE';
+      this.ballOwner = null;
       this.ball.body.setAllowGravity(true);
       const toPlayer = activePlayer.x - this.ball.x;
       this.ball.body.setVelocity(toPlayer > 0 ? 150 : -150, -100);
@@ -1168,11 +1141,11 @@ export default class GameScene extends Phaser.Scene {
 
   performShove() {
     // Always works: knock opponent back and ball drops
-    const target = this.opponentBallCarrier;
-    if (!target) return;
+    const target = this.ballOwner;
+    if (!target || !this.opponents.includes(target)) return;
 
-    this.opponentHasBall = false;
-    this.opponentBallCarrier = null;
+    this.ballState = 'LOOSE';
+    this.ballOwner = null;
     this.shoveCooldown = 60;
 
     // Drop ball at opponent's CURRENT position before pushing them away
@@ -1213,13 +1186,13 @@ export default class GameScene extends Phaser.Scene {
     });
   }
 
-  makeBallLoose() {
-    // Ball drops with gravity, can be picked up by first to touch
+  makeBallLoose(fromEntity = null) {
+    this.ballState = 'LOOSE';
+    this.ballOwner = null;
     this.ball.body.setAllowGravity(true);
-    // Give it a slight random velocity
     const randomVelX = (Math.random() - 0.5) * 100;
     this.ball.body.setVelocity(randomVelX, -50);
-    this.ballPickupCooldown = 10; // Short cooldown so it's a race
+    this.ballPickupCooldown = 10;
   }
 
   showFeedback(text, color) {

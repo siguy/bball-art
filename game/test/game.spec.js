@@ -37,15 +37,19 @@ async function injectTestHelpers(page) {
         if (!scene) return null;
         const onGround = scene.player?.body?.blocked?.down;
         if (scene.isDunking) return 'DUNKING';
-        // ballCarrier is null when no red team player has ball
-        if (!scene.ballCarrier && !scene.opponentHasBall) return 'SHOT_FIRED';
+        if (scene.ballState !== 'CARRIED') return 'SHOT_FIRED';
         if (!onGround) return 'JUMPING';
         return 'GROUNDED';
       },
       getScore: () => window.__gameTest.getActiveScene()?.score ?? null,
-      // Return boolean for backwards compatibility (true if any red player has ball)
-      hasBall: () => window.__gameTest.getActiveScene()?.ballCarrier != null,
-      opponentHasBall: () => window.__gameTest.getActiveScene()?.opponentHasBall ?? null,
+      hasBall: () => {
+        const s = window.__gameTest.getActiveScene();
+        return s ? (s.ballState === 'CARRIED' && s.players.includes(s.ballOwner)) : false;
+      },
+      opponentHasBall: () => {
+        const s = window.__gameTest.getActiveScene();
+        return s ? (s.ballState === 'CARRIED' && s.opponents.includes(s.ballOwner)) : false;
+      },
       getPlayerPosition: () => {
         const scene = window.__gameTest.getActiveScene();
         return scene?.player ? { x: scene.player.x, y: scene.player.y } : null;
@@ -59,9 +63,9 @@ async function injectTestHelpers(page) {
       giveBallToPlayer: () => {
         const scene = window.__gameTest.getActiveScene();
         if (!scene) return false;
-        scene.opponentHasBall = false;
-        // Give ball to the active player (or player 1 by default)
-        scene.ballCarrier = scene.players ? scene.players[scene.activePlayerIndex] : scene.player;
+        const activePlayer = scene.players ? scene.players[scene.activePlayerIndex] : scene.player;
+        scene.ballState = 'CARRIED';
+        scene.ballOwner = activePlayer;
         scene.ball.body.setVelocity(0, 0);
         scene.ball.body.setAllowGravity(false);
         return true;
