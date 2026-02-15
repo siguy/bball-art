@@ -316,10 +316,36 @@ export default class GameScene extends Phaser.Scene {
       strokeThickness: 4
     }).setOrigin(1, 0).setScrollFactor(0);
 
+    // === GAME TIMER ===
+    this.gameOver = false;
+    this.gameStartTime = Date.now();
+    this.gameDuration = 120; // 2 minutes
+
+    this.timerText = this.add.text(640, 20, '2:00', {
+      fontSize: '36px',
+      fontFamily: 'Arial Black',
+      color: '#ffff00',
+      stroke: '#000000',
+      strokeThickness: 4
+    }).setOrigin(0.5).setScrollFactor(0);
+
+    // === BLESSED! MODE ===
+    this.redStreak = 0;
+    this.purpleStreak = 0;
+    this.blessedTeam = null;
+
+    this.blessedText = this.add.text(1260, 55, '', {
+      fontSize: '24px',
+      fontFamily: 'Arial Black',
+      color: '#ffd700',
+      stroke: '#000000',
+      strokeThickness: 3
+    }).setOrigin(1, 0).setScrollFactor(0).setVisible(false);
+
     // Controls hint (fixed to screen, centered between scores at top)
     // Only show keyboard controls on non-touch devices
     this.isTouchDevice = this.sys.game.device.input.touch;
-    this.controlsHint = this.add.text(640, 28,
+    this.controlsHint = this.add.text(640, 50,
       'WASD = Move | SPACE = Jump/Shoot | SHIFT = Turbo | TAB = Switch | E = Pass | DOWN = Steal', {
       fontSize: '14px',
       fontFamily: 'Arial',
@@ -458,6 +484,12 @@ export default class GameScene extends Phaser.Scene {
     this.score += 2;
     this.scoreText.setText('RED: ' + this.score);
 
+    // BLESSED! streak tracking
+    this.redStreak++;
+    this.purpleStreak = 0;
+    if (this.blessedTeam === 'purple') this.deactivateBlessed();
+    if (this.redStreak >= 3 && this.blessedTeam !== 'red') this.activateBlessed('red');
+
     // === GAME JUICE: Score flash ===
     this.cameras.main.flash(150, 255, 255, 255, false, null, this);
 
@@ -503,6 +535,12 @@ export default class GameScene extends Phaser.Scene {
     this.opponentScore += 2;
     this.opponentScoreText.setText('PURPLE: ' + this.opponentScore);
 
+    // BLESSED! streak tracking
+    this.purpleStreak++;
+    this.redStreak = 0;
+    if (this.blessedTeam === 'red') this.deactivateBlessed();
+    if (this.purpleStreak >= 3 && this.blessedTeam !== 'purple') this.activateBlessed('purple');
+
     // === GAME JUICE: Score flash ===
     this.cameras.main.flash(150, 200, 100, 255, false, null, this);
 
@@ -542,6 +580,25 @@ export default class GameScene extends Phaser.Scene {
   }
 
   update() {
+    // Game over guard
+    if (this.gameOver) return;
+
+    // === GAME TIMER (wall clock, unaffected by hit-stop) ===
+    const elapsed = (Date.now() - this.gameStartTime) / 1000;
+    const remaining = Math.max(0, this.gameDuration - elapsed);
+    const minutes = Math.floor(remaining / 60);
+    const seconds = Math.floor(remaining % 60);
+    this.timerText.setText(`${minutes}:${seconds.toString().padStart(2, '0')}`);
+    if (remaining < 10) {
+      this.timerText.setColor(Math.floor(Date.now() / 250) % 2 === 0 ? '#ff0000' : '#ffff00');
+    } else {
+      this.timerText.setColor('#ffff00');
+    }
+    if (remaining <= 0) {
+      this.endGame();
+      return;
+    }
+
     // Debug toggle (I key)
     if (Phaser.Input.Keyboard.JustDown(this.debugKey)) {
       this.debugMode = !this.debugMode;
@@ -578,7 +635,8 @@ export default class GameScene extends Phaser.Scene {
     const activePlayer = this.players[this.activePlayerIndex];
     const inactivePlayer = this.players[(this.activePlayerIndex + 1) % 2];
     const onGround = activePlayer.body.blocked.down;
-    const speed = activePlayer.turboActive ? 375 : 250;
+    const blessedSpeedMult = this.blessedTeam === 'red' ? 1.3 : 1;
+    const speed = (activePlayer.turboActive ? 375 : 250) * blessedSpeedMult;
     const isStunned = activePlayer.stunTimer > 0;
 
     // Check dunk range (can dunk from 200px before hoop to 50px past it)
@@ -595,12 +653,26 @@ export default class GameScene extends Phaser.Scene {
       const pInDunkRange = pDistToHoop > -50 && pDistToHoop < 200;
       const pOnGround = p.body.blocked.down;
 
-      if (pInDunkRange && playerHasBall && pOnGround) {
+      if (this.blessedTeam === 'red') {
+        // BLESSED! = pulsing gold/orange
+        const pulse = Math.sin(Date.now() / 100) > 0;
+        p.setFillStyle(pulse ? 0xffd700 : 0xff8c00);
+      } else if (pInDunkRange && playerHasBall && pOnGround) {
         p.setFillStyle(0xffd700); // Gold = ready to dunk!
       } else if (playerHasBall) {
         p.setFillStyle(0xff0000); // Red = has ball
       } else {
         p.setFillStyle(0x880000); // Dark red = no ball
+      }
+    }
+
+    // Opponent visual: blessed purple = pulsing gold
+    for (const opp of this.opponents) {
+      if (this.blessedTeam === 'purple') {
+        const pulse = Math.sin(Date.now() / 100) > 0;
+        opp.setFillStyle(pulse ? 0xffd700 : 0xff8c00);
+      } else {
+        opp.setFillStyle(0x800080);
       }
     }
 
@@ -683,9 +755,12 @@ export default class GameScene extends Phaser.Scene {
     const turbo = Math.round(activePlayer.turboMeter);
     const tmTurbo = Math.round(inactivePlayer.turboMeter);
     const stunP = activePlayer.stunTimer > 0 ? ` STUN:${activePlayer.stunTimer}` : '';
+    const timerSec = Math.max(0, this.gameDuration - (Date.now() - this.gameStartTime) / 1000).toFixed(1);
+    const blessed = this.blessedTeam ? this.blessedTeam.toUpperCase() : 'none';
     this.debugText.setText(
       `Ball: ${ballStatus} | Opp: ${ai1}/${ai2} | Tm: ${tmAi} | ` +
-      `Turbo: ${turbo}/${tmTurbo} | StealCD: ${this.stealCooldown}${stunP}`
+      `Turbo: ${turbo}/${tmTurbo} | StealCD: ${this.stealCooldown}${stunP}\n` +
+      `Timer: ${timerSec}s | Streak R:${this.redStreak} P:${this.purpleStreak} | Blessed: ${blessed}`
     );
 
     // === PASS (E key or touch button B on offense) ===
@@ -818,7 +893,9 @@ export default class GameScene extends Phaser.Scene {
     for (const p of this.players) {
       if (p === activePlayer && turboHeld && p.turboMeter > 0 && !isStunned) {
         p.turboActive = true;
-        p.turboMeter = Math.max(0, p.turboMeter - 0.5);
+        if (this.blessedTeam !== 'red') {
+          p.turboMeter = Math.max(0, p.turboMeter - 0.5);
+        }
       } else {
         p.turboActive = false;
         p.turboMeter = Math.min(100, p.turboMeter + 0.15);
@@ -831,7 +908,9 @@ export default class GameScene extends Phaser.Scene {
       const shouldTurbo = (opp.aiState === 'ATTACK' || opp.aiState === 'CHASE_BALL') && opp.turboMeter > 30;
       if (shouldTurbo) {
         opp.turboActive = true;
-        opp.turboMeter = Math.max(0, opp.turboMeter - 0.5);
+        if (this.blessedTeam !== 'purple') {
+          opp.turboMeter = Math.max(0, opp.turboMeter - 0.5);
+        }
       } else {
         opp.turboActive = false;
         opp.turboMeter = Math.min(100, opp.turboMeter + 0.15);
@@ -989,7 +1068,8 @@ export default class GameScene extends Phaser.Scene {
 
     if (inactivePlayer.aiStealCooldown > 0) inactivePlayer.aiStealCooldown--;
 
-    const tmSpeed = inactivePlayer.turboActive ? 375 : 250;
+    const tmBlessedMult = this.blessedTeam === 'red' ? 1.3 : 1;
+    const tmSpeed = (inactivePlayer.turboActive ? 375 : 250) * tmBlessedMult;
     const rightHoopX = 1270;
     const ballIsLoose = this.ballState !== 'CARRIED';
     const activePlayer = this.players[this.activePlayerIndex];
@@ -1154,7 +1234,8 @@ export default class GameScene extends Phaser.Scene {
       // Stunned opponents skip all AI behavior
       if (opp.stunTimer > 0) continue;
 
-      const aiSpeed = opp.turboActive ? 300 : 200;
+      const aiBlessedMult = this.blessedTeam === 'purple' ? 1.3 : 1;
+      const aiSpeed = (opp.turboActive ? 300 : 200) * aiBlessedMult;
 
       // State transitions
       if (this.ballOwner === opp) {
@@ -1374,6 +1455,12 @@ export default class GameScene extends Phaser.Scene {
     this.score += 2;
     this.scoreText.setText('RED: ' + this.score);
 
+    // BLESSED! streak tracking
+    this.redStreak++;
+    this.purpleStreak = 0;
+    if (this.blessedTeam === 'purple') this.deactivateBlessed();
+    if (this.redStreak >= 3 && this.blessedTeam !== 'red') this.activateBlessed('red');
+
     // Delay 0.5s to show ball through net, then give possession
     this.time.delayedCall(500, () => {
       this.opponent.x = 1380;
@@ -1425,6 +1512,12 @@ export default class GameScene extends Phaser.Scene {
     // Score for purple team
     this.opponentScore += 2;
     this.opponentScoreText.setText('PURPLE: ' + this.opponentScore);
+
+    // BLESSED! streak tracking
+    this.purpleStreak++;
+    this.redStreak = 0;
+    if (this.blessedTeam === 'red') this.deactivateBlessed();
+    if (this.purpleStreak >= 3 && this.blessedTeam !== 'purple') this.activateBlessed('purple');
 
     // Delay 0.5s, then give possession to red team
     this.time.delayedCall(500, () => {
@@ -1504,6 +1597,11 @@ export default class GameScene extends Phaser.Scene {
     // Turbo accuracy bonus (+15%)
     if (player.turboActive) jumpAccuracy = Math.min(1.0, jumpAccuracy + 0.15);
 
+    // BLESSED! accuracy bonus (+20%)
+    if (this.blessedTeam === 'red' && this.players.includes(player)) {
+      jumpAccuracy = Math.min(1.0, jumpAccuracy + 0.20);
+    }
+
     // Defensive pressure: nearby defenders reduce accuracy
     const defenderDist = this.getClosestDefenderDistance(player);
     if (defenderDist < 60) {
@@ -1536,6 +1634,11 @@ export default class GameScene extends Phaser.Scene {
 
     // Base 70% accuracy for AI
     let aiAccuracy = 0.7;
+
+    // BLESSED! accuracy bonus (+20%)
+    if (this.blessedTeam === 'purple') {
+      aiAccuracy = Math.min(1.0, aiAccuracy + 0.20);
+    }
 
     // Defensive pressure: nearby defenders reduce accuracy
     const defenderDist = this.getClosestDefenderDistance(opponent);
@@ -1720,11 +1823,17 @@ export default class GameScene extends Phaser.Scene {
           // Player shot goaltended — score for red
           this.score += 2;
           this.scoreText.setText('RED: ' + this.score);
+          this.redStreak++; this.purpleStreak = 0;
+          if (this.blessedTeam === 'purple') this.deactivateBlessed();
+          if (this.redStreak >= 3 && this.blessedTeam !== 'red') this.activateBlessed('red');
           this.showCenterFeedback('GOALTEND!', '#ff4444');
         } else if (nearLeftHoop && !throwerIsPlayer) {
           // AI shot goaltended — score for purple
           this.opponentScore += 2;
           this.opponentScoreText.setText('PURPLE: ' + this.opponentScore);
+          this.purpleStreak++; this.redStreak = 0;
+          if (this.blessedTeam === 'red') this.deactivateBlessed();
+          if (this.purpleStreak >= 3 && this.blessedTeam !== 'purple') this.activateBlessed('purple');
           this.showCenterFeedback('GOALTEND!', '#cc66ff');
         } else {
           // Defender near their own hoop on a ball that wasn't shot at it — not goaltending, skip
@@ -1790,6 +1899,73 @@ export default class GameScene extends Phaser.Scene {
       if (dist < closestDist) closestDist = dist;
     }
     return closestDist;
+  }
+
+  endGame() {
+    this.gameOver = true;
+    this.time.timeScale = 1; // Reset any active hit-stop
+
+    // Freeze all entities
+    const allEntities = [...this.players, ...this.opponents];
+    for (const entity of allEntities) {
+      entity.body.setVelocity(0, 0);
+      entity.body.setAllowGravity(false);
+    }
+    this.ball.body.setVelocity(0, 0);
+    this.ball.body.setAllowGravity(false);
+
+    // Timer shows 0:00
+    this.timerText.setText('0:00');
+    this.timerText.setColor('#ff0000');
+
+    // "GAME OVER" center popup
+    this.showCenterFeedback('GAME OVER', '#ffd700');
+
+    // Determine winner
+    let winner;
+    if (this.score > this.opponentScore) {
+      winner = 'RED';
+    } else if (this.opponentScore > this.score) {
+      winner = 'PURPLE';
+    } else {
+      winner = 'TIE';
+    }
+
+    // Transition to GameOverScene after 1.5s
+    this.time.delayedCall(1500, () => {
+      this.scene.start('GameOverScene', {
+        winner,
+        score: { team1: this.score, team2: this.opponentScore }
+      });
+    });
+  }
+
+  activateBlessed(team) {
+    this.blessedTeam = team;
+
+    // Gold flash + screen shake
+    this.cameras.main.flash(200, 255, 215, 0);
+    this.cameras.main.shake(200, 0.01);
+
+    // Center feedback
+    this.showCenterFeedback('BLESSED!', '#ffd700');
+
+    // Show persistent indicator
+    this.blessedText.setText(team === 'red' ? 'RED BLESSED!' : 'PURPLE BLESSED!');
+    this.blessedText.setVisible(true);
+  }
+
+  deactivateBlessed() {
+    if (!this.blessedTeam) return;
+    const team = this.blessedTeam;
+    this.blessedTeam = null;
+
+    // Reset streak for the team that lost BLESSED
+    if (team === 'red') this.redStreak = 0;
+    else this.purpleStreak = 0;
+
+    // Hide indicator
+    this.blessedText.setVisible(false);
   }
 
   // Center-screen feedback text (for blocks, goaltends, contested shots)
