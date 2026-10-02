@@ -43,7 +43,7 @@ block on the pairing's player object (wardrobe, accents, aura, background motifs
 |---|---|---|
 | Karl-Anthony Towns | Joseph | [x] fusion solo v2 generated (coat of colors, gold collar, sun/moon/11 stars, wheat) |
 | Jalen Brunson | Joshua | [x] fusion card done (walls, 7 shofars, scarlet cord, sun+moon, 12 stones, Jordan). Lefty fix: mirror the card, then Gemini edit pass to re-letter title + logo (2 edit calls) |
-| Josh Hart | Caleb | [ ] pose file + pairing + generate |
+| Josh Hart | Caleb | [x] fusion card done first try (giants, grasshoppers, Eshcol grapes, milk & honey, dog constellation, mountain) - logo drawn as plain text |
 | Mikal Bridges | Priests at the Jordan (Eleazar) | [ ] pose files (player + figure) + pairing |
 | OG Anunoby | Shamgar | [ ] pose files (player + figure) + pairing |
 

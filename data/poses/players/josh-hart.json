@@ -1,0 +1,40 @@
+{
+  "id": "josh-hart",
+  "name": "Josh Hart",
+  "defaultPose": "rebound-in-traffic",
+  "description": "6'4\" guard who rebounds like a big man. Relentless motor, plays through anything, chaos energy, loud and funny, the team's emotional engine.",
+  "poses": {
+    "rebound-in-traffic": {
+      "id": "rebound-in-traffic",
+      "name": "Rebound in Traffic",
+      "description": "Skying above the trees to rip down a rebound with both hands - the undersized guard who out-rebounds giants.",
+      "expression": "fierce, wide-eyed, mouth open in a yell",
+      "prompt": "Josh Hart soaring at the peak of his jump, ripping a rebound out of the air with BOTH hands clamped on the orange basketball high above his head, elbows flared out wide to protect it, knees tucked, body twisted with effort, mouth open in a fierce yell - a guard snatching the ball from the giants",
+      "energy": "relentless hustle, fearless"
+    },
+    "full-court-outlet": {
+      "id": "full-court-outlet",
+      "name": "Grab and Go",
+      "description": "Ball secured off the glass, already pushing it up the floor himself.",
+      "expression": "eyes up the court, hungry",
+      "prompt": "Josh Hart pushing the ball up court in full stride right after grabbing a rebound, dribbling hard with his right hand, body leaning forward, eyes scanning ahead, legs mid-stride",
+      "energy": "motor, momentum"
+    },
+    "floor-dive": {
+      "id": "floor-dive",
+      "name": "Floor Dive",
+      "description": "Sprawling full-length on the hardwood for a loose ball.",
+      "expression": "total commitment",
+      "prompt": "Josh Hart diving horizontally through the air for a loose basketball, arms fully stretched out, fingertips reaching the ball, body parallel to the floor just above the hardwood",
+      "energy": "sacrifice, hustle"
+    },
+    "we-did-it-scream": {
+      "id": "we-did-it-scream",
+      "name": "We Did It!",
+      "description": "The championship scream at the final buzzer.",
+      "expression": "pure joy, tears and laughter",
+      "prompt": "Josh Hart screaming with joy at the final buzzer, both fists raised and clenched, head thrown back, mouth wide open, tears in his eyes, confetti in the air",
+      "energy": "release, celebration"
+    }
+  }
+}
