@@ -42,12 +42,13 @@ block on the pairing's player object (wardrobe, accents, aura, background motifs
 | Player | Figure | Status |
 |---|---|---|
 | Karl-Anthony Towns | Joseph | [x] fusion solo v2 generated (coat of colors, gold collar, sun/moon/11 stars, wheat) |
-| Jalen Brunson | Joshua | [ ] pairing + generate |
+| Jalen Brunson | Joshua | [~] fusion card generated (walls, 7 shofars, scarlet cord, sun+moon, 12 stones, Jordan) - BLOCKED: model renders him right-handed (3 tries) |
 | Josh Hart | Caleb | [ ] pose file + pairing + generate |
 | Mikal Bridges | Priests at the Jordan (Eleazar) | [ ] pose files (player + figure) + pairing |
 | OG Anunoby | Shamgar | [ ] pose files (player + figure) + pairing |
 
 - [x] `fillmore-revelation` template + registered (`fr`) in filename-builder, config, server, templates-meta
 - [ ] Simon's feedback on KAT fusion card before doing the other four
+- `generate-solo.js --pairing <id>` picks which pairing's player data (and fusion block) to use
 - Command: `node scripts/generate-solo.js player karl-anthony-towns fillmore-revelation --pose three-point-release`
 - Note: `--draft` (FLUX) ignores this style badly (no psychedelia, put Joseph in a jersey) - use full Nano Banana for this template

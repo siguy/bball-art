@@ -19,6 +19,8 @@
  *   --series <id>     Series ID (default: court-covenant for players, auto-detect for figures)
  *   --pose <id>       Pose ID (or 'default')
  *   --hair <color>    Hair color override (for players with hair colors, e.g., Rodman)
+ *   --pairing <id>    Take character data from this pairing (needed when a player has
+ *                     several pairings, e.g. to pick the one holding a `fusion` block)
  *   --list-poses      List available poses for this character
  *   --dry-run         Show prompt without generating
  */
@@ -30,7 +32,7 @@ import { generateImage as generateGemini } from './nano-banana-client.js';
 import { generateImage as generateDraft } from './draft-client.js';
 import { buildSoloFilename, getOutputDir } from './lib/filename-builder.js';
 import { CONFIG, getPosesPath } from './lib/config.js';
-import { findCharacterData, loadPoseFile, listPoseFiles } from './lib/data-loader.js';
+import { findCharacterData, loadPairing, loadPoseFile, listPoseFiles } from './lib/data-loader.js';
 import { loadTemplate, getAvailableTemplatesHelp } from './lib/template-loader.js';
 import {
   getPlayerPose,
@@ -44,7 +46,7 @@ import {
 
 // Parse arguments
 const args = minimist(process.argv.slice(2), {
-  string: ['series', 'pose', 'hair'],
+  string: ['series', 'pose', 'hair', 'pairing'],
   boolean: ['list-poses', 'dry-run', 'draft', 'help'],
   alias: { h: 'help' },
 });
@@ -144,8 +146,19 @@ async function generateSoloCard() {
     process.exit(1);
   }
 
-  // Find character data from standalone file or pairings
-  const characterResult = findCharacterData(characterType, characterId, args.series);
+  // Find character data: an explicit --pairing wins, else standalone file or first matching pairing
+  let characterResult;
+  if (args.pairing) {
+    const pairing = loadPairing(args.pairing, args.series);
+    if (!pairing) {
+      console.error(`Pairing not found: ${args.pairing}`);
+      process.exit(1);
+    }
+    const data = pairing[characterType === 'player' ? 'player' : 'figure'];
+    characterResult = { data: { ...data, type: characterType }, series: pairing.series };
+  } else {
+    characterResult = findCharacterData(characterType, characterId, args.series);
+  }
 
   if (!characterResult) {
     console.error(`Character data not found: ${characterId}`);
