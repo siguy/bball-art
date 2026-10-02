@@ -14,7 +14,6 @@
   --font-display: 'Bowlby One', 'Arial Black', sans-serif;
   --font-board: 'Big Shoulders Display', 'Arial Narrow', sans-serif;
   --font-body: 'Bricolage Grotesque', 'Helvetica Neue', sans-serif;
-  --font-hebrew: 'Frank Ruhl Libre', 'Times New Roman', serif;
 
   --card-ratio: 3 / 4;
   --radius: 14px;
@@ -366,30 +365,30 @@ a { color: inherit; }
 
 .flip:hover .foil { opacity: 0.8; }
 
-/* --- Card back --- */
+/* --- Card back: badge, names, hook, two facts, link --- */
 
 .flip-back {
   transform: rotateY(180deg);
   display: flex;
   flex-direction: column;
-  gap: 0.6rem;
-  padding: 1.1rem 1rem 1rem;
-  overflow-y: auto;
-  scrollbar-width: thin;
-  scrollbar-color: var(--gold-dark) transparent;
+  align-items: center;
+  justify-content: center;
+  gap: 0.7rem;
+  padding: 1.1rem 1rem;
+  text-align: center;
   border: 2px solid var(--gold);
   background:
+    radial-gradient(circle at 50% 0%, rgba(212, 175, 55, 0.18), transparent 60%),
     repeating-linear-gradient(45deg, rgba(212, 175, 55, 0.05) 0 2px, transparent 2px 12px),
     linear-gradient(160deg, #1b1b24, #08080b);
 }
 
 .back-type {
-  align-self: flex-start;
   font: 900 0.7rem var(--font-board);
-  letter-spacing: 0.2em;
+  letter-spacing: 0.22em;
   text-transform: uppercase;
-  padding: 0.15rem 0.55rem;
-  border-radius: 4px;
+  padding: 0.2rem 0.7rem;
+  border-radius: 999px;
   background: var(--gold);
   color: #0b0b0b;
 }
@@ -399,49 +398,40 @@ a { color: inherit; }
 .flip-back h3 {
   font-family: var(--font-display);
   font-weight: 400;
-  font-size: 1.35rem;
+  font-size: 1.45rem;
   line-height: 1;
   text-transform: uppercase;
   color: var(--gold-light);
 }
 
-.flip-back h3 b { color: var(--ink); margin: 0 0.3rem; font-family: var(--font-body); }
+.flip-back h3 b { display: block; margin: 0.15rem 0; font: 600 1rem var(--font-body); color: var(--ink); }
 
-.back-hook { font-size: 0.9rem; font-weight: 600; line-height: 1.35; }
+.back-hook {
+  font-size: 1.02rem;
+  font-weight: 600;
+  line-height: 1.35;
+}
 
-.back-label {
-  display: block;
-  font: 900 0.68rem var(--font-board);
-  letter-spacing: 0.18em;
+.back-facts {
+  width: 100%;
+  display: grid;
+  gap: 0.35rem;
+  padding-top: 0.6rem;
+  border-top: 1px solid rgba(212, 175, 55, 0.3);
+  font-size: 0.78rem;
+  color: var(--muted);
+}
+
+.back-facts dt {
+  font: 900 0.62rem var(--font-board);
+  letter-spacing: 0.2em;
   text-transform: uppercase;
   color: var(--gold);
-  margin-bottom: 0.2rem;
 }
 
-.back-verse {
-  border-left: 2px solid var(--gold);
-  padding-left: 0.65rem;
-}
-
-.back-verse .he {
-  font-family: var(--font-hebrew);
-  font-size: 1rem;
-  line-height: 1.6;
-}
-
-.back-verse .en {
-  margin-top: 0.25rem;
-  font-size: 0.74rem;
-  font-style: italic;
-  color: var(--muted);
-  line-height: 1.45;
-}
-
-.back-receipt { font-size: 0.8rem; color: var(--ink); }
+.back-facts dd { margin: 0; }
 
 .back-link {
-  margin-top: auto;
-  align-self: flex-start;
   font: 900 0.85rem var(--font-board);
   letter-spacing: 0.14em;
   text-transform: uppercase;

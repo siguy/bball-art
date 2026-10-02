@@ -2,86 +2,85 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no">
-  <title>Court & Covenant - Card Collection</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Court & Covenant - The Collection</title>
 
-  <!-- Meta tags -->
   <meta name="description" content="Swipe through the Court & Covenant card collection. Basketball legends meet biblical figures.">
-  <meta name="theme-color" content="#0a0a0f">
+  <meta name="theme-color" content="#000000">
+  <meta property="og:title" content="Court & Covenant - The Collection">
+  <meta property="og:image" content="https://www.courtandcovenant.com/cards/card-02.jpeg">
+  <link rel="icon" type="image/png" href="brand/favicon.png">
 
-  <!-- Prevent zoom on double-tap -->
-  <meta name="apple-mobile-web-app-capable" content="yes">
-
-  <!-- Styles -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@500&display=swap">
-  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;900&family=Bowlby+One&family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600&family=Frank+Ruhl+Libre:wght@500&display=swap">
+
+  <link rel="stylesheet" href="css/deck.css">
 </head>
-<body class="deck-page">
+<body>
 
-  <!-- Navigation -->
-  <nav class="deck-nav">
-    <a href="index.html" class="back-button">
-      <span>&larr;</span>
-      <span>Home</span>
-    </a>
-  </nav>
-
-  <!-- Card Deck Container -->
-  <div class="deck-container">
-
-    <!-- Card Stack -->
-    <div class="card-stack" id="cardStack">
-      <!-- Cards are injected by JavaScript -->
-    </div>
-
-    <!-- Deck Controls -->
-    <div class="deck-controls">
-      <button class="deck-btn" id="btnPrev" aria-label="Previous card">
-        &larr;
-      </button>
-      <span class="progress" id="progress">1 / 7</span>
-      <button class="deck-btn" id="btnNext" aria-label="Next card">
-        &rarr;
-      </button>
-    </div>
-
-    <!-- Progress Dots -->
-    <div class="progress-dots" id="progressDots">
-      <!-- Dots are injected by JavaScript -->
-    </div>
-
-    <!-- Swipe Hint (shows once) -->
-    <div class="swipe-hint" id="swipeHint">
-      <span>&larr;</span>
-      <span>Swipe to browse</span>
-      <span>&rarr;</span>
-    </div>
+  <!-- Blurred copy of the current card glows behind everything -->
+  <div class="ambient" aria-hidden="true">
+    <div class="ambient-layer" id="ambientA"></div>
+    <div class="ambient-layer" id="ambientB"></div>
   </div>
 
-  <!-- Info Panel (slides up) -->
-  <div class="panel-backdrop" id="panelBackdrop"></div>
-  <div class="info-panel" id="infoPanel">
-    <div class="info-panel-handle"></div>
-    <h2 id="panelTitle"></h2>
-    <p class="template" id="panelTemplate"></p>
-    <p class="narrative" id="panelHook"></p>
-    <dl class="pairing-details">
-      <div id="rowParallel"><dt>The Parallel</dt><dd id="panelParallel"></dd></div>
-      <div id="rowBond"><dt>The Bond</dt><dd id="panelBond"></dd></div>
-      <div id="rowScripture">
-        <dt>Scripture &middot; <span id="panelScriptureRef"></span></dt>
-        <dd>
-          <blockquote class="verse">
-            <p class="verse-he" lang="he" dir="rtl" id="panelScriptureHe"></p>
-            <p class="verse-en" id="panelScriptureEn"></p>
-          </blockquote>
-        </dd>
+  <header class="topbar">
+    <a href="index.html" class="back"><span aria-hidden="true">&larr;</span> Home</a>
+    <a href="index.html" class="mini-logo"><img src="brand/court-covenant-logo-transparent.png" alt="Court & Covenant"></a>
+    <p class="counter" aria-live="polite"><b id="count">01</b><span>/</span><span id="total">18</span></p>
+  </header>
+
+  <main class="stage">
+    <div class="viewer">
+      <div class="track" id="track" tabindex="0" aria-label="Card collection. Use arrow keys to browse."></div>
+      <button class="nav nav-prev" id="btnPrev" aria-label="Previous card">&larr;</button>
+      <button class="nav nav-next" id="btnNext" aria-label="Next card">&rarr;</button>
+      <p class="swipe-hint" id="swipeHint" aria-hidden="true">&larr; Swipe &rarr;</p>
+    </div>
+
+    <!-- Phone: caption under the card. Desktop: hidden (details panel shows it) -->
+    <div class="caption">
+      <div class="caption-text">
+        <p class="caption-names" id="capNames"></p>
+        <p class="caption-hook" id="capHook"></p>
       </div>
-      <div id="rowReceipt"><dt>The Receipt</dt><dd id="panelReceipt"></dd></div>
-    </dl>
-  </div>
+      <button class="details-btn" id="btnDetails" aria-controls="details" aria-expanded="false">
+        Details <span aria-hidden="true">&uarr;</span>
+      </button>
+    </div>
+
+    <!-- Phone: slide-up sheet. Desktop: right-hand column -->
+    <aside class="details" id="details" aria-label="Card details">
+      <button class="sheet-close" id="btnClose" aria-label="Close details">&times;</button>
+      <div class="badges">
+        <span class="badge badge-type" id="dType"></span>
+        <span class="badge" id="dTemplate"></span>
+        <span class="badge" id="dVersion"></span>
+      </div>
+      <h1 class="names"><span id="dPlayer"></span><b>&times;</b><span id="dFigure"></span></h1>
+      <p class="hook" id="dHook"></p>
+
+      <dl class="facts">
+        <div id="rowParallel"><dt>The Parallel</dt><dd id="dParallel"></dd></div>
+        <div id="rowBond"><dt>The Bond</dt><dd id="dBond"></dd></div>
+        <div id="rowVerse">
+          <dt>The Verse &middot; <span id="dRef"></span></dt>
+          <dd>
+            <blockquote class="verse">
+              <p class="verse-he" lang="he" dir="rtl" id="dHebrew"></p>
+              <p class="verse-en" id="dEnglish"></p>
+            </blockquote>
+          </dd>
+        </div>
+        <div id="rowReceipt"><dt>The Receipt</dt><dd id="dReceipt"></dd></div>
+      </dl>
+    </aside>
+    <div class="sheet-backdrop" id="backdrop"></div>
+  </main>
+
+  <!-- Desktop: jump to any card -->
+  <nav class="filmstrip" id="filmstrip" aria-label="All cards"></nav>
 
   <script type="module" src="js/deck.js"></script>
 </body>

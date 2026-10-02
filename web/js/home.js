@@ -69,21 +69,17 @@ function buildTicker() {
 
 // ---------- Matchup flip cards ----------
 function cardBack(m) {
-  const verse = m.scripture
-    ? `<div class="back-verse">
-         <span class="back-label">${escapeHtml(m.scripture.ref)}</span>
-         <p class="he" lang="he" dir="rtl">${escapeHtml(m.scripture.hebrew)}</p>
-         <p class="en">${escapeHtml(m.scripture.english)}</p>
-       </div>`
-    : '';
+  // Kept deliberately short: the full verse and details live in the collection view
   return `
     <div class="flip-back">
       <span class="back-type">${m.type === 'villain' ? 'Villain' : 'Hero'}</span>
       <h3>${escapeHtml(lastName(m.player))}<b>×</b>${escapeHtml(lastName(m.figure))}</h3>
-      <p class="back-hook">“${escapeHtml(m.hook)}”</p>
-      ${verse}
-      ${m.receipt ? `<p class="back-receipt"><span class="back-label">The receipt</span>${escapeHtml(m.receipt)}</p>` : ''}
-      <a class="back-link" href="cards.html#${m.id}">See the cards &rarr;</a>
+      <p class="back-hook">${escapeHtml(m.hook)}</p>
+      <dl class="back-facts">
+        ${m.scripture ? `<div><dt>Verse</dt><dd>${escapeHtml(m.scripture.ref)}</dd></div>` : ''}
+        ${m.receipt ? `<div><dt>Receipt</dt><dd>${escapeHtml(m.receipt)}</dd></div>` : ''}
+      </dl>
+      <a class="back-link" href="cards.html#${m.id}">Open the cards &rarr;</a>
     </div>`;
 }
 
