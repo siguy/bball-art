@@ -1,0 +1,48 @@
+{
+  "id": "jalen-brunson",
+  "name": "Jalen Brunson",
+  "defaultPose": "driving-layup",
+  "description": "6'1\" point guard, strong build, crafty scorer, known for high basketball IQ and clutch performances. Notable features include his unwavering focus and determined expression.",
+  "poses": {
+    "driving-layup": {
+      "id": "driving-layup",
+      "name": "Driving Layup",
+      "description": "Brunson's signature strong drive to the basket, absorbing contact and finishing with a high-arcing layup.",
+      "expression": "intense focus, determined to score",
+      "prompt": "Jalen Brunson driving hard to the basket - absorbing contact from defender with shoulder, ball protected high, eyes focused on the rim, body leaning into defender to create space, preparing to release a high-arcing layup, controlled aggression, determined look",
+      "energy": "power, determination"
+    },
+    "lefty-floater": {
+      "id": "lefty-floater",
+      "name": "Left-Handed Floater",
+      "description": "Jalen's signature left-handed floater in the lane, releasing the ball high over taller defenders.",
+      "expression": "crafty, precise, effortless",
+      "prompt": "Jalen Brunson releasing a high left-handed floater in the lane - body slightly angled to the left, ball extended high above head, wrist flicking softly to control the trajectory, defender trailing behind, looking up at the ball as it floats towards the basket, signature finesse",
+      "energy": "finesse, touch"
+    },
+    "midrange-jumper": {
+      "id": "midrange-jumper",
+      "name": "Pull-Up Midrange",
+      "description": "Stopping on a dime for a silky smooth midrange jump shot, perfect balance and release.",
+      "expression": "confident, in the zone",
+      "prompt": "Jalen Brunson pulling up for a smooth midrange jump shot - feet perfectly balanced, knees bent, ball rising to set point above forehead, elbow tucked in tight, eyes locked on the basket, defender a step behind, the image of effortless scoring",
+      "energy": "smooth, automatic"
+    },
+    "winning-celebration": {
+      "id": "winning-celebration",
+      "name": "Clutch Celebration",
+      "description": "The energetic celebration after hitting a clutch shot - pounding chest and screaming.",
+      "expression": "pure joy, adrenaline rush",
+      "prompt": "Jalen Brunson celebrating a game-winning shot - pounding his chest with his fist, mouth open in a scream of joy, teammates rushing to celebrate, confetti falling from the ceiling, the thrill of victory exploding in his face, pure emotion",
+      "energy": "exuberant, victorious"
+    },
+    "no-look-pass": {
+      "id": "no-look-pass",
+      "name": "No-Look Pass",
+      "description": "Delivering a pinpoint no-look pass to an open teammate for an easy score.",
+      "expression": "calm confidence, anticipation",
+      "prompt": "Jalen Brunson executing a no-look pass - body facing one direction, eyes looking away from the intended target, arm extended, flicking the ball towards the open teammate, defender completely fooled, the epitome of court awareness",
+      "energy": "deceptive, instinctive"
+    }
+  }
+}
