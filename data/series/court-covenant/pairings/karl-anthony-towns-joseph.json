@@ -1,0 +1,69 @@
+{
+  "id": "karl-anthony-towns-joseph",
+  "series": "court-covenant",
+  "type": "hero",
+  "isAlternate": false,
+  "alternateOf": null,
+  "opposingPairing": null,
+  "collection": "can-these-bones-live",
+  "player": {
+    "name": "Karl-Anthony Towns",
+    "displayName": "Karl-Anthony Towns",
+    "poseFileId": "karl-anthony-towns",
+    "characterType": "player",
+    "era": "2020s",
+    "jerseyColors": {
+      "primary": {
+        "base": "royal blue",
+        "accent": "orange"
+      },
+      "secondary": {
+        "base": "white",
+        "accent": "royal blue"
+      }
+    },
+    "signatureMoves": [
+      "seven-foot three-pointer",
+      "post fadeaway",
+      "and-one roar"
+    ],
+    "physicalDescription": "7-foot center with broad shoulders and long arms, athletic frame, short dark hair, neatly trimmed beard, tattoos on his arms, warm expressive face that shows every emotion",
+    "archetype": "The big man with a dreamer's touch, sent away and redeemed in the city"
+  },
+  "figure": {
+    "name": "Joseph",
+    "displayName": "Joseph",
+    "poseFileId": "joseph",
+    "characterType": "figure",
+    "attribute": "coat of many colors",
+    "attributeDescription": "the ketonet passim - a radiant coat of many colors whose stripes glow and ripple like liquid light",
+    "visualStyle": "young Hebrew dreamer, favored son",
+    "clothing": "the legendary coat of many colors worn open over a simple linen tunic, leather sandals",
+    "physicalDescription": "young handsome Hebrew man, short dark beard, dark curly hair, olive skin, dreamy far-seeing eyes",
+    "anatomyNote": "two arms only",
+    "archetype": "The dreamer who was sent away and rose to glory in a new land"
+  },
+  "connection": {
+    "thematic": "Sent away by their own, both rose to glory in a new home - and neither ever hid his heart",
+    "narrative": "Joseph was cast out by his brothers and became second only to Pharaoh. Towns was traded away and became a champion in New York. Joseph wept openly more than anyone in Genesis; Towns plays every emotion out loud.",
+    "relationship": "Exiled dreamers who wore their hearts - and their colors - for everyone to see",
+    "scripture": {
+      "ref": "Genesis 50:20",
+      "hebrew": "וְאַתֶּם חֲשַׁבְתֶּם עָלַי רָעָה אֱלֹהִים חֲשָׁבָהּ לְטֹבָה",
+      "english": "But as for you, ye thought evil against me; but God meant it unto good."
+    },
+    "receipt": "Traded to New York in 2024; won the 2026 title with the highest single-postseason plus-minus in league history (+258)"
+  },
+  "interactions": [
+    {
+      "id": "side-by-side",
+      "description": "Karl-Anthony Towns and Joseph standing together as equals"
+    }
+  ],
+  "defaultInteraction": "side-by-side",
+  "cardVariants": [
+    "fillmore-revelation"
+  ],
+  "priority": 50,
+  "status": "active"
+}

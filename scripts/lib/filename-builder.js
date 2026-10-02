@@ -38,6 +38,7 @@ const TEMPLATE_ABBREV = {
   'metal-universe-rivalry': 'mur',
   'downtown': 'dt',
   'kaboom': 'kb',
+  'fillmore-revelation': 'fr',
   'prizm-silver': 'ps',
   // Torah Titans specific templates
   'spouse-blessing': 'sb',
