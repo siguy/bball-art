@@ -31,18 +31,23 @@
 
 ---
 
-# Knicks 2026 champions: "Can These Bones Live?" (Ezekiel 37)
+# Knicks 2026 champions: fusion cards
 
-Starting five, Fillmore Revelation template (1960s psychedelic poster + Ezekiel's wheels).
+Starting five, Fillmore Revelation template (1960s psychedelic poster), SOLO cards.
+Direction change (Simon): no explicit pairings on the card. Each player stays in his
+signature basketball pose but takes on traits of a biblical figure via a `fusion`
+block on the pairing's player object (wardrobe, accents, aura, background motifs).
+"Can These Bones Live?" theme dropped.
 
 | Player | Figure | Status |
 |---|---|---|
-| Karl-Anthony Towns | Joseph | [x] first draft generated (three-point-release + coat-of-colors) |
+| Karl-Anthony Towns | Joseph | [x] fusion solo v2 generated (coat of colors, gold collar, sun/moon/11 stars, wheat) |
 | Jalen Brunson | Joshua | [ ] pairing + generate |
 | Josh Hart | Caleb | [ ] pose file + pairing + generate |
 | Mikal Bridges | Priests at the Jordan (Eleazar) | [ ] pose files (player + figure) + pairing |
 | OG Anunoby | Shamgar | [ ] pose files (player + figure) + pairing |
 
 - [x] `fillmore-revelation` template + registered (`fr`) in filename-builder, config, server, templates-meta
-- [ ] Simon's feedback on KAT draft before doing the other four
+- [ ] Simon's feedback on KAT fusion card before doing the other four
+- Command: `node scripts/generate-solo.js player karl-anthony-towns fillmore-revelation --pose three-point-release`
 - Note: `--draft` (FLUX) ignores this style badly (no psychedelia, put Joseph in a jersey) - use full Nano Banana for this template

@@ -28,7 +28,14 @@
       "and-one roar"
     ],
     "physicalDescription": "7-foot center with broad shoulders and long arms, athletic frame, short dark hair, neatly trimmed beard, tattoos on his arms, warm expressive face that shows every emotion",
-    "archetype": "The big man with a dreamer's touch, sent away and redeemed in the city"
+    "archetype": "The big man with a dreamer's touch, sent away and redeemed in the city",
+    "fusion": {
+      "source": "joseph",
+      "wardrobe": "a long open robe of many colors worn over the blank uniform - vivid vertical stripes of red, orange, gold, green, blue, and violet - flowing and billowing behind him as he rises, sleeves rippling with the motion",
+      "accents": "a gold Egyptian-style collar necklace resting on his chest and a gold signet ring on his shooting hand",
+      "aura": "a dreamer's calm - eyes serene and far-seeing, as if he already knows the shot is good",
+      "background": "his dream in the sky above him: a radiant sun, a crescent moon, and eleven bright stars arranged around the rim of the frame, all bowing and tilting toward him; tall golden wheat sheaves at the bottom of the frame bending toward him"
+    }
   },
   "figure": {
     "name": "Joseph",
@@ -49,8 +56,8 @@
     "relationship": "Exiled dreamers who wore their hearts - and their colors - for everyone to see",
     "scripture": {
       "ref": "Genesis 50:20",
-      "hebrew": "וְאַתֶּם חֲשַׁבְתֶּם עָלַי רָעָה אֱלֹהִים חֲשָׁבָהּ לְטֹבָה",
-      "english": "But as for you, ye thought evil against me; but God meant it unto good."
+      "hebrew": "וְאַתֶּם חֲשַׁבְתֶּם עָלַי רָעָה אֱלֹהִים חֲשָׁבָהּ לְטֹבָה לְמַעַן עֲשֹׂה כַּיּוֹם הַזֶּה לְהַחֲיֹת עַם־רָב׃",
+      "english": "And as for you, ye meant evil against me; but God meant it for good, to bring to pass, as it is this day, to save much people alive."
     },
     "receipt": "Traded to New York in 2024; won the 2026 title with the highest single-postseason plus-minus in league history (+258)"
   },

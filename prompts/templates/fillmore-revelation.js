@@ -1,17 +1,30 @@
 #!/usr/bin/env node
 /**
  * Fillmore Revelation Card Template
- * Based on 1960s San Francisco concert posters (Wes Wilson, Victor Moscoso)
- * fused with Ezekiel's visions.
+ * Based on 1960s San Francisco concert posters (Wes Wilson, Victor Moscoso).
  *
  * Signature look: melting hand-lettered type, vibrating op-art rings,
- * clashing saturated color, and Ezekiel's "wheels within wheels."
- * Built for the "Can These Bones Live?" collection (Ezekiel 37) - the
- * dry-bones-to-life motif is part of the background, so the theme and
- * the visuals come from the same prophet.
+ * clashing saturated color, paisley and art-nouveau curves.
+ *
+ * Solo mode supports "fusion": if the player has a `fusion` block (in the
+ * pairing's player object), he stays in his basketball pose but takes on
+ * the biblical figure's traits - wardrobe, accents, aura, background motifs.
+ * The figure himself never appears and is never named on the card.
  */
 
-import { generatePoseBlock } from '../components/poses.js';
+import { generatePoseBlock, generateSoloPoseBlock } from '../components/poses.js';
+
+// Shared psychedelic poster backdrop. `extra` adds card-specific motifs.
+function posterBackground(extra = null) {
+  return `
+- Vibrating op-art concentric rings radiating out from behind the figure, pulsing and shimmering
+- Color palette: deep electric orange and royal blue as the base, clashing with hot magenta, acid green, and violet - saturated, vibrating, 1960s ink-on-paper
+- A melting, wavy silhouette of a city skyline at the horizon line, dripping into the color bands
+- Paisley swirls and flowing art-nouveau curves fill the margins${extra ? `\n- ${extra}` : ''}
+`.trim();
+}
+
+const POSTER_FINISH = 'Screen-printed concert poster texture - slight ink misregistration, flat saturated inks, faint paper grain, a subtle iridescent sheen. The card should look like a collectible gig poster from the Summer of Love.';
 
 export const fillmoreRevelationTemplate = {
   id: "fillmore-revelation",
@@ -79,23 +92,80 @@ INTERACTION: Two legends sharing one cosmic vision - the energy between them rip
 IMPORTANT: ${player.name} (basketball player) must be on the LEFT side of the card. ${figure.name} (biblical figure) must be on the RIGHT side of the card. This ensures names at bottom align with their figures.
 Both figures shown full body or three-quarter body, large and dominant, filling most of the card height.
 
-=== BACKGROUND (EZEKIEL'S VISION) ===
-- Behind the figures: Ezekiel's "wheels within wheels" - enormous concentric rings spinning in opposite directions, their rims covered in watchful eyes, radiating like a giant op-art mandala
-- Vibrating op-art concentric bands in clashing colors that seem to pulse and shimmer
-- Color palette: deep electric orange and royal blue as the base, clashing with hot magenta, acid green, and violet - saturated, vibrating, 1960s ink-on-paper
-- At the bottom: a valley of dry white bones coming back to life - bones reassembling and sprouting flowers, vines, and color as they rise
-- A melting, wavy silhouette of a city skyline at the horizon line, dripping into the color bands
-- Paisley swirls and flowing art-nouveau curves fill the margins
+=== BACKGROUND ===
+${posterBackground()}
 
 === TEXT ELEMENTS (render exactly as specified) ===
-TOP: Write "CAN THESE BONES LIVE?" in classic 1960s Fillmore poster lettering - swelling, melting, warped letterforms that stretch to fill the space, bright orange letters with a vibrating blue outline. Centered at top. Spell it exactly.
+TOP: Write "${player.name}" in classic 1960s Fillmore poster lettering - swelling, melting, warped letterforms that stretch to fill the space, bright orange letters with a vibrating blue outline. Centered at top. Spell it exactly.
 
 LOGO: Below the title, render the provided "Court & Covenant" logo image small, in gold.
 
 BOTTOM: Write "${player.name} & ${figure.displayName}" in flowing psychedelic hand-lettering, legible, centered at the bottom.
 
 === FINISH ===
-Screen-printed concert poster texture - slight ink misregistration, flat saturated inks, faint paper grain, a subtle iridescent sheen. The card should look like a collectible gig poster from the Summer of Love that prophesied a championship.
+${POSTER_FINISH}
+`.trim();
+
+    return prompt;
+  },
+
+  /**
+   * Generate a solo card. Players with a `fusion` block take on a biblical
+   * figure's traits while staying in their basketball pose.
+   */
+  generateSolo(character, options = {}) {
+    const isPlayer = character.type === 'player';
+    const jersey = options.jersey || { base: 'royal blue', accent: 'orange' };
+    const fusion = isPlayer ? character.fusion : null;
+
+    const poseBlock = generateSoloPoseBlock(character.name, character.pose, character.type);
+
+    const wearing = isPlayer
+      ? `PLAIN SOLID ${jersey.base.toUpperCase()} basketball tank top and shorts with ${jersey.accent} trim. COMPLETELY BLANK uniform.${fusion?.wardrobe ? ` Over it: ${fusion.wardrobe}` : ''}`
+      : (character.clothing || `${character.visualStyle} robes and garments`);
+
+    const fusionLines = fusion ? [
+      fusion.accents && `- Accents: ${fusion.accents}`,
+      fusion.aura && `- Aura: ${fusion.aura}`,
+    ].filter(Boolean).join('\n') : '';
+
+    const prompt = `
+A vertical premium basketball card in 3:4 aspect ratio, styled as a 1967 San Francisco psychedelic concert poster - FILLMORE POSTER ART.
+
+=== CRITICAL REQUIREMENTS ===
+1. SINGLE CHARACTER CARD - only ONE person on this card, no other human figures
+2. PSYCHEDELIC POSTER ILLUSTRATION - hand-drawn, flat saturated inks, flowing organic linework. NOT a photograph, NOT realistic 3D rendering
+3. ${isPlayer ? `The jersey AND SHORTS must be COMPLETELY BLANK - solid ${jersey.base} with ${jersey.accent} trim - NO logo, NO number, NO symbol` : 'Biblical figure in period-accurate attire'}
+4. DO NOT add any team names, NBA logos, or brand marks
+5. Exactly TWO ARMS
+6. The face and body stay clear and readable - the psychedelia lives in the background, the light, and the edges, never melting the face
+${fusion ? '7. The basketball pose is the HERO of the card - the added wardrobe and motifs decorate the pose, they never change it' : ''}
+
+${poseBlock}
+
+=== CHARACTER DESCRIPTION ===
+${character.name.toUpperCase()}:
+- Physical: ${character.physicalDescription}
+- Wearing: ${wearing}
+${fusionLines}
+- Style: poster-art illustration with bold flowing contour lines, rim-lit by glowing magenta and acid-green light${!isPlayer && character.anatomyNote ? `\n- Anatomy: ${character.anatomyNote}` : ''}
+
+=== COMPOSITION ===
+- ${character.name} is CENTERED and DOMINANT, full body head to feet, filling 70-80% of the card height
+- Leave room around the figure so the pose breathes
+
+=== BACKGROUND ===
+${posterBackground(fusion?.background)}
+
+=== TEXT ELEMENTS (render exactly as specified) ===
+TOP: Write "${character.displayName || character.name}" in classic 1960s Fillmore poster lettering - swelling, melting, warped letterforms that stretch to fill the space, bright orange letters with a vibrating blue outline. Centered at top. Spell it exactly.
+
+LOGO: Small, near the bottom, render the provided "Court & Covenant" logo image in gold.
+
+No other text on the card.
+
+=== FINISH ===
+${POSTER_FINISH}
 `.trim();
 
     return prompt;
