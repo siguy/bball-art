@@ -42,7 +42,13 @@
   "connection": {
     "thematic": "Both built something lasting while facing hostility, proving doubters wrong through action",
     "narrative": "11 rings. 52 days to rebuild the wall. Impossible made real.",
-    "relationship": "Builders under siege who silenced critics with results"
+    "relationship": "Builders under siege who silenced critics with results",
+    "scripture": {
+      "ref": "Nehemiah 6:15",
+      "hebrew": "וַתִּשְׁלַם הַחוֹמָה בְּעֶשְׂרִים וַחֲמִשָּׁה לֶאֱלוּל לַחֲמִשִּׁים וּשְׁנַיִם יוֹם׃",
+      "english": "So the wall was finished in the twenty and fifth day of the month Elul, in fifty and two days."
+    },
+    "receipt": "11 titles in 13 seasons"
   },
   "interactions": [
     {

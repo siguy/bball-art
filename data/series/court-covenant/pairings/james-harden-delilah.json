@@ -43,7 +43,17 @@
     "anatomyNote": "two arms only",
     "archetype": "Delilah"
   },
-  "connection": "Masters of deception — Harden's stepback creates illusions while Delilah weaponized seduction to steal strength",
+  "connection": {
+    "thematic": "Masters of deception who win by making you believe something that isn't true",
+    "narrative": "Delilah found Samson's weakness. Harden finds yours, one step-back at a time.",
+    "relationship": "Illusionists who turn an opponent's own strength against them",
+    "scripture": {
+      "ref": "Judges 16:6",
+      "hebrew": "וַתֹּאמֶר דְּלִילָה אֶל־שִׁמְשׁוֹן הַגִּידָה־נָּא לִי בַּמֶּה כֹּחֲךָ גָדוֹל וּבַמֶּה תֵאָסֵר לְעַנּוֹתֶךָ׃",
+      "english": "And Delilah said to Samson: ‘Tell me, I pray thee, wherein thy great strength lieth, and wherewith thou mightest be bound to afflict thee.’"
+    },
+    "receipt": "2018 MVP; 3 straight scoring titles built on the step-back"
+  },
   "interactions": [
     {
       "id": "face-off",

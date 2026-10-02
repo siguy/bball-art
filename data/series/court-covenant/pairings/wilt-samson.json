@@ -41,7 +41,13 @@
   "connection": {
     "thematic": "Both possessed almost supernatural physical abilities that defied belief",
     "narrative": "100 points. Killed 1,000 with a jawbone. Some numbers just don't make sense.",
-    "relationship": "Legendary strongmen whose feats became mythology"
+    "relationship": "Legendary strongmen whose feats became mythology",
+    "scripture": {
+      "ref": "Judges 15:16",
+      "hebrew": "וַיֹּאמֶר שִׁמְשׁוֹן בִּלְחִי הַחֲמוֹר חֲמוֹר חֲמֹרָתָיִם בִּלְחִי הַחֲמוֹר הִכֵּיתִי אֶלֶף אִישׁ׃",
+      "english": "And Samson said: With the jawbone of an ass, heaps upon heaps, With the jawbone of an ass have I smitten a thousand men."
+    },
+    "receipt": "100 points against the Knicks, March 2, 1962"
   },
   "interactions": [
     {

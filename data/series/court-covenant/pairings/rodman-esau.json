@@ -41,7 +41,13 @@
   "connection": {
     "thematic": "Both were wild, impulsive forces of nature who played by their own rules",
     "narrative": "Esau sold his birthright for soup. Rodman sold convention for freedom. Both chose chaos.",
-    "relationship": "Untamed spirits who couldn't be controlled"
+    "relationship": "Untamed spirits who couldn't be controlled",
+    "scripture": {
+      "ref": "Genesis 25:30",
+      "hebrew": "וַיֹּאמֶר עֵשָׂו אֶל־יַעֲקֹב הַלְעִיטֵנִי נָא מִן־הָאָדֹם הָאָדֹם הַזֶּה כִּי עָיֵף אָנֹכִי עַל־כֵּן קָרָא־שְׁמוֹ אֱדוֹם׃",
+      "english": "And Esau said to Jacob: ‘Let me swallow, I pray thee, some of this red, red pottage; for I am faint.’ Therefore was his name called Edom."
+    },
+    "receipt": "7 straight rebounding titles (1992-98)"
   },
   "interactions": [
     {

@@ -42,7 +42,13 @@
   "connection": {
     "thematic": "Both were hired to deliver but failed at the crucial moment",
     "narrative": "The Mailman always delivers. Except in the Finals. Balaam couldn't curse.",
-    "relationship": "Mercenaries who had all the talent but couldn't finish the job"
+    "relationship": "Mercenaries who had all the talent but couldn't finish the job",
+    "scripture": {
+      "ref": "Numbers 23:11",
+      "hebrew": "וַיֹּאמֶר בָּלָק אֶל־בִּלְעָם מֶה עָשִׂיתָ לִי לָקֹב אֹיְבַי לְקַחְתִּיךָ וְהִנֵּה בֵּרַכְתָּ בָרֵךְ׃",
+      "english": "And Balak said unto Balaam: ‘What hast thou done unto me? I took thee to curse mine enemies, and, behold, thou hast blessed them altogether.’"
+    },
+    "receipt": "2nd in all-time scoring at retirement; 0-2 in the Finals vs. the Bulls"
   },
   "interactions": [
     {

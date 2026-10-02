@@ -42,7 +42,13 @@
   "connection": {
     "thematic": "Both wore the crown but watched someone else become the true king",
     "narrative": "Both wore the crown. Both watched someone else take it.",
-    "relationship": "Tragic kings overshadowed by the ones who came after"
+    "relationship": "Tragic kings overshadowed by the ones who came after",
+    "scripture": {
+      "ref": "1 Samuel 15:28",
+      "hebrew": "וַיֹּאמֶר אֵלָיו שְׁמוּאֵל קָרַע יְהוָה אֶת־מַמְלְכוּת יִשְׂרָאֵל מֵעָלֶיךָ הַיּוֹם וּנְתָנָהּ לְרֵעֲךָ הַטּוֹב מִמֶּךָּ׃",
+      "english": "And Samuel said unto him: ‘The LORD hath rent the kingdom of Israel from thee this day, and hath given it to a neighbour of thine, that is better than thou."
+    },
+    "receipt": "11 All-Star selections, 0 titles; lost the 1994 Finals in 7"
   },
   "interactions": [
     {

@@ -1,7 +1,7 @@
 {
   "id": "shaq-goliath",
   "series": "court-covenant",
-  "type": "hero",
+  "type": "villain",
   "cardMode": "player-figure",
   "player": {
     "name": "Shaquille O'Neal",
@@ -41,7 +41,13 @@
   "connection": {
     "thematic": "Both were physical anomalies whose sheer size and power made them seem unbeatable",
     "narrative": "Two giants. One ancient battlefield. One modern court. Same energy: unstoppable force.",
-    "relationship": "Dominant giants who made opponents feel small"
+    "relationship": "Dominant giants who made opponents feel small",
+    "scripture": {
+      "ref": "1 Samuel 17:4",
+      "hebrew": "וַיֵּצֵא אִישׁ־הַבֵּנַיִם מִמַּחֲנוֹת פְּלִשְׁתִּים גָּלְיָת שְׁמוֹ מִגַּת גָּבְהוֹ שֵׁשׁ אַמּוֹת וָזָרֶת׃",
+      "english": "And there went out a champion from the camp of the Philistines, named Goliath, of Gath, whose height was six cubits and a span."
+    },
+    "receipt": "3 straight Finals MVPs (2000-02)"
   },
   "interactions": [
     {

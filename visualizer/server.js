@@ -3,7 +3,7 @@ import cors from 'cors';
 import { readFileSync, writeFileSync, existsSync, readdirSync, statSync, mkdirSync, copyFileSync, unlinkSync } from 'fs';
 import { join, dirname } from 'path';
 import { fileURLToPath } from 'url';
-import { spawn } from 'child_process';
+import { spawn, execFileSync } from 'child_process';
 import { v4 as uuidv4 } from 'uuid';
 
 // Import lib modules
@@ -3510,6 +3510,10 @@ app.post('/api/selects/export', (req, res) => {
           unlinkSync(join(webCardsDir, file));
         }
       }
+      const thumbsDir = join(webCardsDir, 'thumbs');
+      if (existsSync(thumbsDir)) {
+        for (const file of readdirSync(thumbsDir)) unlinkSync(join(thumbsDir, file));
+      }
     } else {
       mkdirSync(webCardsDir, { recursive: true });
     }
@@ -3520,22 +3524,20 @@ app.post('/api/selects/export', (req, res) => {
       if (!card) continue;
 
       // Get pairing data
-      let playerName, figureName, connection, type, narrative;
+      let playerName, figureName, connection, type;
       const pairingId = card.pairingId || card.id;
 
       if (card.mode === 'solo') {
         playerName = card.characterType === 'player' ? formatCharacterNameForExport(card.characterId) : null;
         figureName = card.characterType === 'figure' ? formatCharacterNameForExport(card.characterId) : null;
-        connection = 'Solo card';
-        narrative = playerName || figureName;
+        connection = { narrative: playerName || figureName };
         type = 'solo';
       } else {
         const pairing = pairingData[card.pairingId];
         if (pairing) {
           playerName = pairing.playerName;
           figureName = pairing.figureName;
-          connection = pairing.connection || '';
-          narrative = connection;
+          connection = pairing.connection;
           type = pairing.type || 'hero';
         }
       }
@@ -3550,10 +3552,13 @@ app.post('/api/selects/export', (req, res) => {
       if (existsSync(sourcePath)) {
         copyFileSync(sourcePath, destPath);
 
-        // First 3 cards also become homepage preview images
-        if (position <= 3) {
-          const homepageFilename = `homepage-${position}.jpeg`;
-          copyFileSync(sourcePath, join(webCardsDir, homepageFilename));
+        // Homepage uses small thumbnails (full cards are ~1MB each).
+        // sips ships with macOS, where the visualizer runs.
+        try {
+          mkdirSync(join(webCardsDir, 'thumbs'), { recursive: true });
+          execFileSync('sips', ['-Z', '640', '-s', 'formatOptions', '78', destPath, '--out', join(webCardsDir, 'thumbs', webFilename)]);
+        } catch (thumbErr) {
+          console.warn(`Thumbnail failed for ${webFilename}: ${thumbErr.message}`);
         }
       } else {
         console.warn(`Source not found: ${sourcePath}`);
@@ -3565,24 +3570,28 @@ app.post('/api/selects/export', (req, res) => {
         .map(w => w.charAt(0).toUpperCase() + w.slice(1))
         .join(' ');
 
-      // Build curatedCard entry (format deck.js expects)
+      // Build curatedCard entry (format deck.js expects).
+      // Card text lives on the pairing so each pairing's story is written once.
       curatedCards.push({
         id: card.id,
         image: `cards/${webFilename}`,
         player: playerName || '',
         figure: figureName || '',
-        narrative: narrative || '',
-        connection: connection || '',
         template: templateName,
         pairingId: pairingId
       });
 
-      // Build pairings entry
+      // Build pairings entry: hook (narrative joke), parallel (thematic),
+      // bond (relationship), plus scripture + receipt evidence
       pairingsExport[pairingId] = {
         player: playerName || '',
         figure: figureName || '',
-        connection: connection || '',
-        type: type
+        type: type,
+        hook: connection?.narrative || '',
+        parallel: connection?.thematic || '',
+        bond: connection?.relationship || '',
+        scripture: connection?.scripture || null, // { ref, hebrew, english }
+        receipt: connection?.receipt || ''
       };
 
       position++;
@@ -3647,7 +3656,10 @@ function loadPairingDataForExport() {
     pairings[id] = {
       playerName: data.player?.name || data.player,
       figureName: data.figure?.name || data.figure,
-      connection: data.connection?.narrative || data.connection,
+      // Keep the full connection object; older files store a plain string
+      connection: typeof data.connection === 'string'
+        ? { thematic: data.connection }
+        : (data.connection || {}),
       type: data.type || 'hero',
       series: data.series
     };

@@ -41,7 +41,13 @@
   "connection": {
     "thematic": "Both were underestimated and patient, rising to greatness through quiet trust in their path",
     "narrative": "Second-round pick. Second son. Both just waited their turn and inherited everything.",
-    "relationship": "Patient souls who received more than anyone expected"
+    "relationship": "Patient souls who received more than anyone expected",
+    "scripture": {
+      "ref": "Genesis 25:5",
+      "hebrew": "וַיִּתֵּן אַבְרָהָם אֶת־כָּל־אֲשֶׁר־לוֹ לְיִצְחָק׃",
+      "english": "And Abraham gave all that he had unto Isaac."
+    },
+    "receipt": "No. 41 pick in 2014; 3 MVPs"
   },
   "interactions": [
     {

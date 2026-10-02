@@ -42,7 +42,13 @@
   "connection": {
     "thematic": "Both achieved greatness through mastery of fundamentals, not flash or showmanship",
     "narrative": "The Tabernacle required precision. So did the Spurs dynasty.",
-    "relationship": "Master craftsmen who let their work speak for itself"
+    "relationship": "Master craftsmen who let their work speak for itself",
+    "scripture": {
+      "ref": "Exodus 31:3",
+      "hebrew": "וָאֲמַלֵּא אֹתוֹ רוּחַ אֱלֹהִים בְּחָכְמָה וּבִתְבוּנָה וּבְדַעַת וּבְכָל־מְלָאכָה׃",
+      "english": "and I have filled him with the spirit of God, in wisdom, and in understanding, and in knowledge, and in all manner of workmanship,"
+    },
+    "receipt": "5 titles as 'The Big Fundamental'"
   },
   "interactions": [
     {

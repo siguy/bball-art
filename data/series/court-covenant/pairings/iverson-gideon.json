@@ -42,7 +42,13 @@
   "connection": {
     "thematic": "Both used unconventional methods to defeat overwhelming odds, changing the game itself",
     "narrative": "6'0\" against giants. 300 against thousands. Both weaponized what others didn't see coming.",
-    "relationship": "Unconventional warriors who rewrote the rules of battle"
+    "relationship": "Unconventional warriors who rewrote the rules of battle",
+    "scripture": {
+      "ref": "Judges 7:7",
+      "hebrew": "וַיֹּאמֶר יְהוָה אֶל־גִּדְעוֹן בִּשְׁלֹשׁ מֵאוֹת הָאִישׁ הַמֲלַקְקִים אוֹשִׁיעַ אֶתְכֶם וְנָתַתִּי אֶת־מִדְיָן בְּיָדֶךָ וְכָל־הָעָם יֵלְכוּ אִישׁ לִמְקֹמוֹ׃",
+      "english": "And the LORD said unto Gideon: ‘By the three hundred men that lapped will I save you, and deliver the Midianites into thy hand; and let all the people go every man unto his place.’"
+    },
+    "receipt": "Listed at 6'0\"; 2001 MVP"
   },
   "interactions": [
     {

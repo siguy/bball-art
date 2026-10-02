@@ -42,7 +42,13 @@
   "connection": {
     "thematic": "Both exist on a plane that others cannot comprehend, doing things that shouldn't be possible",
     "narrative": "He moves like no 7'4\" should. Enoch walked where no mortal had. Both transcend their form.",
-    "relationship": "Otherworldly beings whose existence defies normal understanding"
+    "relationship": "Otherworldly beings whose existence defies normal understanding",
+    "scripture": {
+      "ref": "Genesis 5:24",
+      "hebrew": "וַיִּתְהַלֵּךְ חֲנוֹךְ אֶת־הָאֱלֹהִים וְאֵינֶנּוּ כִּי־לָקַח אֹתוֹ אֱלֹהִים׃",
+      "english": "And Enoch walked with God, and he was not; for God took him."
+    },
+    "receipt": "Unanimous 2024 Rookie of the Year"
   },
   "interactions": [
     {

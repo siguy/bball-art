@@ -41,7 +41,13 @@
   "connection": {
     "thematic": "Both were unlikely heroes who defeated vastly superior forces through heart and cunning",
     "narrative": "Dirk took down the Heatles like Judah took down the Greeks. Underdogs who rewrote history.",
-    "relationship": "Warriors who proved the mighty can fall to the determined"
+    "relationship": "Warriors who proved the mighty can fall to the determined",
+    "scripture": {
+      "ref": "1 Maccabees 3:19",
+      "hebrew": "הן לה' התשועה, ורוב חיל לא ימלט.",
+      "english": "For the victory of battle standeth not in the multitude of an host; but strength cometh from heaven."
+    },
+    "receipt": "2011 Finals MVP over the Heat's Big Three"
   },
   "interactions": [
     {

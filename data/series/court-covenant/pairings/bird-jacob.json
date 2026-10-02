@@ -1,7 +1,7 @@
 {
   "id": "bird-jacob",
   "series": "court-covenant",
-  "type": "villain",
+  "type": "hero",
   "cardMode": "player-figure",
   "player": {
     "name": "Larry Bird",
@@ -41,7 +41,13 @@
   "connection": {
     "thematic": "Both were strategic geniuses who used their minds to overcome more athletic opponents",
     "narrative": "Jacob wrestled an angel and won. Bird wrestled with legends and talked trash the whole time. Cerebral assassins.",
-    "relationship": "Clever competitors who outthought everyone else"
+    "relationship": "Clever competitors who outthought everyone else",
+    "scripture": {
+      "ref": "Genesis 32:29",
+      "hebrew": "וַיֹּאמֶר לֹא יַעֲקֹב יֵאָמֵר עוֹד שִׁמְךָ כִּי אִם־יִשְׂרָאֵל כִּי־שָׂרִיתָ עִם־אֱלֹהִים וְעִם־אֲנָשִׁים וַתּוּכָל׃",
+      "english": "And he said: ‘Thy name shall be called no more Jacob, but Israel; for thou hast striven with God and with men, and hast prevailed.’"
+    },
+    "receipt": "3 straight MVPs (1984-86)"
   },
   "interactions": [
     {

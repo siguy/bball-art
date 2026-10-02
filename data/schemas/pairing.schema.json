@@ -71,7 +71,23 @@
           "properties": {
             "thematic": { "type": "string" },
             "narrative": { "type": "string" },
-            "relationship": { "type": "string" }
+            "relationship": { "type": "string" },
+            "scripture": {
+              "description": "The figure's key verse",
+              "oneOf": [
+                { "type": "string" },
+                {
+                  "type": "object",
+                  "required": ["ref", "hebrew", "english"],
+                  "properties": {
+                    "ref": { "type": "string", "description": "e.g. 'Exodus 14:21'" },
+                    "hebrew": { "type": "string", "description": "Hebrew text with nikkud (Sefaria)" },
+                    "english": { "type": "string", "description": "English text, JPS 1917 (Sefaria)" }
+                  }
+                }
+              ]
+            },
+            "receipt": { "type": "string", "description": "Basketball fact that backs up the parallel" }
           }
         },
         {

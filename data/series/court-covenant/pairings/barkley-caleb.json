@@ -41,7 +41,13 @@
   "connection": {
     "thematic": "Both undersized warriors who saw victory where others saw defeat",
     "narrative": "6'6\" against 7-footers. Caleb against giants. Neither saw the odds - only the opportunity.",
-    "relationship": "Outspoken believers who refused to be intimidated"
+    "relationship": "Outspoken believers who refused to be intimidated",
+    "scripture": {
+      "ref": "Numbers 13:30",
+      "hebrew": "וַיַּהַס כָּלֵב אֶת־הָעָם אֶל־מֹשֶׁה וַיֹּאמֶר עָלֹה נַעֲלֶה וְיָרַשְׁנוּ אֹתָהּ כִּי־יָכוֹל נוּכַל לָהּ׃",
+      "english": "And Caleb stilled the people toward Moses, and said: ‘We should go up at once, and possess it; for we are well able to overcome it.’"
+    },
+    "receipt": "6'6\" power forward who won the 1993 MVP"
   },
   "interactions": [
     {

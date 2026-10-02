@@ -39,9 +39,15 @@
     "archetype": "The Loyal Prince, elite warrior, chose friendship over throne"
   },
   "connection": {
-    "thematic": "Both possessed elite talent but complex loyalties that defined their legacies",
-    "narrative": "Jonathan had Saul's throne waiting. KD had OKC's love. Both made choices that still spark debate.",
-    "relationship": "Elite talents whose loyalty decisions became their defining stories"
+    "thematic": "Both took the rival's side and paid for it at home",
+    "narrative": "Jonathan sided with his father's rival. KD joined the team that beat him. Neither was ever fully forgiven at home.",
+    "relationship": "Elite talents whose choice of the rival became their defining story",
+    "scripture": {
+      "ref": "1 Samuel 18:1",
+      "hebrew": "וַיְהִי כְּכַלֹּתוֹ לְדַבֵּר אֶל־שָׁאוּל וְנֶפֶשׁ יְהוֹנָתָן נִקְשְׁרָה בְּנֶפֶשׁ דָּוִד וַיֶּאֱהָבֵהוּ יְהוֹנָתָן כְּנַפְשׁוֹ׃",
+      "english": "And it came to pass, when he had made an end of speaking unto Saul, that the soul of Jonathan was knit with the soul of David, and Jonathan loved him as his own soul."
+    },
+    "receipt": "Left OKC for Golden State in 2016; 2 titles, 2 Finals MVPs"
   },
   "interactions": [
     {

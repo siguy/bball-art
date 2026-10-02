@@ -42,7 +42,13 @@
   "connection": {
     "thematic": "Both called from distant lands to become founders of dynasties through faith",
     "narrative": "From Nigeria to Houston. From Ur to Canaan. Journeys of faith.",
-    "relationship": "Faithful pioneers who left everything to answer a greater calling"
+    "relationship": "Faithful pioneers who left everything to answer a greater calling",
+    "scripture": {
+      "ref": "Genesis 12:1",
+      "hebrew": "וַיֹּאמֶר יְהוָה אֶל־אַבְרָם לֶךְ־לְךָ מֵאַרְצְךָ וּמִמּוֹלַדְתְּךָ וּמִבֵּית אָבִיךָ אֶל־הָאָרֶץ אֲשֶׁר אַרְאֶךָּ׃",
+      "english": "Now the LORD said unto Abram: ‘Get thee out of thy country, and from thy kindred, and from thy father’s house, unto the land that I will show thee."
+    },
+    "receipt": "Back-to-back titles (1994, 1995); all-time blocks leader"
   },
   "interactions": [
     {

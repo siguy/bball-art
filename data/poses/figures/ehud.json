@@ -1,0 +1,32 @@
+{
+  "id": "ehud",
+  "name": "Ehud",
+  "defaultPose": "left-hand-strike",
+  "description": "Left-handed Benjamite judge who delivered Israel from Moab. Hid a short sword on his right thigh where no guard thought to check, then struck King Eglon (Judges 3:15-30).",
+  "poses": {
+    "left-hand-strike": {
+      "id": "left-hand-strike",
+      "name": "The Left Hand",
+      "description": "Drawing from the side no one watched",
+      "expression": "calm, precise, focused",
+      "prompt": "drawing a short double-edged sword from under his cloak with his LEFT hand in one quick fluid motion, weight forward, eyes locked on the target",
+      "energy": "surprise, precision"
+    },
+    "hidden-blade": {
+      "id": "hidden-blade",
+      "name": "Nothing to See",
+      "description": "Walking past the guards unsearched",
+      "expression": "composed, unreadable",
+      "prompt": "walking calmly through a palace doorway past armed guards, cloak draped over his right thigh concealing the blade, slight knowing half-smile",
+      "energy": "quiet confidence, misdirection"
+    },
+    "rallying-horn": {
+      "id": "rallying-horn",
+      "name": "Rallying the Hills",
+      "description": "Sounding the shofar after the escape",
+      "expression": "triumphant, commanding",
+      "prompt": "standing on a hilltop in Ephraim blowing a ram's horn shofar, left fist raised, Israelites rallying behind him below",
+      "energy": "victory call, leadership"
+    }
+  }
+}

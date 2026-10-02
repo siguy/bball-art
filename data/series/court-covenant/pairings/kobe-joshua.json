@@ -41,7 +41,13 @@
   "connection": {
     "thematic": "Both inherited impossible legacies and carved their own legendary paths",
     "narrative": "Moses got them to the edge. Joshua took the land. MJ built it. Kobe finished it.",
-    "relationship": "The successor who proved worthy of the mantle"
+    "relationship": "The successor who proved worthy of the mantle",
+    "scripture": {
+      "ref": "Joshua 1:9",
+      "hebrew": "הֲלוֹא צִוִּיתִיךָ חֲזַק וֶאֱמָץ אַל־תַּעֲרֹץ וְאַל־תֵּחָת כִּי עִמְּךָ יְהוָה אֱלֹהֶיךָ בְּכֹל אֲשֶׁר תֵּלֵךְ׃",
+      "english": "Have not I commanded thee? Be strong and of good courage; be not affrighted, neither be thou dismayed: for the LORD thy God is with thee whithersoever thou goest.’"
+    },
+    "receipt": "5 titles; 81 points against Toronto in 2006"
   },
   "interactions": [
     {

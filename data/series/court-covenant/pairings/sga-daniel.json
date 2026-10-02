@@ -41,7 +41,13 @@
   "connection": {
     "thematic": "Both are young stars who remain impossibly calm under pressure in hostile environments",
     "narrative": "Daniel walked into a lion's den unbothered. SGA walks into hostile arenas the same way. Built different.",
-    "relationship": "Young leaders whose composure defies their circumstances"
+    "relationship": "Young leaders whose composure defies their circumstances",
+    "scripture": {
+      "ref": "Daniel 6:23",
+      "hebrew": "אֱלָהִי שְׁלַח מַלְאֲכֵהּ וּסֲגַר פֻּם אַרְיָוָתָא וְלָא חַבְּלוּנִי כָּל־קֳבֵל דִּי קָדָמוֹהִי זָכוּ הִשְׁתְּכַחַת לִי וְאַף קָדָמָךְ מַלְכָּא חֲבוּלָה לָא עַבְדֵת׃",
+      "english": "My God hath sent His angel, and hath shut the lions’ mouths, and they have not hurt me; forasmuch as before Him innocency was found in me; and also before thee, O king, have I done no hurt.’"
+    },
+    "receipt": "2025 MVP and Finals MVP"
   },
   "interactions": [
     {
