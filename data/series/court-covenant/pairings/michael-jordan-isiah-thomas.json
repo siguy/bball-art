@@ -118,7 +118,12 @@
     "physicalDescription": "smaller 6'1\" guard, compact powerful build, bright smile that masked killer instinct, dark skin, baby-faced but fierce",
     "archetype": "The Baby-Faced Assassin, led the Bad Boys, ruled through intimidation"
   },
-  "connection": "The defining NBA feud — Jordan's Bulls vs Isiah's Bad Boys, the Jordan Rules, the walk-off",
+  "connection": {
+    "thematic": "The defining NBA feud: Jordan's Bulls vs. Isiah's Bad Boys",
+    "narrative": "The Jordan Rules. The walk-off. Some grudges outlast the game.",
+    "relationship": "Rivals who defined each other",
+    "receipt": "Pistons eliminated the Bulls 3 straight years (1988-90); Bulls swept them in 1991"
+  },
   "interactions": [
     {
       "id": "face-off",

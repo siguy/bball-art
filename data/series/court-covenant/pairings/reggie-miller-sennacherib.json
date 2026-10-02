@@ -44,9 +44,11 @@
     "archetype": "Sennacherib"
   },
   "connection": {
-    "thematic": "Invading Armies repelled",
+    "thematic": "Both laid siege to a proud city. One was turned back; one became its eternal nightmare.",
     "narrative": "One besieged Jerusalem, the other forever tormented New York.",
-    "relationship": "A showdown between a relentless shooter and an unstoppable invader, each trying to conquer a city and cement their legacy through intimidation."
+    "relationship": "A showdown between a relentless shooter and an unstoppable invader, each trying to conquer a city and cement their legacy through intimidation.",
+    "scripture": "2 Kings 18-19",
+    "receipt": "8 points in 8.9 seconds at Madison Square Garden, 1995"
   },
   "interactions": [
     {

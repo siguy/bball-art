@@ -1,0 +1,66 @@
+{
+  "id": "jalen-brunson-ehud",
+  "series": "court-covenant",
+  "type": "hero",
+  "isAlternate": false,
+  "alternateOf": null,
+  "opposingPairing": null,
+  "player": {
+    "name": "Jalen Brunson",
+    "displayName": "Jalen Brunson",
+    "poseFileId": "jalen-brunson",
+    "characterType": "player",
+    "era": "2000s",
+    "jerseyColors": {
+      "primary": {
+        "base": "white",
+        "accent": "blue"
+      },
+      "secondary": {
+        "base": "blue",
+        "accent": "white"
+      }
+    },
+    "signatureMoves": [],
+    "physicalDescription": "6'1\" point guard, strong build, crafty scorer, known for high basketball IQ and clutch performances. Notable features include his unwavering focus and determined expression.",
+    "archetype": "Undersized lefty closer who attacks from the side no one is watching"
+  },
+  "figure": {
+    "name": "Ehud",
+    "displayName": "Ehud",
+    "poseFileId": "ehud",
+    "characterType": "figure",
+    "attribute": "double-edged short sword",
+    "attributeDescription": "a cubit-long double-edged short sword strapped to his right thigh, hidden under his cloak where no one thought to look",
+    "visualStyle": "lean, quick Benjamite judge, ancient Israelite deliverer",
+    "clothing": "plain belted tunic and cloak, leather sandals, cloak draped to conceal the right thigh",
+    "physicalDescription": "lean and wiry rather than towering, sharp watchful eyes, short dark beard, ready stance leading with the LEFT hand",
+    "anatomyNote": "two arms only, left-handed",
+    "archetype": "The left-handed deliverer nobody saw coming"
+  },
+  "connection": {
+    "thematic": "Overlooked and undersized, both win by attacking from the side no one is watching",
+    "narrative": "Ehud was the lefty nobody searched. Brunson is the lefty nobody can stay in front of. Both deliver when it counts.",
+    "relationship": "Underestimated left-handers who strike before anyone sees it coming",
+    "scripture": "Judges 3:15-30",
+    "receipt": "No. 33 pick in 2018; led the Knicks to their first conference finals since 2000"
+  },
+  "interactions": [
+    {
+      "id": "back-to-back",
+      "description": "Jalen Brunson and Ehud standing back-to-back, both leading with their left hands"
+    },
+    {
+      "id": "side-by-side",
+      "description": "Jalen Brunson and Ehud standing together as equals"
+    }
+  ],
+  "defaultInteraction": "back-to-back",
+  "cardVariants": [
+    "thunder-lightning",
+    "beam-team",
+    "downtown"
+  ],
+  "priority": 99,
+  "status": "active"
+}

@@ -71,7 +71,9 @@
           "properties": {
             "thematic": { "type": "string" },
             "narrative": { "type": "string" },
-            "relationship": { "type": "string" }
+            "relationship": { "type": "string" },
+            "scripture": { "type": "string", "description": "Scripture reference for the figure's moment (e.g. 'Exodus 14')" },
+            "receipt": { "type": "string", "description": "Basketball fact that backs up the parallel" }
           }
         },
         {

@@ -44,9 +44,11 @@
     "archetype": "Absalom"
   },
   "connection": {
-    "thematic": "Rebellious Sons",
+    "thematic": "Both chased glory on their own terms, even when it split the house",
     "narrative": "One sought glory from the hardwood, the other from the throne, both with an unyielding hunger.",
-    "relationship": "Westbrook, known for his intense and sometimes controversial style of play, embodies Absalom's ambition and pursuit of personal glory, even at the cost of team harmony or established order. A confrontation between a star point guard and a would-be king."
+    "relationship": "Restless strivers whose hunger for the spotlight never let up",
+    "scripture": "2 Samuel 15-18",
+    "receipt": "2017 MVP; NBA all-time triple-doubles leader"
   },
   "interactions": [
     {

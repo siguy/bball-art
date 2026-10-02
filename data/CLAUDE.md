@@ -75,6 +75,13 @@ Required fields (see `data/schemas/pairing.schema.json`):
 - `type`: `"hero"` or `"villain"` - determines template suggestions
 - `cardMode`: `"player-figure"`, `"figure-figure"`, `"solo"`, etc.
 - `poseFileId`: Links to pose file (e.g., `"jordan"` -> `data/poses/players/jordan.json`)
+- `connection`: Always an object. These fields feed the website card panel (via the visualizer's website export):
+  - `narrative`: the hook, a punchy one-liner ("Moses parted the Red Sea. MJ parted defenders.")
+  - `thematic`: The Parallel, why the two belong together
+  - `relationship`: The Bond, a short archetype line
+  - `scripture`: the figure's moment (e.g. `"Exodus 14"`)
+  - `receipt`: the basketball fact that backs it up (e.g. `"6 Finals, 6 titles, 6 Finals MVPs"`)
+- Each biblical figure should appear in only one Court & Covenant pairing. Retired pairings use `"status": "archived"` so their generated cards keep working.
 
 ## Pose File Format
 

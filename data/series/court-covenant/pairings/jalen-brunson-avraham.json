@@ -1,0 +1,64 @@
+{
+  "id": "jalen-brunson-avraham",
+  "series": "court-covenant",
+  "type": "hero",
+  "isAlternate": false,
+  "alternateOf": null,
+  "opposingPairing": null,
+  "player": {
+    "name": "Jalen Brunson",
+    "displayName": "Jalen Brunson",
+    "poseFileId": "jalen-brunson",
+    "characterType": "player",
+    "era": "2000s",
+    "jerseyColors": {
+      "primary": {
+        "base": "white",
+        "accent": "blue"
+      },
+      "secondary": {
+        "base": "blue",
+        "accent": "white"
+      }
+    },
+    "signatureMoves": [],
+    "physicalDescription": "6'1\" point guard, strong build, crafty scorer, known for high basketball IQ and clutch performances. Notable features include his unwavering focus and determined expression.",
+    "archetype": "Jalen Brunson"
+  },
+  "figure": {
+    "name": "Avraham",
+    "displayName": "Avraham",
+    "poseFileId": "avraham",
+    "characterType": "figure",
+    "attribute": "Staff",
+    "attributeDescription": "A gnarled walking staff, often used for shepherding and support during long journeys. It symbolizes his leadership and reliance on God's guidance.",
+    "visualStyle": "Biblical realism, inspired by Rembrandt and Caravaggio. Strong light and shadow contrast.",
+    "clothing": "Woolen tunic and cloak, leather sandals, simple headdress or turban.",
+    "physicalDescription": "A weathered man, though strong and vital, with a determined gaze. He wears simple but sturdy woolen clothing suitable for travel in the ancient Near East. A long beard, streaked with grey, frames his face. Compassion mixes with unwavering conviction in his eyes.",
+    "anatomyNote": "two arms only",
+    "archetype": "Avraham"
+  },
+  "connection": {
+    "thematic": "Both faced significant challenges and doubts but ultimately persevered to lead their people to a better place.",
+    "narrative": "Doubted. Dismissed. Driven. Brunson channels Avraham's unwavering faith to rise above the noise and deliver victory.",
+    "relationship": "Avraham, the patriarch who answered the call; Brunson, the point guard who answers every challenge."
+  },
+  "interactions": [
+    {
+      "id": "back-to-back",
+      "description": "Jalen Brunson and Avraham standing back-to-back, facing outward with confidence"
+    },
+    {
+      "id": "side-by-side",
+      "description": "Jalen Brunson and Avraham standing together as equals"
+    }
+  ],
+  "defaultInteraction": "back-to-back",
+  "cardVariants": [
+    "thunder-lightning",
+    "beam-team",
+    "downtown"
+  ],
+  "priority": 99,
+  "status": "archived"
+}

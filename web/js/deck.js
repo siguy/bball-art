@@ -27,8 +27,7 @@ class CardDeck {
     this.panelBackdrop = document.getElementById('panelBackdrop');
     this.panelTitle = document.getElementById('panelTitle');
     this.panelTemplate = document.getElementById('panelTemplate');
-    this.panelNarrative = document.getElementById('panelNarrative');
-    this.panelConnection = document.getElementById('panelConnection');
+    this.panelHook = document.getElementById('panelHook');
 
     this.init();
   }
@@ -74,7 +73,7 @@ class CardDeck {
     cardEl.innerHTML = `
       <div class="card-info">
         <h2>${card.player} & ${card.figure}</h2>
-        <p class="connection">"${card.narrative}"</p>
+        <p class="connection">"${pairing?.hook || ''}"</p>
       </div>
     `;
 
@@ -295,8 +294,15 @@ class CardDeck {
 
     this.panelTitle.textContent = `${card.player} & ${card.figure}`;
     this.panelTemplate.textContent = card.template;
-    this.panelNarrative.textContent = `"${card.narrative}"`;
-    this.panelConnection.textContent = card.connection;
+    this.panelHook.textContent = pairing?.hook ? `"${pairing.hook}"` : '';
+
+    // Detail rows hide themselves when a pairing has no text for them
+    const details = { Parallel: 'parallel', Bond: 'bond', Scripture: 'scripture', Receipt: 'receipt' };
+    for (const [suffix, field] of Object.entries(details)) {
+      const value = pairing?.[field] || '';
+      document.getElementById(`panel${suffix}`).textContent = value;
+      document.getElementById(`row${suffix}`).hidden = !value;
+    }
 
     this.infoPanel.classList.add('visible');
     this.panelBackdrop.classList.add('visible');

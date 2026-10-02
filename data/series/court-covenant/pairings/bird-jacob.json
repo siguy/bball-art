@@ -1,7 +1,7 @@
 {
   "id": "bird-jacob",
   "series": "court-covenant",
-  "type": "villain",
+  "type": "hero",
   "cardMode": "player-figure",
   "player": {
     "name": "Larry Bird",
@@ -41,7 +41,9 @@
   "connection": {
     "thematic": "Both were strategic geniuses who used their minds to overcome more athletic opponents",
     "narrative": "Jacob wrestled an angel and won. Bird wrestled with legends and talked trash the whole time. Cerebral assassins.",
-    "relationship": "Clever competitors who outthought everyone else"
+    "relationship": "Clever competitors who outthought everyone else",
+    "scripture": "Genesis 32:24-28",
+    "receipt": "3 straight MVPs (1984-86)"
   },
   "interactions": [
     {

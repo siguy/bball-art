@@ -3520,22 +3520,20 @@ app.post('/api/selects/export', (req, res) => {
       if (!card) continue;
 
       // Get pairing data
-      let playerName, figureName, connection, type, narrative;
+      let playerName, figureName, connection, type;
       const pairingId = card.pairingId || card.id;
 
       if (card.mode === 'solo') {
         playerName = card.characterType === 'player' ? formatCharacterNameForExport(card.characterId) : null;
         figureName = card.characterType === 'figure' ? formatCharacterNameForExport(card.characterId) : null;
-        connection = 'Solo card';
-        narrative = playerName || figureName;
+        connection = { narrative: playerName || figureName };
         type = 'solo';
       } else {
         const pairing = pairingData[card.pairingId];
         if (pairing) {
           playerName = pairing.playerName;
           figureName = pairing.figureName;
-          connection = pairing.connection || '';
-          narrative = connection;
+          connection = pairing.connection;
           type = pairing.type || 'hero';
         }
       }
@@ -3565,24 +3563,28 @@ app.post('/api/selects/export', (req, res) => {
         .map(w => w.charAt(0).toUpperCase() + w.slice(1))
         .join(' ');
 
-      // Build curatedCard entry (format deck.js expects)
+      // Build curatedCard entry (format deck.js expects).
+      // Card text lives on the pairing so each pairing's story is written once.
       curatedCards.push({
         id: card.id,
         image: `cards/${webFilename}`,
         player: playerName || '',
         figure: figureName || '',
-        narrative: narrative || '',
-        connection: connection || '',
         template: templateName,
         pairingId: pairingId
       });
 
-      // Build pairings entry
+      // Build pairings entry: hook (narrative joke), parallel (thematic),
+      // bond (relationship), plus scripture + receipt evidence
       pairingsExport[pairingId] = {
         player: playerName || '',
         figure: figureName || '',
-        connection: connection || '',
-        type: type
+        type: type,
+        hook: connection?.narrative || '',
+        parallel: connection?.thematic || '',
+        bond: connection?.relationship || '',
+        scripture: connection?.scripture || '',
+        receipt: connection?.receipt || ''
       };
 
       position++;
@@ -3647,7 +3649,10 @@ function loadPairingDataForExport() {
     pairings[id] = {
       playerName: data.player?.name || data.player,
       figureName: data.figure?.name || data.figure,
-      connection: data.connection?.narrative || data.connection,
+      // Keep the full connection object; older files store a plain string
+      connection: typeof data.connection === 'string'
+        ? { thematic: data.connection }
+        : (data.connection || {}),
       type: data.type || 'hero',
       series: data.series
     };
