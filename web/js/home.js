@@ -35,7 +35,7 @@ function buildFan() {
 
   fan.innerHTML = hand
     .map((m, i) => `
-      <button class="fan-card" style="--i:${i}; --offset:${i - mid}" data-target="${m.id}"
+      <button class="fan-card${Math.abs(i - mid) > 2 ? ' fan-edge' : ''}" style="--i:${i}; --offset:${i - mid}" data-target="${m.id}"
               aria-label="${escapeHtml(`${m.player} and ${m.figure}`)}">
         <img src="${m.thumb}" alt="" decoding="async">
       </button>`)

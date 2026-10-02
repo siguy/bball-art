@@ -121,10 +121,11 @@ a { color: inherit; }
   position: relative;
   width: 100%;
   max-width: 1000px;
-  height: clamp(260px, 44vh, 440px);
+  height: clamp(300px, 52vh, 520px);
   margin-top: 1rem;
-  --card-w: clamp(118px, 16vw, 220px);
-  --spread: 9deg;
+  /* Width also follows viewport height so short laptop screens still fit */
+  --card-w: clamp(130px, min(20vw, 30vh), 280px);
+  --spread: 10.5deg;
 }
 
 .fan-card {
@@ -536,7 +537,9 @@ a { color: inherit; }
 /* ===== PHONES: fan tightens, matchups become a swipeable rail ===== */
 
 @media (max-width: 700px) {
-  .fan { --card-w: 30vw; --spread: 8deg; height: 300px; }
+  /* Phones show the middle 5 cards, larger, so none get clipped at the edges */
+  .fan { --card-w: 37vw; --spread: 7deg; height: min(46vh, 300px); }
+  .fan-edge { display: none; }
 
   .ticker { margin-inline: -1rem; }
 
