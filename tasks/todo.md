@@ -13,9 +13,18 @@
 - [x] `node scripts/validate-data.js` passes; verify panel in browser
 
 ## Phase 2: Layout rebuild (keep dark + gold look)
-- [ ] Hero: one featured matchup, hook line as headline
-- [ ] The Roster: grid, one card per pairing, Heroes / Villains filter
-- [ ] Matchup view: all connection fields visible
-- [ ] About section + working footer links, fix OG image + favicon
-- [ ] Swipe deck kept as phone browsing mode
-- [ ] Verify desktop + mobile
+- [x] Hero: one featured matchup, hook line as headline
+- [x] The Roster: grid, one card per pairing, Heroes / Villains filter
+- [x] Matchup view: all connection fields visible
+- [x] About section + working footer links, fix OG image + favicon
+- [x] Swipe deck kept as phone browsing mode
+- [x] Verify desktop + mobile
+
+## Phase 1b: Scripture verses
+- [x] `connection.scripture` = `{ ref, hebrew, english }` from local Sefaria export (Tanach with Nikkud + JPS 1917)
+- [x] Card panel shows verse in Hebrew + English
+
+## Review
+- Phase 1 + 1b done on `fix/pairing-connections`; validate-data passes, panel verified in browser.
+- Phase 2 homepage: "Rip the Pack" design (dealt fan, jumbotron ticker, flip-card matchups with Heroes/Villains filter, phone swipe rail). Verified at 1440x900 and 375x812, no console errors.
+- Not deployed yet. Vercel project `web` deploys from `web/`.

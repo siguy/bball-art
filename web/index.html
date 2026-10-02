@@ -7,68 +7,105 @@
 
   <!-- Meta tags -->
   <meta name="description" content="Contemporary art collectible cards pairing NBA legends with biblical figures. MJ and Moses. LeBron and King David. Same energy.">
-  <meta name="theme-color" content="#0a0a0f">
+  <meta name="theme-color" content="#000000">
 
   <!-- Open Graph -->
   <meta property="og:title" content="Court & Covenant">
   <meta property="og:description" content="Basketball legends meet biblical figures. Contemporary art trading cards.">
   <meta property="og:type" content="website">
-  <meta property="og:image" content="cards/jordan-moses-thunder-lightning-01.png">
+  <meta property="og:image" content="https://www.courtandcovenant.com/cards/card-02.jpeg">
 
   <!-- Twitter -->
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Court & Covenant">
   <meta name="twitter:description" content="Basketball legends meet biblical figures. Contemporary art trading cards.">
+  <meta name="twitter:image" content="https://www.courtandcovenant.com/cards/card-02.jpeg">
 
   <!-- Favicon -->
   <link rel="icon" type="image/png" href="brand/favicon.png">
 
-  <!-- Styles -->
-  <link rel="stylesheet" href="css/styles.css">
+  <!-- Fonts: Bowlby One (chunky 90s insert-card display), Big Shoulders (arena scoreboard),
+       Bricolage Grotesque (body), Frank Ruhl Libre (Hebrew verses) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;900&family=Bowlby+One&family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600&family=Frank+Ruhl+Libre:wght@500&display=swap">
+
+  <link rel="stylesheet" href="css/home.css">
 </head>
-<body class="homepage">
+<body>
 
-  <!-- Hero Section -->
-  <section class="hero">
-    <div class="hero-content">
-      <img src="brand/court-covenant-logo.png" alt="Court & Covenant - Basketball Legends Meet Biblical Figures" class="hero-logo">
-      <p class="hero-subtitle">
-        Contemporary art trading cards pairing basketball legends with biblical figures.
-      </p>
+  <!-- ===== HERO: logo + a hand of cards dealt into a fan ===== -->
+  <header class="hero">
+    <svg class="court-lines" viewBox="0 0 1000 600" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+      <circle cx="500" cy="600" r="180" />
+      <circle cx="500" cy="600" r="60" />
+      <line x1="0" y1="600" x2="1000" y2="600" />
+      <path d="M 120 0 A 380 380 0 0 0 880 0" />
+    </svg>
+
+    <h1 class="hero-logo">
+      <img src="brand/court-covenant-logo-transparent.png" alt="Court & Covenant">
+    </h1>
+    <p class="hero-kicker">
+      <span>Legends of the hardwood.</span>
+      <span>Legends of the Book.</span>
+    </p>
+
+    <div class="fan" id="fan" aria-label="Featured cards">
+      <!-- Cards injected by home.js -->
     </div>
 
-    <!-- Card Preview Stack -->
-    <div class="card-preview" id="cardPreview">
-      <div class="preview-card" style="background-image: url('cards/homepage-1.jpeg')"></div>
-      <div class="preview-card" style="background-image: url('cards/homepage-2.jpeg')"></div>
-      <div class="preview-card" style="background-image: url('cards/homepage-3.jpeg')"></div>
+    <a href="#matchups" class="scroll-cue">
+      Pick a card
+      <span aria-hidden="true">&darr;</span>
+    </a>
+  </header>
+
+  <!-- ===== JUMBOTRON TICKER ===== -->
+  <section class="ticker" aria-label="Pairing headlines">
+    <div class="ticker-row ticker-hooks"><div class="ticker-track" id="tickerHooks"></div></div>
+    <div class="ticker-row ticker-names"><div class="ticker-track" id="tickerNames"></div></div>
+  </section>
+
+  <!-- ===== THE MATCHUPS: one flip card per pairing ===== -->
+  <main class="matchups" id="matchups">
+    <div class="matchups-head">
+      <h2>The Matchups</h2>
+      <p>Tap a card to flip it. The hook, the verse, the receipts.</p>
+      <div class="filters" role="group" aria-label="Filter matchups">
+        <button class="chip is-active" data-filter="all">All</button>
+        <button class="chip" data-filter="hero">Heroes</button>
+        <button class="chip" data-filter="villain">Villains</button>
+      </div>
     </div>
 
-    <a href="cards.html" class="cta-button">
-      Swipe the Collection
-      <span class="cta-arrow">&rarr;</span>
+    <div class="table" id="table">
+      <!-- Flip cards injected by home.js -->
+    </div>
+  </main>
+
+  <!-- ===== THE VISION ===== -->
+  <section class="vision">
+    <p class="vision-line">
+      Moses parted the Red Sea.<br>
+      MJ parted defenders.
+    </p>
+    <p class="stamp" aria-hidden="true">Same energy.</p>
+    <p class="vision-body">
+      Court &amp; Covenant pairs NBA legends with their biblical counterparts &mdash;
+      not as comparison, but as conversation. Every card is an original
+      artwork in the style of the 90s inserts we tore open as kids.
+    </p>
+    <a href="cards.html" class="cta">
+      Swipe the full collection <span aria-hidden="true">&rarr;</span>
     </a>
   </section>
 
-  <!-- Concept Section -->
-  <section class="concept">
-    <h2>The Vision</h2>
-    <p>
-      Moses parted the Red Sea. MJ parted defenders. Same energy.<br><br>
-      Court & Covenant explores the mythic parallels between basketball greatness and ancient biblical narratives.
-      Each card pairs an NBA legend with their biblical counterpart&mdash;not as comparison, but as conversation.
-    </p>
-  </section>
-
-  <!-- Footer -->
   <footer class="footer">
-    <p>Series 1: Court & Covenant</p>
-    <div class="footer-links">
-      <a href="#">Instagram</a>
-      <a href="#">About</a>
-    </div>
+    <p>Series 1 &middot; Court &amp; Covenant</p>
+    <p class="fine-print">An independent art project. Not affiliated with the NBA or any team or player.</p>
   </footer>
 
-  <script src="js/app.js"></script>
+  <script type="module" src="js/home.js"></script>
 </body>
 </html>

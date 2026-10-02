@@ -3,7 +3,7 @@ import cors from 'cors';
 import { readFileSync, writeFileSync, existsSync, readdirSync, statSync, mkdirSync, copyFileSync, unlinkSync } from 'fs';
 import { join, dirname } from 'path';
 import { fileURLToPath } from 'url';
-import { spawn } from 'child_process';
+import { spawn, execFileSync } from 'child_process';
 import { v4 as uuidv4 } from 'uuid';
 
 // Import lib modules
@@ -3510,6 +3510,10 @@ app.post('/api/selects/export', (req, res) => {
           unlinkSync(join(webCardsDir, file));
         }
       }
+      const thumbsDir = join(webCardsDir, 'thumbs');
+      if (existsSync(thumbsDir)) {
+        for (const file of readdirSync(thumbsDir)) unlinkSync(join(thumbsDir, file));
+      }
     } else {
       mkdirSync(webCardsDir, { recursive: true });
     }
@@ -3548,10 +3552,13 @@ app.post('/api/selects/export', (req, res) => {
       if (existsSync(sourcePath)) {
         copyFileSync(sourcePath, destPath);
 
-        // First 3 cards also become homepage preview images
-        if (position <= 3) {
-          const homepageFilename = `homepage-${position}.jpeg`;
-          copyFileSync(sourcePath, join(webCardsDir, homepageFilename));
+        // Homepage uses small thumbnails (full cards are ~1MB each).
+        // sips ships with macOS, where the visualizer runs.
+        try {
+          mkdirSync(join(webCardsDir, 'thumbs'), { recursive: true });
+          execFileSync('sips', ['-Z', '640', '-s', 'formatOptions', '78', destPath, '--out', join(webCardsDir, 'thumbs', webFilename)]);
+        } catch (thumbErr) {
+          console.warn(`Thumbnail failed for ${webFilename}: ${thumbErr.message}`);
         }
       } else {
         console.warn(`Source not found: ${sourcePath}`);

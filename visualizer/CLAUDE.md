@@ -187,6 +187,13 @@ Export cards to Website, Instagram, and Twitter with auto-generated captions.
 5. "Export Now" for immediate export, or "Add to Queue"
 6. Process queue from Export Queue page
 
+### Website Selects Export (`POST /api/selects/export`)
+
+Publishes the chosen "website selects" to the public site in `web/`:
+- Copies each card to `web/cards/card-NN.jpeg` and a 640px thumbnail to `web/cards/thumbs/` (via macOS `sips`; the homepage uses thumbnails)
+- Writes `web/js/data.js`: `curatedCards` (image + pairingId per card) and `pairings` keyed by id with `hook` (narrative), `parallel` (thematic), `bond` (relationship), `scripture` (`{ ref, hebrew, english }`) and `receipt`
+- The homepage (`web/index.html` + `js/home.js`) shows one card per pairing; the swipe deck (`web/cards.html` + `js/deck.js`) shows every card and supports `cards.html#<pairingId>` deep links
+
 ## Generator UI
 
 Full documentation: `docs/generator-ui.md`

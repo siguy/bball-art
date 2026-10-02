@@ -33,6 +33,10 @@ class CardDeck {
   }
 
   init() {
+    // Deep link from the homepage: cards.html#jordan-moses starts on that pairing
+    const linked = this.cards.findIndex((c) => c.pairingId === location.hash.slice(1));
+    if (linked >= 0) this.currentIndex = linked;
+
     // Create progress dots
     this.createProgressDots();
 
@@ -56,7 +60,7 @@ class CardDeck {
 
   createProgressDots() {
     this.progressDots.innerHTML = this.cards
-      .map((_, i) => `<div class="progress-dot ${i === 0 ? 'active' : ''}"></div>`)
+      .map((_, i) => `<div class="progress-dot ${i === this.currentIndex ? 'active' : ''}"></div>`)
       .join('');
   }
 
