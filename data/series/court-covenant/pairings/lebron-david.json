@@ -42,7 +42,11 @@
     "thematic": "Both rose from humble beginnings to become the undisputed king of their domain",
     "narrative": "From Akron to the throne. From shepherd to king. Built different.",
     "relationship": "Self-made kings who earned their crowns",
-    "scripture": "1 Samuel 16:11-13",
+    "scripture": {
+      "ref": "1 Samuel 16:13",
+      "hebrew": "וַיִּקַּח שְׁמוּאֵל אֶת־קֶרֶן הַשֶּׁמֶן וַיִּמְשַׁח אֹתוֹ בְּקֶרֶב אֶחָיו וַתִּצְלַח רוּחַ־יְהוָה אֶל־דָּוִד מֵהַיּוֹם הַהוּא וָמָעְלָה וַיָּקָם שְׁמוּאֵל וַיֵּלֶךְ הָרָמָתָה׃",
+      "english": "Then Samuel took the horn of oil, and anointed him in the midst of his brethren; and the spirit of the LORD came mightily upon David from that day forward. So Samuel rose up, and went to Ramah."
+    },
     "receipt": "4 titles; NBA all-time leading scorer"
   },
   "interactions": [

@@ -42,7 +42,11 @@
     "thematic": "Both were villains everyone loved to hate, schemers who drew satisfaction from others' suffering",
     "narrative": "Haman built gallows for his enemies. Laimbeer built a reputation the same way. Ultimate villains.",
     "relationship": "Heel-turn specialists who embraced being the bad guy",
-    "scripture": "Esther 3; 7",
+    "scripture": {
+      "ref": "Esther 7:10",
+      "hebrew": "וַיִּתְלוּ אֶת־הָמָן עַל־הָעֵץ אֲשֶׁר־הֵכִין לְמָרְדֳּכָי וַחֲמַת הַמֶּלֶךְ שָׁכָכָה׃",
+      "english": "So they hanged Haman on the gallows that he had prepared for Mordecai. Then was the king’s wrath assuaged."
+    },
     "receipt": "2 titles as the Bad Boys' chief agitator"
   },
   "interactions": [

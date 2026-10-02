@@ -43,7 +43,11 @@
     "thematic": "Both left everything for a foreign land and earned their place through relentless work and loyalty",
     "narrative": "From Athens street vendor to Milwaukee champion. From Moab widow to David's ancestor. Foreigners who became royalty.",
     "relationship": "Immigrants whose loyalty and work ethic rewrote their destiny",
-    "scripture": "Ruth 1:16",
+    "scripture": {
+      "ref": "Ruth 1:16",
+      "hebrew": "וַתֹּאמֶר רוּת אַל־תִּפְגְּעִי־בִי לְעָזְבֵךְ לָשׁוּב מֵאַחֲרָיִךְ כִּי אֶל־אֲשֶׁר תֵּלְכִי אֵלֵךְ וּבַאֲשֶׁר תָּלִינִי אָלִין עַמֵּךְ עַמִּי וֵאלֹהַיִךְ אֱלֹהָי׃",
+      "english": "And Ruth said: ‘Entreat me not to leave thee, and to return from following after thee; for whither thou goest, I will go; and where thou lodgest, I will lodge; thy people shall be my people, and thy God my God;"
+    },
     "receipt": "2021 title and Finals MVP, 50 points in the clincher"
   },
   "interactions": [

@@ -47,7 +47,11 @@
     "thematic": "Both laid siege to a proud city. One was turned back; one became its eternal nightmare.",
     "narrative": "One besieged Jerusalem, the other forever tormented New York.",
     "relationship": "A showdown between a relentless shooter and an unstoppable invader, each trying to conquer a city and cement their legacy through intimidation.",
-    "scripture": "2 Kings 18-19",
+    "scripture": {
+      "ref": "2 Kings 19:32",
+      "hebrew": "לָכֵן כֹּה־אָמַר יְהוָה אֶל־מֶלֶךְ אַשּׁוּר לֹא יָבֹא אֶל־הָעִיר הַזֹּאת וְלֹא־יוֹרֶה שָׁם חֵץ וְלֹא־יְקַדְּמֶנָּה מָגֵן וְלֹא־יִשְׁפֹּךְ עָלֶיהָ סֹלְלָה׃",
+      "english": "Therefore thus saith the LORD concerning the king of Assyria: He shall not come unto this city, nor shoot an arrow there, neither shall he come before it with shield, nor cast a mound against it."
+    },
     "receipt": "8 points in 8.9 seconds at Madison Square Garden, 1995"
   },
   "interactions": [

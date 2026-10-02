@@ -79,7 +79,7 @@ Required fields (see `data/schemas/pairing.schema.json`):
   - `narrative`: the hook, a punchy one-liner ("Moses parted the Red Sea. MJ parted defenders.")
   - `thematic`: The Parallel, why the two belong together
   - `relationship`: The Bond, a short archetype line
-  - `scripture`: the figure's moment (e.g. `"Exodus 14"`)
+  - `scripture`: the figure's key verse as `{ ref, hebrew, english }` (e.g. `"Exodus 14:21"`). Text comes from the local Sefaria export (`~/Sefaria-Export`): Hebrew = Tanach with Nikkud, English = JPS 1917 (public domain). Never type verses from memory.
   - `receipt`: the basketball fact that backs it up (e.g. `"6 Finals, 6 titles, 6 Finals MVPs"`)
 - Each biblical figure should appear in only one Court & Covenant pairing. Retired pairings use `"status": "archived"` so their generated cards keep working.
 

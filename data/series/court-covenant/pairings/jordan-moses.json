@@ -42,7 +42,11 @@
     "thematic": "Both led their people through impossible odds to the promised land",
     "narrative": "Moses parted the Red Sea. MJ parted defenders. Same energy.",
     "relationship": "Leaders who demanded excellence and delivered miracles",
-    "scripture": "Exodus 14",
+    "scripture": {
+      "ref": "Exodus 14:21",
+      "hebrew": "וַיֵּט מֹשֶׁה אֶת־יָדוֹ עַל־הַיָּם וַיּוֹלֶךְ יְהוָה אֶת־הַיָּם בְּרוּחַ קָדִים עַזָּה כָּל־הַלַּיְלָה וַיָּשֶׂם אֶת־הַיָּם לֶחָרָבָה וַיִּבָּקְעוּ הַמָּיִם׃",
+      "english": "And Moses stretched out his hand over the sea; and the LORD caused the sea to go back by a strong east wind all the night, and made the sea dry land, and the waters were divided."
+    },
     "receipt": "6 Finals, 6 titles, 6 Finals MVPs"
   },
   "interactions": [

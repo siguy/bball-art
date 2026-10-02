@@ -42,7 +42,11 @@
     "thematic": "Both were the enforcers who did what needed to be done, crossing lines their leaders couldn't",
     "narrative": "David had Joab. Steph has Draymond. Every king needs someone willing to get their hands dirty.",
     "relationship": "Enforcers who protected their dynasty by any means necessary",
-    "scripture": "2 Samuel 2-3",
+    "scripture": {
+      "ref": "2 Samuel 10:12",
+      "hebrew": "חֲזַק וְנִתְחַזַּק בְּעַד־עַמֵּנוּ וּבְעַד עָרֵי אֱלֹהֵינוּ וַיהוָה יַעֲשֶׂה הַטּוֹב בְּעֵינָיו׃",
+      "english": "Be of good courage, and let us prove strong for our people, and for the cities of our God; and the LORD do that which seemeth Him good.’"
+    },
     "receipt": "4 titles; 2017 Defensive Player of the Year"
   },
   "interactions": [

@@ -297,11 +297,20 @@ class CardDeck {
     this.panelHook.textContent = pairing?.hook ? `"${pairing.hook}"` : '';
 
     // Detail rows hide themselves when a pairing has no text for them
-    const details = { Parallel: 'parallel', Bond: 'bond', Scripture: 'scripture', Receipt: 'receipt' };
+    const details = { Parallel: 'parallel', Bond: 'bond', Receipt: 'receipt' };
     for (const [suffix, field] of Object.entries(details)) {
       const value = pairing?.[field] || '';
       document.getElementById(`panel${suffix}`).textContent = value;
       document.getElementById(`row${suffix}`).hidden = !value;
+    }
+
+    // Scripture: reference + Hebrew + English verse
+    const verse = pairing?.scripture;
+    document.getElementById('rowScripture').hidden = !verse;
+    if (verse) {
+      document.getElementById('panelScriptureRef').textContent = verse.ref;
+      document.getElementById('panelScriptureHe').textContent = verse.hebrew;
+      document.getElementById('panelScriptureEn').textContent = verse.english;
     }
 
     this.infoPanel.classList.add('visible');

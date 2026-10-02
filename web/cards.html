@@ -13,6 +13,9 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
 
   <!-- Styles -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@500&display=swap">
   <link rel="stylesheet" href="css/styles.css">
 </head>
 <body class="deck-page">
@@ -67,7 +70,15 @@
     <dl class="pairing-details">
       <div id="rowParallel"><dt>The Parallel</dt><dd id="panelParallel"></dd></div>
       <div id="rowBond"><dt>The Bond</dt><dd id="panelBond"></dd></div>
-      <div id="rowScripture"><dt>Scripture</dt><dd id="panelScripture"></dd></div>
+      <div id="rowScripture">
+        <dt>Scripture &middot; <span id="panelScriptureRef"></span></dt>
+        <dd>
+          <blockquote class="verse">
+            <p class="verse-he" lang="he" dir="rtl" id="panelScriptureHe"></p>
+            <p class="verse-en" id="panelScriptureEn"></p>
+          </blockquote>
+        </dd>
+      </div>
       <div id="rowReceipt"><dt>The Receipt</dt><dd id="panelReceipt"></dd></div>
     </dl>
   </div>

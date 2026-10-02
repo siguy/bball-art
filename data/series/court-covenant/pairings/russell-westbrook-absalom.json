@@ -47,7 +47,11 @@
     "thematic": "Both chased glory on their own terms, even when it split the house",
     "narrative": "One sought glory from the hardwood, the other from the throne, both with an unyielding hunger.",
     "relationship": "Restless strivers whose hunger for the spotlight never let up",
-    "scripture": "2 Samuel 15-18",
+    "scripture": {
+      "ref": "2 Samuel 15:6",
+      "hebrew": "וַיַּעַשׂ אַבְשָׁלוֹם כַּדָּבָר הַזֶּה לְכָל־יִשְׂרָאֵל אֲשֶׁר־יָבֹאוּ לַמִּשְׁפָּט אֶל־הַמֶּלֶךְ וַיְגַנֵּב אַבְשָׁלוֹם אֶת־לֵב אַנְשֵׁי יִשְׂרָאֵל׃",
+      "english": "And on this manner did Absalom to all Israel that came to the king for judgment; so Absalom stole the hearts of the men of Israel."
+    },
     "receipt": "2017 MVP; NBA all-time triple-doubles leader"
   },
   "interactions": [

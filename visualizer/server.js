@@ -3583,7 +3583,7 @@ app.post('/api/selects/export', (req, res) => {
         hook: connection?.narrative || '',
         parallel: connection?.thematic || '',
         bond: connection?.relationship || '',
-        scripture: connection?.scripture || '',
+        scripture: connection?.scripture || null, // { ref, hebrew, english }
         receipt: connection?.receipt || ''
       };
 

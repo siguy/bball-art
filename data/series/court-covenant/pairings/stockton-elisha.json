@@ -42,7 +42,11 @@
     "thematic": "Both were steady, faithful servants who quietly accumulated impossible numbers",
     "narrative": "Elisha performed double the miracles. Stockton dished double the assists. Quiet greatness, loud numbers.",
     "relationship": "Humble servants whose consistency created untouchable records",
-    "scripture": "2 Kings 2:9",
+    "scripture": {
+      "ref": "2 Kings 2:9",
+      "hebrew": "וַיְהִי כְעָבְרָם וְאֵלִיָּהוּ אָמַר אֶל־אֱלִישָׁע שְׁאַל מָה אֶעֱשֶׂה־לָּךְ בְּטֶרֶם אֶלָּקַח מֵעִמָּךְ וַיֹּאמֶר אֱלִישָׁע וִיהִי־נָא פִּי־שְׁנַיִם בְּרוּחֲךָ אֵלָי׃",
+      "english": "And it came to pass, when they were gone over, that Elijah said unto Elisha: ‘Ask what I shall do for thee, before I am taken from thee.’ And Elisha said: ‘I pray thee, let a double portion of thy spirit be upon me.’"
+    },
     "receipt": "All-time leader in assists (15,806) and steals (3,265)"
   },
   "interactions": [

@@ -42,7 +42,11 @@
     "thematic": "Overlooked and undersized, both win by attacking from the side no one is watching",
     "narrative": "Ehud was the lefty nobody searched. Brunson is the lefty nobody can stay in front of. Both deliver when it counts.",
     "relationship": "Underestimated left-handers who strike before anyone sees it coming",
-    "scripture": "Judges 3:15-30",
+    "scripture": {
+      "ref": "Judges 3:15",
+      "hebrew": "וַיִּזְעֲקוּ בְנֵי־יִשְׂרָאֵל אֶל־יְהוָה וַיָּקֶם יְהוָה לָהֶם מוֹשִׁיעַ אֶת־אֵהוּד בֶּן־גֵּרָא בֶּן־הַיְמִינִי אִישׁ אִטֵּר יַד־יְמִינוֹ וַיִּשְׁלְחוּ בְנֵי־יִשְׂרָאֵל בְּיָדוֹ מִנְחָה לְעֶגְלוֹן מֶלֶךְ מוֹאָב׃",
+      "english": "But when the children of Israel cried unto the LORD, the LORD raised them up a saviour, Ehud the son of Gera, the Benjamite, a man left-handed; and the children of Israel sent a present by him unto Eglon the king of Moab."
+    },
     "receipt": "No. 33 pick in 2018; led the Knicks to their first conference finals since 2000"
   },
   "interactions": [

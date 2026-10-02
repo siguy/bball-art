@@ -376,6 +376,24 @@ body {
   margin-bottom: 0.2rem;
 }
 
+.verse {
+  margin: 0.35rem 0 0;
+  padding-left: 0.9rem;
+  border-left: 2px solid var(--gold);
+}
+
+.verse-he {
+  font-family: 'Frank Ruhl Libre', 'Times New Roman', serif;
+  font-size: 1.2rem;
+  line-height: 1.7;
+  color: var(--text-primary);
+  margin-bottom: 0.4rem;
+}
+
+.verse-en {
+  font-style: italic;
+}
+
 .pairing-details dd {
   margin: 0;
   font-size: 0.95rem;
