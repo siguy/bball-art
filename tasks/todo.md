@@ -43,7 +43,7 @@ block on the pairing's player object (wardrobe, accents, aura, background motifs
 |---|---|---|
 | Karl-Anthony Towns | Joseph | [x] fusion solo v2 generated (coat of colors, gold collar, sun/moon/11 stars, wheat) |
 | Jalen Brunson | Joshua | [x] fusion card done (walls, 7 shofars, scarlet cord, sun+moon, 12 stones, Jordan). Lefty fix: mirror the card, then Gemini edit pass to re-letter title + logo (2 edit calls) |
-| Josh Hart | Caleb | [x] fusion card done first try (giants, grasshoppers, Eshcol grapes, milk & honey, dog constellation, mountain) - logo drawn as plain text |
+| Josh Hart | Caleb | [x] fusion card done first try (giants, grasshoppers, Eshcol grapes, milk & honey, dog constellation, mountain) - logo fixed with Gemini edit pass (logo PNG as reference image) |
 | Mikal Bridges | Priests at the Jordan (Eleazar) | [ ] pose files (player + figure) + pairing |
 | OG Anunoby | Shamgar | [ ] pose files (player + figure) + pairing |
 
@@ -53,3 +53,4 @@ block on the pairing's player object (wardrobe, accents, aura, background motifs
 - Command: `node scripts/generate-solo.js player karl-anthony-towns fillmore-revelation --pose three-point-release`
 - Note: `--draft` (FLUX) ignores this style badly (no psychedelia, put Joseph in a jersey) - use full Nano Banana for this template
 - Lesson: image models default to right-handed shooters. For lefties, generate normally, mirror (`sips -f horizontal`), then a Gemini edit pass to fix the mirrored text/logo.
+- Edit-pass pattern (used twice now: Brunson title, Hart logo): send the finished card + any reference image (e.g. brand/logos/court and covenant logo - 1.png) to generateImage() with an "edit only X, keep everything else" prompt. Candidate for a reusable scripts/edit-card.js.
