@@ -115,6 +115,37 @@ a { color: inherit; }
 
 .hero-kicker span:last-child { color: var(--gold); }
 
+/* Link to the Garden Edition sub-page, in that page's poster colors */
+.edition-link {
+  position: relative;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-top: 1rem;
+  padding: 0.4rem 1rem 0.4rem 0.45rem;
+  font: 900 clamp(0.75rem, 2.2vw, 0.95rem) var(--font-board);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--ink);
+  border-radius: 999px;
+  background: linear-gradient(#0b0b0b, #0b0b0b) padding-box,
+    linear-gradient(90deg, #ff7a1a, #ff2fa0, #1f5bff, #b6ff3b) border-box;
+  border: 2px solid transparent;
+  animation: rise 0.9s cubic-bezier(.2, .8, .2, 1) 0.3s both;
+  transition: box-shadow 0.2s;
+}
+
+.edition-link b {
+  padding: 0.1rem 0.55rem;
+  border-radius: 999px;
+  background: #ff7a1a;
+  color: #0b0b0b;
+}
+
+.edition-link:hover { box-shadow: 0 0 24px rgba(255, 47, 160, 0.45); }
+
 /* --- The dealt fan --- */
 
 .fan {

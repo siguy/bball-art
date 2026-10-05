@@ -60,3 +60,10 @@ block on the pairing's player object (wardrobe, accents, aura, background motifs
 - All five fusion cards generated: KAT/Joseph, Brunson/Joshua, Hart/Caleb, Bridges/Eleazar, OG/Shamgar
 - Fixes needed along the way: KAT ball missing (pose rewrite), Brunson right-handed (mirror + re-letter), Hart + Bridges logo (edit pass)
 - LOGO_RULE in the template got OG's logo right on the first try; still verify every card against brand/logos/court and covenant logo - 1.png
+
+## Garden Edition landing page
+- [x] `web/garden.html` sub-page: psychedelic hero (melting headline, op-art rings, 1973 -> 2026 board, fan of five), ticker, five starter panels with Easter-egg pins + Hebrew verses, closer
+- [x] Pin positions checked against each card in the browser (fixed Bridges coins, Towns sun, Hart mountain)
+- [x] Checked desktop (1440) + phone (375): no horizontal scroll, no console errors
+- [x] Homepage hero links to it ("New - The Garden Edition")
+- Local preview: `.claude/launch.json` -> "website" (python http.server on web/, port 8765)
