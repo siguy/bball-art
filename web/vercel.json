@@ -1,0 +1,5 @@
+{
+  "rewrites": [
+    { "source": "/ny-basketball", "destination": "/ny-basketball.html" }
+  ]
+}
