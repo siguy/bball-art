@@ -45,7 +45,7 @@ block on the pairing's player object (wardrobe, accents, aura, background motifs
 | Jalen Brunson | Joshua | [x] fusion card done (walls, 7 shofars, scarlet cord, sun+moon, 12 stones, Jordan). Lefty fix: mirror the card, then Gemini edit pass to re-letter title + logo (2 edit calls) |
 | Josh Hart | Caleb | [x] fusion card done first try (giants, grasshoppers, Eshcol grapes, milk & honey, dog constellation, mountain) - logo fixed with Gemini edit pass (logo PNG as reference image) |
 | Mikal Bridges | Priests at the Jordan (Eleazar) | [x] fusion card done (breastplate of 12 stones, bells + pomegranates hem, Ark, parted river, rainbow bridge arch, 5 gold coins, unbroken chain border). Logo fixed with edit pass. No figure pose file needed for fusion (validator warns only) |
-| OG Anunoby | Shamgar | [ ] pose files (player + figure) + pairing |
+| OG Anunoby | Shamgar | [x] fusion card done first try, correct logo with no edit pass (plowed-furrow rings, ox-goad, yoked oxen, 600 fallen Philistine helmets, empty roads, hourglass, two crowns) |
 
 - [x] `fillmore-revelation` template + registered (`fr`) in filename-builder, config, server, templates-meta
 - [ ] Simon's feedback on KAT fusion card before doing the other four
@@ -55,3 +55,8 @@ block on the pairing's player object (wardrobe, accents, aura, background motifs
 - Lesson: image models default to right-handed shooters. For lefties, generate normally, mirror (`sips -f horizontal`), then a Gemini edit pass to fix the mirrored text/logo.
 - Edit-pass pattern (used twice now: Brunson title, Hart logo): send the finished card + any reference image (e.g. brand/logos/court and covenant logo - 1.png) to generateImage() with an "edit only X, keep everything else" prompt. Candidate for a reusable scripts/edit-card.js.
 - Template now spells out that the logo must be copied from the reference image (LOGO_RULE). Bridges still came out as a restyled script, so the logo edit pass is still needed - plan on it for every card.
+
+## Review (starting five done)
+- All five fusion cards generated: KAT/Joseph, Brunson/Joshua, Hart/Caleb, Bridges/Eleazar, OG/Shamgar
+- Fixes needed along the way: KAT ball missing (pose rewrite), Brunson right-handed (mirror + re-letter), Hart + Bridges logo (edit pass)
+- LOGO_RULE in the template got OG's logo right on the first try; still verify every card against brand/logos/court and covenant logo - 1.png
