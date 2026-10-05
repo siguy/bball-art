@@ -1,0 +1,32 @@
+{
+  "id": "mikal-bridges",
+  "name": "Mikal Bridges",
+  "defaultPose": "pull-up-jumper",
+  "description": "6'6\" wing with an enormous wingspan, lean and long. The iron man who has never missed a game. Quiet, steady, always smiling.",
+  "poses": {
+    "pull-up-jumper": {
+      "id": "pull-up-jumper",
+      "name": "Smooth Pull-Up",
+      "description": "His signature smooth midrange pull-up - rising straight up, perfectly balanced.",
+      "expression": "calm, relaxed, faint smile",
+      "prompt": "Mikal Bridges rising straight up for a smooth pull-up jumper, the orange basketball clearly visible at the top of his release just above his forehead in his RIGHT hand, elbow under the ball, left guide hand on the side of the ball, long lean body perfectly vertical and balanced, legs together, a faint relaxed smile",
+      "energy": "steady, smooth, unshakable"
+    },
+    "wingspan-defense": {
+      "id": "wingspan-defense",
+      "name": "Wingspan",
+      "description": "Low defensive stance with his huge arms spread wide.",
+      "expression": "locked in, calm",
+      "prompt": "Mikal Bridges in a low defensive stance, knees bent, feet wide and planted, both enormously long arms spread out wide to the sides like wings, palms open, eyes locked forward",
+      "energy": "length, discipline"
+    },
+    "iron-man-smile": {
+      "id": "iron-man-smile",
+      "name": "Iron Man Smile",
+      "description": "Jogging back on defense with his trademark easy grin.",
+      "expression": "big easy smile",
+      "prompt": "Mikal Bridges jogging back up the court with a big easy smile, arms loose, relaxed and upright, the picture of a player who never needs a day off",
+      "energy": "durability, joy"
+    }
+  }
+}

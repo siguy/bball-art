@@ -1,0 +1,76 @@
+{
+  "id": "mikal-bridges-eleazar",
+  "series": "court-covenant",
+  "type": "hero",
+  "isAlternate": false,
+  "alternateOf": null,
+  "opposingPairing": null,
+  "collection": "knicks-2026-fusion",
+  "player": {
+    "name": "Mikal Bridges",
+    "displayName": "Mikal Bridges",
+    "poseFileId": "mikal-bridges",
+    "characterType": "player",
+    "era": "2020s",
+    "jerseyColors": {
+      "primary": {
+        "base": "royal blue",
+        "accent": "orange"
+      },
+      "secondary": {
+        "base": "white",
+        "accent": "royal blue"
+      }
+    },
+    "signatureMoves": [
+      "smooth pull-up",
+      "wingspan defense",
+      "never missing a game"
+    ],
+    "physicalDescription": "6'6\" wing, very lean and long-limbed with an enormous wingspan, short dark hair, light beard and mustache, calm friendly face with an easy smile",
+    "archetype": "The iron man who stood firm so everyone else could cross",
+    "fusion": {
+      "source": "eleazar",
+      "wardrobe": "a priest's sleeveless white linen overgarment (ephod) worn over the blank jersey, with a sash woven in blue, purple, and scarlet; along its hem, tiny golden bells alternating with embroidered pomegranates; on his chest, the high priest's square breastplate set with twelve glowing gemstones in four rows of three, each gem a different color - ruby, topaz, emerald, sapphire, amethyst and more",
+      "accents": "a thin golden headband across his forehead",
+      "aura": "unshakable steadiness - the one who stands in the middle of the river and does not move until everyone has crossed",
+      "background": "he rises from a dry riverbed of smooth stones in the middle of a parted river, the water piled up in one towering glassy heap far upstream behind him, frozen mid-surge; behind him, glowing softly, the golden Ark of the Covenant - a gold chest with two winged cherubim on its lid facing each other - resting on long carrying poles; the op-art bands arch high over him in the shape of a great rainbow BRIDGE spanning the card from side to side; five gold coins glinting among the riverbed stones at his feet; a border of unbroken golden chain links running all the way around the card"
+    }
+  },
+  "figure": {
+    "name": "Eleazar",
+    "displayName": "Eleazar",
+    "poseFileId": "eleazar",
+    "characterType": "figure",
+    "attribute": "Ark of the Covenant",
+    "attributeDescription": "the golden Ark the priests carried into the Jordan, holding the river back",
+    "visualStyle": "Israelite high priest, son of Aaron",
+    "clothing": "white linen priestly garments, ephod, breastplate of twelve stones",
+    "physicalDescription": "dignified priest, dark beard, steady calm eyes",
+    "anatomyNote": "two arms only",
+    "archetype": "The high priest who stood in the river until the whole nation crossed"
+  },
+  "connection": {
+    "thematic": "The priests stood still in the middle of the Jordan until every last person had crossed. Bridges has never missed a game.",
+    "narrative": "The river stopped when the priests stepped in. They didn't move until it was done. That's an iron man.",
+    "relationship": "The ones who hold the line so everyone else can get across",
+    "scripture": {
+      "ref": "Joshua 3:17",
+      "hebrew": "וַיַּעַמְדוּ הַכֹּהֲנִים נֹשְׂאֵי הָאָרוֹן בְּרִית־יְהוָה בֶּחָרָבָה בְּתוֹךְ הַיַּרְדֵּן הָכֵן וְכָל־יִשְׂרָאֵל עֹבְרִים בֶּחָרָבָה עַד אֲשֶׁר־תַּמּוּ כָּל־הַגּוֹי לַעֲבֹר אֶת־הַיַּרְדֵּן׃",
+      "english": "And the priests that bore the ark of the covenant of the LORD stood firm on dry ground in the midst of the Jordan, while all Israel passed over on dry ground, until all the nation were passed clean over the Jordan."
+    },
+    "receipt": "Has never missed a game in his NBA career; acquired for five first-round picks and won the 2026 title with his Villanova teammates Brunson and Hart"
+  },
+  "interactions": [
+    {
+      "id": "side-by-side",
+      "description": "Mikal Bridges and Eleazar standing together as equals"
+    }
+  ],
+  "defaultInteraction": "side-by-side",
+  "cardVariants": [
+    "fillmore-revelation"
+  ],
+  "priority": 50,
+  "status": "draft"
+}

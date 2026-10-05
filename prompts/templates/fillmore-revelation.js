@@ -24,6 +24,10 @@ function posterBackground(extra = null) {
 `.trim();
 }
 
+// The model sometimes writes the brand name as plain text instead of copying the
+// reference logo image - spell out that it must reproduce the image itself.
+const LOGO_RULE = 'reproduce the provided "Court & Covenant" logo reference image EXACTLY - its flowing script lettering, the large swash C, and the small ampersand - in metallic gold, legible against the background. Do NOT write the words in a plain or poster font; copy the logo image itself.';
+
 const POSTER_FINISH = 'Screen-printed concert poster texture - slight ink misregistration, flat saturated inks, faint paper grain, a subtle iridescent sheen. The card should look like a collectible gig poster from the Summer of Love.';
 
 export const fillmoreRevelationTemplate = {
@@ -98,7 +102,7 @@ ${posterBackground()}
 === TEXT ELEMENTS (render exactly as specified) ===
 TOP: Write "${player.name}" in classic 1960s Fillmore poster lettering - swelling, melting, warped letterforms that stretch to fill the space, bright orange letters with a vibrating blue outline. Centered at top. Spell it exactly.
 
-LOGO: Below the title, render the provided "Court & Covenant" logo image small, in gold.
+LOGO: Below the title, small: ${LOGO_RULE}
 
 BOTTOM: Write "${player.name} & ${figure.displayName}" in flowing psychedelic hand-lettering, legible, centered at the bottom.
 
@@ -160,7 +164,7 @@ ${posterBackground(fusion?.background)}
 === TEXT ELEMENTS (render exactly as specified) ===
 TOP: Write "${character.displayName || character.name}" in classic 1960s Fillmore poster lettering - swelling, melting, warped letterforms that stretch to fill the space, bright orange letters with a vibrating blue outline. Centered at top. Spell it exactly.
 
-LOGO: Small, near the bottom, render the provided "Court & Covenant" logo image in gold.
+LOGO: Near the bottom center, modest size: ${LOGO_RULE}
 
 No other text on the card.
 
