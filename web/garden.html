@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>The Garden Edition - Court & Covenant</title>
+
+  <meta name="description" content="New York's 2026 champions, reimagined. Five starters, each taking on the mantle of a figure from the Book. Fifty-three years in the wilderness, over.">
+  <meta name="theme-color" content="#0b0420">
+
+  <meta property="og:title" content="The Garden Edition - Court & Covenant">
+  <meta property="og:description" content="Fifty-three years in the wilderness. Five starters. Five figures from the Book.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="https://www.courtandcovenant.com/cards/garden/brunson-joshua.jpeg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="The Garden Edition - Court & Covenant">
+  <meta name="twitter:image" content="https://www.courtandcovenant.com/cards/garden/brunson-joshua.jpeg">
+
+  <link rel="icon" type="image/png" href="brand/favicon.png">
+
+  <!-- Same type system as the main site, plus Frank Ruhl Libre for Hebrew (as on cards.html) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;900&family=Bowlby+One&family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600&family=Frank+Ruhl+Libre:wght@500&display=swap">
+
+  <link rel="stylesheet" href="css/garden.css">
+</head>
+<body>
+
+  <!-- Wobble filter: makes the headline melt like a 1967 concert poster -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <filter id="melt">
+      <feTurbulence type="fractalNoise" baseFrequency="0.012 0.03" numOctaves="2" seed="7" result="noise">
+        <animate attributeName="baseFrequency" dur="9s" values="0.012 0.03;0.016 0.045;0.012 0.03" repeatCount="indefinite" />
+      </feTurbulence>
+      <feDisplacementMap in="SourceGraphic" in2="noise" scale="14" />
+    </filter>
+  </svg>
+
+  <header class="topbar">
+    <a href="index.html" class="back"><span aria-hidden="true">&larr;</span> Home</a>
+    <a href="index.html" class="mini-logo"><img src="brand/court-covenant-logo-transparent.png" alt="Court & Covenant"></a>
+    <a href="#starters" class="topbar-link">The Five</a>
+  </header>
+
+  <!-- ===== HERO ===== -->
+  <section class="hero">
+    <div class="rings" aria-hidden="true"></div>
+
+    <p class="edition">New York &middot; 2026 Champions &middot; The Garden Edition</p>
+    <h1 class="headline">
+      <span>The Wilderness</span>
+      <span>Is Over</span>
+    </h1>
+
+    <div class="board" aria-label="Fifty-three years: 1973 to 2026">
+      <span class="year">1973</span>
+      <span class="gap"><b>53</b> years</span>
+      <span class="year is-now">2026</span>
+    </div>
+
+    <div class="fan" id="fan" aria-label="The five cards"></div>
+
+    <!-- Dripping skyline, a nod to the melting cities on the cards -->
+    <svg class="skyline" viewBox="0 0 1200 160" preserveAspectRatio="none" aria-hidden="true">
+      <path d="M0 160 V92 h40 v-30 h30 v40 h26 v-62 h22 v-18 h8 v18 h22 v62 h30 v-48 h36 v58 h24 v-80 h12 v-26 h6 v26 h12 v80 h30 v-40 h40 v52 h28 v-70 h34 v70 h24 v-104 h10 v-30 h4 v30 h10 v104 h36 v-56 h30 v40 h44 v-74 h26 v74 h30 v-36 h40 v48 h22 v-90 h20 v-14 h10 v14 h20 v90 h34 v-50 h30 v60 h28 v-44 h44 v32 h40 v-60 h24 v70 h38 V160 Z" />
+      <path class="drips" d="M96 120 q4 30 0 36 q-4 -6 0 -36 M318 128 q5 22 0 28 q-5 -6 0 -28 M520 116 q4 34 0 40 q-4 -6 0 -40 M702 124 q5 26 0 32 q-5 -6 0 -32 M890 118 q4 30 0 36 q-4 -6 0 -36 M1082 126 q5 24 0 30 q-5 -6 0 -30" />
+    </svg>
+
+    <a href="#starters" class="scroll-cue">Meet the five <span aria-hidden="true">&darr;</span></a>
+  </section>
+
+  <!-- ===== TICKER ===== -->
+  <section class="ticker" aria-label="Headlines">
+    <div class="ticker-row ticker-names"><div class="ticker-track" id="tickerNames"></div></div>
+    <div class="ticker-row ticker-hooks"><div class="ticker-track" id="tickerHooks"></div></div>
+  </section>
+
+  <!-- ===== THE STARTING FIVE ===== -->
+  <main class="five">
+    <div class="five-head">
+      <h2>The Starting Five</h2>
+      <p>Each starter stays in his signature move &mdash; and takes on the mantle of a figure from the Book. Every card hides the story in plain sight.</p>
+    </div>
+    <div id="starters"></div>
+  </main>
+
+  <!-- ===== CLOSER ===== -->
+  <section class="closer">
+    <p class="closer-he" lang="he" dir="rtl">עַד אֲשֶׁר־תַּמּוּ כָּל־הַגּוֹי לַעֲבֹר אֶת־הַיַּרְדֵּן</p>
+    <p class="closer-line">Until all the nation<br>passed clean over.</p>
+    <p class="closer-ref">Joshua 3:17</p>
+    <div class="ctas">
+      <a href="index.html#matchups" class="cta">See every matchup <span aria-hidden="true">&rarr;</span></a>
+      <a href="cards.html" class="cta cta-ghost">Swipe the collection</a>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <p>The Garden Edition &middot; Court &amp; Covenant</p>
+    <p class="fine-print">An independent art project. Not affiliated with the NBA or any team or player.</p>
+  </footer>
+
+  <script type="module" src="js/garden.js"></script>
+</body>
+</html>

@@ -1,0 +1,76 @@
+{
+  "id": "josh-hart-caleb",
+  "series": "court-covenant",
+  "type": "hero",
+  "isAlternate": false,
+  "alternateOf": null,
+  "opposingPairing": null,
+  "collection": "knicks-2026-fusion",
+  "player": {
+    "name": "Josh Hart",
+    "displayName": "Josh Hart",
+    "poseFileId": "josh-hart",
+    "characterType": "player",
+    "era": "2020s",
+    "jerseyColors": {
+      "primary": {
+        "base": "royal blue",
+        "accent": "orange"
+      },
+      "secondary": {
+        "base": "white",
+        "accent": "royal blue"
+      }
+    },
+    "signatureMoves": [
+      "rebound in traffic",
+      "grab and go",
+      "floor dive"
+    ],
+    "physicalDescription": "6'4\" guard with a thick, muscular build, short dark hair, light beard and mustache, intense wide-eyed expression, wrists taped",
+    "archetype": "The undersized dog who takes the ball from giants",
+    "fusion": {
+      "source": "caleb",
+      "wardrobe": "a desert scout's rough woven mantle in earthy stripes of sand, rust, and olive, thrown back off his shoulders and whipping behind him in the jump, a leather scout's satchel strapped across his chest, and a grapevine wound around one taped wrist",
+      "accents": "a few green grape leaves and tendrils curling around his sneakers",
+      "aura": "another spirit - wild, joyful, fearless, the one scout who looked at the giants and said 'we can take them'",
+      "background": "towering colossal giants shaped out of the mountains and storm clouds on both sides, looming over him like defenders but dwarfed by his leap; tiny bright-green grasshoppers hopping along the bottom edge; an enormous cluster of purple grapes hanging from a thick vine across the top of the frame, with pomegranates and figs tucked in the vine; the psychedelic drips in the skyline flow as golden honey and white milk; a rugged mountain rising directly behind him, its peak crowned with light; a faint constellation shaped like a loyal howling dog in the sky"
+    }
+  },
+  "figure": {
+    "name": "Caleb",
+    "displayName": "Caleb",
+    "poseFileId": "caleb",
+    "characterType": "figure",
+    "attribute": "cluster of grapes from Eshcol",
+    "attributeDescription": "the giant cluster of grapes the scouts carried back from the Promised Land on a pole",
+    "visualStyle": "Israelite scout and warrior from the tribe of Judah",
+    "clothing": "desert scout's woven mantle over a simple tunic, leather satchel",
+    "physicalDescription": "rugged, weathered scout, strong at any age, fierce joyful eyes",
+    "anatomyNote": "two arms only",
+    "archetype": "The faithful scout who wasn't afraid of the giants"
+  },
+  "connection": {
+    "thematic": "Ten scouts saw giants and felt like grasshoppers. Caleb saw grapes. Hart sees seven-footers and sees rebounds.",
+    "narrative": "Caleb's name sounds like 'kelev' - dog. Hart is the dog in every big game.",
+    "relationship": "Undersized, wholehearted, unafraid of giants",
+    "scripture": {
+      "ref": "Numbers 14:24",
+      "hebrew": "וְעַבְדִּי כָלֵב עֵקֶב הָיְתָה רוּחַ אַחֶרֶת עִמּוֹ וַיְמַלֵּא אַחֲרָי וַהֲבִיאֹתִיו אֶל־הָאָרֶץ אֲשֶׁר־בָּא שָׁמָּה וְזַרְעוֹ יוֹרִשֶׁנָּה׃",
+      "english": "But My servant Caleb, because he had another spirit with him, and hath followed Me fully, him will I bring into the land whereinto he went; and his seed shall possess it."
+    },
+    "receipt": "+200 total plus-minus in the 2026 playoffs, third-best in the league; won the 2026 title alongside his Villanova teammates Brunson and Bridges"
+  },
+  "interactions": [
+    {
+      "id": "side-by-side",
+      "description": "Josh Hart and Caleb standing together as equals"
+    }
+  ],
+  "defaultInteraction": "side-by-side",
+  "cardVariants": [
+    "fillmore-revelation"
+  ],
+  "priority": 50,
+  "status": "draft"
+}

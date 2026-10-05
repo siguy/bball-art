@@ -1,0 +1,40 @@
+{
+  "id": "karl-anthony-towns",
+  "name": "Karl-Anthony Towns",
+  "defaultPose": "three-point-release",
+  "description": "7-foot shooting big man, broad shoulders, long reach, feathery jump shot. Plays with his heart on his sleeve - huge smiles, huge screams, open emotion.",
+  "poses": {
+    "three-point-release": {
+      "id": "three-point-release",
+      "name": "Seven-Foot Three",
+      "description": "The rare big man with a guard's jumper - high, smooth three-point release from well beyond the arc.",
+      "expression": "calm confidence, eyes locked on the rim",
+      "prompt": "Karl-Anthony Towns rising for a three-pointer - a seven-footer with a guard's form, high release point far above his head, the orange basketball clearly visible balanced on the fingertips of his raised shooting hand at the instant of release, elbow under the ball, guide hand on the side of the ball, feet off the floor in a balanced jump - unmistakably a jump shot",
+      "energy": "smooth, effortless range"
+    },
+    "and-one-scream": {
+      "id": "and-one-scream",
+      "name": "And-One Scream",
+      "description": "Flexing and roaring after scoring through contact.",
+      "expression": "raw emotion, roaring intensity",
+      "prompt": "Karl-Anthony Towns roaring after an and-one - both arms flexed at his sides, chest out, head thrown back, mouth wide open in a primal scream, veins and muscles taut, pure unfiltered emotion",
+      "energy": "explosive, heart on sleeve"
+    },
+    "heavenward-tribute": {
+      "id": "heavenward-tribute",
+      "name": "Heavenward Tribute",
+      "description": "Pointing to the sky in tribute to his late mother.",
+      "expression": "tearful gratitude, love",
+      "prompt": "Karl-Anthony Towns pointing both index fingers to the sky, face lifted upward, eyes glistening with tears, a soft grateful smile - a tribute to his late mother, tender and triumphant at once",
+      "energy": "gratitude, love, redemption"
+    },
+    "post-fadeaway": {
+      "id": "post-fadeaway",
+      "name": "Post Fadeaway",
+      "description": "Turning over the shoulder in the post for a fading jumper.",
+      "expression": "focused, smooth",
+      "prompt": "Karl-Anthony Towns turning over his shoulder in the low post and fading away, one knee lifted, ball released high above an outstretched defender's hand, body leaning back in balance",
+      "energy": "skill, footwork"
+    }
+  }
+}

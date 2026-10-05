@@ -105,6 +105,23 @@
       },
       "bestFor": ["explosive players", "dunkers", "action-oriented"]
     },
+    "fillmore-revelation": {
+      "id": "fillmore-revelation",
+      "name": "Fillmore Revelation",
+      "description": "1960s Fillmore psychedelic concert poster style fused with Ezekiel's wheels-within-wheels vision. Melting lettering, op-art rings, valley of dry bones coming to life.",
+      "era": "1960s",
+      "style": "Psychedelic concert poster",
+      "hasDarkMode": false,
+      "darkVariantId": null,
+      "colors": {
+        "hero": {
+          "primary": "electric orange/royal blue",
+          "secondary": "hot magenta/acid green",
+          "accent": "op-art concentric rings"
+        }
+      },
+      "bestFor": ["Can These Bones Live? collection", "championship cards", "colorful personalities"]
+    },
     "prizm-silver": {
       "id": "prizm-silver",
       "name": "Prizm Silver",

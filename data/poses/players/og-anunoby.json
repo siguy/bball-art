@@ -1,0 +1,32 @@
+{
+  "id": "og-anunoby",
+  "name": "OG Anunoby",
+  "defaultPose": "game-winning-tip-in",
+  "description": "6'7\" forward built like a linebacker, elite defender, famously stoic and quiet. Two-time champion. Hit the game-winning tip-in with 1.2 seconds left in Game 4 of the 2026 Finals.",
+  "poses": {
+    "game-winning-tip-in": {
+      "id": "game-winning-tip-in",
+      "name": "1.2 Seconds",
+      "description": "The Game 4 winner - skying above everyone to tip the ball in at the buzzer.",
+      "expression": "stone-faced focus, eyes on the rim",
+      "prompt": "OG Anunoby at the peak of a high leap beside a plain orange basketball rim with a white net, his RIGHT arm fully extended straight up, fingertips softly tipping the orange basketball over the front of the rim into the hoop, body stretched long, other arm down for balance, face calm and expressionless, eyes locked on the ball",
+      "energy": "silent, decisive, last-second"
+    },
+    "lockdown-stance": {
+      "id": "lockdown-stance",
+      "name": "Lockdown",
+      "description": "Low, wide defensive stance - the stopper.",
+      "expression": "unreadable, stone calm",
+      "prompt": "OG Anunoby in a low wide defensive stance, knees bent, broad shoulders squared, both strong arms spread with hands active, face completely calm and unreadable",
+      "energy": "immovable, quiet menace"
+    },
+    "corner-three": {
+      "id": "corner-three",
+      "name": "Corner Three",
+      "description": "Catch-and-shoot three from the corner.",
+      "expression": "neutral, unbothered",
+      "prompt": "OG Anunoby rising for a catch-and-shoot three-pointer, orange basketball at the top of his release in his RIGHT hand, elbow under the ball, feet together, face neutral and unbothered",
+      "energy": "efficient, no wasted motion"
+    }
+  }
+}

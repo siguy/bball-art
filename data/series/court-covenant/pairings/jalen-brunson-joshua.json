@@ -1,0 +1,76 @@
+{
+  "id": "jalen-brunson-joshua",
+  "series": "court-covenant",
+  "type": "hero",
+  "isAlternate": true,
+  "alternateOf": "jalen-brunson-ehud",
+  "opposingPairing": null,
+  "collection": "knicks-2026-fusion",
+  "player": {
+    "name": "Jalen Brunson",
+    "displayName": "Jalen Brunson",
+    "poseFileId": "jalen-brunson",
+    "characterType": "player",
+    "era": "2020s",
+    "jerseyColors": {
+      "primary": {
+        "base": "royal blue",
+        "accent": "orange"
+      },
+      "secondary": {
+        "base": "white",
+        "accent": "royal blue"
+      }
+    },
+    "signatureMoves": [
+      "left-handed floater",
+      "pump-fake and pivot",
+      "pull-up midrange"
+    ],
+    "physicalDescription": "6'2\" point guard with a strong, compact build, short dark hair, neatly trimmed beard and mustache, calm unwavering focus in his eyes. LEFT-HANDED SHOOTER. MIRROR CHECK: he faces the viewer, so the raised arm holding the basketball must appear on the RIGHT HALF of the picture; the bronze bracer is on the lowered arm on the LEFT half of the picture",
+    "archetype": "The overlooked general who finally led the city across",
+    "fusion": {
+      "source": "joshua",
+      "wardrobe": "a short commander's cloak of deep crimson with a gold border clasped at one shoulder and streaming behind him, a bronze-studded leather war belt over the blank shorts, and a bronze bracer on his non-shooting (right) forearm",
+      "accents": "a curled ram's-horn shofar slung across his back on a leather cord",
+      "aura": "a general's calm in the chaos - completely unafraid, as if the clock has stopped just for him",
+      "background": "the op-art rings are SOUND WAVES blasting from seven curled ram's horns spaced around the card's border; behind him, massive ancient stone city walls crumbling and falling outward in the shockwave; a tiny scarlet cord hanging from one high window in the crumbling wall; a blazing sun frozen in the sky on the left and a pale moon frozen on the right, both perfectly still; at his feet, twelve smooth river stones stacked as a small memorial cairn; along the bottom edge, river water standing up in two tall glassy walls on either side, as if the river has stopped flowing"
+    }
+  },
+  "figure": {
+    "name": "Joshua",
+    "displayName": "Joshua",
+    "poseFileId": "joshua",
+    "characterType": "figure",
+    "attribute": "ram's-horn shofar",
+    "attributeDescription": "the curled ram's horns whose blast brought down the walls of Jericho",
+    "visualStyle": "Israelite general, successor to Moses",
+    "clothing": "bronze and leather armor over a woven tunic, commander's cloak",
+    "physicalDescription": "seasoned warrior-leader, short dark beard, steady fearless eyes",
+    "anatomyNote": "two arms only",
+    "archetype": "The successor who finally led the people across the Jordan"
+  },
+  "connection": {
+    "thematic": "Moses led the wilderness years but never entered; Joshua finished the journey. After 53 years, Brunson is the one who led New York across.",
+    "narrative": "Joshua stopped the sun to finish the battle. Brunson owns the fourth quarter.",
+    "relationship": "The general who ended the wandering",
+    "scripture": {
+      "ref": "Joshua 1:9",
+      "hebrew": "הֲלוֹא צִוִּיתִיךָ חֲזַק וֶאֱמָץ אַל־תַּעֲרֹץ וְאַל־תֵּחָת כִּי עִמְּךָ יְהוָה אֱלֹהֶיךָ בְּכֹל אֲשֶׁר תֵּלֵךְ׃",
+      "english": "Have not I commanded thee? Be strong and of good courage; be not affrighted, neither be thou dismayed: for the LORD thy God is with thee whithersoever thou goest."
+    },
+    "receipt": "2026 Finals MVP; scored 45 in the clinching Game 5 to end a 53-year title drought"
+  },
+  "interactions": [
+    {
+      "id": "side-by-side",
+      "description": "Jalen Brunson and Joshua standing together as equals"
+    }
+  ],
+  "defaultInteraction": "side-by-side",
+  "cardVariants": [
+    "fillmore-revelation"
+  ],
+  "priority": 50,
+  "status": "draft"
+}

@@ -107,6 +107,7 @@ export const CONFIG = {
     'metal-universe-rivalry': 'mur',
     'downtown': 'dt',
     'kaboom': 'kb',
+    'fillmore-revelation': 'fr',
     'prizm-silver': 'ps',
     'spouse-blessing': 'sb',
     'trial-card': 'tc',

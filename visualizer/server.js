@@ -63,6 +63,7 @@ const TEMPLATE_ABBREV_REVERSE = {
   'mur': 'metal-universe-rivalry',
   'dt': 'downtown',
   'kb': 'kaboom',
+  'fr': 'fillmore-revelation',
   'ps': 'prizm-silver',
   'sb': 'spouse-blessing',
   'tc': 'trial-card',

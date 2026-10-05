@@ -291,7 +291,7 @@ export async function supportssoloMode(templateId, seriesHint = null) {
  * @returns {string} Formatted list
  */
 export function getAvailableTemplatesHelp() {
-  const shared = ['thunder-lightning', 'beam-team', 'metal-universe', 'downtown', 'kaboom', 'prizm-silver'];
+  const shared = ['thunder-lightning', 'beam-team', 'metal-universe', 'downtown', 'kaboom', 'prizm-silver', 'fillmore-revelation'];
   const dark = ['thunder-lightning-dark', 'beam-team-shadow', 'metal-universe-dark', 'downtown-dark'];
   const torahTitans = ['spouse-blessing', 'trial-card', 'plague-card', 'three-way'];
 

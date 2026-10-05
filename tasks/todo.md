@@ -28,3 +28,42 @@
 - Phase 1 + 1b done on `fix/pairing-connections`; validate-data passes, panel verified in browser.
 - Phase 2 homepage: "Rip the Pack" design (dealt fan, jumbotron ticker, flip-card matchups with Heroes/Villains filter, phone swipe rail). Verified at 1440x900 and 375x812, no console errors.
 - Not deployed yet. Vercel project `web` deploys from `web/`.
+
+---
+
+# Knicks 2026 champions: fusion cards
+
+Starting five, Fillmore Revelation template (1960s psychedelic poster), SOLO cards.
+Direction change (Simon): no explicit pairings on the card. Each player stays in his
+signature basketball pose but takes on traits of a biblical figure via a `fusion`
+block on the pairing's player object (wardrobe, accents, aura, background motifs).
+"Can These Bones Live?" theme dropped.
+
+| Player | Figure | Status |
+|---|---|---|
+| Karl-Anthony Towns | Joseph | [x] fusion solo v2 generated (coat of colors, gold collar, sun/moon/11 stars, wheat) |
+| Jalen Brunson | Joshua | [x] fusion card done (walls, 7 shofars, scarlet cord, sun+moon, 12 stones, Jordan). Lefty fix: mirror the card, then Gemini edit pass to re-letter title + logo (2 edit calls) |
+| Josh Hart | Caleb | [x] fusion card done first try (giants, grasshoppers, Eshcol grapes, milk & honey, dog constellation, mountain) - logo fixed with Gemini edit pass (logo PNG as reference image) |
+| Mikal Bridges | Priests at the Jordan (Eleazar) | [x] fusion card done (breastplate of 12 stones, bells + pomegranates hem, Ark, parted river, rainbow bridge arch, 5 gold coins, unbroken chain border). Logo fixed with edit pass. No figure pose file needed for fusion (validator warns only) |
+| OG Anunoby | Shamgar | [x] fusion card done first try, correct logo with no edit pass (plowed-furrow rings, ox-goad, yoked oxen, 600 fallen Philistine helmets, empty roads, hourglass, two crowns) |
+
+- [x] `fillmore-revelation` template + registered (`fr`) in filename-builder, config, server, templates-meta
+- [ ] Simon's feedback on KAT fusion card before doing the other four
+- `generate-solo.js --pairing <id>` picks which pairing's player data (and fusion block) to use
+- Command: `node scripts/generate-solo.js player karl-anthony-towns fillmore-revelation --pose three-point-release`
+- Note: `--draft` (FLUX) ignores this style badly (no psychedelia, put Joseph in a jersey) - use full Nano Banana for this template
+- Lesson: image models default to right-handed shooters. For lefties, generate normally, mirror (`sips -f horizontal`), then a Gemini edit pass to fix the mirrored text/logo.
+- Edit-pass pattern (used twice now: Brunson title, Hart logo): send the finished card + any reference image (e.g. brand/logos/court and covenant logo - 1.png) to generateImage() with an "edit only X, keep everything else" prompt. Candidate for a reusable scripts/edit-card.js.
+- Template now spells out that the logo must be copied from the reference image (LOGO_RULE). Bridges still came out as a restyled script, so the logo edit pass is still needed - plan on it for every card.
+
+## Review (starting five done)
+- All five fusion cards generated: KAT/Joseph, Brunson/Joshua, Hart/Caleb, Bridges/Eleazar, OG/Shamgar
+- Fixes needed along the way: KAT ball missing (pose rewrite), Brunson right-handed (mirror + re-letter), Hart + Bridges logo (edit pass)
+- LOGO_RULE in the template got OG's logo right on the first try; still verify every card against brand/logos/court and covenant logo - 1.png
+
+## Garden Edition landing page
+- [x] `web/garden.html` sub-page: psychedelic hero (melting headline, op-art rings, 1973 -> 2026 board, fan of five), ticker, five starter panels with Easter-egg pins + Hebrew verses, closer
+- [x] Pin positions checked against each card in the browser (fixed Bridges coins, Towns sun, Hart mountain)
+- [x] Checked desktop (1440) + phone (375): no horizontal scroll, no console errors
+- [x] Homepage hero links to it ("New - The Garden Edition")
+- Local preview: `.claude/launch.json` -> "website" (python http.server on web/, port 8765)

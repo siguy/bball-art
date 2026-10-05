@@ -1,0 +1,76 @@
+{
+  "id": "og-anunoby-shamgar",
+  "series": "court-covenant",
+  "type": "hero",
+  "isAlternate": false,
+  "alternateOf": null,
+  "opposingPairing": null,
+  "collection": "knicks-2026-fusion",
+  "player": {
+    "name": "OG Anunoby",
+    "displayName": "OG Anunoby",
+    "poseFileId": "og-anunoby",
+    "characterType": "player",
+    "era": "2020s",
+    "jerseyColors": {
+      "primary": {
+        "base": "royal blue",
+        "accent": "orange"
+      },
+      "secondary": {
+        "base": "white",
+        "accent": "royal blue"
+      }
+    },
+    "signatureMoves": [
+      "game-winning tip-in",
+      "lockdown defense",
+      "corner three"
+    ],
+    "physicalDescription": "6'7\" forward with a powerful, broad-shouldered, linebacker-like build and long strong arms, very short cropped dark hair, light stubble beard, stoic expressionless face",
+    "archetype": "The quiet stopper who decides the game in one moment",
+    "fusion": {
+      "source": "shamgar",
+      "wardrobe": "a rough undyed farmer's shawl of coarse wool draped over one shoulder and lifting in the leap, a plain leather cord belt over the blank shorts",
+      "accents": "a long wooden ox-goad with an iron tip slung diagonally across his back on a leather strap; farm dust on his sneakers",
+      "aura": "total silence - no celebration, no expression, just the job done. Barely mentioned, but decisive",
+      "background": "the op-art concentric rings are drawn as the plowed furrows of a vast field curving around him; a pair of yoked oxen small in the distance at the edge of the field; a scattered field of tiny fallen feathered Philistine helmets lying empty in the furrows, hundreds of them (no people); two small empty winding roads disappearing into the hills; a small golden hourglass in a lower corner with only a few grains of sand left falling; two small gold crowns tucked into the paisley margins"
+    }
+  },
+  "figure": {
+    "name": "Shamgar",
+    "displayName": "Shamgar",
+    "poseFileId": "shamgar",
+    "characterType": "figure",
+    "attribute": "ox-goad",
+    "attributeDescription": "the farmer's ox-goad he used to strike down six hundred Philistines",
+    "visualStyle": "Israelite farmer-judge",
+    "clothing": "rough undyed wool tunic and shawl, leather cord belt",
+    "physicalDescription": "powerful farmer, sun-weathered, silent and steady",
+    "anatomyNote": "two arms only",
+    "archetype": "The judge with one verse who saved Israel anyway"
+  },
+  "connection": {
+    "thematic": "Shamgar gets one verse in the entire Bible - and in it he saves Israel. OG barely says a word, then wins Game 4 with 1.2 seconds left.",
+    "narrative": "One verse. One tip-in. 'He also saved Israel.'",
+    "relationship": "The quiet ones who decide everything in a single moment",
+    "scripture": {
+      "ref": "Judges 3:31",
+      "hebrew": "וְאַחֲרָיו הָיָה שַׁמְגַּר בֶּן־עֲנָת וַיַּךְ אֶת־פְּלִשְׁתִּים שֵׁשׁ־מֵאוֹת אִישׁ בְּמַלְמַד הַבָּקָר וַיֹּשַׁע גַּם־הוּא אֶת־יִשְׂרָאֵל׃",
+      "english": "And after him was Shamgar the son of Anath, who smote of the Philistines six hundred men with an ox-goad; and he also saved Israel."
+    },
+    "receipt": "Game-winning tip-in with 1.2 seconds left to win Game 4 of the 2026 Finals; career-best 20.1 playoff points per game; second NBA title (Toronto 2019)"
+  },
+  "interactions": [
+    {
+      "id": "side-by-side",
+      "description": "OG Anunoby and Shamgar standing together as equals"
+    }
+  ],
+  "defaultInteraction": "side-by-side",
+  "cardVariants": [
+    "fillmore-revelation"
+  ],
+  "priority": 50,
+  "status": "draft"
+}
